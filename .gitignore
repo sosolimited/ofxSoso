@@ -1,1 +1,6 @@
 .DS_Store
+example/bin/sosoExampleAppDebug.app/*
+example/bin/sosoExampleApp.app/*
+
+
+
