@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\testApp.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxImageObject.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxLineSegmentObject.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxMessage.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxObject.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxPolygonObject.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxRectangleObject.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxRoundedArcObject.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxScene.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxSosoRenderer.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxSosoTrueTypeFont.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxTextObject.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxVideoPlayerObject.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxAnimation.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxArcObject.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxCircleObject.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxDynamicPolygonObject.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxFboObject.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSoso\src\ofxLetterTextObject.cpp">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\testApp.h" />
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxImageObject.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxLineSegmentObject.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxMessage.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxObject.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxPolygonObject.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxRectangleObject.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxRoundedArcObject.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxScene.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxSosoRenderer.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxSosoTrueTypeFont.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxTextObject.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxVideoPlayerObject.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxAnimation.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxArcObject.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxCircleObject.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxDynamicPolygonObject.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxFboObject.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSoso\src\ofxLetterTextObject.h">
+      <Filter>addons\ofxSoso\src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="addons">
+      <UniqueIdentifier>{d79abca0-5b91-4000-9e03-3b535f96d5b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxSoso">
+      <UniqueIdentifier>{9e9f77c6-a282-41c7-bd8c-c356b02b6eb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxSoso\src">
+      <UniqueIdentifier>{67789558-efa9-49c3-bbb2-052100904790}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
