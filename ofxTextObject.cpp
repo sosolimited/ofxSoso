@@ -933,7 +933,7 @@ ofxTextFont* ofxTextObject::addFont(char *iName, ofxSosoTrueTypeFont *iFont)
 	return font;
 }
 
-ofTrueTypeFont* ofxTextObject::getFont(char *iFontName)
+ofxSosoTrueTypeFont* ofxTextObject::getFont(char *iFontName)
 {
 	for(int i=0; i < allFonts.size(); i++){
 		if(strcmp(allFonts[i]->fontName, iFontName)==0)
