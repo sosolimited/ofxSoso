@@ -135,7 +135,7 @@ public:
     
     static void						addFont(ofxTextFont *iFont);
 	static ofxTextFont*				addFont(char *iName, ofxSosoTrueTypeFont *iFont);
-	static ofTrueTypeFont*			getFont(char *iFontName);
+	static ofxSosoTrueTypeFont*		getFont(char *iFontName);
     
 protected:
     void                            init(ofxSosoTrueTypeFont *iFont);
