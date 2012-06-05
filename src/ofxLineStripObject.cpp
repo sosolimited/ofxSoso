@@ -18,7 +18,7 @@ void ofxLineStripObject::render()
 	glLineWidth(lineWidth);
 	glBegin(GL_LINE_STRIP);
 	for(int i=0; i < vertices.size(); i++){
-		if(isVertexColoringEnabled) glColor4f(vertices[i]->color.x, vertices[i]->color.y, vertices[i]->color.z, vertices[i]->color.w);
+		if(isVertexColoringEnabled) glColor4f(vertices[i]->color.x/255.0f, vertices[i]->color.y/255.0f, vertices[i]->color.z/255.0f, vertices[i]->color.w/255.0f);
 		glVertex3f(vertices[i]->position.x, vertices[i]->position.y, vertices[i]->position.z);
 	}
 	glEnd();
