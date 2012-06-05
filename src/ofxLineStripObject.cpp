@@ -6,9 +6,9 @@ ofxLineStripObject::ofxLineStripObject(int iNumVerts)
 	lineWidth = 1.0;
 	for(int i=0; i < iNumVerts; i++){
 		addVertex(0,0,0);
-		addVertexColor(255,255,255,255);
-	}
+    }
 
+    isVertexColoringEnabled = false;
 }
 
 ofxLineStripObject::ofxLineStripObject(){}
@@ -18,12 +18,10 @@ void ofxLineStripObject::render()
 	glLineWidth(lineWidth);
 	glBegin(GL_LINE_STRIP);
 	for(int i=0; i < vertices.size(); i++){
-
-		glColor4f(vertColors[i].x, vertColors[i].y, vertColors[i].z, vertColors[i].w);
-		glVertex3f(vertices[i].x, vertices[i].y, vertices[i].z);
+		if(isVertexColoringEnabled) glColor4f(vertices[i]->color.x, vertices[i]->color.y, vertices[i]->color.z, vertices[i]->color.w);
+		glVertex3f(vertices[i]->position.x, vertices[i]->position.y, vertices[i]->position.z);
 	}
 	glEnd();
-
 }
 
 
@@ -35,23 +33,34 @@ void ofxLineStripObject::setLineWidth(float iWidth)
 void ofxLineStripObject::setVertexPos(int iVertNum, float iX, float iY, float iZ)
 {
 	if(ofInRange(iVertNum, 0, vertices.size()-1)){
-		vertices[iVertNum].set(iX, iY, iZ);
+		vertices[iVertNum]->position.set(iX, iY, iZ);
 	}
 }
 
 void ofxLineStripObject::setVertexColor(int iVertNum, float iR, float iG, float iB, float iA)
 {
-	if(ofInRange(iVertNum, 0, vertColors.size()-1)){
-		vertColors[iVertNum].set(iR, iG, iB, iA);
-	}
+	if(ofInRange(iVertNum, 0, vertices.size()-1)){
+		vertices[iVertNum]->color.set(iR, iG, iB, iA);
+	}    
 }
 
 void ofxLineStripObject::addVertex(float iX, float iY, float iZ)
 {
-	vertices.push_back(ofVec3f(iX, iY, iZ));
+    ofxLineStripVertex *vert = new ofxLineStripVertex();
+    vert->position.set(iX, iY, iZ);
+    vert->color.set(255, 255, 255, 255);
+	vertices.push_back(vert);
 }
 
-void ofxLineStripObject::addVertexColor(float iR, float iG, float iB, float iA)
+void ofxLineStripObject::addVertex(float iX, float iY, float iZ, ofVec4f iColor)
 {
-	vertColors.push_back(ofVec4f(iR, iG, iB, iA));
+    ofxLineStripVertex *vert = new ofxLineStripVertex();
+    vert->position.set(iX, iY, iZ);
+    vert->color = iColor;
+	vertices.push_back(vert);
+}
+
+void ofxLineStripObject::enableVertexColoring(bool iEnable)
+{
+    isVertexColoringEnabled = iEnable;
 }
