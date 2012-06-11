@@ -505,8 +505,8 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 	}	
 	//find out if the face has kerning
 	FT_Bool use_kerning = (FT_Bool)FT_HAS_KERNING(face);
-	if(use_kerning) printf("ofxSosoTrueTypeFont::loadFont() - kerning is supported\n");
-	else printf("ofxSosoTrueTypeFont::loadFont() - kerning is NOT supported\n");
+	if(!use_kerning) printf("ofxSosoTrueTypeFont::loadFont() - kerning is NOT supported for %s\n", (char*)filename.c_str());
+	
 	
 	FT_UInt glyph_index_r, glyph_index_l;
 	
