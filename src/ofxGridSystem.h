@@ -31,6 +31,7 @@ public:
     void            buildGrid(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iLeft, float iRight, float iHead, float iTail);
     
     float           colX(int iNumber);
+    float           col(int iNumber=1);
     void            setLineColor(ofVec4f iColor);
     void            setLineWidth(float iWidth);
 
