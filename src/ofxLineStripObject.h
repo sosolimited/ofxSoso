@@ -33,15 +33,23 @@ public:
 
 	void								render();
 	
+    void								addVertex(float iX, float iY, float iZ);
+    void                                addVertex(float iX, float iY, float iZ, ofVec4f iColor);
+    
 	void								setLineWidth(float iWeight);
 	void								setVertexPos(int iVertNum, float iX, float iY, float iZ);
 	void								setVertexColor(int iVertNum, float iR, float iG, float iB, float iA);
-	
-	void								addVertex(float iX, float iY, float iZ);
-	void								addVertexColor(float iR, float iG, float iB, float iA);
-
+    
+    void                                enableVertexColoring(bool iEnable);
+		
+    
 public:
-	vector<ofVec3f>						vertices;
-	vector<ofVec4f>						vertColors;
+    struct ofxLineStripVertex{
+        ofVec3f position;
+        ofVec4f color;
+    };    
+	vector<ofxLineStripVertex *>		vertices;
+    
 	float								lineWidth;
+    bool                                isVertexColoringEnabled;
 };
