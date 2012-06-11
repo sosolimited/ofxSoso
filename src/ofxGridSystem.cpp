@@ -56,12 +56,19 @@ ofxGridSystem::ofxGridSystem()
 
 ofxGridSystem::~ofxGridSystem(){}
 
+//Returns the X position of a column.
 float ofxGridSystem::colX(int iNumber)
 {
     if(iNumber < 0) 
         return 0;
     else
         return (leftX + iNumber*(colW + leading)); 
+}
+
+//Returns the width of a number of columns.
+float ofxGridSystem::col(int iNumber)
+{
+    return (colW * iNumber + leading * (iNumber - 1));
 }
 
 void ofxGridSystem::buildGrid(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iLeft, float iRight, float iHead, float iTail)
