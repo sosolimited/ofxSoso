@@ -197,7 +197,7 @@ void ofxTextObject::setWordColor(int iIndex, float iR, float iG, float iB, float
         words[iIndex].color.b = iB;
         words[iIndex].color.a = iA;
         
-		drawWordColor = true; 
+		//drawWordColor = true; //eg - you have to manually set this now
         renderDirty = true;
     }	
 }
@@ -212,12 +212,17 @@ void ofxTextObject::setAllWordsColor(float iR,  float iG, float iB, float iA)
     
     if (words.size() > 0) {
         for(int i=0;i < words.size(); i++)
-        {
-			words[i].color = tmpColor;   			
-        }
-		drawWordColor = true; 
+            words[i].color = tmpColor;   			
+        
+		//drawWordColor = true; //eg - you have to manually set this now
     }
     
+}
+
+//You have to call this with true to enable per word coloring
+void ofxTextObject::enableWordColoring(bool iFlag)
+{
+    drawWordColor = iFlag;
 }
 
 void ofxTextObject::setColor(float iR, float iG, float iB, float iA)
