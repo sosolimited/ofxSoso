@@ -101,6 +101,7 @@ public:
     void                            setAllWordsColor(float iR,  float iG, float iB, float iA=255.0);
     void							setAlpha(float iA);	
 
+    void                            enableWordColoring(bool iFlag); //eg
 	void							enableDrawAsShapes(bool iFlag);
 
     virtual void					setString(char *iString);
