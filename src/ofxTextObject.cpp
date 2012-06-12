@@ -45,6 +45,7 @@ ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, char *iString)
 
     drawAsShapes = false;
     alignment = OF_TEXT_ALIGN_LEFT;
+    drawWordColor = false;  //eg 
     
 	renderDirty = true;
 	isDisplayListEnabled = true;
