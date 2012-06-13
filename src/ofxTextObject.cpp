@@ -21,9 +21,6 @@ ofxTextFont::~ofxTextFont()
 	delete(font);
 }
 
-
-
-
 //class ofxTextObject 
 
 vector<ofxTextFont *> ofxTextObject::allFonts;	

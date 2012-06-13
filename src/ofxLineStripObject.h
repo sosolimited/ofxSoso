@@ -28,6 +28,7 @@ IN THE SOFTWARE.
 class ofxLineStripObject : public ofxObject
 {
 public:
+    
 	ofxLineStripObject(int iNumVerts=2);
 	ofxLineStripObject();
 
@@ -41,9 +42,9 @@ public:
 	void								setVertexColor(int iVertNum, float iR, float iG, float iB, float iA);
     
     void                                enableVertexColoring(bool iEnable);
-		
     
 public:
+    
     struct ofxLineStripVertex{
         ofVec3f position;
         ofVec4f color;
@@ -52,4 +53,5 @@ public:
     
 	float								lineWidth;
     bool                                isVertexColoringEnabled;
+    
 };
