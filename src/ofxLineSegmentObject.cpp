@@ -15,7 +15,7 @@ ofxLineSegmentObject::~ofxLineSegmentObject(){}
 void ofxLineSegmentObject::render()
 {
 	glLineWidth(lineWidth);
-	glBegin(GL_LINE_STRIP);
+	glBegin(GL_LINES);
 	for(int i=0; i < vertices.size(); i++){
 		glVertex3f(vertices[i].x, vertices[i].y, vertices[i].z);
 	}
