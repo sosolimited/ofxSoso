@@ -93,12 +93,14 @@ public:
                     tail;
     
     
+    
     float           topY,
                 	bottomY;
     float           leftX,
                     rightX;
     
     float           leading;
+
    
     vector<ofxLineStripObject *>    lines;
     vector<ofxLineStripObject *>    baselineLines;
