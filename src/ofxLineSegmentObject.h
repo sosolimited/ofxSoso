@@ -37,7 +37,18 @@ public:
 	void								setVertexPos(int iVertNum, float iX, float iY, float iZ);
 	void								addVertex(float iX, float iY, float iZ);
 
+    void                                enableStippling(bool iEnable);
+	void                                setStipplingPattern(GLushort iPattern, GLint iFactor);
+	
+    
 public:
 	vector<ofVec3f>					vertices;
 	float								lineWidth;
+    
+    bool                                isStipplingEnabled;
+	GLushort                            stipplingPattern;
+	GLint                               stipplingFactor;
+    
+    GLenum                              smoothingHint;
+
 };
