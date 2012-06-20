@@ -38,6 +38,15 @@ void ofxArcObject::setEndAngle(float iAngle)
 	endAngle = ofDegToRad(iAngle);		
 }
 
+//LM 062012
+float ofxArcObject::getStartAngle() {
+    return ofRadToDeg(startAngle);
+}
+
+float ofxArcObject::getEndAngle() {
+    return ofRadToDeg(endAngle);
+}
+
 void ofxArcObject::setColors(ofVec4f iColor1, ofVec4f iColor2) {
 
 	color1 = iColor1/255.0;

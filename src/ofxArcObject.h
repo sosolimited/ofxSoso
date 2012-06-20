@@ -13,6 +13,8 @@ public:
 
 	void						setStartAngle(float iAngle);
 	void						setEndAngle(float iAngle);
+    float                       getStartAngle(); //LM 062012
+    float                       getEndAngle(); //LM 062012
 	void						setColors(ofVec4f iColor1, ofVec4f iColor2);
 	
 public:	
