@@ -168,7 +168,7 @@ protected:
 	bool							renderOntop;
 	
 	float							timeElapsed,
-									prevTime;
+									timePrev;
 	
 	vector<ofxMessage *>			messages;
 	
