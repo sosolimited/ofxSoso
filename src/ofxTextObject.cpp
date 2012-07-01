@@ -51,6 +51,11 @@ ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, char *iString)
 	setSpecialTransparency(true);	
 }
 
+ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString) //LM 063012
+{
+	ofxTextObject(iFont, (char*)iString.c_str());
+}
+
 ofxTextObject::~ofxTextObject()
 {
 	//PEND write this! BUT DON'T delete font (it's passed in from the outside)
@@ -94,6 +99,7 @@ void ofxTextObject::render()
             
 			glEndList();		
 			renderDirty = false;
+			glCallList(displayList);
 
 		}else{
 			glCallList(displayList);
@@ -123,6 +129,11 @@ void ofxTextObject::setString(char *iString)
 	
 	wrapTextX(columnWidth);
 	renderDirty = true;	
+}
+
+void ofxTextObject::setString(string iString) //LM 063012
+{
+	setString((char*)iString.c_str());
 }
 
 //with scale of ofxTextObject set to 1.0, this is the pointSize of the text

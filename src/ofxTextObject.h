@@ -85,6 +85,7 @@ class ofxTextObject : public ofxObject
 {
 public:
 	ofxTextObject(ofxSosoTrueTypeFont *iFont, char *iString=NULL);	
+	ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString=NULL);	//LM 063012
 	~ofxTextObject();
 
 	void							render();
@@ -105,6 +106,7 @@ public:
 	void							enableDrawAsShapes(bool iFlag);
 
     virtual void					setString(char *iString);
+	virtual void					setString(string iString); //LM 063012
     char*							getString();
 
 	virtual void					setColumnWidth(float iWidth);
