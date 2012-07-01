@@ -129,7 +129,7 @@ public:
     virtual void					setSpaceWidth(float iWidth);
     
     int								getNumLines();
-    
+	
 	void							enableDisplayList(bool iEnable);
      
     

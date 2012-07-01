@@ -1141,20 +1141,15 @@ ofxMessage* ofxObject::doMessageNf(int iID, float iDelay, float iDuration, int i
 //sets startTime of iMessage to current time
 ofxMessage* ofxObject::doMessage(ofxMessage *iMessage)
 {
-    //eg commented LM
-	//if (iMessage->id == OF_FUNCTION) { //LM SOSO
-	//	iMessage->autoDelete = false;
-	//	messages.push_back(iMessage);
-	//}
+	if (iMessage->id == OF_FUNCTION) { //LM 062912, added this if, was crashing on func tweens
+		iMessage->autoDelete = false;
+	} else {
+		iMessage->setStartTime(ofGetElapsedTimef()); 
+    }
+	iMessage->enableMessage(true); 
+	if(!hasMessage(iMessage))	//only add it if it's not already there
+		messages.push_back(iMessage);
 	
-	//else {
-	
-    iMessage->setStartTime(ofGetElapsedTimef()); 
-    iMessage->enableMessage(true); 
-    if(!hasMessage(iMessage))	//only add it if it's not already there
-        messages.push_back(iMessage);
-	
-    //}
 	return iMessage;
 }
 
