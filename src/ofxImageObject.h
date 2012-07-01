@@ -46,6 +46,5 @@ public:
 								height;
 
 	string						filename;
-	
-	
+    
 };

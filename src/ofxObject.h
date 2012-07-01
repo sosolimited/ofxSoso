@@ -103,6 +103,9 @@ class ofxObject{
 	void							updateMatrices(float *iParentMatrix = NULL);
 	void							updateLocalMatrix();	
 	
+    GLuint                          getDisplayList(){ return displayList; } //eg 070112
+    void                            setDisplayList(GLuint iList);    //eg 070112
+    
 	ofxObjectMaterial*				updateMaterial(ofxObjectMaterial *iMat);
 	void							enableAlphaInheritance(bool iEnable);	//firebrand
 
@@ -148,6 +151,7 @@ protected:
 	bool							isSortedObject;	
 	
 	GLuint							displayList;
+    bool                            displayListFlag;    //eg 070112
 	
 	float							*localMatrix;
 	float							*matrix;	
