@@ -56,7 +56,7 @@ ofxObject::ofxObject(){
 	matrixDirty = true;
 	localMatrixDirty = true;
 	displayList = glGenLists(1);
-	
+	displayListFlag = false;    
 	
 	isSortedObject = false;
 	sortedObjectsWindowZ = 0;
@@ -363,7 +363,8 @@ void ofxObject::predraw()
 
 void ofxObject::render()
 {
-	//glCallList(displayList);
+    if(displayListFlag)
+        glCallList(displayList);
 }
 
 void ofxObject::postdraw()
@@ -1175,3 +1176,9 @@ int ofxObject::isDescendant(ofxObject *iObject)
 
 }
 
+void ofxObject::setDisplayList(GLuint iList)
+{
+    displayList = iList;
+    //Tells render to use the list.
+    displayListFlag = true; 
+}
