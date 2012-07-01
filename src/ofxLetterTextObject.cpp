@@ -184,7 +184,7 @@ void ofxLetterTextObject::normalizeScale()
     //scale words + home positions
     for(unsigned int i=0; i < letters.size(); i++){
         letters[i]->setScale(textScale/getPointSize());       
-        //*mBaselinePositions[i] *= textScale;      
+        //mBaselinePositions[i] *= textScale;      
 		letters[i]->home *= (textScale/getPointSize());
         //mQuads[i]->setTrans(*mBaselinePositions[i]);
 		letters[i]->setTrans(letters[i]->home);
