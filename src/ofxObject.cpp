@@ -56,12 +56,12 @@ ofxObject::ofxObject(){
 	matrixDirty = true;
 	localMatrixDirty = true;
 	displayList = glGenLists(1);
-	
+	displayListFlag = false;    
 	
 	isSortedObject = false;
 	sortedObjectsWindowZ = 0;
 	
-	prevTime = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;
+	timePrev = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;
 	timeElapsed = 0;
 }
 
@@ -241,10 +241,12 @@ void ofxObject::enableAlphaInheritance(bool iEnable)
 
 void ofxObject::idleBase(float iTime)
 {
-	//timeElapsed = ofGetElapsedTimef() - prevTime; //ofGetSystemTime()/1000.0f - prevTime;
-	//prevTime = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;	
+	//timeElapsed = ofGetElapsedTimef() - timePrev; //ofGetSystemTime()/1000.0f - timePrev;
+	//timePrev = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;	
 
-	timeElapsed = ofGetLastFrameTime();	//OF7
+	//timeElapsed = ofGetLastFrameTime();	//OF7
+    //Calculate this locally so it's always based on the idle call times    //eg
+    timeElapsed = iTime - timePrev; 
 
 	updateMessages();		
 	//call virtual
@@ -254,6 +256,7 @@ void ofxObject::idleBase(float iTime)
 	for (unsigned int i = 0; i < children.size(); i++) 
 		children[i]->idleBase(iTime);
 
+    timePrev = iTime;   //eg
 }
 
 //----------------------------------------------------------
@@ -263,8 +266,8 @@ void ofxObject::draw(ofxObjectMaterial *iMaterial, float *iMatrix, int iSelect, 
 	//if(id == 1) printf("i am a circle %f - %f, %f, %f\n", ofGetElapsedTimef(), color.x, color.y, color.z);
 
 	//moved to idleBase
-	//timeElapsed = ofGetElapsedTimef() - prevTime; //ofGetSystemTime()/1000.0f - prevTime;
-	//prevTime = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;	
+	//timeElapsed = ofGetElapsedTimef() - timePrev; //ofGetSystemTime()/1000.0f - timePrev;
+	//timePrev = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;	
 
 	//if(id==1) printf("system time = %f\n", ofGetSystemTime());
 	
@@ -360,7 +363,8 @@ void ofxObject::predraw()
 
 void ofxObject::render()
 {
-	//glCallList(displayList);
+    if(displayListFlag)
+        glCallList(displayList);
 }
 
 void ofxObject::postdraw()
@@ -1172,3 +1176,9 @@ int ofxObject::isDescendant(ofxObject *iObject)
 
 }
 
+void ofxObject::setDisplayList(GLuint iList)
+{
+    displayList = iList;
+    //Tells render to use the list.
+    displayListFlag = true; 
+}
