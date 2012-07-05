@@ -705,9 +705,8 @@ void ofxSosoTrueTypeFont::buildMappedChars()
 	}
 }
 
-//this is a private method used by drawString(). if there is a special byte sequence starting at iIndex in iString, it returns the Unicode value to which the sequence has been mapped. 
+//This is a private method used by drawString(). if there is a special byte sequence starting at iIndex in iString, it returns the Unicode value to which the sequence has been mapped. 
 //and it increments the index (passed in from the while loop in drawString()) accordingly 
-//PEND add in named entity support
 int ofxSosoTrueTypeFont::getMappedChar(string iString, int &iIndex)
 {		
 	//Named entities
@@ -744,6 +743,45 @@ int ofxSosoTrueTypeFont::getMappedChar(string iString, int &iIndex)
 	
 	return ((unsigned char)iString[iIndex] - NUM_CHARACTER_TO_START);
 }
+
+//Variation on getMappedChar() that returns the sequence as is, without mapping it. If there isn't a mapped sequence at that point, NULL is returned.
+char* ofxSosoTrueTypeFont::getMappedCharSequence(string iString, int &iIndex)   //eg 0701412
+{
+    //Named entities
+	if(iString[iIndex] == '&'){
+		for(int i=0; i < mappedChars.size(); i++){
+			bool found = true;
+			for(int j=0; j < strlen(mappedChars[i]->namedEntity); j++){
+				if(iString[iIndex + j] != mappedChars[i]->namedEntity[j])
+					found = false;
+			}			
+			if(found){
+				//advance index for drawString loop
+				iIndex += (strlen(mappedChars[i]->namedEntity) - 1);
+				return (char*)iString.substr(iIndex, strlen(mappedChars[i]->namedEntity) - 1).c_str();
+			}
+		}
+	}
+	
+	//Unicode sequences
+	for(int i=0; i < mappedChars.size(); i++){
+		if(iString[iIndex] == mappedChars[i]->utf8Sequence[0]){
+			bool found = true;
+			for(int j=0; j < strlen(mappedChars[i]->utf8Sequence); j++){
+				if(iString[iIndex + j] != mappedChars[i]->utf8Sequence[j])
+					found = false;
+			}			
+			if(found){
+				//advance index for drawString loop
+				iIndex += (strlen(mappedChars[i]->utf8Sequence) - 1);
+				return (char*)iString.substr(iIndex, strlen(mappedChars[i]->utf8Sequence) - 1).c_str();
+			}
+		}
+	}	
+	
+	return NULL;    
+}
+
 
 //these two are overriden from ofTrueTypeFont, because they were private.
 void ofxSosoTrueTypeFont::unloadTextures()
@@ -1099,6 +1137,13 @@ void ofxSosoTrueTypeFont::replaceNamedEntities(string &iString)
 	}
 }
 
+
+//Helper method to strip away selected characters. //eg 070412
+void ofxSosoTrueTypeFont::removeCharacters(string &iString, string iCharsToRemove)
+{
+    for (unsigned int i = 0; i < iCharsToRemove.length(); ++i)
+        iString.erase(std::remove(iString.begin(), iString.end(), iCharsToRemove[i]), iString.end());
+}
 
 
 void ofxSosoTrueTypeFont::enableKerning(bool iEnable)
