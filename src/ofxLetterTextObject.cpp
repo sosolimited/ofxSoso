@@ -1,12 +1,16 @@
 #include "ofxLetterTextObject.h"
 
 //class ofxLetterTextObjectLetter 
-ofxLetterTextObjectLetter::ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont, char iChar, float iX, float iY, float iScaleFactor)
+//ofxLetterTextObjectLetter::ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont, char iChar, float iX, float iY, float iScaleFactor)
+ofxLetterTextObjectLetter::ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont, char *iChar, float iX, float iY, float iScaleFactor)   //eg 0701412
 {
-	character = iChar;
-	charPointer = new char[2];
-	charPointer[0] = iChar;
-	charPointer[1] = 0;
+	//character = iChar;
+    if(iChar) character = iChar[0]; //If iChar is a mapped sequence, then this is irrelevant.
+    else character = 0;
+	//charPointer = new char[2];
+	//charPointer[0] = iChar;
+	//charPointer[1] = 0;
+    charPointer = iChar;    //eg 0701412
 	scaleFactor = iScaleFactor;
 
 	home.set(iX, iY, 0);	
@@ -18,7 +22,7 @@ ofxLetterTextObjectLetter::ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont,
 
 ofxLetterTextObjectLetter::~ofxLetterTextObjectLetter()
 {
-	delete(charPointer);
+    if(charPointer) delete(charPointer);    //eg 0701412
 }
 
 void ofxLetterTextObjectLetter::render()
@@ -78,8 +82,17 @@ void ofxLetterTextObject::rebuildLetters()
 								 (words[currentWordID].pos.y + words[currentWordID].charPositions[p].y) * scaleFactor,
 								 0);
 					
+                    //Check for special unicode sequences, as defined in buildMappedChars() //eg 0701412
+                    char *cSeq = NULL; //getFont()->getMappedCharSequence(words[currentWordID].rawWord, p);
+                    if(cSeq==NULL){    //If, not a mapped char sequence, just grab character straight from word.
+                        cSeq = new char[2];
+                        cSeq[0] = words[currentWordID].rawWord.c_str()[p];
+                        cSeq[1] = 0;
+                    }
+                    
 					//Create letter text letter and pass position and char to it.
-					ofxLetterTextObjectLetter *letter = new ofxLetterTextObjectLetter(font, words[currentWordID].rawWord.c_str()[p], pos.x, pos.y, scaleFactor); 					
+					//ofxLetterTextObjectLetter *letter = new ofxLetterTextObjectLetter(font, words[currentWordID].rawWord.c_str()[p], pos.x, pos.y, scaleFactor); 					
+                    ofxLetterTextObjectLetter *letter = new ofxLetterTextObjectLetter(font, cSeq, pos.x, pos.y, scaleFactor);       //eg 070412
 					letter->setTrans(pos.x, pos.y, pos.z);
 					letter->setColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a);	//Gotta grab word color or else it gets reset to white.					
 					letters.push_back(letter);

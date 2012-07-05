@@ -77,10 +77,13 @@ public:
 	void					printNonzeroKerningPairs();
 
 	static void 			replaceNamedEntities(string &iString);
-	
+	static void             removeCharacters(string &iString, string iCharsToRemove);   //eg 070412
+    
+    int						getMappedChar(string iString, int &iIndex);   //eg 0701412 made public
+    char*                   getMappedCharSequence(string iString, int &iIndex);   //eg 0701412
+    
 private:
-	int						getMappedChar(string iString, int &iIndex);   
-	void					buildMappedChars();
+    void					buildMappedChars();
 
 	static vector<ofxSosoMappedChar *>		mappedChars;
 	static vector<ofxSosoMappedChar *>		namedEntityChars;
