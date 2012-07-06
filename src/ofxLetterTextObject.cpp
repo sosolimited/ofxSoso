@@ -23,6 +23,7 @@ ofxLetterTextObjectLetter::ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont,
 ofxLetterTextObjectLetter::~ofxLetterTextObjectLetter()
 {
     if(charPointer) delete(charPointer);    //eg 0701412
+	//if(font) delete(font); //LM 070612
 }
 
 void ofxLetterTextObjectLetter::render()
@@ -56,10 +57,14 @@ void ofxLetterTextObject::cleanupLetters()
 	for(unsigned int i=0; i < letters.size(); i++){
 		removeChild(letters[i]);
 		delete(letters[i]);
-		letters.erase(letters.begin() + i);
-		i--;
 	}
 	letters.clear();
+	
+	/*while (letters.size() > 0) {
+		removeChild(letters[0]);
+		delete(letters[0]);
+		letters.erase(letters.begin()); //LM 070612
+	}*/
 }
 
 void ofxLetterTextObject::rebuildLetters()

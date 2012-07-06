@@ -18,7 +18,8 @@ ofxTextFont::ofxTextFont(string iFontName, string iFilename, int iFontsize, bool
 
 ofxTextFont::~ofxTextFont()
 {
-	delete(font);
+	if (font) delete(font);
+	if (fontName) delete(fontName);
 }
 
 //class ofxTextObject 

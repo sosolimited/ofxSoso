@@ -16,7 +16,8 @@ ofxLineSegmentObject::ofxLineSegmentObject(int iNumVerts)
     
 }
 
-ofxLineSegmentObject::~ofxLineSegmentObject(){}
+ofxLineSegmentObject::~ofxLineSegmentObject(){
+}
 
 void ofxLineSegmentObject::render()
 {

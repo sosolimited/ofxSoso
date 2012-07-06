@@ -106,7 +106,6 @@ ofxMessage::~ofxMessage()
 	if(baseEndVals) free(baseEndVals);
 	if(startVals) free(startVals);
 	if(baseStartVals) free(baseStartVals);	
-	
 }
 
 float ofxMessage::getFinishTime()
