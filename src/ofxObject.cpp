@@ -97,6 +97,9 @@ ofxObject::~ofxObject()
 	//if (rotationMatrix != NULL) free(rotationMatrix);
 	//if (rotationMatrixTmp != NULL) free(rotationMatrixTmp);;	
 	
+	if (matrix) free(matrix); //LM 070612
+	if (localMatrix) free(localMatrix);
+	
 }
 
 int ofxObject::addChild(ofxObject *child)

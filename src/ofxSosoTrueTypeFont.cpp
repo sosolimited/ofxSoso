@@ -46,7 +46,8 @@ ofxSosoMappedChar::ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeInde
 
 ofxSosoMappedChar::~ofxSosoMappedChar()
 {
-	delete namedEntity;
+	if (utf8Sequence) delete utf8Sequence; //LM 070612
+	if (namedEntity) delete namedEntity;
 }
 
 
@@ -204,7 +205,20 @@ ofxSosoTrueTypeFont::ofxSosoTrueTypeFont()
 	isKerningEnabled = true;
 }
 
-ofxSosoTrueTypeFont::~ofxSosoTrueTypeFont(){}
+ofxSosoTrueTypeFont::~ofxSosoTrueTypeFont(){ //LM 070612
+
+    for ( int i=0; i < mappedChars.size(); i++ )
+    {
+        delete mappedChars[i];
+    }    
+	mappedChars.clear();
+	
+	for ( int i=0; i < namedEntityChars.size(); i++)
+    {
+        delete namedEntityChars[i];
+    }
+	namedEntityChars.clear();
+}
 
 
 
