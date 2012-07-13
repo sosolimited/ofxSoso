@@ -104,6 +104,13 @@ ofxObject::~ofxObject()
 
 int ofxObject::addChild(ofxObject *child)
 {
+	//LM 071312 return if already has child
+   	for (unsigned int i = 0; i < children.size(); i++) {
+		if (children[i] == child) {
+			return (1);
+		}
+	}
+	
 	children.push_back(child);
 	child->parents.push_back(this);
 	
@@ -381,7 +388,7 @@ int ofxObject::collectNodes(int iSelect, ofxObject *iNodes[], int iNumber, int i
 	int curNode = iNumber;
 
 	if (iNumber >= iMax) {
-		printf("ofxObject::collectNodes() — cannot render more than %d objects.\n", iMax); 
+		printf("ofxObject::collectNodes() cannot render more than %d objects.\n", iMax); 
 		return curNode;
 	}
 
