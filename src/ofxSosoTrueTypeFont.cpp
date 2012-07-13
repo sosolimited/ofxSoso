@@ -708,7 +708,7 @@ void ofxSosoTrueTypeFont::buildMappedChars()
 		mappedChars.push_back(new ofxSosoMappedChar(0x96, 0x2039, "&lsaquo;", 0xE2, 0x80, 0xB9));	//single left pointing angle quotation mark
 		mappedChars.push_back(new ofxSosoMappedChar(0x97, 0x203A, "&rsaquo;", 0xE2, 0x80, 0xBA));	//single right pointing angle quotation mark	
 		//mappedChars.push_back(new ofxSosoMappedChar(0x98, 0x20AC, "&euro;", 0xE2, 0x82, 0xAC));		//euro sign
-        mappedChars.push_back(new ofxSosoMappedChar(0x98, 0x00A3, "&pound;", 0xC2, 0xA3));		//pound sign
+        mappedChars.push_back(new ofxSosoMappedChar(0x98, 0x00A3, "&pound;", 0xC2, 0xA3));		//pound sign    //eg 071012 - TEMP test for London
 		mappedChars.push_back(new ofxSosoMappedChar(0x99, 0x2122, "&trade;", 0xE2, 0x84, 0xA2));	//trademark sign
 		mappedChars.push_back(new ofxSosoMappedChar(0x9A, 0x25A1, "&#x25a1;", 0xE2, 0x96, 0xA1));	//white square
 		mappedChars.push_back(new ofxSosoMappedChar(0x9B, 0x25CA, "&loz;", 0xE2, 0x97, 0x8A));		//lozenge
