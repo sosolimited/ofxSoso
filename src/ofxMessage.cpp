@@ -71,7 +71,7 @@ ofxMessage::ofxMessage(int iID, int iInterpolation, int iPath, vector<ofVec4f> i
 	duration = iDuration;
 	startDelay = iDelay;
 	startTime = ofGetElapsedTimef();	//default to current time
-	
+    
 	isEnabled = true;	
 	isRunning = false;
 	autoDelete = true;	
