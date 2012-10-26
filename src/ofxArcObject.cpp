@@ -14,8 +14,9 @@ ofxArcObject::ofxArcObject(float iOuterRadius, float iInnerRadius, float iStartA
 	endAngle = ofDegToRad(iEndAngle);		
 	
 	height = 0;
-	color1 = NULL;
-	color2 = NULL;
+    nullColor.set(-1,-1,-1,-1); // LM added this to fix compatability w 0072
+	color1 = nullColor;
+	color2 = nullColor;
 	
 }
 
@@ -59,7 +60,7 @@ void ofxArcObject::render()
 		glBegin(GL_QUAD_STRIP);
 		while(angle < endAngle){
 			glNormal3f(cos(angle+PI), sin(angle+PI),0);
-			if (color1 != NULL && color2 != NULL) {
+			if (color1 != nullColor && color2 != nullColor) {
 				portion = 1.0 -(angle - startAngle) / (endAngle - startAngle);
 				glColor4f(portion*color1[0] + (1.0-portion)*color2[0], portion*color1[1] + (1.0-portion)*color2[1], portion*color1[2] + (1.0-portion)*color2[2], portion*color1[3] + (1.0-portion)*color2[3]);
 						  
@@ -73,7 +74,7 @@ void ofxArcObject::render()
 		//finish it
 		glNormal3f(cos(angle+PI), sin(angle+PI),0);
 		
-		if (color1 != NULL && color2 != NULL) {
+		if (color1 != nullColor && color2 != nullColor) {
 			portion = 1.0 -(angle - startAngle) / (endAngle - startAngle);
 			glColor4f(portion*color1[0] + (1.0-portion)*color2[0], portion*color1[1] + (1.0-portion)*color2[1], portion*color1[2] + (1.0-portion)*color2[2], portion*color1[3] + (1.0-portion)*color2[3]);
 			
@@ -90,7 +91,7 @@ void ofxArcObject::render()
 	glNormal3f(0,0,1);
 	while(angle < endAngle){
 
-		if (color1 != NULL && color2 != NULL) {
+		if (color1 != nullColor && color2 != nullColor) {
 			portion = 1.0 -(angle - startAngle) / (endAngle - startAngle);
 			glColor4f(portion*color1[0] + (1.0-portion)*color2[0], portion*color1[1] + (1.0-portion)*color2[1], portion*color1[2] + (1.0-portion)*color2[2], portion*color1[3] + (1.0-portion)*color2[3]);
 		}		
@@ -100,7 +101,7 @@ void ofxArcObject::render()
 		angle += angleInc;
 	}
 	//finish it
-	if (color1 != NULL && color2 != NULL) {
+	if (color1 != nullColor && color2 != nullColor) {
 		portion = 1.0 -(angle - startAngle) / (endAngle - startAngle);
 		glColor4f(portion*color1[0] + (1.0-portion)*color2[0], portion*color1[1] + (1.0-portion)*color2[1], portion*color1[2] + (1.0-portion)*color2[2], portion*color1[3] + (1.0-portion)*color2[3]);
 		
