@@ -27,6 +27,9 @@
 		E0F85709154729DB00896B77 /* ofxSosoTrueTypeFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0F856F3154729DB00896B77 /* ofxSosoTrueTypeFont.cpp */; };
 		E0F8570A154729DB00896B77 /* ofxTextObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0F856F5154729DB00896B77 /* ofxTextObject.cpp */; };
 		E0F8570B154729DB00896B77 /* ofxVideoPlayerObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0F856F7154729DB00896B77 /* ofxVideoPlayerObject.cpp */; };
+		E0FE9DF316402F0B005A720F /* ofxGridSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0FE9DED16402F0A005A720F /* ofxGridSystem.cpp */; };
+		E0FE9DF416402F0B005A720F /* ofxLineStripObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0FE9DEF16402F0A005A720F /* ofxLineStripObject.cpp */; };
+		E0FE9DF516402F0B005A720F /* ofxQuadStripObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0FE9DF116402F0A005A720F /* ofxQuadStripObject.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
@@ -114,6 +117,12 @@
 		E0F856F6154729DB00896B77 /* ofxTextObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTextObject.h; sourceTree = "<group>"; };
 		E0F856F7154729DB00896B77 /* ofxVideoPlayerObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxVideoPlayerObject.cpp; sourceTree = "<group>"; };
 		E0F856F8154729DB00896B77 /* ofxVideoPlayerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxVideoPlayerObject.h; sourceTree = "<group>"; };
+		E0FE9DED16402F0A005A720F /* ofxGridSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGridSystem.cpp; sourceTree = "<group>"; };
+		E0FE9DEE16402F0A005A720F /* ofxGridSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxGridSystem.h; sourceTree = "<group>"; };
+		E0FE9DEF16402F0A005A720F /* ofxLineStripObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxLineStripObject.cpp; sourceTree = "<group>"; };
+		E0FE9DF016402F0A005A720F /* ofxLineStripObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxLineStripObject.h; sourceTree = "<group>"; };
+		E0FE9DF116402F0A005A720F /* ofxQuadStripObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxQuadStripObject.cpp; sourceTree = "<group>"; };
+		E0FE9DF216402F0B005A720F /* ofxQuadStripObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxQuadStripObject.h; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
@@ -206,6 +215,12 @@
 		E0F856D2154729DB00896B77 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				E0FE9DED16402F0A005A720F /* ofxGridSystem.cpp */,
+				E0FE9DEE16402F0A005A720F /* ofxGridSystem.h */,
+				E0FE9DEF16402F0A005A720F /* ofxLineStripObject.cpp */,
+				E0FE9DF016402F0A005A720F /* ofxLineStripObject.h */,
+				E0FE9DF116402F0A005A720F /* ofxQuadStripObject.cpp */,
+				E0FE9DF216402F0B005A720F /* ofxQuadStripObject.h */,
 				E0F856D3154729DB00896B77 /* ofxAnimation.cpp */,
 				E0F856D4154729DB00896B77 /* ofxAnimation.h */,
 				E0F856D5154729DB00896B77 /* ofxArcObject.cpp */,
@@ -399,6 +414,9 @@
 				E0F8570A154729DB00896B77 /* ofxTextObject.cpp in Sources */,
 				E0F8570B154729DB00896B77 /* ofxVideoPlayerObject.cpp in Sources */,
 				E034CFC615505F41007091C2 /* testApp.cpp in Sources */,
+				E0FE9DF316402F0B005A720F /* ofxGridSystem.cpp in Sources */,
+				E0FE9DF416402F0B005A720F /* ofxLineStripObject.cpp in Sources */,
+				E0FE9DF516402F0B005A720F /* ofxQuadStripObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
