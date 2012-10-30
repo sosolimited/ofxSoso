@@ -296,10 +296,20 @@ void ofxScene::setShadingModel(GLenum iModel)
 	shadingModel = iModel;
 }
 
+//LM 061312
+void ofxScene::setClearBackground(bool iClear) {
+	isClearBackgroundOn = iClear;
+}
+
 //0-255
 void ofxScene::setBackgroundColor(float iR, float iG, float iB, float iA)
 {
 	backgroundColor.set(iR, iG, iB, iA);
+}
+
+//LM 061312
+ofVec4f ofxScene::getBackgroundColor() {
+	return backgroundColor;
 }
 
 int ofxScene::getSceneWidth()

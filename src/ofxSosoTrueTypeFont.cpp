@@ -46,7 +46,8 @@ ofxSosoMappedChar::ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeInde
 
 ofxSosoMappedChar::~ofxSosoMappedChar()
 {
-	delete namedEntity;
+	if (utf8Sequence) delete utf8Sequence; //LM 070612
+	if (namedEntity) delete namedEntity;
 }
 
 
@@ -204,7 +205,20 @@ ofxSosoTrueTypeFont::ofxSosoTrueTypeFont()
 	isKerningEnabled = true;
 }
 
-ofxSosoTrueTypeFont::~ofxSosoTrueTypeFont(){}
+ofxSosoTrueTypeFont::~ofxSosoTrueTypeFont(){ //LM 070612
+
+    for ( int i=0; i < mappedChars.size(); i++ )
+    {
+        delete mappedChars[i];
+    }    
+	mappedChars.clear();
+	
+	for ( int i=0; i < namedEntityChars.size(); i++)
+    {
+        delete namedEntityChars[i];
+    }
+	namedEntityChars.clear();
+}
 
 
 
@@ -505,8 +519,8 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 	}	
 	//find out if the face has kerning
 	FT_Bool use_kerning = (FT_Bool)FT_HAS_KERNING(face);
-	if(use_kerning) printf("ofxSosoTrueTypeFont::loadFont() - kerning is supported\n");
-	else printf("ofxSosoTrueTypeFont::loadFont() - kerning is NOT supported\n");
+	if(!use_kerning) printf("ofxSosoTrueTypeFont::loadFont() - kerning is NOT supported for %s\n", (char*)filename.c_str());
+	
 	
 	FT_UInt glyph_index_r, glyph_index_l;
 	
@@ -693,7 +707,8 @@ void ofxSosoTrueTypeFont::buildMappedChars()
 		mappedChars.push_back(new ofxSosoMappedChar(0x95, 0x2030, "&permil;", 0xE2, 0x80, 0xB0));	//per mille
 		mappedChars.push_back(new ofxSosoMappedChar(0x96, 0x2039, "&lsaquo;", 0xE2, 0x80, 0xB9));	//single left pointing angle quotation mark
 		mappedChars.push_back(new ofxSosoMappedChar(0x97, 0x203A, "&rsaquo;", 0xE2, 0x80, 0xBA));	//single right pointing angle quotation mark	
-		mappedChars.push_back(new ofxSosoMappedChar(0x98, 0x20AC, "&euro;", 0xE2, 0x82, 0xAC));		//EURO SIGN
+		//mappedChars.push_back(new ofxSosoMappedChar(0x98, 0x20AC, "&euro;", 0xE2, 0x82, 0xAC));		//euro sign
+        mappedChars.push_back(new ofxSosoMappedChar(0x98, 0x00A3, "&pound;", 0xC2, 0xA3));		//pound sign    //eg 071012 - TEMP test for London
 		mappedChars.push_back(new ofxSosoMappedChar(0x99, 0x2122, "&trade;", 0xE2, 0x84, 0xA2));	//trademark sign
 		mappedChars.push_back(new ofxSosoMappedChar(0x9A, 0x25A1, "&#x25a1;", 0xE2, 0x96, 0xA1));	//white square
 		mappedChars.push_back(new ofxSosoMappedChar(0x9B, 0x25CA, "&loz;", 0xE2, 0x97, 0x8A));		//lozenge
@@ -705,9 +720,8 @@ void ofxSosoTrueTypeFont::buildMappedChars()
 	}
 }
 
-//this is a private method used by drawString(). if there is a special byte sequence starting at iIndex in iString, it returns the Unicode value to which the sequence has been mapped. 
+//This is a private method used by drawString(). if there is a special byte sequence starting at iIndex in iString, it returns the Unicode value to which the sequence has been mapped. 
 //and it increments the index (passed in from the while loop in drawString()) accordingly 
-//PEND add in named entity support
 int ofxSosoTrueTypeFont::getMappedChar(string iString, int &iIndex)
 {		
 	//Named entities
@@ -744,6 +758,45 @@ int ofxSosoTrueTypeFont::getMappedChar(string iString, int &iIndex)
 	
 	return ((unsigned char)iString[iIndex] - NUM_CHARACTER_TO_START);
 }
+
+//Variation on getMappedChar() that returns the sequence as is, without mapping it. If there isn't a mapped sequence at that point, NULL is returned.
+char* ofxSosoTrueTypeFont::getMappedCharSequence(string iString, int &iIndex)   //eg 0701412
+{
+    //Named entities
+	if(iString[iIndex] == '&'){
+		for(int i=0; i < mappedChars.size(); i++){
+			bool found = true;
+			for(int j=0; j < strlen(mappedChars[i]->namedEntity); j++){
+				if(iString[iIndex + j] != mappedChars[i]->namedEntity[j])
+					found = false;
+			}			
+			if(found){
+				//advance index for drawString loop
+				iIndex += (strlen(mappedChars[i]->namedEntity) - 1);
+				return (char*)iString.substr(iIndex, strlen(mappedChars[i]->namedEntity) - 1).c_str();
+			}
+		}
+	}
+	
+	//Unicode sequences
+	for(int i=0; i < mappedChars.size(); i++){
+		if(iString[iIndex] == mappedChars[i]->utf8Sequence[0]){
+			bool found = true;
+			for(int j=0; j < strlen(mappedChars[i]->utf8Sequence); j++){
+				if(iString[iIndex + j] != mappedChars[i]->utf8Sequence[j])
+					found = false;
+			}			
+			if(found){
+				//advance index for drawString loop
+				iIndex += (strlen(mappedChars[i]->utf8Sequence) - 1);
+				return (char*)iString.substr(iIndex, strlen(mappedChars[i]->utf8Sequence) - 1).c_str();
+			}
+		}
+	}	
+	
+	return NULL;    
+}
+
 
 //these two are overriden from ofTrueTypeFont, because they were private.
 void ofxSosoTrueTypeFont::unloadTextures()
@@ -1099,6 +1152,13 @@ void ofxSosoTrueTypeFont::replaceNamedEntities(string &iString)
 	}
 }
 
+
+//Helper method to strip away selected characters. //eg 070412
+void ofxSosoTrueTypeFont::removeCharacters(string &iString, string iCharsToRemove)
+{
+    for (unsigned int i = 0; i < iCharsToRemove.length(); ++i)
+        iString.erase(std::remove(iString.begin(), iString.end(), iCharsToRemove[i]), iString.end());
+}
 
 
 void ofxSosoTrueTypeFont::enableKerning(bool iEnable)

@@ -1,8 +1,8 @@
 /*
-ofxImageObject
+ofxQuadStripObject
 
-Convenient ofxObject encapsulation of ofxImage. Lets you manipulate the image as an object in the scene.
-Create with iLoadNow = false if you want to load it later with something like threaded image loading  
+ofxObject for creating and texturing Quadstrips. Also see ofxDynamicPolygonObject for 
+an animatable version of ofxPolygon.
 
 Soso OpenFrameworks Addon
 Copyright (C) 2012 Sosolimited
@@ -27,24 +27,36 @@ IN THE SOFTWARE.
 #include "ofxObject.h"
 #include "ofImage.h"
 
-class ofxImageObject : public ofxObject{
-	
-public:
-	
-	ofxImageObject(string iFilename, bool iLoadNow=true);
-	~ofxImageObject();
-	
-	void						render();
-	void						setCentered(bool iEnable);
-	void						enableTexture(bool iB);
-	void						clear();	    
-	
-public:
-	ofImage						image;
-	bool						isCentered;
-	float						width,
-								height;
 
-	string						filename;
-    
+class ofxQuadStripObject : public ofxObject
+{
+public:
+	ofxQuadStripObject(int iNumVertices);
+	~ofxQuadStripObject();
+	
+	void					render();
+		
+	void					setTexture(ofImage *iTex);
+	virtual void			setVertexPos(int iVertexNum, ofVec3f iPos);
+	virtual void			setVertexTexCoords(int iVertexNum, float iU, float iV);
+	virtual void			setVertexColor(int iVertexNum, float iR, float iG, float iB, float iA=255);
+
+	ofVec3f					getVertexPos(int iVertexNum);
+	ofVec2f					getVertexTexCoords(int iVertexNum);
+
+	void					setDrawMode(int iDrawMode);	//OF_FILLED, OF_OUTLINE
+	void					enableVertexColoring(bool iEnable);
+			
+
+	ofTexture*				getTexture();
+
+protected:
+	int						numVertices;
+	float					*vertices;
+	float					*texCoords;
+	float					*vertexColors;
+	float					drawMode;
+	ofTexture				*texture;
+	bool					vertexColoringEnabled;
+
 };

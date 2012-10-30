@@ -56,12 +56,12 @@ ofxObject::ofxObject(){
 	matrixDirty = true;
 	localMatrixDirty = true;
 	displayList = glGenLists(1);
-	
+	displayListFlag = false;    
 	
 	isSortedObject = false;
 	sortedObjectsWindowZ = 0;
 	
-	prevTime = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;
+	timePrev = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;
 	timeElapsed = 0;
 }
 
@@ -97,10 +97,20 @@ ofxObject::~ofxObject()
 	//if (rotationMatrix != NULL) free(rotationMatrix);
 	//if (rotationMatrixTmp != NULL) free(rotationMatrixTmp);;	
 	
+	if (matrix) free(matrix); //LM 070612
+	if (localMatrix) free(localMatrix);
+	
 }
 
 int ofxObject::addChild(ofxObject *child)
 {
+	//LM 071312 return if already has child
+   	for (unsigned int i = 0; i < children.size(); i++) {
+		if (children[i] == child) {
+			return (1);
+		}
+	}
+	
 	children.push_back(child);
 	child->parents.push_back(this);
 	
@@ -241,10 +251,12 @@ void ofxObject::enableAlphaInheritance(bool iEnable)
 
 void ofxObject::idleBase(float iTime)
 {
-	//timeElapsed = ofGetElapsedTimef() - prevTime; //ofGetSystemTime()/1000.0f - prevTime;
-	//prevTime = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;	
+	//timeElapsed = ofGetElapsedTimef() - timePrev; //ofGetSystemTime()/1000.0f - timePrev;
+	//timePrev = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;	
 
-	timeElapsed = ofGetLastFrameTime();	//OF7
+	//timeElapsed = ofGetLastFrameTime();	//OF7
+    //Calculate this locally so it's always based on the idle call times    //eg
+    timeElapsed = iTime - timePrev; 
 
 	updateMessages();		
 	//call virtual
@@ -254,6 +266,7 @@ void ofxObject::idleBase(float iTime)
 	for (unsigned int i = 0; i < children.size(); i++) 
 		children[i]->idleBase(iTime);
 
+    timePrev = iTime;   //eg
 }
 
 //----------------------------------------------------------
@@ -263,8 +276,8 @@ void ofxObject::draw(ofxObjectMaterial *iMaterial, float *iMatrix, int iSelect, 
 	//if(id == 1) printf("i am a circle %f - %f, %f, %f\n", ofGetElapsedTimef(), color.x, color.y, color.z);
 
 	//moved to idleBase
-	//timeElapsed = ofGetElapsedTimef() - prevTime; //ofGetSystemTime()/1000.0f - prevTime;
-	//prevTime = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;	
+	//timeElapsed = ofGetElapsedTimef() - timePrev; //ofGetSystemTime()/1000.0f - timePrev;
+	//timePrev = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;	
 
 	//if(id==1) printf("system time = %f\n", ofGetSystemTime());
 	
@@ -360,7 +373,8 @@ void ofxObject::predraw()
 
 void ofxObject::render()
 {
-	//glCallList(displayList);
+    if(displayListFlag)
+        glCallList(displayList);
 }
 
 void ofxObject::postdraw()
@@ -374,7 +388,7 @@ int ofxObject::collectNodes(int iSelect, ofxObject *iNodes[], int iNumber, int i
 	int curNode = iNumber;
 
 	if (iNumber >= iMax) {
-		printf("ofxObject::collectNodes() — cannot render more than %d objects.\n", iMax); 
+		printf("ofxObject::collectNodes() cannot render more than %d objects.\n", iMax); 
 		return curNode;
 	}
 
@@ -1099,6 +1113,7 @@ ofxMessage* ofxObject::doMessage1f(int iID, float iDelay, float iDuration, int i
 	args[0] = iVal;
 
 	ofxMessage *message = new ofxMessage(iID, (void *)args, iInterp, iDuration, iDelay);
+    message->setStartTime(curTime); //eg 071812
 	messages.push_back(message);
 
 	return message;
@@ -1110,6 +1125,7 @@ ofxMessage* ofxObject::doMessage3f(int iID, float iDelay, float iDuration, int i
 	args->set(iVal0, iVal1, iVal2);
 
 	ofxMessage *message = new ofxMessage(iID, (void *)args, iInterp, iDuration, iDelay);
+    message->setStartTime(curTime); //eg 071812
 	messages.push_back(message);
 
 	return message;
@@ -1121,6 +1137,7 @@ ofxMessage* ofxObject::doMessage4f(int iID, float iDelay, float iDuration, int i
 	args->set(iVal0, iVal1, iVal2, iVal3);
 
 	ofxMessage *message =new ofxMessage(iID, (void *)args, iInterp, iDuration, iDelay);
+    message->setStartTime(curTime); //eg 071812
 	messages.push_back(message);
 
 	return message;
@@ -1129,6 +1146,7 @@ ofxMessage* ofxObject::doMessage4f(int iID, float iDelay, float iDuration, int i
 ofxMessage* ofxObject::doMessageNf(int iID, float iDelay, float iDuration, int iInterp, int iPath, vector<ofVec4f> iPathPoints)
 {
 	ofxMessage *message = new ofxMessage(iID, iInterp, iPath, iPathPoints, iDuration, iDelay);
+    message->setStartTime(curTime); //eg 071812
 	messages.push_back(message);
 
 	return message;
@@ -1138,11 +1156,16 @@ ofxMessage* ofxObject::doMessageNf(int iID, float iDelay, float iDuration, int i
 //sets startTime of iMessage to current time
 ofxMessage* ofxObject::doMessage(ofxMessage *iMessage)
 {
-	iMessage->setStartTime(ofGetElapsedTimef());
-	iMessage->enableMessage(true);
+	if (iMessage->id == OF_FUNCTION) { //LM 062912, added this if, was crashing on func tweens
+		iMessage->autoDelete = false;
+	} else {
+        //iMessage->setStartTime(ofGetElapsedTimef()); 
+        iMessage->setStartTime(curTime); //eg 071812
+    }
+	iMessage->enableMessage(true); 
 	if(!hasMessage(iMessage))	//only add it if it's not already there
 		messages.push_back(iMessage);
-
+	
 	return iMessage;
 }
 
@@ -1168,3 +1191,9 @@ int ofxObject::isDescendant(ofxObject *iObject)
 
 }
 
+void ofxObject::setDisplayList(GLuint iList)
+{
+    displayList = iList;
+    //Tells render to use the list.
+    displayListFlag = true; 
+}

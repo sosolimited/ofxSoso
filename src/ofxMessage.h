@@ -46,7 +46,7 @@ enum{
 	OF_LINEAR,
 	OF_EASE_IN,
 	OF_EASE_OUT,
-	OF_OF_EASE_INOUT
+	OF_EASE_INOUT
 };
 
 enum{

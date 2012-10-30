@@ -34,8 +34,9 @@ IN THE SOFTWARE.
 class ofxLetterTextObjectLetter : public ofxObject
 {
 public:
-	ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont, char iChar, float iX, float iY, float iScaleFactor);
-	~ofxLetterTextObjectLetter();
+	//ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont, char iChar, float iX, float iY, float iScaleFactor);
+	ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont, char *iChar, float iX, float iY, float iScaleFactor);  //eg 070411
+    ~ofxLetterTextObjectLetter();
 
 	void							render();
 

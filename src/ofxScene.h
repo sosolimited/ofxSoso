@@ -76,6 +76,7 @@ public:
 	void					drawAlphaDepth();
 	void					drawAlphaDepthSorted();
 
+	void					setClearBackground(bool iClear); //LM 061312
 	void					setBackgroundColor(float iR, float iG, float iB, float iA=255);		
 	void					setCenterOffset(float iX, float iY, float iZ);
 	void					setRenderMode(int iMode);
@@ -91,6 +92,7 @@ public:
 	
 	int						getSceneWidth();
 	int						getSceneHeight();
+	ofVec4f					getBackgroundColor(); //LM 061312
 		
 
 	static int				depthCompareFunc(const void *iElement1, const void *iElement2);

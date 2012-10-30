@@ -1,8 +1,7 @@
 /*
-ofxImageObject
+ofxLineStripObject
 
-Convenient ofxObject encapsulation of ofxImage. Lets you manipulate the image as an object in the scene.
-Create with iLoadNow = false if you want to load it later with something like threaded image loading  
+Simple ofxObject for drawing and manipulating line strips. 
 
 Soso OpenFrameworks Addon
 Copyright (C) 2012 Sosolimited
@@ -25,26 +24,34 @@ IN THE SOFTWARE.
 #pragma once
 
 #include "ofxObject.h"
-#include "ofImage.h"
 
-class ofxImageObject : public ofxObject{
-	
+class ofxLineStripObject : public ofxObject
+{
 public:
-	
-	ofxImageObject(string iFilename, bool iLoadNow=true);
-	~ofxImageObject();
-	
-	void						render();
-	void						setCentered(bool iEnable);
-	void						enableTexture(bool iB);
-	void						clear();	    
-	
-public:
-	ofImage						image;
-	bool						isCentered;
-	float						width,
-								height;
+    
+	ofxLineStripObject(int iNumVerts=2);
+	ofxLineStripObject();
 
-	string						filename;
+	void								render();
+	
+    void								addVertex(float iX, float iY, float iZ);
+    void                                addVertex(float iX, float iY, float iZ, ofVec4f iColor);
+    
+	void								setLineWidth(float iWeight);
+	void								setVertexPos(int iVertNum, float iX, float iY, float iZ);
+	void								setVertexColor(int iVertNum, float iR, float iG, float iB, float iA);
+    
+    void                                enableVertexColoring(bool iEnable);
+    
+public:
+    
+    struct ofxLineStripVertex{
+        ofVec3f position;
+        ofVec4f color;
+    };    
+	vector<ofxLineStripVertex *>		vertices;
+    
+	float								lineWidth;
+    bool                                isVertexColoringEnabled;
     
 };

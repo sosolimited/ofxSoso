@@ -86,8 +86,6 @@ float ofxAnimation::getDuration()
 	return dur;
 }
 
-
-
 ofxTween* ofxAnimation::tween(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp, float iX0, float iX1, int iPlayMode)
 {
 	//make target vals

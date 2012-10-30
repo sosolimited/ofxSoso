@@ -21,6 +21,7 @@ ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
 	height = image.getHeight();
 	isCentered = false;
 	
+    renderDirty = true; //eg 070112
 }
 
 ofxImageObject::~ofxImageObject(){}
@@ -28,37 +29,52 @@ ofxImageObject::~ofxImageObject(){}
 void ofxImageObject::enableTexture(bool iB)
 {
 	image.setUseTexture(iB);
+    renderDirty = true;
 }
 
 void ofxImageObject::render()
 {	
-	//for when iLoadNow=false is used in constructor
-	if(width==0 || height==0){
-		width = image.getWidth();
-		height = image.getHeight();
-	}
+    //eg 070112 Added display lists.
+    if(renderDirty){
+        
+        glDeleteLists(displayList, 1);
+        glNewList(displayList, GL_COMPILE_AND_EXECUTE);
 
-	if(isCentered){
-		ofPushMatrix();
-		ofTranslate(-width/2, -height/2, 0);
-	}
-	
-	glNormal3f(0,0,1); 
-	image.draw(0,0);
-	
-	if(isCentered){
-		ofPopMatrix();
-	}
+        //For when iLoadNow=false is used in constructor
+        if(width==0 || height==0){
+            width = image.getWidth();
+            height = image.getHeight();
+        }
+        
+        if(isCentered){
+            ofPushMatrix();
+            ofTranslate(-width/2, -height/2, 0);
+        }
+        
+        glNormal3f(0,0,1); 
+        image.draw(0,0);
+        
+        if(isCentered){
+            ofPopMatrix();
+        }
+        
+        glEndList();
+        renderDirty = false;
+    }else{
+		glCallList(displayList);
+    }
 }
 
 
 void ofxImageObject::setCentered(bool iEnable)
 {
 	isCentered = iEnable;
+    renderDirty = true;
 }
 
 
 void ofxImageObject::clear()
 {
 	image.clear();
+    renderDirty = true;
 }
