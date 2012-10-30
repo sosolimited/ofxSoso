@@ -2,9 +2,9 @@
 
 ofxVideoPlayerObject::ofxVideoPlayerObject(char *iPath)
 {
-	player = new ofVideoPlayer();	
-	player->loadMovie(iPath);
-	player->getTextureReference().texData.bFlipTexture = true;	
+    player = new ofVideoPlayer();
+    player->loadMovie(iPath);
+    player->getTextureReference().texData.bFlipTexture = true;
 
 	isCentered = false;
 	isAutoIdling = true;
@@ -21,9 +21,9 @@ void ofxVideoPlayerObject::idle(float iTime)
 void ofxVideoPlayerObject::render()
 {
 	player->getTextureReference().texData.bFlipTexture = true;	//This has to be called here every frame to keep it flipped right.
-
-	if(isCentered) player->draw(-player->width/2, -player->height/2);
-	else player->draw(0,0);		
+    
+	if(isCentered) player->draw(-player->getWidth()/2, -player->getHeight()/2);
+	else player->draw(0,0);    
 }
 
 void ofxVideoPlayerObject::start()
