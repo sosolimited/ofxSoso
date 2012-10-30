@@ -18,11 +18,9 @@ ofxTextFont::ofxTextFont(string iFontName, string iFilename, int iFontsize, bool
 
 ofxTextFont::~ofxTextFont()
 {
-	delete(font);
+	if (font) delete(font);
+	if (fontName) delete(fontName);
 }
-
-
-
 
 //class ofxTextObject 
 
@@ -45,12 +43,18 @@ ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, char *iString)
 
     drawAsShapes = false;
     alignment = OF_TEXT_ALIGN_LEFT;
+    drawWordColor = false;  //eg 
     
 	renderDirty = true;
 	isDisplayListEnabled = true;
 
     //this is so that text will be z-sorted by ofxScene as a transparent object
 	setSpecialTransparency(true);	
+}
+
+ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString) //LM 063012
+{
+	ofxTextObject(iFont, (char*)iString.c_str());
 }
 
 ofxTextObject::~ofxTextObject()
@@ -96,6 +100,7 @@ void ofxTextObject::render()
             
 			glEndList();		
 			renderDirty = false;
+			glCallList(displayList);
 
 		}else{
 			glCallList(displayList);
@@ -125,6 +130,11 @@ void ofxTextObject::setString(char *iString)
 	
 	wrapTextX(columnWidth);
 	renderDirty = true;	
+}
+
+void ofxTextObject::setString(string iString) //LM 063012
+{
+	setString((char*)iString.c_str());
 }
 
 //with scale of ofxTextObject set to 1.0, this is the pointSize of the text
@@ -196,7 +206,7 @@ void ofxTextObject::setWordColor(int iIndex, float iR, float iG, float iB, float
         words[iIndex].color.b = iB;
         words[iIndex].color.a = iA;
         
-		drawWordColor = true; 
+		//drawWordColor = true; //eg - you have to manually set this now
         renderDirty = true;
     }	
 }
@@ -211,12 +221,17 @@ void ofxTextObject::setAllWordsColor(float iR,  float iG, float iB, float iA)
     
     if (words.size() > 0) {
         for(int i=0;i < words.size(); i++)
-        {
-			words[i].color = tmpColor;   			
-        }
-		drawWordColor = true; 
+            words[i].color = tmpColor;   			
+        
+		//drawWordColor = true; //eg - you have to manually set this now
     }
     
+}
+
+//You have to call this with true to enable per word coloring
+void ofxTextObject::enableWordColoring(bool iFlag)
+{
+    drawWordColor = iFlag;
 }
 
 void ofxTextObject::setColor(float iR, float iG, float iB, float iA)

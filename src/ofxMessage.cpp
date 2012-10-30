@@ -71,7 +71,7 @@ ofxMessage::ofxMessage(int iID, int iInterpolation, int iPath, vector<ofVec4f> i
 	duration = iDuration;
 	startDelay = iDelay;
 	startTime = ofGetElapsedTimef();	//default to current time
-	
+    
 	isEnabled = true;	
 	isRunning = false;
 	autoDelete = true;	
@@ -106,7 +106,6 @@ ofxMessage::~ofxMessage()
 	if(baseEndVals) free(baseEndVals);
 	if(startVals) free(startVals);
 	if(baseStartVals) free(baseStartVals);	
-	
 }
 
 float ofxMessage::getFinishTime()
@@ -218,7 +217,7 @@ float ofxMessage::interpolateTime(int iInterp, float iTime)
 		case OF_EASE_IN:
 			return (iTime*iTime);
 			break;
-		case (OF_OF_EASE_INOUT):	
+		case (OF_EASE_INOUT):	
 			if (iTime <= 0.5f) {
 				return((iTime*2.0f)*(iTime*2.0f)*0.5f);
 			} 
