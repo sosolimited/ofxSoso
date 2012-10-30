@@ -24,7 +24,7 @@ public:
 								startAngle,
 								endAngle;		
 
-	ofVec4f					color1, color2;
+	ofVec4f                     color1, color2, nullColor;
 	float						height;
 
 
