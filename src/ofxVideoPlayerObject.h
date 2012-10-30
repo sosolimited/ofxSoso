@@ -22,7 +22,6 @@ IN THE SOFTWARE.
 */
 
 #pragma once
-
 #include "ofxObject.h"
 #include "ofVideoPlayer.h"
 
@@ -41,7 +40,7 @@ public:
 	void						reset();
 
 public:
-	ofVideoPlayer				*player;
+    ofVideoPlayer				*player;
 	bool						isCentered;
 	bool						isAutoIdling;
 
