@@ -34,8 +34,12 @@ public:
 
 	void					idle(float iTime);
 	void					render();
+    int                     getWidth() { return this->fbo->getWidth(); };
+    int                     getHeight() { return this->fbo->getHeight(); };
 
 public:
 	ofFbo					*fbo;
+protected:
+    int                     width, height;
 
 };
