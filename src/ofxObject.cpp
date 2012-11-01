@@ -39,6 +39,7 @@ ofxObject::ofxObject(){
 	
 	material = new ofxObjectMaterial();
 	drawMaterial = new ofxObjectMaterial();
+    inheritColor = false;   // SK Added color inheritence defaults to false
 
 	//rotationMatrix = NULL;
 	//rotationMatrixTmp = NULL;	
@@ -234,10 +235,19 @@ float* ofxObject::updateMatrix(float *iParentMatrix)
 ofxObjectMaterial* ofxObject::updateMaterial(ofxObjectMaterial *iMat)
 {	
 	//firebrand - added support for disabling alpha inheritance
-	if(material->inheritAlphaFlag)
-		drawMaterial->color.set(material->color.x, material->color.y, material->color.z, (float)material->color.w * ((float)iMat->color.w/255.0f));	
-	else
-		drawMaterial->color.set(material->color.x, material->color.y, material->color.z, (float)material->color.w);
+    float alpha = material->color.w;
+    float r = material->color.x;
+    float g = material->color.y;
+    float b = material->color.z;
+    
+	if(material->inheritAlphaFlag) alpha *= (float)iMat->color.w / 255.0f;
+    if(inheritColor) {  // SK added color inheritence flag
+        r *= (float)iMat->color.x / 255.0f;
+        g *= (float)iMat->color.y / 255.0f;
+        b *= (float)iMat->color.z / 255.0f;
+    }
+
+    drawMaterial->color.set(r,g,b,alpha);
 	
 	return drawMaterial;
 }
