@@ -53,8 +53,6 @@ public:
 public:
 	ofVec4f							color;
 	bool							inheritAlphaFlag;	//firebrand
-		
-
 };
 
 
@@ -183,6 +181,7 @@ public:
 
 	ofxObjectMaterial				*material,
 									*drawMaterial;
+    bool                            inheritColor;
 
 	static float					curTime;	
 
