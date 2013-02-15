@@ -32,6 +32,12 @@ void ofxImageObject::enableTexture(bool iB)
     renderDirty = true;
 }
 
+//EG 021513
+ofTexture ofxImageObject::getTexture()
+{
+    return image.getTextureReference();
+}
+
 void ofxImageObject::render()
 {	
     //eg 070112 Added display lists.
