@@ -37,7 +37,9 @@ public:
 	void						render();
 	void						setCentered(bool iEnable);
 	void						enableTexture(bool iB);
-	void						clear();	    
+	void						clear();
+    
+    ofTexture                   getTexture();   //EG 021513
 	
 public:
 	ofImage						image;
