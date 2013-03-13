@@ -305,7 +305,27 @@ float ofxTextObject::getHeight(){
 float ofxTextObject::getColumnWidth()
 {
 	return columnWidth;
-}			
+}
+
+ofVec2f ofxTextObject::getCharPosition(int iIndex) {
+    if (iIndex >= 0 && iIndex < rawText.size()) {
+        int j = iIndex;
+        for (int i=0; i<words.size(); i++) {
+            printf("i:%d word:%s j:%d letters:%d\n", i, (char*)words[i].rawWord.c_str(), j, (int)words[i].charPositions.size());
+            if (words[i].charPositions.size() > 0) {
+                if (words[i].charPositions.size() < j) {
+                    j -= words[i].charPositions.size()+1;
+                }
+                else {
+                    ofVec2f pos = words[i].charPositions[j] + words[i].pos;
+                    
+                    cout << "found pos " << words[i].rawWord.at(j) << " in string " << rawText << " x:" << pos.x << " y:" << pos.y << "\n";
+                    return (words[i].pos + words[i].charPositions[j])/(pointSize*scaleFactor);
+                }
+            }
+        }
+    } else printf("ofxTextObject::getCharPosition - index out of bounds\n");
+}
 
 
 ofxSosoTrueTypeFont* ofxTextObject::getFont()
@@ -801,7 +821,7 @@ void ofxTextObject::_loadWords()
 	{
 		char c = rawBuf[i];
 		
-		if (c == '\n') {
+		if (c == '\n' || c == ' ') {
 			//close the existing word buffer
 			if (wordBufIndex > 0)
 			{
@@ -823,35 +843,15 @@ void ofxTextObject::_loadWords()
 				wordBuf[0] = 0;
 				wordBufIndex = 0;
 			}
-			//add a new line
-			words.push_back(newLineWord);
-		}
-		else if (c == ' ') {
-			//close the existing word buffer
-			if (wordBufIndex > 0)
-			{
-                
-				string wordString(wordBuf, wordBufIndex);				
-                
-				tmpWord.rawWord = wordString;
-				tmpWord.width   = font->stringWidth(tmpWord.rawWord);
-				tmpWord.height  = font->stringHeight(tmpWord.rawWord);				
-				tmpWord.color.r = material->color.x;
-				tmpWord.color.g = material->color.y;
-				tmpWord.color.b = material->color.z;
-				tmpWord.color.a = material->color.w;
-				tmpWord.isNewLine = false; //soso
-				tmpWord.font = font;		//soso
-                
-				words.push_back(tmpWord);
-                
-				//reset
-				wordBuf[0] = 0;
-				wordBufIndex = 0;
-			}
             
-			//add a space
-			words.push_back(blankSpaceWord);
+            if (c == '\n') {
+                //add a new line
+                words.push_back(newLineWord);
+            }
+            else {
+                //add a space
+                words.push_back(blankSpaceWord);
+            }
 		}
 		else {
 			if (wordBufIndex < maxWordSize - 1)
