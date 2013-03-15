@@ -117,6 +117,7 @@ public:
     float                           getHeight();
 	float							getColumnWidth();
     
+    ofVec2f                         getCharPosition(int iIndex); //LM 031213
 	    
 	virtual void					setFont(ofxSosoTrueTypeFont *iFont);
     ofxSosoTrueTypeFont*			getFont();
