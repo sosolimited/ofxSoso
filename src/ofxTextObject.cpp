@@ -320,7 +320,7 @@ ofVec2f ofxTextObject::getCharPosition(int iIndex) {
                     ofVec2f pos = words[i].charPositions[j] + words[i].pos;
                     
                     cout << "found pos " << words[i].rawWord.at(j) << " in string " << rawText << " x:" << pos.x << " y:" << pos.y << "\n";
-                    return (words[i].pos + words[i].charPositions[j])/(pointSize*scaleFactor);
+                    return scaleFactor*(words[i].pos + words[i].charPositions[j]);
                 }
             }
         }
