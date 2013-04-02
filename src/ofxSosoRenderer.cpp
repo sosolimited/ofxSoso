@@ -3,7 +3,11 @@
 #include "ofGraphics.h"
 #include "ofAppRunner.h"
 
-ofxSosoRenderer::ofxSosoRenderer(bool useShapeColor):ofGLRenderer(useShapeColor){}
+ofxSosoRenderer::ofxSosoRenderer(bool useShapeColor, bool useOrthographic):ofGLRenderer(useShapeColor)
+{
+    orthographic = useOrthographic;
+}
+
 ofxSosoRenderer::~ofxSosoRenderer(){}
 
 void ofxSosoRenderer::setupScreen()
@@ -32,7 +36,10 @@ void ofxSosoRenderer::setupScreenPerspective(float width, float height, ofOrient
     
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(fov, aspect, nearDist, farDist);
+	
+    if(orthographic) glOrtho(-width/2, width/2, -height/2, height/2, nearDist, farDist);
+    else gluPerspective(fov, aspect, nearDist, farDist);
+    
     
 	//glMatrixMode(GL_MODELVIEW);       //from ofGLRenderer
 	//glLoadIdentity();                 //from ofGLRenderer
