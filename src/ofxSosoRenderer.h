@@ -31,11 +31,14 @@ IN THE SOFTWARE.
 class ofxSosoRenderer : public ofGLRenderer
 {
 public:
-    ofxSosoRenderer(bool useShapeColor=true);
+    ofxSosoRenderer(bool useShapeColor=true, bool useOrthographic=false);
     ~ofxSosoRenderer();
     
 	void setupScreen(); 
     void setupScreenPerspective(float width = 0, float height = 0, ofOrientation orientation = OF_ORIENTATION_UNKNOWN, bool vFlip = false, float fov = 60, float nearDist = 0, float farDist = 0);
+    
+private:
+    bool        orthographic;
     
 };
 
