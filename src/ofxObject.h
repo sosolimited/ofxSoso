@@ -90,6 +90,7 @@ class ofxObject{
 
 	virtual void					setColor(float r, float g, float b, float a=255.0);
 	virtual void					setColor(ofVec4f c);	//v4.0 virtual for text object
+    virtual void                    setColor(ofColor c);    
 	ofVec4f							getColor();
 	virtual void					setAlpha(float iA);		//v4.0 virtual for text object
 	bool							hasTransparency();

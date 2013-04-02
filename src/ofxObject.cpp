@@ -481,6 +481,11 @@ void ofxObject::setColor(float r, float g, float b, float a)
 	material->color.set(r, g, b, a);			//v4.0
 }
 
+void ofxObject::setColor(ofColor c)
+{
+    material->color.set(c.r, c.g, c.b, c.a);
+}
+
 void ofxObject::setAlpha(float iA)
 {
 	//color.set(color.x, color.y, color.z, iA);
