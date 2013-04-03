@@ -64,7 +64,9 @@ class ofxObject{
 	~ofxObject();
 
 	int								addChild(ofxObject *child);
-	void 							removeChild(ofxObject *child);	
+	void 							removeChild(ofxObject *child);
+    //! variant of removeChild that is safe to call within idle()
+    void                            removeChildSafe(ofxObject *child);
 	int 							isDescendant(ofxObject *iObject);
 	
 	virtual void					predraw();
@@ -142,6 +144,7 @@ class ofxObject{
 protected:	
 	vector <ofxObject *>			children;
 	vector <ofxObject *>			parents;
+    vector <ofxObject *>            children_to_remove;
 	
 	bool							shown;	
 	bool							renderDirty;
