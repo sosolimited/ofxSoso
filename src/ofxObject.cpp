@@ -121,6 +121,11 @@ int ofxObject::addChild(ofxObject *child)
 	return (1);
 }
 
+void ofxObject::removeChildSafe(ofxObject *child)
+{
+    children_to_remove.push_back(child);
+}
+
 void ofxObject::removeChild(ofxObject *child)
 {
    	for (unsigned int i = 0; i < children.size(); i++) {
@@ -275,6 +280,12 @@ void ofxObject::idleBase(float iTime)
 	//call idle on all children
 	for (unsigned int i = 0; i < children.size(); i++) 
 		children[i]->idleBase(iTime);
+
+    // remove all marked children
+    for( ofxObject *child : children_to_remove ){
+        removeChild( child );
+    }
+    children_to_remove.clear();
 
     timePrev = iTime;   //eg
 }
