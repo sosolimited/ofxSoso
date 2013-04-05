@@ -250,6 +250,14 @@ void ofxTextObject::setColor(ofVec4f color)
     renderDirty = true;
 }
 
+void ofxTextObject::setColor(ofColor color)
+{
+    ofxObject::setColor(color.r, color.g, color.b, color.a);
+    setAllWordsColor(color.r, color.g, color.b, color.a);
+    
+    renderDirty = true;
+}
+
 void ofxTextObject::setAlpha(float iA)
 {
 	ofxObject::setAlpha(iA);	
