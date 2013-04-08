@@ -211,6 +211,23 @@ void ofxTextObject::setWordColor(int iIndex, float iR, float iG, float iB, float
     }	
 }
 
+void ofxTextObject::setWordColor(string iWord, float iR, float iG, float iB, float iA)
+{
+    for (int i=0; i<words.size(); i++)
+    {
+        if (words[i].rawWord.compare(iWord) == 0)
+        {
+            words[i].color.r = iR;
+            words[i].color.g = iG;
+            words[i].color.b = iB;
+            words[i].color.a = iA;
+        }
+        
+		//drawWordColor = true; //eg - you have to manually set this now
+        renderDirty = true;
+    }
+}
+
 void ofxTextObject::setAllWordsColor(float iR,  float iG, float iB, float iA)
 {
     ofColor tmpColor;
@@ -319,7 +336,7 @@ ofVec2f ofxTextObject::getCharPosition(int iIndex) {
     if (iIndex >= 0 && iIndex < rawText.size()) {
         int j = iIndex;
         for (int i=0; i<words.size(); i++) {
-            printf("i:%d word:%s j:%d letters:%d\n", i, (char*)words[i].rawWord.c_str(), j, (int)words[i].charPositions.size());
+            //printf("i:%d word:%s j:%d letters:%d\n", i, (char*)words[i].rawWord.c_str(), j, (int)words[i].charPositions.size());
             if (words[i].charPositions.size() > 0) {
                 if (words[i].charPositions.size() < j) {
                     j -= words[i].charPositions.size()+1;
@@ -327,7 +344,7 @@ ofVec2f ofxTextObject::getCharPosition(int iIndex) {
                 else {
                     ofVec2f pos = words[i].charPositions[j] + words[i].pos;
                     
-                    cout << "found pos " << words[i].rawWord.at(j) << " in string " << rawText << " x:" << pos.x << " y:" << pos.y << "\n";
+                    //cout << "found pos " << words[i].rawWord.at(j) << " in string " << rawText << " x:" << pos.x << " y:" << pos.y << "\n";
                     return scaleFactor*(words[i].pos + words[i].charPositions[j]);
                 }
             }

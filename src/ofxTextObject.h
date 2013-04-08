@@ -100,6 +100,7 @@ public:
 	virtual void					setColor(ofVec4f color);
     virtual void                    setColor(ofColor color);
 	void							setWordColor(int iIndex, float iR, float iG, float iB, float iA=255.0);
+    void                            setWordColor(string iWord, float iR, float iG, float iB, float iA=255.0);
     void                            setAllWordsColor(float iR,  float iG, float iB, float iA=255.0);
     void							setAlpha(float iA);	
 
