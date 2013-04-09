@@ -211,11 +211,22 @@ void ofxTextObject::setWordColor(int iIndex, float iR, float iG, float iB, float
     }	
 }
 
-void ofxTextObject::setWordColor(string iWord, float iR, float iG, float iB, float iA)
+void ofxTextObject::setWordColor(string iWord, float iR, float iG, float iB, float iA, bool iExactMatch)
 {
+    
     for (int i=0; i<words.size(); i++)
     {
-        if (words[i].rawWord.compare(iWord) == 0)
+        if (iExactMatch)
+        {
+            if (words[i].rawWord.compare(iWord) == 0)
+            {
+                words[i].color.r = iR;
+                words[i].color.g = iG;
+                words[i].color.b = iB;
+                words[i].color.a = iA;
+            }
+        }
+        else if (words[i].rawWord.find(iWord) != -1)
         {
             words[i].color.r = iR;
             words[i].color.g = iG;
@@ -223,9 +234,11 @@ void ofxTextObject::setWordColor(string iWord, float iR, float iG, float iB, flo
             words[i].color.a = iA;
         }
         
-		//drawWordColor = true; //eg - you have to manually set this now
-        renderDirty = true;
     }
+
+    //drawWordColor = true; //eg - you have to manually set this now
+    renderDirty = true;
+    
 }
 
 void ofxTextObject::setAllWordsColor(float iR,  float iG, float iB, float iA)
