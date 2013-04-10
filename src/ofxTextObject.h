@@ -144,6 +144,8 @@ public:
 	static ofxTextFont*				addFont(char *iName, ofxSosoTrueTypeFont *iFont);
 	static ofxSosoTrueTypeFont*		getFont(char *iFontName);
     
+    string                          getLineString(int iIndex);
+    
 protected:
     void                            init(ofxSosoTrueTypeFont *iFont);
     
