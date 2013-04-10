@@ -137,6 +137,19 @@ void ofxTextObject::setString(string iString) //LM 063012
 	setString((char*)iString.c_str());
 }
 
+string ofxTextObject::getLineString(int iIndex)
+{
+    string lineString = "";
+    if (iIndex < lines.size())
+    {
+        for (int i=0; i<lines[iIndex].wordsID.size(); i++)
+        {
+            lineString += words[lines[iIndex].wordsID[i]].rawWord;
+        }
+    }
+    return lineString;
+}
+
 //with scale of ofxTextObject set to 1.0, this is the pointSize of the text
 void ofxTextObject::setPointSize(float iPointSize)
 {
