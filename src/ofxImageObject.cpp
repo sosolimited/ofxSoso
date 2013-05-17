@@ -14,7 +14,7 @@ ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
 {
 	filename = iFilename;
 	if(iLoadNow){
-		image.loadImage(iFilename);	
+		loaded = image.loadImage(iFilename);
         image.getTextureReference().texData.bFlipTexture = true;  //Get images right side up in soso world     
 	}
 	width = image.getWidth();
