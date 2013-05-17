@@ -46,7 +46,9 @@ public:
 	bool						isCentered;
 	float						width,
 								height;
-
+    
+    bool                        loaded;
+    
 	string						filename;
     
 };
