@@ -23,7 +23,8 @@ IN THE SOFTWARE.
 
 #pragma once
 #include "ofxObject.h"
-#include "ofVideoPlayer.h"
+//#include "ofVideoPlayer.h"
+#include "ofxAVFVideoPlayer.h"
 
 class ofxVideoPlayerObject : public ofxObject
 {
@@ -39,10 +40,15 @@ public:
 	void						setCentered(bool iEnable);
 	void						reset();
 
+    void                        useShaders(string vert, string frag);
+
 public:
-    ofVideoPlayer				*player;
+    //ofVideoPlayer				*player;
+    ofxAVFVideoPlayer           *player;
 	bool						isCentered;
 	bool						isAutoIdling;
-
+    
+    ofShader                    *mShader = 0;
+    
 
 };
