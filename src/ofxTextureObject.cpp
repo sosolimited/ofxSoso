@@ -21,7 +21,11 @@ ofxTextureObject::ofxTextureObject(int w, int h)
     renderDirty = true; //eg 070112
 }
 
-ofxTextureObject::ofxTextureObject(){}
+ofxTextureObject::ofxTextureObject(){
+
+    texture.clear();
+
+}
 
 void ofxTextureObject::render()
 {	
@@ -54,7 +58,6 @@ void ofxTextureObject::render()
 		glCallList(displayList);
     }
 }
-
 
 void ofxTextureObject::setCentered(bool iEnable)
 {

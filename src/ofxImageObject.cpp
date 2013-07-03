@@ -24,7 +24,10 @@ ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
     renderDirty = true; //eg 070112
 }
 
-ofxImageObject::~ofxImageObject(){}
+ofxImageObject::~ofxImageObject(){
+
+    image.clear();
+}
 
 void ofxImageObject::enableTexture(bool iB)
 {
