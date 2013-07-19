@@ -20,7 +20,9 @@ ofxRectangleObject::ofxRectangleObject(float iW, float iH)
 
 }
 
-ofxRectangleObject::~ofxRectangleObject(){}
+ofxRectangleObject::~ofxRectangleObject(){
+
+}
 
 void ofxRectangleObject::render()
 {
