@@ -40,14 +40,18 @@ public:
 	virtual void			setVertexPos(int iVertexNum, ofVec3f iPos);
 	virtual void			setVertexTexCoords(int iVertexNum, float iU, float iV);
 	virtual void			setVertexColor(int iVertexNum, float iR, float iG, float iB, float iA=255);
-
+    virtual void            setVertexColorOnly(int iVertexNum, float iR, float iG, float iB);
+    virtual void            setVertexAlpha(int iVertexNum, float iA);
+    
 	ofVec3f					getVertexPos(int iVertexNum);
 	ofVec2f					getVertexTexCoords(int iVertexNum);
 
 	void					setDrawMode(int iDrawMode);	//OF_FILLED, OF_OUTLINE
 	void					enableVertexColoring(bool iEnable);
 			
-
+    ofVec4f                 getVertexColor(int iVertexNum);
+    float                   getVertexAlpha(int iVertexNum);
+    
 	ofTexture*				getTexture();
 
 protected:
