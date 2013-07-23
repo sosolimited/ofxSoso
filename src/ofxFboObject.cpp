@@ -7,7 +7,10 @@ ofxFboObject::ofxFboObject(int iWidth, int iHeight, int iInternalFormat, int iNu
 	fbo->getTextureReference().texData.bFlipTexture = false;
 }
 
-ofxFboObject::~ofxFboObject(){}
+ofxFboObject::~ofxFboObject(){
+
+    delete(fbo);
+}
 
 void ofxFboObject::render()
 {	

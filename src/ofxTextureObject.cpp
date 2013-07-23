@@ -21,7 +21,11 @@ ofxTextureObject::ofxTextureObject(int w, int h)
     renderDirty = true; //eg 070112
 }
 
-ofxTextureObject::ofxTextureObject(){}
+ofxTextureObject::ofxTextureObject(){
+
+    texture.clear();
+
+}
 
 void ofxTextureObject::render()
 {	
@@ -55,7 +59,10 @@ void ofxTextureObject::render()
     }
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 224b6079e4ff7f404433605c4a632f8ac57d3dd4
 void ofxTextureObject::setCentered(bool iEnable)
 {
 	isCentered = iEnable;
