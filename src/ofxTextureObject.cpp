@@ -59,6 +59,7 @@ void ofxTextureObject::render()
     }
 }
 
+
 void ofxTextureObject::setCentered(bool iEnable)
 {
 	isCentered = iEnable;

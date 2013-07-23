@@ -30,6 +30,7 @@ class ofxVideoPlayerObject : public ofxObject
 {
 public:
 	ofxVideoPlayerObject(char *iPath);
+    //ofxVideoPlayerObject(ofBaseVideoPlayer *player);
 	~ofxVideoPlayerObject();
 
 	void						idle(float iTime);
