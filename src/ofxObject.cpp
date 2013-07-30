@@ -70,7 +70,12 @@ ofxObject::ofxObject(){
 //----------------------------------------------------------
 ofxObject::~ofxObject()
 {
-	// get rid of references to this object from all parents
+    // Ensure that this object is removed from the render tree before deletion.
+    for(unsigned int i=0; i < parents.size(); i++){
+        parents[i]->removeChild(this);
+    }
+    
+	// Get rid of parent references to this object in all its children.
 	for (unsigned int i = 0; i < children.size(); i++) {
 		ofxObject *child = children[i];
 		for (unsigned int j = 0; j < child->parents.size(); j++) {			
