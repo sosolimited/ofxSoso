@@ -132,7 +132,7 @@ void ofxTextObject::setString(char *iString)
 	renderDirty = true;	
 }
 
-void ofxTextObject::setString(string iString) //LM 063012
+void ofxTextObject::setString(string iString) 
 {
 	setString((char*)iString.c_str());
 }

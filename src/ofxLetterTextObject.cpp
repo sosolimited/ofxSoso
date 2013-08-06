@@ -124,6 +124,19 @@ void ofxLetterTextObject::postdraw()
 }
 */
 
+void ofxLetterTextObject::setWordColor(int iIndex, float iR, float iG, float iB, float iA)
+{
+    ofxTextObject::setWordColor(iIndex, iR, iG, iB, iA);
+    rebuildLetters();
+}
+
+void ofxLetterTextObject::setWordColor(string iWord, float iR, float iG, float iB, float iA, bool iExactMatch)
+{
+    ofxTextObject::setWordColor(iWord, iR, iG, iB, iA, iExactMatch);
+    rebuildLetters();
+    
+}
+
 //Empty render() because the letter objects handle all of the drawing.
 void ofxLetterTextObject::render(){}
 
@@ -133,6 +146,11 @@ void ofxLetterTextObject::setString(char *iString)
 	ofxTextObject::setString(iString);
 	//drawText(0,0,false);	
 	rebuildLetters();	
+}
+
+void ofxLetterTextObject::setString(string iString) //JM 080513
+{
+	setString((char*)iString.c_str());
 }
 
 void ofxLetterTextObject::setColumnWidth(float iWidth)
@@ -191,6 +209,12 @@ void ofxLetterTextObject::setColor(ofVec4f iColor)
         letters[i]->setColor(iColor);
 }
 
+void ofxLetterTextObject::setColor(ofColor iColor)
+{
+    ofxTextObject::setColor(iColor);
+    for (int i=0; i < letters.size(); i++)
+        letters[i]->setColor(iColor);
+}
 
 
 
