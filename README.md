@@ -1,7 +1,7 @@
 ofxSoso
 
 Soso OpenFrameworks Addon
-Copyright (C) 2012 Sosolimited
+Copyright (C) 2013 Sosolimited
 =======
 
 openFrameworks addon with scene graph, animations, enhanced text, and more. See the XCode or Visual Studio 2010 example apps for usage. Also see the top of each header file for a description of the classes and other useful notes.
@@ -12,4 +12,4 @@ Currently, the addon compiles with OFv007. We're in the process of updating it t
 
 CHANGLOG
 
-061312 LM - added setClearBackground(bool iVal) and getBackgroundColor() methods to ofxScene to enable motionblur
+061312 lmccart - added setClearBackground(bool iVal) and getBackgroundColor() methods to ofxScene to enable motionblur
