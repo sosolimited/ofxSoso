@@ -60,6 +60,9 @@ ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString) //LM 06
 ofxTextObject::~ofxTextObject()
 {
 	//PEND write this! BUT DON'T delete font (it's passed in from the outside)
+    
+    words.clear();
+    lines.clear();
 }
 
 void ofxTextObject::init(ofxSosoTrueTypeFont *iFont)
