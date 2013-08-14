@@ -60,6 +60,7 @@ public:
 	void							render();
 
 	void							setString(char *iString);
+    void                            setString(string iString);
 	void							setFont(ofxSosoTrueTypeFont *iFont);
 
 	void							setColumnWidth(float iWidth);
@@ -70,9 +71,11 @@ public:
 
 	void							setColor(float iR, float iG, float iB, float iA=255);
 	void							setColor(ofVec4f iColor);
-		
+	void                            setColor(ofColor iColor);
 	//void							normalizeScale();
-
+	void							setWordColor(int iIndex, float iR, float iG, float iB, float iA=255.0);
+    void                            setWordColor(string iWord, float iR, float iG, float iB, float iA=255.0,
+                                                 bool iExactMatch = true);
 protected:
 	void							cleanupLetters();
 	void							rebuildLetters();

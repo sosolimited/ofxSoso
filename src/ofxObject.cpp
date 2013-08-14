@@ -70,7 +70,12 @@ ofxObject::ofxObject(){
 //----------------------------------------------------------
 ofxObject::~ofxObject()
 {
-	// get rid of references to this object from all parents
+    // Ensure that this object is removed from the render tree before deletion.
+    for(unsigned int i=0; i < parents.size(); i++){
+        parents[i]->removeChild(this);
+    }
+    
+	// Get rid of parent references to this object in all its children.
 	for (unsigned int i = 0; i < children.size(); i++) {
 		ofxObject *child = children[i];
 		for (unsigned int j = 0; j < child->parents.size(); j++) {			
@@ -1015,7 +1020,7 @@ void ofxObject::updateMessages()
 				}		
 			}
             
-			//function________________________________________________________________ //LM
+			//function________________________________________________________________ 
 			else if(messages[i]->id == OF_FUNCTION){
 				if(curTime >= startTime){
                     messages[i]->functionPtr(messages[i]->startVals);
@@ -1139,7 +1144,7 @@ ofxMessage* ofxObject::doMessage1f(int iID, float iDelay, float iDuration, int i
 	args[0] = iVal;
 
 	ofxMessage *message = new ofxMessage(iID, (void *)args, iInterp, iDuration, iDelay);
-    message->setStartTime(curTime); //eg 071812
+    message->setStartTime(curTime); 
 	messages.push_back(message);
 
 	return message;
@@ -1151,7 +1156,7 @@ ofxMessage* ofxObject::doMessage3f(int iID, float iDelay, float iDuration, int i
 	args->set(iVal0, iVal1, iVal2);
 
 	ofxMessage *message = new ofxMessage(iID, (void *)args, iInterp, iDuration, iDelay);
-    message->setStartTime(curTime); //eg 071812
+    message->setStartTime(curTime);
 	messages.push_back(message);
 
 	return message;
@@ -1163,7 +1168,7 @@ ofxMessage* ofxObject::doMessage4f(int iID, float iDelay, float iDuration, int i
 	args->set(iVal0, iVal1, iVal2, iVal3);
 
 	ofxMessage *message =new ofxMessage(iID, (void *)args, iInterp, iDuration, iDelay);
-    message->setStartTime(curTime); //eg 071812
+    message->setStartTime(curTime); 
 	messages.push_back(message);
 
 	return message;
@@ -1172,7 +1177,7 @@ ofxMessage* ofxObject::doMessage4f(int iID, float iDelay, float iDuration, int i
 ofxMessage* ofxObject::doMessageNf(int iID, float iDelay, float iDuration, int iInterp, int iPath, vector<ofVec4f> iPathPoints)
 {
 	ofxMessage *message = new ofxMessage(iID, iInterp, iPath, iPathPoints, iDuration, iDelay);
-    message->setStartTime(curTime); //eg 071812
+    message->setStartTime(curTime); 
 	messages.push_back(message);
 
 	return message;
@@ -1182,11 +1187,11 @@ ofxMessage* ofxObject::doMessageNf(int iID, float iDelay, float iDuration, int i
 //sets startTime of iMessage to current time
 ofxMessage* ofxObject::doMessage(ofxMessage *iMessage)
 {
-	if (iMessage->id == OF_FUNCTION) { //LM 062912, added this if, was crashing on func tweens
+	if (iMessage->id == OF_FUNCTION) { 
 		iMessage->autoDelete = false;
 	} else {
         //iMessage->setStartTime(ofGetElapsedTimef()); 
-        iMessage->setStartTime(curTime); //eg 071812
+        iMessage->setStartTime(curTime); 
     }
 	iMessage->enableMessage(true); 
 	if(!hasMessage(iMessage))	//only add it if it's not already there

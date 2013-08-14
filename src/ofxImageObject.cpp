@@ -25,8 +25,8 @@ ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
 }
 
 ofxImageObject::~ofxImageObject(){
-
-    image.clear();
+    if (loaded)
+        image.clear();
 }
 
 void ofxImageObject::enableTexture(bool iB)
@@ -84,6 +84,9 @@ void ofxImageObject::setCentered(bool iEnable)
 
 void ofxImageObject::clear()
 {
-	image.clear();
+    if (loaded) {
+        image.clear();
+        loaded = false;
+    }
     renderDirty = true;
 }

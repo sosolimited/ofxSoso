@@ -109,7 +109,7 @@ public:
 	void							enableDrawAsShapes(bool iFlag);
 
     virtual void					setString(char *iString);
-	virtual void					setString(string iString); //LM 063012
+	virtual void					setString(string iString); 
     char*							getString();
 
 	virtual void					setColumnWidth(float iWidth);
