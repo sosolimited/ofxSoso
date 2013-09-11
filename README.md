@@ -10,6 +10,3 @@ Note: If you're using the Visual Studio example, compile and run in Release. Deb
 Currently, the addon compiles with OFv007. We're in the process of updating it to compile with the most recent version of OpenFrameworks.
 
 
-CHANGLOG
-
-061312 lmccart - added setClearBackground(bool iVal) and getBackgroundColor() methods to ofxScene to enable motionblur
