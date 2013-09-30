@@ -502,8 +502,8 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
         glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);			
         glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        gluBuild2DMipmaps(texAtlas.getTextureData().textureTarget, texAtlas.getTextureData().glType,
-                          w, h, texAtlas.getTextureData().glType, texAtlas.getTextureData().pixelType, atlasPixels.getPixels());
+        gluBuild2DMipmaps(texAtlas.getTextureData().textureTarget, texAtlas.getTextureData().glTypeInternal,
+                          w, h, texAtlas.getTextureData().glTypeInternal, ofGetGlTypeFromInternal(texAtlas.getTextureData().glTypeInternal), atlasPixels.getPixels());
         glDisable(texAtlas.getTextureData().textureTarget);
     }   
     //////////////////////////////////////////////////////////////////////
