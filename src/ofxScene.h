@@ -82,6 +82,10 @@ public:
 	void					setRenderMode(int iMode);
 	void					setMaxSortedObjects(int iMax);
 
+  void          enableOnTopDrawing(bool iEnable);
+  void          setMaxOnTopObjects(int iMax);
+  
+
 	void					enableScissor(bool iEnable);
 	void					setScissorParameters(int iX, int iY, int iW, int iH);
 	void					enableDepthTest(bool iEnable);
@@ -108,6 +112,11 @@ private:
 	ofxObject				**sortedObjects;
 	int						maxSortedObjects;	
 
+  ofxObject				**onTopObjects;
+	int							maxOnTopObjects;
+	bool						onTopDrawingEnabled;
+
+  
 	ofVec3f					centerOffset;
 	
 	int						renderMode;
