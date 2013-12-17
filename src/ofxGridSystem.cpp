@@ -2,9 +2,9 @@
 #include "ofxGridSystem.h"
 
 
-ofxGridSystem::ofxGridSystem(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iBack, float iGutter, float iHead, float iTail)
+ofxGridSystem::ofxGridSystem(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iLeft, float iRight, float iHead, float iTail)
 {
-  buildGrid(iPageWidth, iPageHeight, iNumColumns, iBaselineLeading, iBack, iGutter, iHead, iTail);
+  buildGrid(iPageWidth, iPageHeight, iNumColumns, iBaselineLeading, iLeft, iRight, iHead, iTail);
 }
 
 //NOTE If you use this constructor, you need to call buildGrid()
