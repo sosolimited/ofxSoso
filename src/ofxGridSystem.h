@@ -54,11 +54,11 @@ public:
 class ofxGridSystem : public ofxObject{
 
 public:
-    ofxGridSystem(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iLeft, float iRight, float iHead, float iTail);
+    ofxGridSystem(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iLeft, float iRight, float iHead, float iTail, int iGutterMult=1);
     ofxGridSystem();
     ~ofxGridSystem();
 
-    void            buildGrid(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iLeft, float iRight, float iHead, float iTail);
+    void            buildGrid(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iLeft, float iRight, float iHead, float iTail, int iGutterMult=1);
     
     float           colX(int iNumber);
     float           col(int iNumber=1);
@@ -100,8 +100,9 @@ public:
                     rightX;
     
     float           leading;
+    float           gutter;
 
-   
+  
     vector<ofxLineStripObject *>    lines;
     vector<ofxLineStripObject *>    baselineLines;
     

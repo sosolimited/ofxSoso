@@ -2,9 +2,9 @@
 #include "ofxGridSystem.h"
 
 
-ofxGridSystem::ofxGridSystem(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iLeft, float iRight, float iHead, float iTail)
+ofxGridSystem::ofxGridSystem(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iLeft, float iRight, float iHead, float iTail, int iGutterMult)
 {
-  buildGrid(iPageWidth, iPageHeight, iNumColumns, iBaselineLeading, iLeft, iRight, iHead, iTail);
+  buildGrid(iPageWidth, iPageHeight, iNumColumns, iBaselineLeading, iLeft, iRight, iHead, iTail, iGutterMult);
 }
 
 //NOTE If you use this constructor, you need to call buildGrid()
@@ -18,6 +18,7 @@ ofxGridSystem::ofxGridSystem()
   tail = 0;
   head = 0;
   leading = 0;
+  gutter = 0;
   leftX = 0;
   rightX = 0;
   topY = 0;
@@ -37,16 +38,16 @@ float ofxGridSystem::colX(int iNumber)
   if(iNumber < 0)
     return 0;
   else
-    return (leftX + iNumber*(colW + leading));
+    return (leftX + iNumber*(colW + gutter));
 }
 
 //Returns the width of a number of columns.
 float ofxGridSystem::col(int iNumber)
 {
-  return (colW * iNumber + leading * (iNumber - 1));
+  return (colW * iNumber + gutter * (iNumber - 1));
 }
 
-void ofxGridSystem::buildGrid(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iLeft, float iRight, float iHead, float iTail)
+void ofxGridSystem::buildGrid(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iLeft, float iRight, float iHead, float iTail, int iGutterMult)
 {
   width = iPageWidth;
   height = iPageHeight;
@@ -59,8 +60,11 @@ void ofxGridSystem::buildGrid(float iPageWidth, float iPageHeight, int iNumColum
   tail = iTail;
   head = iHead;
   
+
   leading = iBaselineLeading;
   
+  // Make gutter multiple of leading.
+  gutter = (float)iGutterMult * leading;
   
   //Back size determines position of left margin line.
   leftX = iLeft;
@@ -73,7 +77,8 @@ void ofxGridSystem::buildGrid(float iPageWidth, float iPageHeight, int iNumColum
   
   //Determine column width, Swiss grid style.
   //There is a baselineLeading space between each column.
-  colW = (width - left - right - (numCol-1)*leading)/(float)numCol;
+  //colW = (width - left - right - (numCol-1)*leading)/(float)numCol;
+  colW = (width - left - right - (numCol-1)*gutter)/(float)numCol;
   
   //Calculate baseline grid positions.
   //NOTE Baseline grid starts at top of page. So you are responsible for aligning grid with head and tail.
@@ -105,7 +110,7 @@ void ofxGridSystem::buildLines()
       lines.push_back(line);
       addChild(line);
       
-      curX += leading;
+      curX += gutter;
     }
     
     if(i < numCol){  //For last line on right.
