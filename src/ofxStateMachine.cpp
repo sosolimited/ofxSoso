@@ -17,18 +17,47 @@ ofxStateTransition::ofxStateTransition(ofxState *iStartState, ofxState *iEndStat
 }
 
 
+
 ofxStateMachine::ofxStateMachine()
 {
+  curState = NULL;
+  curTransition = NULL;
   
+  isTransitionBlocking = false;
+  transitionClock = 0;
+  timeP = 0;  // Previous time.
+  timeD = 0;  // Time difference.
 }
 
 ofxStateMachine::~ofxStateMachine(){}
 
-void ofxStateMachine::update(float iTime)
+// If added as child object, it updates itself automatically.
+void ofxStateMachine::idle(float iTime)
 {
-  
+  update(iTime);
 }
 
+// If not added as child object, this must be called by owner.
+void ofxStateMachine::update(float iTime)
+{
+  timeD = iTime - timeP;
+  
+  // Update state transitioning.
+	if(curTransition){
+		transitionClock += timeD;
+		if(transitionClock >= curTransition->duration){
+			transitionClock = 0;
+      // Set state to end state of transition.
+      curState = curTransition->endState;
+      curTransition = NULL;
+		}
+	}
+  
+  timeP = iTime;
+}
+
+// ----------------------------------------------------------------
+// State and transition manipulation methods.
 
 ofxState* ofxStateMachine::addState(string iName)
 {
@@ -53,12 +82,137 @@ ofxState* ofxStateMachine::getState(string iName)
   return NULL;
 }
 
+ofxStateTransition* ofxStateMachine::getTransition(ofxState *iStartState, ofxState *iEndState)
+{
+  for(auto transition : transitions){
+    if(transition->startState==iStartState && transition->endState==iEndState){
+      return transition;
+    }
+  }
+  return NULL;
+}
+
 
 ofxStateTransition* ofxStateMachine::addTransition(ofxState *iStartState, ofxState *iEndState, float iDur)
 {
-  ofxStateTransition *t = new ofxStateTransition(iStartState, iEndState, iDur);
-  transitions.push_back(t);
+  ofxStateTransition *t = getTransition(iStartState, iEndState);
+  
+  if(t){
+    // If it already exists, update duration.
+    t->duration = iDur;
+  }else{
+    // If not, make a new one and add it.
+    t = new ofxStateTransition(iStartState, iEndState, iDur);
+    transitions.push_back(t);
+  }
   
   return t;  
 }
 
+
+// ---------------------------------------------------------
+// State control methods.
+
+// Note: The current state is held until a transition to the next state is finished.
+// In other words, during transitions, the current state is still the start state of the transition.
+// Then, when the transition is complete, the current state becomes the end state of the transition.
+bool ofxStateMachine::gotoState(ofxState *iState)
+{
+  // Init state for the first time.
+  if(curState == NULL){
+    curState = iState;
+  }else{
+    // If transition blocking enabled, don't allow any transitions if already in transition.
+    if((isTransitionBlocking && curTransition==NULL) || !isTransitionBlocking){
+      // Look through transitions for matching start and end.
+      for(auto t : transitions){
+        if(t->startState==curState && t->endState==iState){
+          startTransition(t);
+          return true;
+        }
+      }
+      ofLogNotice("State transition from "+curState->name+" to "+iState->name+" does not exist.");
+      return false;
+    }else{
+      ofLogNotice("State already in transition....blocking request.");
+      return false;
+    }
+  }
+}
+
+bool ofxStateMachine::forceState(ofxState *iState)
+{
+  curState = iState;
+  curTransition = NULL;
+  transitionClock = 0;
+}
+
+bool ofxStateMachine::gotoState(string iName)
+{
+  ofxState *state = getState(iName);
+  
+  if(state){
+    return gotoState(state);
+  }else{
+    ofLogNotice("State "+iName+" does not exist.");
+    return false;
+  }
+}
+
+void ofxStateMachine::forceState(string iName)
+{
+  ofxState *state = getState(iName);
+  if(state) forceState(state);
+}
+
+string ofxStateMachine::getCurStateName()
+{
+  if(curState) return curState->name;
+  else return "NULL";
+}
+
+// --------------------------------------------------------------
+// Private method for starting transitions.
+void ofxStateMachine::startTransition(ofxStateTransition *iTransition)
+{
+  curTransition = iTransition;
+  transitionClock = 0;
+}
+
+
+// --------------------------------------------------------------
+// Public access to transition variables.
+
+// When transition blocking is enabled, no state transitions are allowed
+// while machine is in transition.
+void ofxStateMachine::enableTransitionBlocking(bool iEnable)
+{
+  isTransitionBlocking = iEnable;
+}
+
+float ofxStateMachine::getTransitionDuration()
+{
+  if (curTransition) return curTransition->duration;
+  else return 0;
+}
+
+bool ofxStateMachine::isTransitioning()
+{
+  if(curTransition) return true;
+  else return false;
+}
+
+float ofxStateMachine::getTransitionClock()
+{
+  return transitionClock;
+}
+
+// Returns normalized value of transition progress.
+float ofxStateMachine::getTransitionProgress()
+{
+  if(curTransition)
+		return transitionClock/curTransition->duration;
+	else
+		return 1.0;
+
+}
