@@ -45,6 +45,7 @@ public:
   
   ofxState* addState(string iName);
   ofxState* getState(string iName);
+  ofxStateTransition* addTransition(string iStartState, string iEndState, float iDur);
   ofxStateTransition* addTransition(ofxState *iStartState, ofxState *iEndState, float iDur);
   ofxStateTransition* getTransition(ofxState *iStartState, ofxState *iEndState);
   
@@ -61,6 +62,7 @@ public:
   float getTransitionProgress();
   
   void enableTransitionBlocking(bool iEnable);
+  void setVerbose(bool iEnable);
   
 private:
   void startTransition(ofxStateTransition *iTransition);
@@ -79,6 +81,8 @@ private:
   float timeD;
   
   bool isTransitionBlocking;
+  
+  bool isVerbose;
   
 
   

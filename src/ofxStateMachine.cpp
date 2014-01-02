@@ -24,6 +24,7 @@ ofxStateMachine::ofxStateMachine()
   curTransition = NULL;
   
   isTransitionBlocking = false;
+  isVerbose = false;
   transitionClock = 0;
   timeP = 0;  // Previous time.
   timeD = 0;  // Time difference.
@@ -49,6 +50,7 @@ void ofxStateMachine::update(float iTime)
 			transitionClock = 0;
       // Set state to end state of transition.
       curState = curTransition->endState;
+      if(isVerbose) ofLogNotice("Current state is now "+curState->name+".");
       curTransition = NULL;
 		}
 	}
@@ -109,6 +111,20 @@ ofxStateTransition* ofxStateMachine::addTransition(ofxState *iStartState, ofxSta
   return t;  
 }
 
+ofxStateTransition* ofxStateMachine::addTransition(string iStartState, string iEndState, float iDur)
+{
+  // These return the state if it already exists, and add it if it doesn't yet.
+  ofxState *start = addState(iStartState);
+  ofxState *end  = addState(iEndState);
+  
+  return addTransition(start, end, iDur);
+}
+
+// For debugging, it will print out all state transitions when set to true.
+void ofxStateMachine::setVerbose(bool iEnable)
+{
+  isVerbose = iEnable;
+}
 
 // ---------------------------------------------------------
 // State control methods.
@@ -121,12 +137,14 @@ bool ofxStateMachine::gotoState(ofxState *iState)
   // Init state for the first time.
   if(curState == NULL){
     curState = iState;
+    if(isVerbose) ofLogNotice("State inited to "+curState->name+".");
   }else{
     // If transition blocking enabled, don't allow any transitions if already in transition.
     if((isTransitionBlocking && curTransition==NULL) || !isTransitionBlocking){
       // Look through transitions for matching start and end.
       for(auto t : transitions){
         if(t->startState==curState && t->endState==iState){
+          if(isVerbose) ofLogNotice("Transitioning from "+t->startState->name+" to "+t->endState->name+"...");
           startTransition(t);
           return true;
         }
