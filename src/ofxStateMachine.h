@@ -54,7 +54,7 @@ public:
   bool gotoState(string iName);
   void forceState(string iName);
   
-  string getCurStateName();
+  string getCurState();
   
   float getTransitionDuration();
   bool isTransitioning();

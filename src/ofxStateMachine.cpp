@@ -183,7 +183,7 @@ void ofxStateMachine::forceState(string iName)
   if(state) forceState(state);
 }
 
-string ofxStateMachine::getCurStateName()
+string ofxStateMachine::getCurState()
 {
   if(curState) return curState->name;
   else return "NULL";

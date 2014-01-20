@@ -122,6 +122,7 @@ class ofxObject{
 	bool							isAnimating();
 	void							setLighting(bool iOnOff);
 	
+  bool              isObjectID(vector<GLuint> iIDs);
 
 	//void							cleanupMessages();	//replaced by deleteMessage below
 	void							updateMessages();
