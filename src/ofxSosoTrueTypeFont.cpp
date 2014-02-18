@@ -497,13 +497,15 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
         glEnable(texAtlas.getTextureData().textureTarget);
         glBindTexture(texAtlas.getTextureData().textureTarget, (GLuint) texAtlas.getTextureData().textureID);
         
-        glTexParameteri(texAtlas.getTextureData().textureTarget, GL_GENERATE_MIPMAP_SGIS, true);	
+        //ao
+       // glTexParameteri(texAtlas.getTextureData().textureTarget, GL_GENERATE_MIPMAP_SGIS, true);	
         glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);			
         glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        gluBuild2DMipmaps(texAtlas.getTextureData().textureTarget, texAtlas.getTextureData().glTypeInternal,
-                          w, h, texAtlas.getTextureData().glTypeInternal, ofGetGlTypeFromInternal(texAtlas.getTextureData().glTypeInternal), atlasPixels.getPixels());
+        //ao
+        //gluBuild2DMipmaps(texAtlas.getTextureData().textureTarget, texAtlas.getTextureData().glTypeInternal,
+        //                  w, h, texAtlas.getTextureData().glTypeInternal, ofGetGlTypeFromInternal(texAtlas.getTextureData().glTypeInternal), atlasPixels.getPixels());
         glDisable(texAtlas.getTextureData().textureTarget);
     }   
     //////////////////////////////////////////////////////////////////////

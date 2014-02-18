@@ -94,20 +94,20 @@ void ofxTextObject::init(ofxSosoTrueTypeFont *iFont)
 void ofxTextObject::render()
 {		
 	if(isDisplayListEnabled){
-		if (renderDirty) {						
+		//if (renderDirty) {						
 		
-			glDeleteLists(displayList, 1);
-			glNewList(displayList, GL_COMPILE_AND_EXECUTE);
+		//	glDeleteLists(displayList, 1);
+		//	glNewList(displayList, GL_COMPILE_AND_EXECUTE);
 
             drawText();    
             
-			glEndList();		
-			renderDirty = false;
-			glCallList(displayList);
+		//	glEndList();		
+		//	renderDirty = false;
+		//	glCallList(displayList);
 
-		}else{
+		/*}else{
 			glCallList(displayList);
-		}	
+		}	*/
 	}else{
         drawText();
 	}

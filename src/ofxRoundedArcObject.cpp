@@ -69,31 +69,32 @@ void ofxRoundedArcObject::setResolution(int iRes)
 void ofxRoundedArcObject::render()
 {		
 
-	if (renderDirty) {
+	//if (renderDirty) { 
 		
 		// PEND PORT - v2.59 - opengles
-		glDeleteLists (displayList, 1);
-		glNewList(displayList, GL_COMPILE_AND_EXECUTE);
+		//glDeleteLists (displayList, 1);
+		//glNewList(displayList, GL_COMPILE_AND_EXECUTE);
 				
 		//corner circle extrusions
-		glBegin(GL_QUAD_STRIP);	
+		//glBegin(GL_QUAD_STRIP);	
 		for (float i = newStartAngle + PI; i <= newStartAngle + 3*PI/2 ; i+= PI/16.0f) {
 			//glColor3f((i-(newStartAngle + PI))/PI/2.0, 0, 1-(i-(newStartAngle + PI))/PI/2.0);
 			glNormal3f(cos(i), sin(i), 0);
-			glVertex3f(circPos1.x + curveRadius*cos(i), circPos1.y + curveRadius*sin(i), height);
-			glVertex3f(circPos1.x + curveRadius*cos(i), circPos1.y + curveRadius*sin(i), 0);	
+			//glVertex3f(circPos1.x + curveRadius*cos(i), circPos1.y + curveRadius*sin(i), height);
+			//glVertex3f(circPos1.x + curveRadius*cos(i), circPos1.y + curveRadius*sin(i), 0);	
 		}
-		glEnd();
+		//glEnd();
 		
-		glBegin(GL_QUAD_STRIP);	
+		//glBegin(GL_QUAD_STRIP);	
 		for (float i = newEndAngle +7*PI/16; i <= newEndAngle + PI ; i+= PI/16.0f) {
 			//glColor3f((i-(newEndAngle + PI/2.0))/PI/2.0, 0, 1-(i-(newEndAngle + PI/2.0))/PI/2.0);
 			glNormal3f(cos(i), sin(i), 0);
-			glVertex3f(circPos3.x + curveRadius*cos(i), circPos3.y + curveRadius*sin(i), height);
-			glVertex3f(circPos3.x + curveRadius*cos(i), circPos3.y + curveRadius*sin(i), 0);
+			//glVertex3f(circPos3.x + curveRadius*cos(i), circPos3.y + curveRadius*sin(i), height);
+			//glVertex3f(circPos3.x + curveRadius*cos(i), circPos3.y + curveRadius*sin(i), 0);
 		}
-		glEnd();
+		//glEnd();
 
+		//below is NOT ao
 		/*
 		glBegin(GL_QUAD_STRIP);	
 		for (float i = 0 ; i <= 2.0*PI ; i+= PI/4.0f) {
@@ -142,24 +143,25 @@ void ofxRoundedArcObject::render()
 		float angle = newStartAngle;
 		
 		//inner side
-		glBegin(GL_QUAD_STRIP);
+		//glBegin(GL_QUAD_STRIP);
 		
 		while(angle < newEndAngle){
 			glNormal3f(cos(angle+PI), sin(angle+PI), 0);			
-			glVertex3f(innerRadius * cos(angle), innerRadius * sin(angle), 0);
-			glVertex3f(innerRadius * cos(angle), innerRadius * sin(angle), height);
+			//glVertex3f(innerRadius * cos(angle), innerRadius * sin(angle), 0);
+			//glVertex3f(innerRadius * cos(angle), innerRadius * sin(angle), height);
 			
 			angle += angleInc;
 		}
 		//finish it
 		glNormal3f(cos(angle+PI), sin(angle+PI), 0);		
-		glVertex3f(innerRadius * cos(newEndAngle), innerRadius * sin(newEndAngle), 0);
-		glVertex3f(innerRadius * cos(newEndAngle), innerRadius * sin(newEndAngle), height);
-		glVertex3f(innerRadius * cos(newEndAngle+PI/360.0), innerRadius * sin(newEndAngle+PI/360.0), 0);
-		glVertex3f(innerRadius * cos(newEndAngle+PI/360.0), innerRadius * sin(newEndAngle+PI/360.0), height);
+		//glVertex3f(innerRadius * cos(newEndAngle), innerRadius * sin(newEndAngle), 0);
+		//glVertex3f(innerRadius * cos(newEndAngle), innerRadius * sin(newEndAngle), height);
+		//glVertex3f(innerRadius * cos(newEndAngle+PI/360.0), innerRadius * sin(newEndAngle+PI/360.0), 0);
+		//glVertex3f(innerRadius * cos(newEndAngle+PI/360.0), innerRadius * sin(newEndAngle+PI/360.0), height);
 		
-		glEnd();	
+		//glEnd();	
 		
+		//below is NOT ao
 		/*
 		//outer side
 		glBegin(GL_QUAD_STRIP);
@@ -195,63 +197,63 @@ void ofxRoundedArcObject::render()
 		glEnd();		
 		*/
 		//BEGINNING & END curved strips
-		glBegin(GL_QUAD_STRIP);
+		//glBegin(GL_QUAD_STRIP);
 	
 		//1st curved part of button
 		for (float i = 0 ; i <= PI/2.0f ; i+= PI/8.0f) {
 			glNormal3f(0,0,1);
 
-			//glColor3f(1,0,0);
-			glVertex3f(circPos1.x + curveRadius*cos(newStartAngle + PI + i), circPos1.y + curveRadius*sin(newStartAngle + PI + i), height);
-			//glColor3f(0,0,1);
-			glVertex3f(circPos2.x + curveRadius2*cos(newStartAngle - i), circPos2.y + curveRadius2*sin(newStartAngle - i), height);
+			//glColor3f(1,0,0); //not ao
+			//glVertex3f(circPos1.x + curveRadius*cos(newStartAngle + PI + i), circPos1.y + curveRadius*sin(newStartAngle + PI + i), height);
+			//glColor3f(0,0,1); //not ao
+			//glVertex3f(circPos2.x + curveRadius2*cos(newStartAngle - i), circPos2.y + curveRadius2*sin(newStartAngle - i), height);
 			
 		}
 		
-		glEnd();
+		//glEnd();
 		
-		glBegin(GL_QUAD_STRIP);
+		//glBegin(GL_QUAD_STRIP);
 		
 		//end curved part of button
 		for (float i = 0 ; i <= PI/2.0f ; i+= PI/8.0f) {
 			glNormal3f(0,0,1);
 
-			//glColor3f(0,1,0);
-			glVertex3f(circPos3.x + curveRadius*cos(newEndAngle + PI - i ), circPos3.y + curveRadius*sin(newEndAngle + PI - i), height);
-			//glColor3f(1,1,0);
-			glVertex3f(circPos4.x + curveRadius2*cos(newEndAngle + i), circPos4.y + curveRadius2*sin(newEndAngle + i), height);
+			//glColor3f(0,1,0); //not ao
+			//glVertex3f(circPos3.x + curveRadius*cos(newEndAngle + PI - i ), circPos3.y + curveRadius*sin(newEndAngle + PI - i), height);
+			//glColor3f(1,1,0); // not ao
+			//glVertex3f(circPos4.x + curveRadius2*cos(newEndAngle + i), circPos4.y + curveRadius2*sin(newEndAngle + i), height);
 			
 		}
 		
-		glEnd();
+		//glEnd();
 		
 		//main part of button
-		glBegin(GL_QUAD_STRIP);
+		//glBegin(GL_QUAD_STRIP);
 		//glColor4f(1,1,1,1);
 		angle = newStartAngle;
 		while(angle < newEndAngle){
 			glNormal3f(0,0,1);
 
-			glVertex3f(innerRadius * cos(angle), innerRadius * sin(angle), height);
-			glVertex3f(outerRadius * cos(angle), outerRadius * sin(angle), height);
+			//glVertex3f(innerRadius * cos(angle), innerRadius * sin(angle), height);
+			//glVertex3f(outerRadius * cos(angle), outerRadius * sin(angle), height);
 			
 			angle += angleInc;
 		}
 		//finish it
-		glVertex3f(innerRadius * cos(newEndAngle), innerRadius * sin(newEndAngle), height);
-		glVertex3f(outerRadius * cos(newEndAngle), outerRadius * sin(newEndAngle), height);
+		//glVertex3f(innerRadius * cos(newEndAngle), innerRadius * sin(newEndAngle), height);
+		//glVertex3f(outerRadius * cos(newEndAngle), outerRadius * sin(newEndAngle), height);
 		
-		glEnd();	
+		//glEnd();	
 
-		glEndList();
+		//glEndList();
 		
-		renderDirty = false;
+		//renderDirty = false;
 		
-	}	else {	
+	/*}	else {	
 		
 		glCallList(displayList);
 		
-	}
+	}*/
 	
 }
 

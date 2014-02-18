@@ -37,15 +37,18 @@ void ofxSosoRenderer::setupScreenPerspective(float width, float height, ofOrient
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	
-    if(orthographic) glOrtho(-width/2, width/2, -height/2, height/2, nearDist, farDist);
-    else gluPerspective(fov, aspect, nearDist, farDist);
+	//ao
+    //if(orthographic) glOrtho(-width/2, width/2, -height/2, height/2, nearDist, farDist);
+    //else gluPerspective(fov, aspect, nearDist, farDist);
     
-    
+    //not ao
 	//glMatrixMode(GL_MODELVIEW);       //from ofGLRenderer
 	//glLoadIdentity();                 //from ofGLRenderer
 	//gluLookAt(eyeX, eyeY, dist, eyeX, eyeY, 0, 0, 1, 0);  //from ofGLRenderer
     
-    gluLookAt(0, 0, dist, 0, 0, 0, 0, 1, 0);    
+
+	//ao
+    //gluLookAt(0, 0, dist, 0, 0, 0, 0, 1, 0);    
     glMatrixMode(GL_MODELVIEW);      
 	glLoadIdentity();                
     

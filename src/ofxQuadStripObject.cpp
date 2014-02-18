@@ -38,7 +38,8 @@ void ofxQuadStripObject::render()
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);	
-	glDrawArrays((drawMode == OF_FILLED) ? GL_QUAD_STRIP : GL_LINE_LOOP, 0, numVertices);
+	//glDrawArrays((drawMode == OF_FILLED) ? GL_QUAD_STRIP : GL_LINE_LOOP, 0, numVertices);
+	//AO ara
 
 	if(texture){
 		glDisableClientState( GL_TEXTURE_COORD_ARRAY );		

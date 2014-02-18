@@ -44,10 +44,10 @@ ofTexture ofxImageObject::getTexture()
 void ofxImageObject::render()
 {	
     //eg 070112 Added display lists.
-    if(renderDirty){
+    //if(renderDirty){
         
-        glDeleteLists(displayList, 1);
-        glNewList(displayList, GL_COMPILE_AND_EXECUTE);
+        //glDeleteLists(displayList, 1);
+        //glNewList(displayList, GL_COMPILE_AND_EXECUTE);
 
         //For when iLoadNow=false is used in constructor
         if(width==0 || height==0){
@@ -67,11 +67,11 @@ void ofxImageObject::render()
             ofPopMatrix();
         }
         
-        glEndList();
+     /*   glEndList();
         renderDirty = false;
     }else{
 		glCallList(displayList);
-    }
+    }*/
 }
 
 

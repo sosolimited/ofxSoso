@@ -21,26 +21,27 @@ ofxLineSegmentObject::~ofxLineSegmentObject(){
 
 void ofxLineSegmentObject::render()
 {
-    glEnable(GL_LINE_SMOOTH); 		
+    /*glEnable(GL_LINE_SMOOTH); 		
     glHint(GL_LINE_SMOOTH_HINT, smoothingHint);		
     
     glLineWidth(lineWidth);
     
-    if(isStipplingEnabled){
+    //AO
+    /*if(isStipplingEnabled){
         glLineStipple(stipplingFactor, stipplingPattern);
         glEnable(GL_LINE_STIPPLE);
-    }
-    else{
-        glDisable(GL_LINE_STIPPLE);
-    }
+    }*/
+   // else{
+       // glDisable(GL_LINE_STIPPLE);
+    //}
 
-	glBegin(GL_LINES);
+	/*glBegin(GL_LINES);
 	for(int i=0; i < vertices.size(); i++){
 		glVertex3f(vertices[i].x, vertices[i].y, vertices[i].z);
 	}
-	glEnd();
+	glEnd();*/
 
-    if(isStipplingEnabled) glDisable(GL_LINE_STIPPLE);
+    //if(isStipplingEnabled) glDisable(GL_LINE_STIPPLE);
 }
 
 

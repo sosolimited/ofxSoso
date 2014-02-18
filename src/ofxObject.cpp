@@ -56,7 +56,7 @@ ofxObject::ofxObject(){
 	renderDirty = true;
 	matrixDirty = true;
 	localMatrixDirty = true;
-	displayList = glGenLists(1);
+	//displayList = glGenLists(1);
 	displayListFlag = false;    
 	
 	isSortedObject = false;
@@ -287,8 +287,10 @@ void ofxObject::idleBase(float iTime)
 		children[i]->idleBase(iTime);
 
     // remove all marked children
-    for( ofxObject *child : children_to_remove ){
-        removeChild( child );
+   // for( ofxObject *child : children_to_remove ){
+   	for (int i=0; i < children_to_remove.size(); i++){ //AO change for android
+        //removeChild( child );
+   		removeChild(children_to_remove[i]);
     }
     children_to_remove.clear();
 
@@ -360,7 +362,7 @@ void ofxObject::draw(ofxObjectMaterial *iMaterial, float *iMatrix, int iSelect, 
 
 void ofxObject::predraw()
 {  
-	glPushName(id); 	
+	//glPushName(id); 	
 	
 	//ofSetColor(color.x, color.y, color.z, color.w);
 	ofSetColor(drawMaterial->color.x, drawMaterial->color.y, drawMaterial->color.z, drawMaterial->color.w);	//v4.0 
@@ -399,14 +401,14 @@ void ofxObject::predraw()
 
 void ofxObject::render()
 {
-    if(displayListFlag)
-        glCallList(displayList);
+    /*if(displayListFlag)
+        glCallList(displayList);*/
 }
 
 void ofxObject::postdraw()
 {
 	//ofPopMatrix();
-	glPopName(); 
+	//glPopName(); 
 }
 
 int ofxObject::collectNodes(int iSelect, ofxObject *iNodes[], int iNumber, int iMax)
@@ -459,16 +461,16 @@ ofVec3f ofxObject::getWindowCoords()
 	double		pM[16];
 
 	// this gets set once up top
-	glGetIntegerv(GL_VIEWPORT, v);		
+	//glGetIntegerv(GL_VIEWPORT, v);		
 	// this gets set once up top
-	glGetDoublev(GL_PROJECTION_MATRIX, pM);
+	//glGetDoublev(GL_PROJECTION_MATRIX, pM);
 
 	// grab the most recent version of the MODELVIEW matrix
-	glGetDoublev(GL_MODELVIEW_MATRIX, mM);
+	//glGetDoublev(GL_MODELVIEW_MATRIX, mM);
 	float *curMat = getMatrix();
 	for (int i=0; i < 16; i++) mM[i] = (double)curMat[i];
 	
-	gluProject(0, 0, 0, mM, pM, v, &wx, &wy, &wz);
+	//gluProject(0, 0, 0, mM, pM, v, &wx, &wy, &wz);
 	
 	return ofVec3f(wx, wy, wz);
 }

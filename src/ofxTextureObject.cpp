@@ -30,10 +30,10 @@ ofxTextureObject::ofxTextureObject(){
 void ofxTextureObject::render()
 {	
     //eg 070112 Added display lists.
-    if(renderDirty){
+    //if(renderDirty){
         
-        glDeleteLists(displayList, 1);
-        glNewList(displayList, GL_COMPILE_AND_EXECUTE);
+    //    glDeleteLists(displayList, 1);
+    //    glNewList(displayList, GL_COMPILE_AND_EXECUTE);
 
         //For when iLoadNow=false is used in constructor
         if(width==0 || height==0){
@@ -46,17 +46,17 @@ void ofxTextureObject::render()
             ofTranslate(-width/2, -height/2, 0);
         }
         
-        glNormal3f(0,0,1); 
+        //glNormal3f(0,0,1); 
         texture.draw(0,0);
         if(isCentered){
             ofPopMatrix();
         }
         
-        glEndList();
-        renderDirty = false;
-    }else{
+    //    glEndList();
+    //    renderDirty = false;
+    /*}else{
 		glCallList(displayList);
-    }
+    }*/
 }
 
 

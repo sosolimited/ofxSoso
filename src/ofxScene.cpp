@@ -255,7 +255,8 @@ void ofxScene::setRenderMode(int iMode)
 		enableDepthTest(true);
 	}else if(renderMode == RENDER_ALPHA_DEPTH_SORTED){
 		enableDepthTest(true);
-		sortedObjects = new (ofxObject (*[maxSortedObjects]));				
+		//sortedObjects = new (ofxObject (*[maxSortedObjects])); //ao
+		sortedObjects = new (ofxObject(*[10000]));			
 	}
 }
 
