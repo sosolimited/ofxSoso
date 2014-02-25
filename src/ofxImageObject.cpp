@@ -29,6 +29,30 @@ ofxImageObject::~ofxImageObject(){
         image.clear();
 }
 
+
+void ofxImageObject::loadImage(string iFilename){
+  
+  if (!loaded){
+    
+    loaded = image.loadImage(iFilename);
+    image.getTextureReference().texData.bFlipTexture = true;  //Get images right side up in soso world
+
+    width = image.getWidth();
+    height = image.getHeight();
+  
+  }else{
+    
+    image.clear();
+    loaded = image.loadImage(iFilename);
+    
+    image.getTextureReference().texData.bFlipTexture = true;  //Get images right side up in soso world
+    
+    width = image.getWidth();
+    height = image.getHeight();
+    
+  }
+}
+
 void ofxImageObject::enableTexture(bool iB)
 {
 	image.setUseTexture(iB);

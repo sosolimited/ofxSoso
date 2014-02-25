@@ -33,7 +33,8 @@ public:
 	
 	ofxImageObject(string iFilename, bool iLoadNow=true);
 	~ofxImageObject();
-	
+  
+	void            loadImage(string iFilename);
 	void						render();
 	void						setCentered(bool iEnable);
 	void						enableTexture(bool iB);
