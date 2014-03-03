@@ -20,8 +20,10 @@ ofxVideoPlayerObject::~ofxVideoPlayerObject(){
 void ofxVideoPlayerObject::idle(float iTime)
 {		
 	//if(isAutoIdling) player->idleMovie();
-    player->update();
+  player->update();
+  if (isPlaying) {
     player->play();
+  }
 }
 
 void ofxVideoPlayerObject::render()
@@ -51,11 +53,13 @@ void ofxVideoPlayerObject::render()
 
 void ofxVideoPlayerObject::start()
 {
+  isPlaying = true;
 	player->play();
 }
 
 void ofxVideoPlayerObject::stop()
 {
+  isPlaying = false;
 	player->stop();
 }
 
