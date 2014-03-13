@@ -175,7 +175,7 @@ ofxGridSystemArray ofxGridSystem::operator[](int iColumn)
   ofxGridSystemArray array;
   array.x = colX(iColumn);
   array.leading = leading;
-  array.height = height;
+  array.topY = topY;
   
   return array;
 }

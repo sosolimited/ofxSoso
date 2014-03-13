@@ -42,12 +42,12 @@ public:
     ~ofxGridSystemArray(){};
 
 public:
-    float height;
+    float topY;
     float leading;
     float x;
     ofVec3f operator[](int iIndex)
     {
-        return ofVec3f(x, height-(float)iIndex*leading, 0); 
+        return ofVec3f(x, topY-(float)iIndex*leading, 0);
     };  
 };
 
