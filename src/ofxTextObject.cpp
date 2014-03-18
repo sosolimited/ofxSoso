@@ -194,6 +194,15 @@ void ofxTextObject::setAlignment(TextObjectAlignment iAlignment)
 	wrapTextX(columnWidth);
 }
 
+int ofxTextObject::getAlignment()
+{
+	return alignment;
+  // LEFT = 0
+  // RIGHT = 1
+  // JUST = 2
+  // CENTER = 3
+}
+
 //iLeading is in pixels
 //NOTE we are ignoring lineHeight in font because we're doing all the line formatting ourselves
 void ofxTextObject::setLeading(float iLeading)
