@@ -37,6 +37,7 @@ public:
 	void						render();
 
 	void						start();
+  void            pause();
 	void						stop();
 	void						setCentered(bool iEnable);
 	void						reset();

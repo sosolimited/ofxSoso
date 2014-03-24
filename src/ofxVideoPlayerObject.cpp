@@ -2,7 +2,6 @@
 
 ofxVideoPlayerObject::ofxVideoPlayerObject(char *iPath)
 {
-    //player = new ofVideoPlayer();
     player = new ofxAVFVideoPlayer();
     
     player->loadMovie(iPath);
@@ -55,6 +54,12 @@ void ofxVideoPlayerObject::start()
 {
   isPlaying = true;
 	player->play();
+}
+
+void ofxVideoPlayerObject::pause()
+{
+  isPlaying = false;
+	player->setPaused(true);
 }
 
 void ofxVideoPlayerObject::stop()
