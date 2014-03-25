@@ -1222,6 +1222,17 @@ int ofxObject::isDescendant(ofxObject *iObject)
 
 }
 
+// Convenience method for selection.
+// Checks if an object's id is among a vector of IDs.
+bool ofxObject::isObjectID(vector<GLuint> iIDs)
+{
+  for(int i=0; i < iIDs.size(); i++){
+    if(iIDs[i] == id)
+      return true;
+  }
+  return false;
+}
+
 void ofxObject::setDisplayList(GLuint iList)
 {
     displayList = iList;

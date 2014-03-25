@@ -97,6 +97,8 @@ class ofxObject{
 	virtual void					setAlpha(float iA);		//v4.0 virtual for text object
 	bool							hasTransparency();
 	void							setSpecialTransparency(bool iFlag);
+  
+  void              setRenderOnTop(bool iSet) { renderOntop = iSet; }
 	
 	float*							getMatrix();
 	float*							getLocalMatrix();
@@ -120,6 +122,7 @@ class ofxObject{
 	bool							isAnimating();
 	void							setLighting(bool iOnOff);
 	
+  bool              isObjectID(vector<GLuint> iIDs);
 
 	//void							cleanupMessages();	//replaced by deleteMessage below
 	void							updateMessages();

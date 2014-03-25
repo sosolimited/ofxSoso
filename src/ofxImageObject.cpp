@@ -12,33 +12,78 @@
 
 ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
 {
+  
 	filename = iFilename;
 	if(iLoadNow){
-		loaded = image.loadImage(iFilename);
-        image.getTextureReference().texData.bFlipTexture = true;  //Get images right side up in soso world     
-	}
-	width = image.getWidth();
-	height = image.getHeight();
+    image = new ofImage();
+		loaded = image->loadImage(iFilename);
+        image->getTextureReference().texData.bFlipTexture = true;  //Get images right side up in soso world
+	}else{
+    
+    image = NULL;
+    
+  }
+  
+  if (image){
+    width = image->getWidth();
+    height = image->getHeight();
+    
+  }else{
+    
+    width = 0;
+    height = 0;
+    
+  }
+  
 	isCentered = false;
 	
     renderDirty = true; //eg 070112
 }
 
 ofxImageObject::~ofxImageObject(){
-    if (loaded)
-        image.clear();
+  
+  if (image)
+    delete image;
+}
+
+
+void ofxImageObject::loadImage(string iFilename){
+  
+  if (image==NULL){
+    
+    image = new ofImage();
+    
+  }
+  
+  if (loaded){
+    
+    delete image;
+    
+    //remake
+    image = new ofImage();
+ 
+  }
+  
+  loaded = image->loadImage(iFilename);
+  image->getTextureReference().texData.bFlipTexture = true;  //Get images right side up in soso world
+  
+  width = image->getWidth();
+  height = image->getHeight();
 }
 
 void ofxImageObject::enableTexture(bool iB)
 {
-	image.setUseTexture(iB);
+  if (image){
+    image->setUseTexture(iB);
     renderDirty = true;
+  }
 }
 
 //EG 021513
 ofTexture ofxImageObject::getTexture()
 {
-    return image.getTextureReference();
+  
+    return image->getTextureReference();
 }
 
 void ofxImageObject::render()
@@ -51,8 +96,16 @@ void ofxImageObject::render()
 
         //For when iLoadNow=false is used in constructor
         if(width==0 || height==0){
-            width = image.getWidth();
-            height = image.getHeight();
+          
+          if (image){
+            width = image->getWidth();
+            height = image->getHeight();
+          }else{
+            
+            width = 0;
+            height = 0;
+            
+          }
         }
         
         if(isCentered){
@@ -60,8 +113,10 @@ void ofxImageObject::render()
             ofTranslate(-width/2, -height/2, 0);
         }
         
-        glNormal3f(0,0,1); 
-        image.draw(0,0);
+        glNormal3f(0,0,1);
+      
+        if (image)
+          image->draw(0,0);
         
         if(isCentered){
             ofPopMatrix();
@@ -85,7 +140,8 @@ void ofxImageObject::setCentered(bool iEnable)
 void ofxImageObject::clear()
 {
     if (loaded) {
-        image.clear();
+        if (image)
+          image->clear();
         loaded = false;
     }
     renderDirty = true;

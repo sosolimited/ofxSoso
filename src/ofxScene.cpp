@@ -51,6 +51,10 @@ ofxScene::ofxScene(int w, int h)
 	sortedObjects = NULL;	
 	//default max number of sorted objects
 	maxSortedObjects = 10000;
+  
+  onTopObjects = NULL;
+	maxOnTopObjects = 100;
+
 		
 	centerOffset.set(sceneWidth/2.0f, sceneHeight/2.0f, 0);
 
@@ -166,7 +170,25 @@ void ofxScene::draw()
 		drawAlphaDepth();
 	else if(renderMode == RENDER_ALPHA_DEPTH_SORTED)
 		drawAlphaDepthSorted();
-
+  
+  // Handle on top drawing objects.
+  if (onTopDrawingEnabled) {
+    // Grab objects that have mDrawOnTop set to true.
+    int size = root->collectNodes(OF_RENDER_ONTOP, onTopObjects, 0, maxOnTopObjects);
+  
+    glDisable(GL_DEPTH_TEST);
+    
+    // Draw them.
+    for (int i=0; i < size; i++){
+      ofxObject *obj = onTopObjects[i];
+      obj->draw(defaultMaterial, defaultMatrix, OF_RENDER_ALL, true);
+    }
+    // Reset depth test if it's supposed to be true.
+    if (isDepthTestOn){
+      glEnable(GL_DEPTH_TEST);
+    }						
+  }
+  
 	glPopMatrix();
 	
 	if(isScissorOn)
@@ -266,6 +288,30 @@ void ofxScene::setMaxSortedObjects(int iMax)
 	setRenderMode(renderMode);
 }
 
+void ofxScene::setMaxOnTopObjects(int iMax)
+{
+	maxOnTopObjects = iMax;
+  
+	enableOnTopDrawing(onTopDrawingEnabled);
+}
+
+
+void ofxScene::enableOnTopDrawing(bool iEnable)
+{
+	// Delete the old array. Both when disabling the mode, or resizing the mOntopObjects array.
+	if (onTopObjects != NULL) {
+		delete onTopObjects;
+		onTopObjects = NULL;
+	}
+  
+	onTopDrawingEnabled = iEnable;
+  
+	// Since we deleted the array above, we will always allocate the new array, if the mode is on.
+	if (onTopDrawingEnabled) {
+		onTopObjects = new (ofxObject (*[maxOnTopObjects]));
+	}
+}
+
 void ofxScene::enableDepthTest(bool iEnable)
 {
 	isDepthTestOn = iEnable;
@@ -321,4 +367,6 @@ int ofxScene::getSceneHeight()
 {
 	return sceneHeight;
 }
+
+
 

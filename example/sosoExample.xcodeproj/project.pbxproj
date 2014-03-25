@@ -12,6 +12,9 @@
 		E009115F16B31E360040329E /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E009115E16B31E360040329E /* CoreVideo.framework */; };
 		E009116116B31EF30040329E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E009116016B31EF30040329E /* Accelerate.framework */; };
 		E034CFC615505F41007091C2 /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E034CFC415505F41007091C2 /* testApp.cpp */; };
+		E0B2912D17FA06B100344F70 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B2912C17FA06B100344F70 /* AVFoundation.framework */; };
+		E0B2912F17FA06B900344F70 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B2912E17FA06B900344F70 /* CoreMedia.framework */; };
+		E0B2913117FA06C100344F70 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B2913017FA06C100344F70 /* QuartzCore.framework */; };
 		E0F856F9154729DB00896B77 /* ofxAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0F856D3154729DB00896B77 /* ofxAnimation.cpp */; };
 		E0F856FA154729DB00896B77 /* ofxArcObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0F856D5154729DB00896B77 /* ofxArcObject.cpp */; };
 		E0F856FB154729DB00896B77 /* ofxCircleObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0F856D7154729DB00896B77 /* ofxCircleObject.cpp */; };
@@ -87,6 +90,13 @@
 		E009116016B31EF30040329E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		E034CFC415505F41007091C2 /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testApp.cpp; sourceTree = "<group>"; };
 		E034CFC515505F41007091C2 /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testApp.h; sourceTree = "<group>"; };
+		E0B2912817FA046300344F70 /* ofxAVFVideoPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxAVFVideoPlayer.h; sourceTree = "<group>"; };
+		E0B2912917FA046300344F70 /* ofxAVFVideoPlayer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxAVFVideoPlayer.mm; sourceTree = "<group>"; };
+		E0B2912A17FA046300344F70 /* ofxAVFVideoRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxAVFVideoRenderer.h; sourceTree = "<group>"; };
+		E0B2912B17FA046300344F70 /* ofxAVFVideoRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ofxAVFVideoRenderer.m; sourceTree = "<group>"; };
+		E0B2912C17FA06B100344F70 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		E0B2912E17FA06B900344F70 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		E0B2913017FA06C100344F70 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E0F856D3154729DB00896B77 /* ofxAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAnimation.cpp; sourceTree = "<group>"; };
 		E0F856D4154729DB00896B77 /* ofxAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAnimation.h; sourceTree = "<group>"; };
 		E0F856D5154729DB00896B77 /* ofxArcObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxArcObject.cpp; sourceTree = "<group>"; };
@@ -154,6 +164,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0B2913117FA06C100344F70 /* QuartzCore.framework in Frameworks */,
+				E0B2912F17FA06B900344F70 /* CoreMedia.framework in Frameworks */,
+				E0B2912D17FA06B100344F70 /* AVFoundation.framework in Frameworks */,
 				E009116116B31EF30040329E /* Accelerate.framework in Frameworks */,
 				E009115D16B31D6F0040329E /* QTKit.framework in Frameworks */,
 				E009115F16B31E360040329E /* CoreVideo.framework in Frameworks */,
@@ -180,6 +193,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				E0B2912017FA046300344F70 /* ofxAVFVideoPlayer */,
 				E0F856D1154729DB00896B77 /* ofxSoso */,
 			);
 			name = addons;
@@ -210,6 +224,26 @@
 				BBAB23BE13894E4700AA2426 /* GLUT.framework */,
 			);
 			name = "3rd party frameworks";
+			sourceTree = "<group>";
+		};
+		E0B2912017FA046300344F70 /* ofxAVFVideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				E0B2912717FA046300344F70 /* src */,
+			);
+			name = ofxAVFVideoPlayer;
+			path = ../../ofxAVFVideoPlayer;
+			sourceTree = "<group>";
+		};
+		E0B2912717FA046300344F70 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				E0B2912817FA046300344F70 /* ofxAVFVideoPlayer.h */,
+				E0B2912917FA046300344F70 /* ofxAVFVideoPlayer.mm */,
+				E0B2912A17FA046300344F70 /* ofxAVFVideoRenderer.h */,
+				E0B2912B17FA046300344F70 /* ofxAVFVideoRenderer.m */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		E0F856D1154729DB00896B77 /* ofxSoso */ = {
@@ -290,6 +324,9 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				E0B2913017FA06C100344F70 /* QuartzCore.framework */,
+				E0B2912E17FA06B900344F70 /* CoreMedia.framework */,
+				E0B2912C17FA06B100344F70 /* AVFoundation.framework */,
 				E009116016B31EF30040329E /* Accelerate.framework */,
 				E009115E16B31E360040329E /* CoreVideo.framework */,
 				E009115C16B31D6F0040329E /* QTKit.framework */,
@@ -349,6 +386,8 @@
 /* Begin PBXProject section */
 		E4B69B4C0A3A1720003C02F2 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "sosoExample" */;
 			compatibilityVersion = "Xcode 2.4";
 			developmentRegion = English;
@@ -463,11 +502,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
 				);
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx10.8;
 			};
 			name = Debug;
 		};
@@ -493,11 +533,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
 				);
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx10.8;
 			};
 			name = Release;
 		};
@@ -582,9 +623,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx10.8;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -669,9 +711,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx10.8;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

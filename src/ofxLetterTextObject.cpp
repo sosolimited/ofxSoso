@@ -48,7 +48,16 @@ ofxLetterTextObject::ofxLetterTextObject(ofxSosoTrueTypeFont *iFont, char *iStri
 	rebuildLetters();
 }
 
-ofxLetterTextObject::~ofxLetterTextObject(){}
+ofxLetterTextObject::~ofxLetterTextObject(){
+
+    for ( int i = 0; i < letters.size(); i++ )
+    {
+        delete letters[i];
+    }
+    
+    letters.clear();
+    
+}
 
 
 
@@ -56,7 +65,7 @@ void ofxLetterTextObject::cleanupLetters()
 {
 	for(unsigned int i=0; i < letters.size(); i++){
 		removeChild(letters[i]);
-		delete(letters[i]);
+		delete(letters[i]); 
 	}
 	letters.clear();
 	

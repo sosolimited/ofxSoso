@@ -1,5 +1,24 @@
-
 .DS_Store
 example/bin/sosoExampleAppDebug.app/*
 example/bin/sosoExampleApp.app/*
 
+#Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+
+# Compiled Static libraries
+*.lai
+*.la
+#*.a
+
+#Compiled apps
+*.app
+*.xcuserstate
+*.DS_store
+
+*.xcodeproj/xcuserdata/*.xcuserdatad
+*.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad

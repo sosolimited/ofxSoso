@@ -37,19 +37,22 @@ public:
 	void						render();
 
 	void						start();
+  void            pause();
 	void						stop();
 	void						setCentered(bool iEnable);
 	void						reset();
 
-    void                        useShaders(string vert, string frag);
+  void            useShaders(string vert, string frag);
 
 public:
-    //ofVideoPlayer				*player;
-    ofxAVFVideoPlayer           *player;
+  ofxAVFVideoPlayer *player;
 	bool						isCentered;
 	bool						isAutoIdling;
     
-    ofShader                    *mShader = 0;
+  ofShader        *mShader = 0;
+  
+  
+  bool            isPlaying = false;
     
 
 };

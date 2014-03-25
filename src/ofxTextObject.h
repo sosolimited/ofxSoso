@@ -116,7 +116,8 @@ public:
 	virtual void					setColumnBox(float iWidth, float iHeight);
 	virtual void					setAlignment(TextObjectAlignment iAlignment);
 
-	float							getWidth();
+	int            getAlignment();
+  float							getWidth();
     float                           getHeight();
 	float							getColumnWidth();
     
