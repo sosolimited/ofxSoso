@@ -24,8 +24,17 @@ ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
     
   }
   
-	width = image->getWidth();
-	height = image->getHeight();
+  if (image){
+    width = image->getWidth();
+    height = image->getHeight();
+    
+  }else{
+    
+    width = 0;
+    height = 0;
+    
+  }
+  
 	isCentered = false;
 	
     renderDirty = true; //eg 070112
@@ -64,13 +73,16 @@ void ofxImageObject::loadImage(string iFilename){
 
 void ofxImageObject::enableTexture(bool iB)
 {
-	image->setUseTexture(iB);
+  if (image){
+    image->setUseTexture(iB);
     renderDirty = true;
+  }
 }
 
 //EG 021513
 ofTexture ofxImageObject::getTexture()
 {
+  
     return image->getTextureReference();
 }
 
@@ -84,8 +96,16 @@ void ofxImageObject::render()
 
         //For when iLoadNow=false is used in constructor
         if(width==0 || height==0){
+          
+          if (image){
             width = image->getWidth();
             height = image->getHeight();
+          }else{
+            
+            width = 0;
+            height = 0;
+            
+          }
         }
         
         if(isCentered){
@@ -93,8 +113,10 @@ void ofxImageObject::render()
             ofTranslate(-width/2, -height/2, 0);
         }
         
-        glNormal3f(0,0,1); 
-        image->draw(0,0);
+        glNormal3f(0,0,1);
+      
+        if (image)
+          image->draw(0,0);
         
         if(isCentered){
             ofPopMatrix();
@@ -118,7 +140,8 @@ void ofxImageObject::setCentered(bool iEnable)
 void ofxImageObject::clear()
 {
     if (loaded) {
-        image->clear();
+        if (image)
+          image->clear();
         loaded = false;
     }
     renderDirty = true;
