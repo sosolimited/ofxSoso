@@ -43,10 +43,10 @@ public:
     ofTexture                   getTexture();   //EG 021513
 	
 public:
-	ofImage						image;
-	bool						isCentered;
-	float						width,
-								height;
+	ofImage						*image;
+	bool              isCentered;
+	float             width,
+                    height;
     
     bool                        loaded;
     
