@@ -37,6 +37,7 @@ public:
 	void					render();
 		
 	void					setTexture(ofImage *iTex);
+  void          setTextureByReference(ofTexture &iTex);
 	virtual void			setVertexPos(int iVertexNum, ofVec3f iPos);
 	virtual void			setVertexTexCoords(int iVertexNum, float iU, float iV);
 	virtual void			setVertexColor(int iVertexNum, float iR, float iG, float iB, float iA=255);

@@ -120,6 +120,10 @@ void ofxPolygonObject::setTexture(ofImage *iTex)
 	texture = &iTex->getTextureReference();	
 }
 
+void ofxPolygonObject::setTextureByReference(ofTexture &iTex) {
+  texture = &iTex;
+}
+
 void ofxPolygonObject::enableVertexColoring(bool iEnable)
 {
 	vertexColoringEnabled = iEnable;
