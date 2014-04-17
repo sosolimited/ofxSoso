@@ -715,7 +715,8 @@ void ofxSosoTrueTypeFont::buildMappedChars()
 		mappedChars.push_back(new ofxSosoMappedChar(0x9C, 0x25E6, "&#x25e6;", 0xE2, 0x97, 0xA6));	//white bullet
 		mappedChars.push_back(new ofxSosoMappedChar(0x9D, 0xFB01, "&#xfb01;", 0xEF, 0xAC, 0x81));	//latin small ligature fi
 		mappedChars.push_back(new ofxSosoMappedChar(0x9E, 0xFB02, "&#xfb02;", 0xEF, 0xAC, 0x82));	//latin small ligature fl
-		
+		mappedChars.push_back(new ofxSosoMappedChar(0xA6, 0x2212, "&minus;", 0xE2, 0x88, 0x92));  //for SEOptimist font: subtract / (U+2212)
+    
 		areMappedCharsBuilt = true;
 	}
 }
