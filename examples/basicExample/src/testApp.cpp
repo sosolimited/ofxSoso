@@ -1,8 +1,8 @@
-#include "scrollerApp.h"
+#include "testApp.h"
 
 
 //--------------------------------------------------------------
-void scrollerApp::setup(){
+void testApp::setup(){
   
   //Replace the default ofGLRenderer with ofxSosoRenderer which has overriden setupScreen() and setupScreenPerspective().
 	//This lets us set up the scene graph how we want to.
@@ -199,7 +199,7 @@ void scrollerApp::setup(){
 }
 
 //--------------------------------------------------------------
-void scrollerApp::update(){
+void testApp::update(){
   
 	//Update the scene with the current time. This call propagates the idle() call to all objects as well.
 	//Note: If you are capturing frames to create a movie, simply replace ofGetElapsedTimef() with a float variable that you increment by a fixed time interval each frame.
@@ -207,14 +207,14 @@ void scrollerApp::update(){
 }
 
 //--------------------------------------------------------------
-void scrollerApp::draw(){
+void testApp::draw(){
   
 	//Call draw on scene, which initiates the drawing of the root object.
   scene->draw();
 }
 
 //--------------------------------------------------------------
-void scrollerApp::keyPressed  (int key){
+void testApp::keyPressed  (int key){
   
 	//Animate the circles using messages.
   if(key == 'a'){
@@ -305,45 +305,45 @@ void scrollerApp::keyPressed  (int key){
 }
 
 //--------------------------------------------------------------
-void scrollerApp::keyReleased(int key){
+void testApp::keyReleased(int key){
   
 }
 
 //--------------------------------------------------------------
-void scrollerApp::mouseMoved(int x, int y ){
+void testApp::mouseMoved(int x, int y ){
   
 }
 
 //--------------------------------------------------------------
-void scrollerApp::mouseDragged(int x, int y, int button){
+void testApp::mouseDragged(int x, int y, int button){
   
   
 }
 
 //--------------------------------------------------------------
-void scrollerApp::mousePressed(int x, int y, int button){
+void testApp::mousePressed(int x, int y, int button){
   
 }
 
 //--------------------------------------------------------------
-void scrollerApp::mouseReleased(int x, int y, int button){
+void testApp::mouseReleased(int x, int y, int button){
   
   
 }
 
 
 //--------------------------------------------------------------
-void scrollerApp::windowResized(int w, int h){
+void testApp::windowResized(int w, int h){
   
 }
 
 //--------------------------------------------------------------
-void scrollerApp::gotMessage(ofMessage msg){
+void testApp::gotMessage(ofMessage msg){
   
 }
 
 //--------------------------------------------------------------
-void scrollerApp::dragEvent(ofDragInfo dragInfo){ 
+void testApp::dragEvent(ofDragInfo dragInfo){ 
   
 }
 

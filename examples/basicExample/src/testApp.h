@@ -13,7 +13,7 @@
 #include "ofxLineSegmentObject.h"
 #include "ofxDynamicPolygonObject.h"
 
-class scrollerApp : public ofBaseApp{
+class testApp : public ofBaseApp{
   
 public:
   
