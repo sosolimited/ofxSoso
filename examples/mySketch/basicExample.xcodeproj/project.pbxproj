@@ -88,50 +88,50 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		02F94DB9B28278CE52047F76 /* ofxCircleObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxCircleObject.h; path = ../../../../addons/ofxSoso/src/ofxCircleObject.h; sourceTree = SOURCE_ROOT; };
-		18CEFEAF8B9335458C193C11 /* ofxQuadStripObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxQuadStripObject.cpp; path = ../../../../addons/ofxSoso/src/ofxQuadStripObject.cpp; sourceTree = SOURCE_ROOT; };
-		25C6BC72FF8D6754CAE83DC8 /* ofxImageObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxImageObject.cpp; path = ../../../../addons/ofxSoso/src/ofxImageObject.cpp; sourceTree = SOURCE_ROOT; };
-		29B19B68B883EFAA5140D626 /* ofxTextureObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxTextureObject.cpp; path = ../../../../addons/ofxSoso/src/ofxTextureObject.cpp; sourceTree = SOURCE_ROOT; };
-		3003CCBCA991B6E46E7F0FD7 /* ofxGridSystem.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxGridSystem.cpp; path = ../../../../addons/ofxSoso/src/ofxGridSystem.cpp; sourceTree = SOURCE_ROOT; };
-		3029396B5BD1BBF563E24BC8 /* ofxMessage.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMessage.h; path = ../../../../addons/ofxSoso/src/ofxMessage.h; sourceTree = SOURCE_ROOT; };
-		333D27F42B35870AD4856F29 /* ofxImageObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxImageObject.h; path = ../../../../addons/ofxSoso/src/ofxImageObject.h; sourceTree = SOURCE_ROOT; };
-		336D68991F3451CD6636E4E6 /* ofxCircleObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCircleObject.cpp; path = ../../../../addons/ofxSoso/src/ofxCircleObject.cpp; sourceTree = SOURCE_ROOT; };
-		3673633BED9422023D2A8C4A /* ofxLineSegmentObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLineSegmentObject.h; path = ../../../../addons/ofxSoso/src/ofxLineSegmentObject.h; sourceTree = SOURCE_ROOT; };
-		3D2F0AE2706DC664D2301724 /* ofxRectangleObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxRectangleObject.h; path = ../../../../addons/ofxSoso/src/ofxRectangleObject.h; sourceTree = SOURCE_ROOT; };
-		402CD85B7C6B2EBB86EC8EA6 /* ofxAnimation.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxAnimation.h; path = ../../../../addons/ofxSoso/src/ofxAnimation.h; sourceTree = SOURCE_ROOT; };
-		41C4BA011B579A81F3EC2040 /* ofxVideoPlayerObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxVideoPlayerObject.h; path = ../../../../addons/ofxSoso/src/ofxVideoPlayerObject.h; sourceTree = SOURCE_ROOT; };
-		4825CD361E293C6C1AF9D132 /* ofxObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxObject.h; path = ../../../../addons/ofxSoso/src/ofxObject.h; sourceTree = SOURCE_ROOT; };
-		4B3C08DA1472903A091C3A21 /* ofxLineStripObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLineStripObject.cpp; path = ../../../../addons/ofxSoso/src/ofxLineStripObject.cpp; sourceTree = SOURCE_ROOT; };
-		4DCE4BD20B32A57DEF82B9CD /* ofxDynamicPolygonObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDynamicPolygonObject.h; path = ../../../../addons/ofxSoso/src/ofxDynamicPolygonObject.h; sourceTree = SOURCE_ROOT; };
-		536F3A8A15213856925229E3 /* ofxPolygonObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxPolygonObject.h; path = ../../../../addons/ofxSoso/src/ofxPolygonObject.h; sourceTree = SOURCE_ROOT; };
-		5904011353731E304979B098 /* ofxRoundedArcObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxRoundedArcObject.h; path = ../../../../addons/ofxSoso/src/ofxRoundedArcObject.h; sourceTree = SOURCE_ROOT; };
-		5A2A550BBA1D447BD4E6CCB6 /* ofxStateMachine.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxStateMachine.cpp; path = ../../../../addons/ofxSoso/src/ofxStateMachine.cpp; sourceTree = SOURCE_ROOT; };
-		5D3F29FC09C4EA522DC3D8EB /* ofxLineStripObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLineStripObject.h; path = ../../../../addons/ofxSoso/src/ofxLineStripObject.h; sourceTree = SOURCE_ROOT; };
-		679F7BED948E70EC1050C870 /* ofxTextObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxTextObject.h; path = ../../../../addons/ofxSoso/src/ofxTextObject.h; sourceTree = SOURCE_ROOT; };
-		71476C1B02BAEFF003D83DFB /* ofxLineSegmentObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLineSegmentObject.cpp; path = ../../../../addons/ofxSoso/src/ofxLineSegmentObject.cpp; sourceTree = SOURCE_ROOT; };
-		75499A595561C0C909A47EAF /* ofxDynamicPolygonObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxDynamicPolygonObject.cpp; path = ../../../../addons/ofxSoso/src/ofxDynamicPolygonObject.cpp; sourceTree = SOURCE_ROOT; };
-		773AE73291FA8EF122C30BA1 /* ofxRoundedArcObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxRoundedArcObject.cpp; path = ../../../../addons/ofxSoso/src/ofxRoundedArcObject.cpp; sourceTree = SOURCE_ROOT; };
-		80897F89549F3B92332DE157 /* ofxSosoTrueTypeFont.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSosoTrueTypeFont.cpp; path = ../../../../addons/ofxSoso/src/ofxSosoTrueTypeFont.cpp; sourceTree = SOURCE_ROOT; };
-		88FB5C3CC3C4C7DA62C30A11 /* ofxSosoRenderer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSosoRenderer.cpp; path = ../../../../addons/ofxSoso/src/ofxSosoRenderer.cpp; sourceTree = SOURCE_ROOT; };
-		8E39832BF22B1708A135AEAF /* ofxArcObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxArcObject.h; path = ../../../../addons/ofxSoso/src/ofxArcObject.h; sourceTree = SOURCE_ROOT; };
-		910A9C041F0490A0B7776A85 /* ofxSosoRenderer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSosoRenderer.h; path = ../../../../addons/ofxSoso/src/ofxSosoRenderer.h; sourceTree = SOURCE_ROOT; };
-		944B8C76739E9A48F55A3D87 /* ofxPolygonObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxPolygonObject.cpp; path = ../../../../addons/ofxSoso/src/ofxPolygonObject.cpp; sourceTree = SOURCE_ROOT; };
-		974CD16737E412FEE81C675A /* ofxRectangleObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxRectangleObject.cpp; path = ../../../../addons/ofxSoso/src/ofxRectangleObject.cpp; sourceTree = SOURCE_ROOT; };
-		9A138A95E6FB9D2D00C7E40D /* ofxGridSystem.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGridSystem.h; path = ../../../../addons/ofxSoso/src/ofxGridSystem.h; sourceTree = SOURCE_ROOT; };
-		A1629FBCD3B4615F4A2976C9 /* ofxArcObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxArcObject.cpp; path = ../../../../addons/ofxSoso/src/ofxArcObject.cpp; sourceTree = SOURCE_ROOT; };
-		A8016EB18DD789148E47434C /* ofxStateMachine.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxStateMachine.h; path = ../../../../addons/ofxSoso/src/ofxStateMachine.h; sourceTree = SOURCE_ROOT; };
-		AB06B672C13EB14F66B3590C /* ofxFboObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxFboObject.h; path = ../../../../addons/ofxSoso/src/ofxFboObject.h; sourceTree = SOURCE_ROOT; };
-		AB6E485E84FD9B1F5148E381 /* ofxScene.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxScene.h; path = ../../../../addons/ofxSoso/src/ofxScene.h; sourceTree = SOURCE_ROOT; };
-		ACA28868A409168B17A704D5 /* ofxMessage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMessage.cpp; path = ../../../../addons/ofxSoso/src/ofxMessage.cpp; sourceTree = SOURCE_ROOT; };
+		02F94DB9B28278CE52047F76 /* ofxCircleObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxCircleObject.h; path = ../../src/ofxCircleObject.h; sourceTree = SOURCE_ROOT; };
+		18CEFEAF8B9335458C193C11 /* ofxQuadStripObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxQuadStripObject.cpp; path = ../../src/ofxQuadStripObject.cpp; sourceTree = SOURCE_ROOT; };
+		25C6BC72FF8D6754CAE83DC8 /* ofxImageObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxImageObject.cpp; path = ../../src/ofxImageObject.cpp; sourceTree = SOURCE_ROOT; };
+		29B19B68B883EFAA5140D626 /* ofxTextureObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxTextureObject.cpp; path = ../../src/ofxTextureObject.cpp; sourceTree = SOURCE_ROOT; };
+		3003CCBCA991B6E46E7F0FD7 /* ofxGridSystem.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxGridSystem.cpp; path = ../../src/ofxGridSystem.cpp; sourceTree = SOURCE_ROOT; };
+		3029396B5BD1BBF563E24BC8 /* ofxMessage.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMessage.h; path = ../../src/ofxMessage.h; sourceTree = SOURCE_ROOT; };
+		333D27F42B35870AD4856F29 /* ofxImageObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxImageObject.h; path = ../../src/ofxImageObject.h; sourceTree = SOURCE_ROOT; };
+		336D68991F3451CD6636E4E6 /* ofxCircleObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCircleObject.cpp; path = ../../src/ofxCircleObject.cpp; sourceTree = SOURCE_ROOT; };
+		3673633BED9422023D2A8C4A /* ofxLineSegmentObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLineSegmentObject.h; path = ../../src/ofxLineSegmentObject.h; sourceTree = SOURCE_ROOT; };
+		3D2F0AE2706DC664D2301724 /* ofxRectangleObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxRectangleObject.h; path = ../../src/ofxRectangleObject.h; sourceTree = SOURCE_ROOT; };
+		402CD85B7C6B2EBB86EC8EA6 /* ofxAnimation.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxAnimation.h; path = ../../src/ofxAnimation.h; sourceTree = SOURCE_ROOT; };
+		41C4BA011B579A81F3EC2040 /* ofxVideoPlayerObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxVideoPlayerObject.h; path = ../../src/ofxVideoPlayerObject.h; sourceTree = SOURCE_ROOT; };
+		4825CD361E293C6C1AF9D132 /* ofxObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxObject.h; path = ../../src/ofxObject.h; sourceTree = SOURCE_ROOT; };
+		4B3C08DA1472903A091C3A21 /* ofxLineStripObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLineStripObject.cpp; path = ../../src/ofxLineStripObject.cpp; sourceTree = SOURCE_ROOT; };
+		4DCE4BD20B32A57DEF82B9CD /* ofxDynamicPolygonObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDynamicPolygonObject.h; path = ../../src/ofxDynamicPolygonObject.h; sourceTree = SOURCE_ROOT; };
+		536F3A8A15213856925229E3 /* ofxPolygonObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxPolygonObject.h; path = ../../src/ofxPolygonObject.h; sourceTree = SOURCE_ROOT; };
+		5904011353731E304979B098 /* ofxRoundedArcObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxRoundedArcObject.h; path = ../../src/ofxRoundedArcObject.h; sourceTree = SOURCE_ROOT; };
+		5A2A550BBA1D447BD4E6CCB6 /* ofxStateMachine.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxStateMachine.cpp; path = ../../src/ofxStateMachine.cpp; sourceTree = SOURCE_ROOT; };
+		5D3F29FC09C4EA522DC3D8EB /* ofxLineStripObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLineStripObject.h; path = ../../src/ofxLineStripObject.h; sourceTree = SOURCE_ROOT; };
+		679F7BED948E70EC1050C870 /* ofxTextObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxTextObject.h; path = ../../src/ofxTextObject.h; sourceTree = SOURCE_ROOT; };
+		71476C1B02BAEFF003D83DFB /* ofxLineSegmentObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLineSegmentObject.cpp; path = ../../src/ofxLineSegmentObject.cpp; sourceTree = SOURCE_ROOT; };
+		75499A595561C0C909A47EAF /* ofxDynamicPolygonObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxDynamicPolygonObject.cpp; path = ../../src/ofxDynamicPolygonObject.cpp; sourceTree = SOURCE_ROOT; };
+		773AE73291FA8EF122C30BA1 /* ofxRoundedArcObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxRoundedArcObject.cpp; path = ../../src/ofxRoundedArcObject.cpp; sourceTree = SOURCE_ROOT; };
+		80897F89549F3B92332DE157 /* ofxSosoTrueTypeFont.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSosoTrueTypeFont.cpp; path = ../../src/ofxSosoTrueTypeFont.cpp; sourceTree = SOURCE_ROOT; };
+		88FB5C3CC3C4C7DA62C30A11 /* ofxSosoRenderer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSosoRenderer.cpp; path = ../../src/ofxSosoRenderer.cpp; sourceTree = SOURCE_ROOT; };
+		8E39832BF22B1708A135AEAF /* ofxArcObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxArcObject.h; path = ../../src/ofxArcObject.h; sourceTree = SOURCE_ROOT; };
+		910A9C041F0490A0B7776A85 /* ofxSosoRenderer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSosoRenderer.h; path = ../../src/ofxSosoRenderer.h; sourceTree = SOURCE_ROOT; };
+		944B8C76739E9A48F55A3D87 /* ofxPolygonObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxPolygonObject.cpp; path = ../../src/ofxPolygonObject.cpp; sourceTree = SOURCE_ROOT; };
+		974CD16737E412FEE81C675A /* ofxRectangleObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxRectangleObject.cpp; path = ../../src/ofxRectangleObject.cpp; sourceTree = SOURCE_ROOT; };
+		9A138A95E6FB9D2D00C7E40D /* ofxGridSystem.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGridSystem.h; path = ../../src/ofxGridSystem.h; sourceTree = SOURCE_ROOT; };
+		A1629FBCD3B4615F4A2976C9 /* ofxArcObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxArcObject.cpp; path = ../../src/ofxArcObject.cpp; sourceTree = SOURCE_ROOT; };
+		A8016EB18DD789148E47434C /* ofxStateMachine.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxStateMachine.h; path = ../../src/ofxStateMachine.h; sourceTree = SOURCE_ROOT; };
+		AB06B672C13EB14F66B3590C /* ofxFboObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxFboObject.h; path = ../../src/ofxFboObject.h; sourceTree = SOURCE_ROOT; };
+		AB6E485E84FD9B1F5148E381 /* ofxScene.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxScene.h; path = ../../src/ofxScene.h; sourceTree = SOURCE_ROOT; };
+		ACA28868A409168B17A704D5 /* ofxMessage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMessage.cpp; path = ../../src/ofxMessage.cpp; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
-		BCD48F72590D5029F6154F54 /* ofxScene.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxScene.cpp; path = ../../../../addons/ofxSoso/src/ofxScene.cpp; sourceTree = SOURCE_ROOT; };
-		C3AF64D4C898D60C5E0C40A4 /* ofxSosoTrueTypeFont.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSosoTrueTypeFont.h; path = ../../../../addons/ofxSoso/src/ofxSosoTrueTypeFont.h; sourceTree = SOURCE_ROOT; };
-		C590F18DC129F3FA0952569C /* ofxQuadStripObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxQuadStripObject.h; path = ../../../../addons/ofxSoso/src/ofxQuadStripObject.h; sourceTree = SOURCE_ROOT; };
-		CA024A37D2F32E9BD9303AFF /* ofxVideoPlayerObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxVideoPlayerObject.cpp; path = ../../../../addons/ofxSoso/src/ofxVideoPlayerObject.cpp; sourceTree = SOURCE_ROOT; };
-		CC1833E213C2C4A1E47DFD65 /* ofxObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxObject.cpp; path = ../../../../addons/ofxSoso/src/ofxObject.cpp; sourceTree = SOURCE_ROOT; };
-		D270925B75974A566DDAFF49 /* ofxFboObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxFboObject.cpp; path = ../../../../addons/ofxSoso/src/ofxFboObject.cpp; sourceTree = SOURCE_ROOT; };
-		DBA168034BF49F632FA80C41 /* ofxLetterTextObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLetterTextObject.h; path = ../../../../addons/ofxSoso/src/ofxLetterTextObject.h; sourceTree = SOURCE_ROOT; };
-		DEEE4C7F10BBB847A31D392A /* ofxTextureObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxTextureObject.h; path = ../../../../addons/ofxSoso/src/ofxTextureObject.h; sourceTree = SOURCE_ROOT; };
+		BCD48F72590D5029F6154F54 /* ofxScene.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxScene.cpp; path = ../../src/ofxScene.cpp; sourceTree = SOURCE_ROOT; };
+		C3AF64D4C898D60C5E0C40A4 /* ofxSosoTrueTypeFont.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSosoTrueTypeFont.h; path = ../../src/ofxSosoTrueTypeFont.h; sourceTree = SOURCE_ROOT; };
+		C590F18DC129F3FA0952569C /* ofxQuadStripObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxQuadStripObject.h; path = ../../src/ofxQuadStripObject.h; sourceTree = SOURCE_ROOT; };
+		CA024A37D2F32E9BD9303AFF /* ofxVideoPlayerObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxVideoPlayerObject.cpp; path = ../../src/ofxVideoPlayerObject.cpp; sourceTree = SOURCE_ROOT; };
+		CC1833E213C2C4A1E47DFD65 /* ofxObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxObject.cpp; path = ../../src/ofxObject.cpp; sourceTree = SOURCE_ROOT; };
+		D270925B75974A566DDAFF49 /* ofxFboObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxFboObject.cpp; path = ../../src/ofxFboObject.cpp; sourceTree = SOURCE_ROOT; };
+		DBA168034BF49F632FA80C41 /* ofxLetterTextObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLetterTextObject.h; path = ../../src/ofxLetterTextObject.h; sourceTree = SOURCE_ROOT; };
+		DEEE4C7F10BBB847A31D392A /* ofxTextureObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxTextureObject.h; path = ../../src/ofxTextureObject.h; sourceTree = SOURCE_ROOT; };
 		E08321D31936401E000BD296 /* ofxAVFVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAVFVideoPlayer.h; sourceTree = "<group>"; };
 		E08321D41936401E000BD296 /* ofxAVFVideoPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxAVFVideoPlayer.mm; sourceTree = "<group>"; };
 		E08321D51936401E000BD296 /* ofxAVFVideoRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAVFVideoRenderer.h; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 		E08321E819364068000BD296 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		E08321EA19364075000BD296 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E08321EC1936408B000BD296 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
-		E1B8E0989DC53B6FDEFD880F /* ofxLetterTextObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLetterTextObject.cpp; path = ../../../../addons/ofxSoso/src/ofxLetterTextObject.cpp; sourceTree = SOURCE_ROOT; };
+		E1B8E0989DC53B6FDEFD880F /* ofxLetterTextObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLetterTextObject.cpp; path = ../../src/ofxLetterTextObject.cpp; sourceTree = SOURCE_ROOT; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
@@ -150,7 +150,7 @@
 		E45BE9770E8CC7DD009D7055 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		E45BE9790E8CC7DD009D7055 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
-		E4B69B5B0A3A1756003C02F2 /* mySketchDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mySketchDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B69B5B0A3A1756003C02F2 /* basicExampleDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = basicExampleDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = testApp.cpp; path = src/testApp.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1F0A3A1BDC003C02F2 /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = testApp.h; path = src/testApp.h; sourceTree = SOURCE_ROOT; };
@@ -163,8 +163,8 @@
 		E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		E7E077E715D3B6510020DFD4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		E7F985F515E0DE99003869B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
-		F29736B722EF53C94B796455 /* ofxAnimation.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxAnimation.cpp; path = ../../../../addons/ofxSoso/src/ofxAnimation.cpp; sourceTree = SOURCE_ROOT; };
-		F9C0A3AB8BF5A997501714BA /* ofxTextObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxTextObject.cpp; path = ../../../../addons/ofxSoso/src/ofxTextObject.cpp; sourceTree = SOURCE_ROOT; };
+		F29736B722EF53C94B796455 /* ofxAnimation.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxAnimation.cpp; path = ../../src/ofxAnimation.cpp; sourceTree = SOURCE_ROOT; };
+		F9C0A3AB8BF5A997501714BA /* ofxTextObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxTextObject.cpp; path = ../../src/ofxTextObject.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -347,7 +347,7 @@
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
 				E45BE5980E8CC70C009D7055 /* frameworks */,
-				E4B69B5B0A3A1756003C02F2 /* mySketchDebug.app */,
+				E4B69B5B0A3A1756003C02F2 /* basicExampleDebug.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -373,9 +373,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E4B69B5A0A3A1756003C02F2 /* mySketch */ = {
+		E4B69B5A0A3A1756003C02F2 /* basicExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "mySketch" */;
+			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "basicExample" */;
 			buildPhases = (
 				E4B69B580A3A1756003C02F2 /* Sources */,
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
@@ -387,9 +387,9 @@
 			dependencies = (
 				E4EEB9AC138B136A00A80321 /* PBXTargetDependency */,
 			);
-			name = mySketch;
+			name = basicExample;
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* mySketchDebug.app */;
+			productReference = E4B69B5B0A3A1756003C02F2 /* basicExampleDebug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -400,7 +400,7 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 			};
-			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "mySketch" */;
+			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "basicExample" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -421,7 +421,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				E4B69B5A0A3A1756003C02F2 /* mySketch */,
+				E4B69B5A0A3A1756003C02F2 /* basicExample */,
 			);
 		};
 /* End PBXProject section */
@@ -654,7 +654,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)Debug";
+				PRODUCT_NAME = basicExampleDebug;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -739,7 +739,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = basicExample;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -747,7 +747,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "mySketch" */ = {
+		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "basicExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B4E0A3A1720003C02F2 /* Debug */,
@@ -756,7 +756,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "mySketch" */ = {
+		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "basicExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B600A3A1757003C02F2 /* Debug */,
