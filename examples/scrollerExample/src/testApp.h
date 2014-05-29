@@ -13,6 +13,8 @@
 #include "ofxLineSegmentObject.h"
 #include "ofxDynamicPolygonObject.h"
 
+#include "ofxScroller.h"
+
 class testApp : public ofBaseApp{
   
 public:
@@ -31,33 +33,33 @@ public:
   void dragEvent(ofDragInfo dragInfo);
   void gotMessage(ofMessage msg);
   
+  void buildInstructionText();
+  
   
 public:
   ofxScene						*scene;
   
+  ofxScroller *horizontalScroller;
+  ofxScroller *verticalScroller;
+  
 	ofxSosoTrueTypeFont				*font16,
   *font64;
   
-	ofxTextObject				    *text,
-  *circlesLabel,
-  *lineLabel,
-  *polygonLabel;
-	
-	ofxLetterTextObject				*letterText;
+  vector<ofxImageObject *> stars;
+  vector<ofxTextObject*> instructions;
+  ofxRectangleObject *textBackground;
+
   
-  ofxImageObject					*image;
-	ofImage							*polyTex;
-	ofxDynamicPolygonObject			*dynamicPolygon;
+	scrollDirection horizontalDragDirection = OF_SCROLL_FORWARD;
+  scrollDirection verticalDragDirection = OF_SCROLL_FORWARD;
+
   
-  ofxObject						*circleRoot,
-  *lineRoot;
-	vector<ofxCircleObject *>		circles;
-	vector<ofxLineSegmentObject *>	lines;
+  float time = 0;
   
-	ofxAnimation					*animation;
+  float dragVelocity = 0.2f;
   
-	ofxVideoPlayerObject			*movie;
-	ofVideoPlayer					player;
+  float prevMouseX = 0;
+  float prevMouseY = 0;
   
   
 };

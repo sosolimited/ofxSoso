@@ -1,12 +1,8 @@
-// ofxScrollerObject
-// Created May 8, 2014
-//
 
 //
-//  scScrollList.cpp
-//  Schneider
+//  ofxScroller.cpp
 //
-//  Created by Eric Gunther on 11/7/13.
+//  Created by Eric Gunther on 11/7/13.  Ported to ofxSoso on May 29, 2014 by Alex Olivier.
 //
 //
 
@@ -14,6 +10,7 @@
 
 //----------------------------------------------------------------------------------
 // Class ofxScrollTransform
+// TODO: Potentially use ofxMessages
 ofxScrollTransform::ofxScrollTransform(int iTransform, float iStartScroll, float iEndScroll, int iInterpolation, float iStartVal, float iEndVal)
 {
   interpolation = iInterpolation;
@@ -33,6 +30,7 @@ ofxScrollTransform::ofxScrollTransform(int iTransform, float iStartScroll, float
   scrollRange[1] = iEndScroll;
   valueRange[0] = iStartVal;
   valueRange[1] = iEndVal;
+
 }
 
 
@@ -42,45 +40,50 @@ ofxScrollObject::ofxScrollObject(ofxObject *iObject) {
   object = iObject;
 }
 
+// Destructor
+ofxScrollObject::~ofxScrollObject(){
+  
+  // Delete transforms
+  for (auto transform : transforms){
+    delete transform;
+  }
+  transforms.clear();
+}
 
-void ofxScrollObject::addTransform(ofxScrollTransform *iTransform, bool isVertical) {
-  if (isVertical)
-    verticalTransforms.push_back(iTransform);
-  else
-    horizontalTransforms.push_back(iTransform);
+// Add a scroll transform to the list of transforms
+void ofxScrollObject::addTransform(ofxScrollTransform *iTransform) {
+  transforms.push_back(iTransform);
+}
+
+// Create and add a scroll transform to the list of transforms
+void ofxScrollObject::addTransform(int iTransform, float iStartScroll, float iEndScroll, int iInterpolation, float iStartVal, float iEndVal) {
+  addTransform(new ofxScrollTransform(iTransform, iStartScroll, iEndScroll, iInterpolation, iStartVal, iEndVal));
 }
 
 
-void ofxScrollObject::addTransform(int iTransform, float iStartScroll, float iEndScroll, int iInterpolation, float iStartVal, float iEndVal, bool isVertical) {
-  addTransform(new ofxScrollTransform(iTransform, iStartScroll, iEndScroll, iInterpolation, iStartVal, iEndVal), isVertical);
+// Create and add a scroll transform to the list of transforms
+void ofxScrollObject::addTransform(int iTransform, float iStartScroll, float iEndScroll, int iInterpolation, ofVec3f iStartVal, ofVec3f iEndVal) {
+  addTransform(new ofxScrollTransform(iTransform, iStartScroll, iEndScroll, iInterpolation, iStartVal, iEndVal));
 }
 
-
-void ofxScrollObject::addTransform(int iTransform, float iStartScroll, float iEndScroll, int iInterpolation, ofVec3f iStartVal, ofVec3f iEndVal, bool isVertical) {
-  addTransform(new ofxScrollTransform(iTransform, iStartScroll, iEndScroll, iInterpolation, iStartVal, iEndVal), isVertical);
-}
-
-
-// Hack to make two transforms of the same type work.
+// EG: Hack to make two transforms of the same type work.
 // If there is a transform of the same type (eg OF_TRANSLATE) with a range that is closer
-// to the current scrollPosition, then return true.
-bool ofxScrollObject::isTrumped(ofxScrollTransform *iTransform, float iScrollPosition, bool isVertical) {
+// to the current scrollPosition, then return true.  Otherwise, returns false.
+bool ofxScrollObject::isTrumped(ofxScrollTransform *iTransform, float iScrollPosition) {
+  
   // If we're in the range of the given transform, then nothing trumps it!
   if(ofInRange(iScrollPosition, iTransform->scrollRange[0], iTransform->scrollRange[1])){
     return false;
   }
   
-  vector<ofxScrollTransform *> transforms;
-  if (isVertical)
-    transforms = verticalTransforms;
-  else
-    transforms = horizontalTransforms;
-  
+  //Go through all transforms
   for(auto t : transforms){
+    
     // If it's not the one we're interested in.
     if(t != iTransform){
       // If they're the same transform type.
       if(t->transform == iTransform->transform){
+        
         // If it's in the range.
         if(ofInRange(iScrollPosition, t->scrollRange[0], t->scrollRange[1])){
           return true;
@@ -103,54 +106,58 @@ bool ofxScrollObject::isTrumped(ofxScrollTransform *iTransform, float iScrollPos
 
 
 //-------------------------------------------------------------------------------------
-// class scScrollList
-scScrollList::scScrollList(float iHeight) {
-  // Top of list.
-  horizontalScrollPosition = 0;
-  verticalScrollPosition = 0;
+// class ofxScroller
+ofxScroller::ofxScroller(float iHeight) {
+  
+  // Top of scroller
+  scrollPosition = 0;
+  
   // Max scroll position.
   scrollHeight = iHeight;
-  
-  minVerticalScroll = 0;
-  maxVerticalScroll = iHeight;
   
   // Object that slides up and down.
   scrollRoot = new ofxObject();
   addChild(scrollRoot);
   
-  verticalScrollTracker = new ofxObject();
-  horizontalScrollTracker = new ofxObject();
+  // Tracking object for jumping to snap points
+  scrollTracker = new ofxObject();
+  addChild(scrollTracker);
+
+}
+
+// Destructor
+ofxScroller::~ofxScroller() {
+
+  delete scrollTracker;
   
-  addChild(verticalScrollTracker);
-  addChild(horizontalScrollTracker);
+  //delete all scroll objects
+  for (auto scroll_obj : scrollObjects){
+    delete scroll_obj;
+  }
   
+  scrollObjects.clear();
+  snapPoints.clear();
 }
 
 
-scScrollList::~scScrollList() {}
-
-
 // Updates all transforms based on current scrollPosition.
-void scScrollList::update(float iTime, bool isVertical) {
+void ofxScroller::update(float iTime) {
   
-  if (isVertical){
+  // If we are in the middle of jumping to a snap point...
+  if (scrollTracker->isAnimating()){
+    scrollPosition = scrollTracker->getScale().x;
+  }else if (isSnapping){
     
-    if (verticalScrollTracker->isAnimating()){
-      
-      verticalScrollPosition = verticalScrollTracker->getScale().x;
-    }
-    
+    // This is a slight hack because the scrollTracker animation is one frame behind
+    // TODO: Fix hack
+    scrollPosition = scrollTracker->getScale().x;
+    isSnapping = false;
   }else{
     
-    if (horizontalScrollTracker->isAnimating()){
-      
-      horizontalScrollPosition = horizontalScrollTracker->getScale().x;
-      
-    }
-    
+    scrollTracker->setScale(scrollPosition);
   }
   
-  
+  // Check all disable timers
   time = iTime;
   if (start_disable_time != -1){
     if (time > start_disable_time){
@@ -171,18 +178,7 @@ void scScrollList::update(float iTime, bool isVertical) {
   
   if (isEnabled) {
     for(auto obj : scrollObjects) {
-      vector<ofxScrollTransform *> transforms;
-      float scrollPosition;
-      
-      if (isVertical) {
-        transforms = obj->verticalTransforms;
-        scrollPosition = verticalScrollPosition;
-      } else {
-        transforms = obj->horizontalTransforms;
-        scrollPosition = horizontalScrollPosition;
-      }
-      
-      for(auto t : transforms){
+      for(auto t : obj->transforms){
         
         // OFX_SHOW transform is handled a bit differently:
         // If the scrollPosition is the in the object's scroll range, it is shown.
@@ -203,63 +199,229 @@ void scScrollList::update(float iTime, bool isVertical) {
           // Normalized position in range.
           
           float p;
-          
-          if (scrollPosition < minVerticalScroll){
+          if (scrollPosition < 0){
+            p = ofxMessage::interpolateTime(t->interpolation, (0 - t->scrollRange[0])/(t->scrollRange[1] - t->scrollRange[0]));
             
-            p = ofxMessage::interpolateTime(t->interpolation, (minVerticalScroll - t->scrollRange[0])/(t->scrollRange[1] - t->scrollRange[0]));
-            
-          }else if (scrollPosition > maxVerticalScroll){
-            
+          }else if (scrollPosition > (scrollHeight)){
             p = ofxMessage::interpolateTime(t->interpolation, (scrollPosition - t->scrollRange[0])/(t->scrollRange[1] - t->scrollRange[0]));
             
           }else{
-            
             p = ofxMessage::interpolateTime(t->interpolation, (scrollPosition - t->scrollRange[0])/(t->scrollRange[1] - t->scrollRange[0]));
-            
           }
           
           p = max(0.0f, p);
           p = min(1.0f, p);
+
           // Do the right thing for each type of transform.
           switch(t->transform){
-            case OF_TRANSLATEX:
-            {
-              float startX = t->valueRange[0][0];
-              float endX = t->valueRange[1][0];
-              ofVec3f currTrans = obj->object->getTrans();
-              
-              obj->object->setTrans(startX + p*(endX - startX), currTrans.y, currTrans.z);
-              break;
-            }
-            case OF_TRANSLATEY:
-            {
-              float startY = t->valueRange[0][0];
-              float endY = t->valueRange[1][0];
-              ofVec3f currTrans = obj->object->getTrans();
-              
-              obj->object->setTrans(currTrans.x, startY + p*(endY - startY), currTrans.z);
-              break;
-            }
             case OF_TRANSLATE:
-              obj->object->setTrans(t->valueRange[0] + p*(t->valueRange[1] - t->valueRange[0]));
+            {
+              
+              // FIRST check if we are using any OF_RELATIVE_VAL values...
+              // If so, we should grab the object's current position
+              float x,y,z;
+              ofVec3f startVals;
+              ofVec3f endVals;
+              
+              ofVec3f pos = obj->object->getTrans();
+              ofVec3f vec = t->valueRange[0];
+              
+              // Check if using relative values for start vals
+              if(vec.x == OF_RELATIVE_VAL) x = pos.x;
+              else x = vec.x;
+              if(vec.y == OF_RELATIVE_VAL) y = pos.y;
+              else y = vec.y;
+              if(vec.z == OF_RELATIVE_VAL) z = pos.z;
+              else z = vec.z;
+                
+                startVals = ofVec3f(x, y, z);
+              
+              ofVec3f endVec = t->valueRange[1];
+              
+              // Check if using relative vals for end vals
+              if(endVec.x == OF_RELATIVE_VAL) x = pos.x;
+              else x = endVec.x;
+              if(endVec.y == OF_RELATIVE_VAL) y = pos.y;
+              else y = endVec.y;
+              if(endVec.z == OF_RELATIVE_VAL) z = pos.z;
+              else z = endVec.z;
+              
+              endVals = ofVec3f(x, y, z);
+              
+              // Set trans
+              obj->object->setTrans(startVals + p*(endVals - startVals));
               break;
+            }
+  
             case OF_ROTATE:
-              obj->object->setRot(t->valueRange[0] + p*(t->valueRange[1] - t->valueRange[0]));
+            {
+              float x,y,z;
+              ofVec3f startVals;
+              ofVec3f endVals;
+              
+              ofVec3f rot = obj->object->getRot();
+              ofVec3f vec = t->valueRange[0];
+              
+              // FIRST check if we are using any OF_RELATIVE_VAL values...
+              // If so, we should grab the object's current rotation
+              
+              // Check for relative start vals
+              if(vec.x == OF_RELATIVE_VAL) x = rot.x;
+              else x = vec.x;
+              if(vec.y == OF_RELATIVE_VAL) y = rot.y;
+              else y = vec.y;
+              if(vec.z == OF_RELATIVE_VAL) z = rot.z;
+              else z = vec.z;
+              
+              startVals = ofVec3f(x, y, z);
+              
+              ofVec3f endVec = t->valueRange[1];
+              
+              // Check for relative end vals
+              if(endVec.x == OF_RELATIVE_VAL) x = rot.x;
+              else x = endVec.x;
+              if(endVec.y == OF_RELATIVE_VAL) y = rot.y;
+              else y = endVec.y;
+              if(endVec.z == OF_RELATIVE_VAL) z = rot.z;
+              else z = endVec.z;
+              
+              endVals = ofVec3f(x, y, z);
+              
+              obj->object->setRot(startVals + p*(endVals - startVals));
               break;
+            }
+             
             case OF_SCALE:
-              obj->object->setScale(t->valueRange[0][0] + p*(t->valueRange[1][0] - t->valueRange[0][0]));
+            {
+              
+              float val0 = t->valueRange[0][0];
+              float val1 = t->valueRange[1][0];
+              float startVal, endVal;
+              float scale = obj->object->getScale().x;
+        
+              // FIRST check if we are using any OF_RELATIVE_VAL values...
+              // If so, we should grab the object's current scale
+              
+              // Check for relative start vals
+              if (val0 == OF_RELATIVE_VAL)
+                startVal = scale;
+              else startVal = val0;
+              
+              // Check for relative end vals
+              if (val1 == OF_RELATIVE_VAL)
+                endVal = scale;
+              else endVal = val1;
+
+              obj->object->setScale(startVal + p*(endVal - startVal));
               break;
+            }
+              
             case OF_SCALE3:
-              obj->object->setScale(t->valueRange[0] + p*(t->valueRange[1] - t->valueRange[0]));
+            {
+              float x,y,z;
+              ofVec3f startVals;
+              ofVec3f endVals;
+              
+              ofVec3f scale = obj->object->getScale();
+              ofVec3f vec = t->valueRange[0];
+              
+              // FIRST check if we are using any OF_RELATIVE_VAL values...
+              // If so, we should grab the object's current scale
+              
+              // Check for relative start vals
+              if(vec.x == OF_RELATIVE_VAL) x = scale.x;
+              else x = vec.x;
+              if(vec.y == OF_RELATIVE_VAL) y = scale.y;
+              else y = vec.y;
+              if(vec.z == OF_RELATIVE_VAL) z = scale.z;
+              else z = vec.z;
+              
+              startVals = ofVec3f(x, y, z);
+
+              ofVec3f endVec = t->valueRange[1];
+              
+              // Check for relative end vals
+              if(endVec.x == OF_RELATIVE_VAL) x = scale.x;
+              else x = endVec.x;
+              if(endVec.y == OF_RELATIVE_VAL) y = scale.y;
+              else y = endVec.y;
+              if(endVec.z == OF_RELATIVE_VAL) z = scale.z;
+              else z = endVec.z;
+              
+              endVals = ofVec3f(x, y, z);
+              
+              obj->object->setScale(startVals + p*(endVals - startVals));
               break;
+            }
+              
             case OF_SETALPHA:
+            {
+              float val0 = t->valueRange[0][0];
+              float val1 = t->valueRange[1][0];
+              float startVal, endVal;
+              float alpha = obj->object->getAlpha();
+              
+              
+              // FIRST check if we are using any OF_RELATIVE_VAL values...
+              // If so, we should grab the object's current alpha
+              
+              // Check for relative start vals
+              if (val0 == OF_RELATIVE_VAL)
+                startVal = alpha;
+              else startVal = val0;
+              
+              // Check for relative end vals
+              if (val1 == OF_RELATIVE_VAL)
+                endVal = alpha;
+              else endVal = val1;
+              
+              
               //maybe do set color w/ new alpha?
-              obj->object->setAlpha((t->valueRange[0][0] + p*(t->valueRange[1][0] - t->valueRange[0][0])));
+              obj->object->setAlpha((startVal + p*(endVal - startVal)));
               
               break;
+            }
+              
             case OF_SETCOLOR:
-              obj->object->setColor((t->valueRange[0] + p*(t->valueRange[1] - t->valueRange[0])).x,(t->valueRange[0] + p*(t->valueRange[1] - t->valueRange[0])).y,(t->valueRange[0] + p*(t->valueRange[1] - t->valueRange[0])).z);
+            {
+              float r,g,b;
+              ofVec3f startVals;
+              ofVec3f endVals;
+              
+              ofVec4f color = obj->object->getColor();
+              ofVec3f vec = t->valueRange[0];
+              
+              // FIRST check if we are using any OF_RELATIVE_VAL values...
+              // If so, we should grab the object's current alpha
+              
+              // Check for relative start vals
+              if(vec.x == OF_RELATIVE_VAL) r = color.x;
+              else r = vec.x;
+              if(vec.y == OF_RELATIVE_VAL) g = color.y;
+              else g = vec.y;
+              if(vec.z == OF_RELATIVE_VAL) b = color.z;
+              else b = vec.z;
+              
+              startVals = ofVec3f(r, g, b);
+              
+              ofVec3f endVec = t->valueRange[1];
+              
+              // Check for relative end vals
+              if(endVec.x == OF_RELATIVE_VAL) r = color.x;
+              else r = endVec.x;
+              if(endVec.y == OF_RELATIVE_VAL) g = color.y;
+              else g = endVec.y;
+              if(endVec.z == OF_RELATIVE_VAL) b = color.z;
+              else b = endVec.z;
+              
+              endVals = ofVec3f(r, g, b);
+              
+              obj->object->setColor((startVals + p*(endVals - startVals)).x,(startVals + p*(endVals - startVals)).y,(startVals + p*(endVals - startVals)).z);
+              
               break;
+            
+            }
+
             default:
               break;
           };
@@ -269,24 +431,25 @@ void scScrollList::update(float iTime, bool isVertical) {
   }
 }
 
-
-void scScrollList::disable() {
-  isEnabled = false;
+// Disable the scroller - it will not update
+void ofxScroller::disable() {
   
+  isEnabled = false;
   start_disable_time = -1;
   disable_time = -1; //overwrite timer if necessary
   disable_duration = -1;
 }
 
 
-/*void scScrollList::disable(float iDuration) {
+/*void ofxScroller::disable(float iDuration) {
  isEnabled = false;
  disable_time = time + iDuration;
  
  //start timer.
  }*/
 
-void scScrollList::disable(float iDelay) {
+// Disable the scroller after a delay - it will not update
+void ofxScroller::disable(float iDelay) {
   if (iDelay > 0) {
     start_disable_time = time + iDelay;
     disable_duration = 0;
@@ -294,16 +457,16 @@ void scScrollList::disable(float iDelay) {
     disable();
 }
 
-void scScrollList::disable(float iDelay, float iDuration) {
+// Disable the scroller for a certain duration, after a delay
+void ofxScroller::disable(float iDelay, float iDuration) {
   
   start_disable_time = time + iDelay;
   disable_duration = iDuration;
-  
-  //start timer.
+
 }
 
-
-void scScrollList::enable() {
+// Enable the scroller
+void ofxScroller::enable() {
   isEnabled = true;
   
   start_disable_time = -1;
@@ -312,181 +475,82 @@ void scScrollList::enable() {
   
 }
 
-void scScrollList::setMinVerticalScroll(float iMin){
+// Add a new snap point - we can jump to this scroll position
+int ofxScroller::addSnapPoint(float iScrollPos){
   
-  if (iMin >= 0)
-    minVerticalScroll = iMin;
-}
-
-void scScrollList::setMaxVerticalScroll(float iMax){
-  
-  if (iMax < scrollHeight)
-    maxVerticalScroll = iMax;
-  
-}
-
-
-int scScrollList::addSnapPoint(float iScrollPos, bool isHorizontal){
-  
-  int newSnap;
-  
-  if (isHorizontal){
-    
-    newSnap = horizontalSnapPoints.size();
-    horizontalSnapPoints[newSnap] = iScrollPos;
-    
-  }else {
-    
-    newSnap = verticalSnapPoints.size();
-    verticalSnapPoints[newSnap] = iScrollPos;
-    
-  }
+  int newSnap = snapPoints.size();
+  snapPoints[newSnap] = iScrollPos;
   
   return newSnap;
   
 }
 
+// Add a scroll point at a certain index
+int ofxScroller::addSnapPoint(float iScrollPos, int iSnapInd){
 
-int scScrollList::addSnapPoint(float iScrollPos, int iSnapInd, bool isHorizontal){
-  
-  
-  if (isHorizontal){
-    
-    horizontalSnapPoints[iSnapInd] = iScrollPos;
-    
-  }else {
-    
-    verticalSnapPoints[iSnapInd] = iScrollPos;
-    
-  }
-  
+  snapPoints[iSnapInd] = iScrollPos;
   return iSnapInd;
   
 }
 
-
-void scScrollList::clearSnapPoints(bool isHorizontal){
-  
-  if (isHorizontal){
-    
-    horizontalSnapPoints.clear();
-    
-  }else{
-    
-    verticalSnapPoints.clear();
-  }
-  
+// Delete all snap points
+void ofxScroller::clearSnapPoints(){
+  snapPoints.clear();
 }
 
-float scScrollList::gotoSnapPoint(int iIndex, float iVelocity, bool isHorizontal, int iBezier){
+// Go to a saved snap point with a given velocity and interpolation
+float ofxScroller::gotoSnapPoint(int iIndex, float iVelocity, int iBezier){
   
-  if (isHorizontal){
+  // If we have this snap point...
+  if (snapPoints.count(iIndex) > 0){
     
-    if (horizontalSnapPoints.count(iIndex) > 0){
-      
-      float duration = abs(horizontalScrollPosition-horizontalSnapPoints[iIndex])/iVelocity;
-      
-      if (duration > 0){
-        //do a message with the scroll tracker
-        horizontalScrollTracker->stopMessages();
-        horizontalScrollTracker->doMessage1f(OF_SCALE, 0, duration, iBezier, horizontalSnapPoints[iIndex]);
+    // Given the velocity, calculate the snap duration
+    float duration = abs(scrollPosition-snapPoints[iIndex])/iVelocity;
+    
+    // If we're not already at this position...
+    if (duration >= 0){
+        
+      // Start animating the scroll tracker (using scale to keep track of scrollPosition)
+      scrollTracker->stopMessages();
+      scrollTracker->setScale(scrollPosition); // set scale to current scroll position
+      scrollTracker->doMessage1f(OF_SCALE, 0.0f, duration, iBezier, snapPoints[iIndex]);
+      isSnapping = true;  // Set this flag - needed for hack to ensure we finish snap animation
       }
-      
       return duration;
-      
     }
-    
-  }else{
-    
-    
-    if (verticalSnapPoints.count(iIndex) > 0){
-      
-      float duration = abs(verticalScrollPosition-verticalSnapPoints[iIndex])/iVelocity;
-      
-      if (duration > 0){
-        //do a message with the scroll tracker
-        verticalScrollTracker->stopMessages();
-        verticalScrollTracker->doMessage1f(OF_SCALE, 0, duration, iBezier, verticalSnapPoints[iIndex]);
-      }
-      
-      return duration;
-      
-      
-    }else{
-      
-      ofLogNotice("Vertical snap point not found");
-    }
-    
-  }
-  
-  
-  
-  
-  return false;
+  return 0;
 }
 
-//Goes to the closest snap point following the present scroll location
-void scScrollList::gotoNextSnapPoint(int iDirection, bool isHorizontal){
+// Goes to the closest snap point in a given direction (forward or backward)
+int ofxScroller::gotoNextSnapPoint(scrollDirection iDirection){
   
   float minDist = 999999.0f;
-  int minIndex = 0;
+  int minIndex = -1;
   float scrollDist = 0;
-  
-  if (isHorizontal){
     
-    for (auto mapkey : horizontalSnapPoints){
+  for (auto mapkey : snapPoints){
       
-      float scrollPos = horizontalScrollPosition; //not really
-      float diff = mapkey.second - scrollPos;
-      
-      if (iDirection == -1){
-        
+    float scrollPos = scrollPosition;
+    float diff = mapkey.second - scrollPos;
+    
+      // Snapping backwards
+      if (iDirection == OF_SCROLL_BACKWARD){
         
         if ((diff <= 0)&&(abs(diff) < abs(minDist))){
           minIndex = mapkey.first;
           minDist = diff;
         }
-        
-        
+
+      // Snapping forwards
       }else{
         
         if ((diff >= 0)&&(diff < minDist)){
           minIndex = mapkey.first;
           minDist = diff;
         }
-        
       }
     }
     
-  }else{
-    
-    for (auto mapkey : verticalSnapPoints){
-      
-      float scrollPos = verticalScrollPosition; //not really
-      float diff = mapkey.second - scrollPos;
-      
-      //We're scrolling backwards
-      if (iDirection == -1){
-        
-        if ((diff <= 0)&&(abs(diff) < abs(minDist))){
-          minIndex = mapkey.first;
-          minDist = diff;
-        }
-        
-        
-        // We're scrolling forwards
-      }else{
-        
-        if ((diff >= 0)&&(diff < minDist)){
-          minIndex = mapkey.first;
-          minDist = diff;
-        }
-        
-      }
-      
-    }
-  }
-  
   scrollDist = minDist;
   
   //get the scroll position of the snap point and use it to calculate velocity
@@ -495,56 +559,40 @@ void scScrollList::gotoNextSnapPoint(int iDirection, bool isHorizontal){
   float minVelocity = 250.0f; // same as magnetCheck? no -- but related. adjust together.
   
   velocity = max(velocity, minVelocity);
-  gotoSnapPoint(minIndex, velocity, false, OF_EASE_OUT);
+
+  gotoSnapPoint(minIndex, velocity,  OF_EASE_OUT);
+  
+  return minIndex;
   
 }
 
 
-// TODO: CONFIRM NOT USED
-//void scScrollList::gotoClosestSnapPoint(float iVelocity, bool isHorizontal){
-//
-//  float minDist = 999999.0f;
-//  int minIndex = 0;
-//
-//  if (isHorizontal){
-//
-//    for (auto mapkey : horizontalSnapPoints){
-//
-//      float scrollPos = horizontalScrollPosition; //not really
-//      float diff = abs(scrollPos - mapkey.second);
-//
-//
-//      if (diff < minDist){
-//
-//        minIndex = mapkey.first;
-//        minDist = diff;
-//      }
-//    }
-//
-//  }else{
-//
-//    for (auto mapkey : verticalSnapPoints){
-//
-//      float scrollPos = verticalScrollPosition; //not really
-//      float diff = abs(scrollPos - mapkey.second);
-//
-//      if (diff < minDist){
-//
-//        minIndex = mapkey.first;
-//        minDist = diff;
-//      }
-//    }
-//  }
-//
-////  gotoSnapPoint(minIndex, iVelocity);
-//  gotoSnapPoint(minIndex, iVelocity, false, OF_EASE_OUT);
-//
-//}
+// Goes to absolute closest snap point in either direction
+int ofxScroller::gotoClosestSnapPoint(float iVelocity){
 
+  float minDist = 999999.0f;
+  int minIndex = -1;
 
+    for (auto mapkey : snapPoints){
 
+      float scrollPos = scrollPosition; //not really
+      float diff = abs(scrollPos - mapkey.second);
 
-ofxScrollObject* scScrollList::addObject(ofxObject *iObject, bool iAddAsChild)
+      if (diff < minDist){
+
+       minIndex = mapkey.first;
+        minDist = diff;
+      }
+    }
+
+  return gotoSnapPoint(minIndex, iVelocity,  OF_EASE_OUT);
+
+}
+
+// Add a new scroll object.
+// ATTENTION: By default, this adds the objects as a child of the scroller
+// Make sure you're not adding the object as a child elsewhere!
+ofxScrollObject* ofxScroller::addObject(ofxObject *iObject, bool iAddAsChild)
 {
   // Check if it's already been added. If so, return associated ofxScrollObject.
   for(auto obj : scrollObjects){
@@ -562,7 +610,7 @@ ofxScrollObject* scScrollList::addObject(ofxObject *iObject, bool iAddAsChild)
 }
 
 
-ofxScrollObject* scScrollList::getScrollObject(ofxObject *iObject)
+ofxScrollObject* ofxScroller::getScrollObject(ofxObject *iObject)
 {
   // Check if it's already been added. If so, return associated ofxScrollObject.
   for(auto obj : scrollObjects){
@@ -576,50 +624,35 @@ ofxScrollObject* scScrollList::getScrollObject(ofxObject *iObject)
 
 
 // Set the max scroll position.
-void scScrollList::setScrollHeight(float iHeight) {
+void ofxScroller::setScrollHeight(float iHeight) {
   scrollHeight = iHeight;
 }
 
 
 // Set the scroll position of the list. iPosition is in pixels and 0 moves the list to the top.
-void scScrollList::setScroll(float iPosition, bool isVertical) {
+float ofxScroller::setScroll(float iPosition) {
+
   if (isEnabled) {
-    if (isVertical) {
+    if (!isSnapping){
       
-      if (!verticalScrollTracker->isAnimating()){
-        verticalScrollTracker->setScale(iPosition);
-        verticalScrollPosition = iPosition;
-        verticalScrollPosition = max(minVerticalScroll, verticalScrollPosition);
-        verticalScrollPosition = min(maxVerticalScroll, verticalScrollPosition);
-      }
-    } else {
+      scrollTracker->setScale(iPosition);
+      scrollPosition = iPosition;
+      scrollPosition = max(0.0f, scrollPosition);
+      scrollPosition = min(scrollHeight+1, scrollPosition);  //TODO:
       
-      if (!horizontalScrollTracker->isAnimating()){
-        horizontalScrollTracker->setScale(iPosition);
-        horizontalScrollPosition = iPosition;
-        horizontalScrollPosition = max(0.0f, horizontalScrollPosition);
-        horizontalScrollPosition = min(scrollHeight, horizontalScrollPosition);
-      }
     }
   }
+  return scrollPosition;
 }
 
 
-void scScrollList::moveScroll(float iDistance, bool isVertical) {
-  setScroll(getScrollPosition(isVertical) + iDistance, isVertical);
+// Move scroll position by a certain amount
+float ofxScroller::moveScroll(float iDistance) {
+  return setScroll(getScrollPosition() + iDistance);
 }
 
 
-float scScrollList::getScrollPosition(bool isVertical) {
-  
-  if (isVertical) {
-    return verticalScrollPosition;
-  } else {
-    return horizontalScrollPosition;
-  }
-}
-
-void scScrollList::stopScroll() {
-  horizontalScrollTracker->stopMessages();
-  verticalScrollTracker->stopMessages();
+// Get current scroll position
+float ofxScroller::getScrollPosition() {
+  return scrollPosition;
 }
