@@ -8,6 +8,7 @@
 #include "ofxCircleObject.h"
 #include "ofxArcObject.h"
 #include "ofxLineSegmentObject.h"
+#include "ofxPolygonObject.h"
 
 class emptyApp : public ofBaseApp{
   
@@ -41,5 +42,6 @@ public:
   int                       numCreatedCircleObjects;
   int                       numCreatedArcObjects;
   int                       numCreatedLineSegments;
+  int                       numCreatedPolygonObjects;
 };
 

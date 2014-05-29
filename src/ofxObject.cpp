@@ -88,6 +88,7 @@ cout<<"PARENT ["<<j<<"] - - - "<<endl;
   }
 
   //DEV_jc_1: this was here already, do we get rid of these unused vars?
+  // Destroy malloc'ed items.
 	//if (matrix != NULL) free(matrix);
 	//if (matrixTmp != NULL) free(matrixTmp);
 	//if (localMatrix != NULL) free(localMatrix);

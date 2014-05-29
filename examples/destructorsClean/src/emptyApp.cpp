@@ -34,6 +34,7 @@ void emptyApp::setup(){
   numCreatedCircleObjects = 0;
   numCreatedArcObjects = 0;
   numCreatedLineSegments = 0;
+  numCreatedPolygonObjects = 0;
 }
 
 //--------------------------------------------------------------
@@ -103,17 +104,29 @@ void emptyApp::keyPressed  (int key){
     numCreatedLineSegments += numObjectsToCreate;
     counterDisplay->setString("# of ofxLineSegmentObjects: "+ ofToString(numCreatedLineSegments));
   } else if(key == 'f'){
-    // Testing proper destruction of messages in ofxObject & ofxMessage destructors.
-    counterDisplay->doMessage3f(OF_TRANSLATE, 0, 1, OF_LINEAR, 0, 100, 200);
-    counterDisplay->doMessage3f(OF_ROTATE, 0, 1, OF_LINEAR, 0, 100, 200);
-    counterDisplay->doMessage1f(OF_SCALE, 0, 1, OF_LINEAR, 200);
-    counterDisplay->doMessage3f(OF_SCALE3, 0, 1, OF_LINEAR, 100, 200, 200);
-    counterDisplay->doMessage3f(OF_SETCOLOR, 0, 1, OF_LINEAR, 150, 10, 200);
-    counterDisplay->doMessage1f(OF_SETALPHA, 0, 1, OF_LINEAR, 0.5);
-    counterDisplay->addChild( new ofxTextObject(font16, "") );                //test destruction of children.
-    counterDisplay->addChild( new ofxTextObject(font16, "") );
-    delete counterDisplay;
+    // Testing ofxObject & ofxMessage destructors.
+    ofxTextObject *testText = new ofxTextObject(font16, "Testing ofxObject and ofxMessage.");
+    testText->setColor(0, 255, 255);
+    testText->doMessage3f(OF_TRANSLATE, 0, 1, OF_LINEAR, 0, 100, 200);
+    testText->doMessage3f(OF_ROTATE, 0, 1, OF_LINEAR, 0, 100, 200);
+    testText->doMessage1f(OF_SCALE, 0, 1, OF_LINEAR, 200);
+    testText->doMessage3f(OF_SCALE3, 0, 1, OF_LINEAR, 100, 200, 200);
+    testText->doMessage3f(OF_SETCOLOR, 0, 1, OF_LINEAR, 150, 10, 200);
+    testText->doMessage1f(OF_SETALPHA, 0, 1, OF_LINEAR, 0.5);
+    scene->getRoot()->addChild(testText);
+    testText->addChild( new ofxTextObject(font16, "") );                //test destruction of children.
+    testText->addChild( new ofxTextObject(font16, "") );
+    delete testText;
+  } else if(key == 'g'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxPolygonObject* polygon = new ofxPolygonObject(8);
+      delete polygon;
+    }
+    numCreatedPolygonObjects += numObjectsToCreate;
+    counterDisplay->setString("# of ofxPolygonObjects: "+ ofToString(numCreatedPolygonObjects));
   }
+  
   
 }
 
