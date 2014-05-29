@@ -5,9 +5,9 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>0CB9A3DC-3201-47F5-8BBF-839840FCDDA3</string>
+	<string>A24C433D-8B8C-45E4-A497-374BE0E1636E</string>
 	<key>IDESourceControlProjectName</key>
-	<string>basicExample</string>
+	<string>destructorsClean</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>2FB821DC-FFA3-45E9-9438-32CF0B33AFBC</key>
@@ -18,7 +18,7 @@
 		<string>https://github.com/jcnesci/ofxAVFVideoPlayer.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>addons/ofxSoso/examples/basicExample/basicExample.xcodeproj/project.xcworkspace</string>
+	<string>addons/ofxSoso/examples/emptyExample copy/destructorsClean.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>2FB821DC-FFA3-45E9-9438-32CF0B33AFBC</key>

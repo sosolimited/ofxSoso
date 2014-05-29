@@ -30,7 +30,18 @@ ofxGridSystem::ofxGridSystem()
   isBaselineGridShown = false;
 }
 
-ofxGridSystem::~ofxGridSystem(){}
+// Destructor.
+ofxGridSystem::~ofxGridSystem(){
+  // This is how you destroy an array that is a pointer.
+  delete[] baselines;
+  // This is how you destroy a vector of pointers.
+  for (auto line : lines){
+    delete line;
+  }
+  for (auto baseline : baselineLines){
+    delete baseline;
+  }
+}
 
 //Returns the X position of a column.
 float ofxGridSystem::colX(int iNumber)
