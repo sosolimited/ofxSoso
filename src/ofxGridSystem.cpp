@@ -71,7 +71,7 @@ void ofxGridSystem::buildGrid(float iPageWidth, float iPageHeight, int iNumColum
   tail = iTail;
   head = iHead;
   
-
+  
   leading = iBaselineLeading;
   
   // Make gutter multiple of leading.

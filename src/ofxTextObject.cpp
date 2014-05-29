@@ -6,24 +6,24 @@
 ofxTextFont::ofxTextFont(string iFontName, ofxSosoTrueTypeFont *iFont)
 {
 	font = iFont;
-//	fontName = strdup((char *)iFontName.c_str());
+  //	fontName = strdup((char *)iFontName.c_str());
 	fontName2 = iFontName;
-
+  
 }
 
 ofxTextFont::ofxTextFont(string iFontName, string iFilename, int iFontsize, bool iAntiAliased, bool iFullCharacterSet, bool iMakeContours, bool iMakeMipMaps)
 {
 	font = new ofxSosoTrueTypeFont();
 	font->loadFont(iFilename, iFontsize, iAntiAliased, iFullCharacterSet, iMakeContours, iMakeMipMaps);
-//	fontName = strdup((char *)iFontName.c_str());
+  //	fontName = strdup((char *)iFontName.c_str());
   fontName2 = iFontName;
-
+  
 }
 
 ofxTextFont::~ofxTextFont()
 {
 	if (font) delete(font);
-//	if (fontName) delete(fontName);
+  //	if (fontName) delete(fontName);
   
 }
 
