@@ -4,6 +4,9 @@
 #include "ofxScene.h"
 #include "ofxSosoRenderer.h"
 
+#include "ofxGui.h" // addon included with openFrameworks
+#include "ofxUI.h"  // reza ali's expanded UI addon
+
 class emptyApp : public ofBaseApp{
   
 public:

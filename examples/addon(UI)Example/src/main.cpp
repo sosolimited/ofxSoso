@@ -1,5 +1,5 @@
 #include "ofMain.h"
-#include "emptyApp.h"
+#include "App.h"
 #include "ofAppGlutWindow.h"
 
 //========================================================================
