@@ -32,13 +32,13 @@ enum{
 
 enum{
 	OF_TRANSLATE,
-	OF_ROTATE,
-	OF_SCALE,
+	OF_ROTATE,//ofvec3
+	OF_SCALE,//fl
 	OF_SCALE3,
 	OF_SETCOLOR,
-	OF_SETALPHA,
-	OF_SHOW,
-	OF_HIDE,
+	OF_SETALPHA,//fl
+	OF_SHOW,//0
+	OF_HIDE,//0
     OF_FUNCTION //LM
 };
 

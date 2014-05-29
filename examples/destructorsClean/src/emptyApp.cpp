@@ -102,6 +102,17 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedLineSegments += numObjectsToCreate;
     counterDisplay->setString("# of ofxLineSegmentObjects: "+ ofToString(numCreatedLineSegments));
+  } else if(key == 'f'){
+    // Testing proper destruction of messages in ofxObject & ofxMessage destructors.
+    counterDisplay->doMessage3f(OF_TRANSLATE, 0, 1, OF_LINEAR, 0, 100, 200);
+    counterDisplay->doMessage3f(OF_ROTATE, 0, 1, OF_LINEAR, 0, 100, 200);
+    counterDisplay->doMessage1f(OF_SCALE, 0, 1, OF_LINEAR, 200);
+    counterDisplay->doMessage3f(OF_SCALE3, 0, 1, OF_LINEAR, 100, 200, 200);
+    counterDisplay->doMessage3f(OF_SETCOLOR, 0, 1, OF_LINEAR, 150, 10, 200);
+    counterDisplay->doMessage1f(OF_SETALPHA, 0, 1, OF_LINEAR, 0.5);
+    counterDisplay->addChild( new ofxTextObject(font16, "") );                //test destruction of children.
+    counterDisplay->addChild( new ofxTextObject(font16, "") );
+    delete counterDisplay;
   }
   
 }
