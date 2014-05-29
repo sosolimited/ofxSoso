@@ -36,7 +36,6 @@ ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
   }
   
 	isCentered = false;
-	
   renderDirty = true; //eg 070112
 }
 
