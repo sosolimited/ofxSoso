@@ -12,8 +12,6 @@ ofxLineSegmentObject::ofxLineSegmentObject(int iNumVerts)
 	stipplingPattern = 0xAA;
 	stipplingFactor = 1.0;
   smoothingHint = GL_NICEST;
-	
-  
 }
 
 ofxLineSegmentObject::~ofxLineSegmentObject(){

@@ -6,6 +6,8 @@
 #include "ofxTextObject.h"
 #include "ofxGridSystem.h"
 #include "ofxCircleObject.h"
+#include "ofxArcObject.h"
+#include "ofxLineSegmentObject.h"
 
 class emptyApp : public ofBaseApp{
   
@@ -37,5 +39,7 @@ public:
   int                       numCreatedTextObjects;
   int                       numCreatedGridSystems;
   int                       numCreatedCircleObjects;
+  int                       numCreatedArcObjects;
+  int                       numCreatedLineSegments;
 };
 

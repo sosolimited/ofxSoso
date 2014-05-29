@@ -32,6 +32,8 @@ void emptyApp::setup(){
   numCreatedTextObjects = 0;
   numCreatedGridSystems = 0;
   numCreatedCircleObjects = 0;
+  numCreatedArcObjects = 0;
+  numCreatedLineSegments = 0;
 }
 
 //--------------------------------------------------------------
@@ -84,9 +86,23 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedCircleObjects += numObjectsToCreate;
     counterDisplay->setString("# of ofxCircleObjects: "+ ofToString(numCreatedCircleObjects));
+  } else if(key == 'd'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxArcObject* arc = new ofxArcObject(100,80,90,270);
+      delete arc;
+    }
+    numCreatedArcObjects += numObjectsToCreate;
+    counterDisplay->setString("# of ofxArcObjects: "+ ofToString(numCreatedArcObjects));
+  } else if(key == 'e'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxLineSegmentObject* lineSegment = new ofxLineSegmentObject(1000);
+      delete lineSegment;
+    }
+    numCreatedLineSegments += numObjectsToCreate;
+    counterDisplay->setString("# of ofxLineSegmentObjects: "+ ofToString(numCreatedLineSegments));
   }
-  
-  
   
 }
 
