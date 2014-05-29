@@ -9,3 +9,20 @@ Copyright (C) 2013 Sosolimited
 	  / modified  
 
 
+CORE
+----
+### ofxScroller
+	5/28/2014, AO:
+	+ Added ofxScroller.cpp
+	+ Added ofxScroller.h
+
+
+EXAMPLES
+----
+### Structure
+	5/28/2014, AO:
+	- Deleted example folder and app
+	+ Added examples folder
+	+ Added emptyExample
+	+ Added basicExample
+	+ Added scrollerExample
