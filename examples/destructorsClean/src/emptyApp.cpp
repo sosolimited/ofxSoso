@@ -35,6 +35,7 @@ void emptyApp::setup(){
   numCreatedArcObjects = 0;
   numCreatedLineSegments = 0;
   numCreatedPolygonObjects = 0;
+  numCreatedQuadStripObjects = 0;
 }
 
 //--------------------------------------------------------------
@@ -125,6 +126,14 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedPolygonObjects += numObjectsToCreate;
     counterDisplay->setString("# of ofxPolygonObjects: "+ ofToString(numCreatedPolygonObjects));
+  } else if(key == 'h'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxQuadStripObject* quadStrip = new ofxQuadStripObject(4);
+      delete quadStrip;
+    }
+    numCreatedQuadStripObjects += numObjectsToCreate;
+    counterDisplay->setString("# of ofxQuadStripObjects: "+ ofToString(numCreatedQuadStripObjects));
   }
   
   

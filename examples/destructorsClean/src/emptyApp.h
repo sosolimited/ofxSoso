@@ -9,6 +9,7 @@
 #include "ofxArcObject.h"
 #include "ofxLineSegmentObject.h"
 #include "ofxPolygonObject.h"
+#include "ofxQuadStripObject.h"
 
 class emptyApp : public ofBaseApp{
   
@@ -43,5 +44,6 @@ public:
   int                       numCreatedArcObjects;
   int                       numCreatedLineSegments;
   int                       numCreatedPolygonObjects;
+  int                       numCreatedQuadStripObjects;
 };
 
