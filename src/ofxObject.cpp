@@ -1180,8 +1180,6 @@ ofxMessage* ofxObject::doMessage3f(int iID, float iDelay, float iDuration, int i
 {
 	ofVec3f *args = new ofVec3f();
 	args->set(iVal0, iVal1, iVal2);
-  cout<<"NEWED ofVec3 - - - - - -" <<endl;
-  
   
 	ofxMessage *message = new ofxMessage(iID, (void *)args, iInterp, iDuration, iDelay);
   message->setStartTime(curTime);

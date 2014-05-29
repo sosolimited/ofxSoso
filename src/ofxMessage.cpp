@@ -105,35 +105,27 @@ ofxMessage::~ofxMessage()
   if(startVals) free(startVals);
 	if(baseStartVals) free(baseStartVals);
 	if(endVals) free(endVals);
-//  
-//	if(baseEndVals) {
-////    free(baseEndVals);
-//    delete baseEndVals;
-//        cout<<"dev_jc: FREED baseEndVals - - - - -  -"<<endl;
-//  }
   
+  // Since baseEndVals was created with 'new', we must cast them back to their original type (Message1f/float, Message3f/ofVec3f) in order to destroy them correctly based on type.
   if(baseEndVals) {
-      cout<<"id IS = "<<id<<endl;
-    
-    // Destroy the baseEndVals differently depending on what type of message (Message1f, Message3f) they originally were.
-    if(id==OF_TRANSLATE){
+    if(id==OF_SETALPHA){
+      delete[] (float *)baseEndVals;
+            cout<<"* OF_SETALPHA * baseEndVals = "<< baseEndVals <<endl;
+    } else if(id==OF_SCALE){
+      delete[] (float *)baseEndVals;
+            cout<<"* OF_SCALE * baseEndVals = "<< baseEndVals <<endl;
+    } else if(id==OF_TRANSLATE){
       delete (ofVec3f *)baseEndVals;
-      cout<<"* OF_TRANSLATE * baseEndVals = "<< baseEndVals <<endl;
+            cout<<"* OF_TRANSLATE * baseEndVals = "<< baseEndVals <<endl;
     } else if(id==OF_ROTATE){
       delete (ofVec3f *)baseEndVals;
-      cout<<"* OF_ROTATE * baseEndVals = "<< baseEndVals <<endl;
-    } else if(id==OF_SCALE){
-      delete (float *)baseEndVals;
-      cout<<"* OF_SCALE * baseEndVals = "<< baseEndVals <<endl;
+            cout<<"* OF_ROTATE * baseEndVals = "<< baseEndVals <<endl;
     } else if(id==OF_SCALE3){
       delete (ofVec3f *)baseEndVals;
-      cout<<"* OF_SCALE3 * baseEndVals = "<< baseEndVals <<endl;
+            cout<<"* OF_SCALE3 * baseEndVals = "<< baseEndVals <<endl;
     } else if(id==OF_SETCOLOR){
       delete (ofVec3f *)baseEndVals;
-      cout<<"* OF_SETCOLOR * baseEndVals = "<< baseEndVals <<endl;
-    } else if(id==OF_SETALPHA){
-      delete (float *)baseEndVals;
-      cout<<"* OF_SETALPHA * baseEndVals = "<< baseEndVals <<endl;
+            cout<<"* OF_SETCOLOR * baseEndVals = "<< baseEndVals <<endl;
     }
   }
   
