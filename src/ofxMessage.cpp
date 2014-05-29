@@ -129,6 +129,8 @@ ofxMessage::~ofxMessage()
     }
   }
   
+  //DEV: should we delete functionPtr?
+  
 }
 
 float ofxMessage::getFinishTime()

@@ -65,24 +65,29 @@ ofxObject::ofxObject(){
 //----------------------------------------------------------
 ofxObject::~ofxObject()
 {
-  /*
-   material
-   drawMaterial
-   messages vecp
-   
-   //dont need to delete these, they are freed in ofxMessage
-   args arrp
-   args ofvec3
-   args ofvec4
-  */
-  cout<<"* * * * * "<<endl;
   
-  // 1 --- Delete new'ed items.
+  // 1 --- Destroy new'ed items.
   delete(material);
 	delete(drawMaterial);
   for (auto message : messages){
     delete message;
   }
+
+  // 2 --- Destroy other items.
+  // Delete child and parents vectors.
+  for (auto parent : parents){
+    parent->removeChild(this);
+      cout<<"----- 1"<<endl;
+  }
+  // Get rid of parent references to this object in all its children.
+  for (auto child : children){
+    for (int i=0; i < child->parents.size(); i++){
+      if(child->parents[i] == this){
+        child->parents.erase(child->parents.begin() + i);
+      }
+    }
+  }
+
 //  // OLD - Delete messages
 //	for(unsigned int i=0; i < messages.size(); i++){
 //		cout<<"ofxObject delete message["<<i<<"]"<<endl;
@@ -90,23 +95,11 @@ ofxObject::~ofxObject()
 //		messages.erase(messages.begin() + i);
 //		i--;
 //	}
-  
-  // 2 --- Delete other items.
-  for (auto parent : parents){
-    parent->removeChild(this);
-  }
-  for (auto child : children){
-    for (int i=0; i < parents.size(); i++){
-      if(parents[i] == this){
-        parents.erase(parents.begin() + i);
-      }
-    }
-  }
-  
 //  // OLD - delete child and parents vectors
 //  // Ensure that this object is removed from the render tree before deletion.
 //  for(unsigned int i=0; i < parents.size(); i++){
 //    parents[i]->removeChild(this);
+//        cout<<"----- 1"<<endl;
 //  }
 //	// Get rid of parent references to this object in all its children.
 //	for (unsigned int i = 0; i < children.size(); i++) {
@@ -121,10 +114,13 @@ ofxObject::~ofxObject()
 //        
 //				child->parents.erase(child->parents.begin() + j);
 //				i--;
+//        
+//                      cout<<"---------- 2"<<endl;
 //			}
 //		}
 //	}
 
+  //DEV_jc_1: this was here already, do we get rid of these unused vars?
 	//if (matrix != NULL) free(matrix);
 	//if (matrixTmp != NULL) free(matrixTmp);
 	//if (localMatrix != NULL) free(localMatrix);
