@@ -12,6 +12,7 @@
 #include "ofxQuadStripObject.h"
 #include "ofxLineStripObject.h"
 #include "ofxDynamicPolygonObject.h"
+#include "ofxVideoPlayerObject.h"
 
 class emptyApp : public ofBaseApp{
   
@@ -37,7 +38,10 @@ public:
   
   ofxSosoTrueTypeFont				*font16;
   ofxTextObject             *counterDisplay;
+  vector<ofxVideoPlayerObject *>  videoPlayerCollection;
+  
   int                       numObjectsToCreate;
+  int                       numVideosToCreate;
 
   // counters for each type of object we wish to test destructor for.
   int                       numCreatedTextObjects;
@@ -49,5 +53,6 @@ public:
   int                       numCreatedQuadStripObjects;
   int                       numCreatedLineStripObjects;
   int                       numCreatedDynPolygonObjects;
+  int                       numCreatedVideoPlayerObjects;
 };
 

@@ -29,6 +29,7 @@ void emptyApp::setup(){
   
   // Init counters for each destructor test.
   numObjectsToCreate = 1000;
+  numVideosToCreate = 100;
   numCreatedTextObjects = 0;
   numCreatedGridSystems = 0;
   numCreatedCircleObjects = 0;
@@ -38,7 +39,7 @@ void emptyApp::setup(){
   numCreatedQuadStripObjects = 0;
   numCreatedLineStripObjects = 0;
   numCreatedDynPolygonObjects = 0;
-  
+  numCreatedVideoPlayerObjects = 0;
 }
 
 //--------------------------------------------------------------
@@ -153,6 +154,31 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedDynPolygonObjects += numObjectsToCreate;
     counterDisplay->setString("# of ofxDynamicPolygonObjects: "+ ofToString(numCreatedDynPolygonObjects));
+  } else if(key == 'k'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxDynamicPolygonObject* dynPoly = new ofxDynamicPolygonObject(8);
+      delete dynPoly;
+    }
+    numCreatedDynPolygonObjects += numObjectsToCreate;
+    counterDisplay->setString("# of ofxDynamicPolygonObjects: "+ ofToString(numCreatedDynPolygonObjects));
+  } else if(key == 'l'){
+    
+    for(int i=0; i < numVideosToCreate; i++) {
+      ofxVideoPlayerObject* videoPlayer = new ofxVideoPlayerObject("RF1308-Superbowl_Closing-Ver02.mp4");
+//      delete videoPlayer;
+      videoPlayer->start();
+      videoPlayerCollection.push_back(videoPlayer);
+    }
+    numCreatedVideoPlayerObjects += numVideosToCreate;
+    counterDisplay->setString("# of ofxVideoPlayerObjects: "+ ofToString(numCreatedVideoPlayerObjects));
+  } else if(key == 'L'){
+    for(auto videoPlayer : videoPlayerCollection) {
+      delete videoPlayer;
+    }
+    videoPlayerCollection.clear();
+    numCreatedVideoPlayerObjects = videoPlayerCollection.size();
+    counterDisplay->setString("# of ofxVideoPlayerObjects *: "+ ofToString(numCreatedVideoPlayerObjects));
   }
   
   
