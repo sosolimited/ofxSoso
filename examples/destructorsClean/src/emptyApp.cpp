@@ -37,6 +37,7 @@ void emptyApp::setup(){
   numCreatedPolygonObjects = 0;
   numCreatedQuadStripObjects = 0;
   numCreatedLineStripObjects = 0;
+  numCreatedDynPolygonObjects = 0;
   
 }
 
@@ -144,6 +145,14 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedLineStripObjects += numObjectsToCreate;
     counterDisplay->setString("# of ofxLinetripObjects: "+ ofToString(numCreatedLineStripObjects));
+  } else if(key == 'j'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxDynamicPolygonObject* dynPoly = new ofxDynamicPolygonObject(8);
+      delete dynPoly;
+    }
+    numCreatedDynPolygonObjects += numObjectsToCreate;
+    counterDisplay->setString("# of ofxDynamicPolygonObjects: "+ ofToString(numCreatedDynPolygonObjects));
   }
   
   

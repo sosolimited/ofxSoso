@@ -17,7 +17,14 @@ ofxDynamicPolygonObject::ofxDynamicPolygonObject(int iNumVertices):ofxPolygonObj
 	}
 }
 
-ofxDynamicPolygonObject::~ofxDynamicPolygonObject(){}
+ofxDynamicPolygonObject::~ofxDynamicPolygonObject(){
+  for (auto vert : dynamicVerts){
+    delete vert->posTracker;
+    delete vert->texTracker;
+    delete vert->colorTracker;
+    delete vert;
+  }
+}
 
 void ofxDynamicPolygonObject::idle(float iTime)
 {	

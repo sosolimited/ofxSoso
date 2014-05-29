@@ -11,6 +11,7 @@
 #include "ofxPolygonObject.h"
 #include "ofxQuadStripObject.h"
 #include "ofxLineStripObject.h"
+#include "ofxDynamicPolygonObject.h"
 
 class emptyApp : public ofBaseApp{
   
@@ -47,5 +48,6 @@ public:
   int                       numCreatedPolygonObjects;
   int                       numCreatedQuadStripObjects;
   int                       numCreatedLineStripObjects;
+  int                       numCreatedDynPolygonObjects;
 };
 
