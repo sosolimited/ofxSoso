@@ -59,23 +59,18 @@ public:
   ~ofxGridSystem();
   
   void            buildGrid(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iLeft, float iRight, float iHead, float iTail, int iGutterMult=1);
-  
   float           colX(int iNumber);
   float           col(int iNumber=1);
   void            setLineColor(ofVec4f iColor);
   void            setLineWidth(float iWidth);
-  
   void            showLines(bool iShowHide);
   void            showBaselines(bool iShowHide);
-  
   ofxGridSystemArray  operator[](int iIndex);
-  
   bool            isGridVisible();
   bool            isBaselineGridVisible();
   
 private:
   void            buildLines();
-  
   int             numBaselines;
   float           *baselines;
   bool            isGridShown,
@@ -86,23 +81,16 @@ public:
   height;
   float           colW;
   int             numCol;
-  
   float           left,
-  right,
-  head,
-  tail;
-  
-  
-  
+                  right,
+                  head,
+                  tail;
   float           topY,
-  bottomY;
+                  bottomY;
   float           leftX,
-  rightX;
-  
+                  rightX;
   float           leading;
   float           gutter;
-  
-  
   vector<ofxLineStripObject *>    lines;
   vector<ofxLineStripObject *>    baselineLines;
   

@@ -35,14 +35,9 @@ public:
 
 public:	
 	int							resolution,
-								numCirclePoints;
+                  numCirclePoints;
 	float						outerRadius,
-								innerRadius;
-	
+                  innerRadius;
 	float						*circlePoints;
-
-
-
-
 
 };

@@ -40,25 +40,21 @@ public:
   
 public:
 	ofxSosoTrueTypeFont				*font;
-	char							*fontName;
-  string							fontName2;
+	char                      *fontName;
+  string                    fontName2;
   
 };
 
 
 class wordBlock {
 public:
-  string				rawWord;
-  
+  string              rawWord;
   ofVec2f             pos;
   vector<ofVec2f>     charPositions;
-  
-  float				width;
-  float				height;
-  ofColor				color;
-  
-  bool				isNewLine;
-  
+  float               width;
+  float               height;
+  ofColor             color;
+  bool                isNewLine;
   ofxSosoTrueTypeFont	*font;
   
 };
@@ -66,11 +62,10 @@ public:
 
 class lineBlock {
 public:
-  vector<int>			wordsID;
-  
-  ofVec2f				pos;
-  float				width;
-  float				height;
+  vector<int>         wordsID;
+  ofVec2f             pos;
+  float               width;
+  float               height;
   
 };
 
@@ -89,107 +84,91 @@ public:
 	ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString=NULL);	//LM 063012
 	~ofxTextObject();
   
-	void							render();
+	void                render();
   
-  void                            drawText(float x=0, float y=0, bool drawFlag=true);
-  void                            drawLeft(float x=0, float y=0, bool drawFlag=true);
-  void                            drawRight(float x=0, float y=0, bool drawFlag=true);
-  void                            drawCenter(float x=0, float y=0, bool drawFlag=true);
-  void                            drawJustified(float x=0, float y=0, bool drawFlag=true);
+  void                drawText(float x=0, float y=0, bool drawFlag=true);
+  void                drawLeft(float x=0, float y=0, bool drawFlag=true);
+  void                drawRight(float x=0, float y=0, bool drawFlag=true);
+  void                drawCenter(float x=0, float y=0, bool drawFlag=true);
+  void                drawJustified(float x=0, float y=0, bool drawFlag=true);
   
-	virtual void					setColor(float iR, float iG, float iB, float iA=255.0);
-	virtual void					setColor(ofVec4f color);
-  virtual void                    setColor(ofColor color);
-	void							setWordColor(int iIndex, float iR, float iG, float iB, float iA=255.0);
-  void                            setWordColor(string iWord, float iR, float iG, float iB, float iA=255.0,
-                                               bool iExactMatch = true);
-  void                            setAllWordsColor(float iR,  float iG, float iB, float iA=255.0);
-  void							setAlpha(float iA);
+	virtual void				setColor(float iR, float iG, float iB, float iA=255.0);
+	virtual void				setColor(ofVec4f color);
+  virtual void        setColor(ofColor color);
+	void                setWordColor(int iIndex, float iR, float iG, float iB, float iA=255.0);
+  void                setWordColor(string iWord, float iR, float iG, float iB, float iA=255.0, bool iExactMatch = true);
+  void                setAllWordsColor(float iR,  float iG, float iB, float iA=255.0);
+  void                setAlpha(float iA);
   
-  void                            enableWordColoring(bool iFlag); //eg
-	void							enableDrawAsShapes(bool iFlag);
+  void                enableWordColoring(bool iFlag); //eg
+	void                enableDrawAsShapes(bool iFlag);
   
-  virtual void					setString(char *iString);
-	virtual void					setString(string iString);
-  char*							getString();
+  virtual void				setString(char *iString);
+	virtual void				setString(string iString);
+  char*               getString();
   
-	virtual void					setColumnWidth(float iWidth);
-	virtual void					setColumnBox(float iWidth, float iHeight);
-	virtual void					setAlignment(TextObjectAlignment iAlignment);
+	virtual void				setColumnWidth(float iWidth);
+	virtual void				setColumnBox(float iWidth, float iHeight);
+	virtual void				setAlignment(TextObjectAlignment iAlignment);
   
-	int            getAlignment();
-  float							getWidth();
-  float                           getHeight();
-	float							getColumnWidth();
+	int                 getAlignment();
+  float               getWidth();
+  float               getHeight();
+	float               getColumnWidth();
   
-  ofVec2f                         getCharPosition(int iIndex); //LM 031213
+  ofVec2f             getCharPosition(int iIndex); //LM 031213
   
-	virtual void					setFont(ofxSosoTrueTypeFont *iFont);
+	virtual void				setFont(ofxSosoTrueTypeFont *iFont);
   ofxSosoTrueTypeFont*			getFont();
   
-  virtual void                    setPointSize(float iPointSize);
-  float							getPointSize();
-  float                           getScaleFactor();
+  virtual void        setPointSize(float iPointSize);
+  float               getPointSize();
+  float               getScaleFactor();
   
-  virtual void					setLeading(float iLeading);
-  float							getLeading();
+  virtual void				setLeading(float iLeading);
+  float               getLeading();
+  virtual void				setSpaceWidth(float iWidth);
+  int                 getNumLines();
+	void                enableDisplayList(bool iEnable);
   
-  virtual void					setSpaceWidth(float iWidth);
-  
-  int								getNumLines();
-	
-	void							enableDisplayList(bool iEnable);
-  
-  string                          getLineString(int iIndex);
+  string              getLineString(int iIndex);
   
   static void                   addFont(ofxTextFont *iFont);
 	static ofxTextFont*           addFont(char *iName, ofxSosoTrueTypeFont *iFont);
 	static ofxSosoTrueTypeFont*		getFont(char *iFontName);
-  
   static ofxTextFont*           addFont(string iName, ofxSosoTrueTypeFont *iFont);
   static ofxSosoTrueTypeFont*   getFont(string iFontName);
   static void                   destroyAllFonts();
   
 protected:
-  void                            init(ofxSosoTrueTypeFont *iFont);
-  
-  int                             wrapTextX(float lineWidth);
-  void                            wrapTextArea(float rWidth, float rHeight);
+  void                init(ofxSosoTrueTypeFont *iFont);
+  int                 wrapTextX(float lineWidth);
+  void                wrapTextArea(float rWidth, float rHeight);
   bool					    	wrapTextForceLines(int linesN);
-  
-  void                            updatePositions(float width);
-  
-  void                            _loadWords();
-  void                            _trimLineSpaces();
-  float                           _getWidthOfWords();
-  int                             _getLinedWords();
-  
-  void                            _checkString(string & inputString, char *checkBuf, string checkString);
+  void                updatePositions(float width);
+  void                _loadWords();
+  void                _trimLineSpaces();
+  float               _getWidthOfWords();
+  int                 _getLinedWords();
+  void                _checkString(string & inputString, char *checkBuf, string checkString);
   
 protected:
-  string                          rawText;
-	ofxSosoTrueTypeFont				*font;
+  string                rawText;
+	ofxSosoTrueTypeFont   *font;
+  float                 pointSize,
+                        leading;
+  float                 scaleFactor;
+  wordBlock             blankSpaceWord;
+  wordBlock             newLineWord;
+  int                   alignment;
   
-  float                           pointSize,
-  leading;
-  float                           scaleFactor;
-  
-  wordBlock                       blankSpaceWord;
-  wordBlock                       newLineWord;
-  
-  int                             alignment;
-  
-  bool                            drawAsShapes,
-  drawWordColor;
-  
-	float							columnWidth,
-  columnHeight;
-  
-	bool							isDisplayListEnabled;
-  
-  vector<wordBlock>               words;
-  vector<lineBlock>               lines;
-  
+  bool                  drawAsShapes,
+                        drawWordColor;
+	float                 columnWidth,
+                        columnHeight;
+	bool                  isDisplayListEnabled;
+  vector<wordBlock>     words;
+  vector<lineBlock>     lines;
   
   static vector<ofxTextFont *>	allFonts;				//Static repository of fonts for easy access.
 };
