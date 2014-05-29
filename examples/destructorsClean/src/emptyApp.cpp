@@ -27,8 +27,11 @@ void emptyApp::setup(){
   counterDisplay->setTrans(0, 0, 5.0);
   scene->getRoot()->addChild(counterDisplay);
   
-  numCreatedTextObjects = 0;
+  // Init counters for each destructor test.
   numObjectsToCreate = 1000;
+  numCreatedTextObjects = 0;
+  numCreatedGridSystems = 0;
+  numCreatedCircleObjects = 0;
 }
 
 //--------------------------------------------------------------
@@ -73,6 +76,14 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedGridSystems += numObjectsToCreate;
     counterDisplay->setString("# of ofxGridSystems: "+ ofToString(numCreatedGridSystems));
+  } else if(key == 'c'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxCircleObject* circle = new ofxCircleObject(120, 100.0);
+      delete circle;
+    }
+    numCreatedCircleObjects += numObjectsToCreate;
+    counterDisplay->setString("# of ofxCircleObjects: "+ ofToString(numCreatedCircleObjects));
   }
   
   

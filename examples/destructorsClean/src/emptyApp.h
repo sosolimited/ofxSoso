@@ -5,6 +5,7 @@
 #include "ofxSosoRenderer.h"
 #include "ofxTextObject.h"
 #include "ofxGridSystem.h"
+#include "ofxCircleObject.h"
 
 class emptyApp : public ofBaseApp{
   
@@ -32,7 +33,9 @@ public:
   ofxTextObject             *counterDisplay;
   int                       numObjectsToCreate;
 
+  // counters for each type of object we wish to test destructor for.
   int                       numCreatedTextObjects;
   int                       numCreatedGridSystems;
+  int                       numCreatedCircleObjects;
 };
 
