@@ -61,8 +61,7 @@ ofxObject::ofxObject(){
 	timeElapsed = 0;
 }
 
-
-//----------------------------------------------------------
+// Destructor.
 ofxObject::~ofxObject()
 {
   
@@ -74,51 +73,19 @@ ofxObject::~ofxObject()
   }
 
   // 2 --- Destroy other items.
-  // Delete child and parents vectors.
   for (auto parent : parents){
     parent->removeChild(this);
-      cout<<"----- 1"<<endl;
   }
-  // Get rid of parent references to this object in all its children.
-  for (auto child : children){
-    for (int i=0; i < child->parents.size(); i++){
-      if(child->parents[i] == this){
-        child->parents.erase(child->parents.begin() + i);
+  for (int i=0; i < children.size(); i++){
+cout<<"CHILD ["<<i<<"] - - - "<<endl;
+    
+    for (int j=0; j < children[i]->parents.size(); j++){
+      if(children[i]->parents[j] == this){
+        children[i]->parents.erase(children[i]->parents.begin() + j);
+cout<<"PARENT ["<<j<<"] - - - "<<endl;
       }
     }
   }
-
-//  // OLD - Delete messages
-//	for(unsigned int i=0; i < messages.size(); i++){
-//		cout<<"ofxObject delete message["<<i<<"]"<<endl;
-//    delete(messages[i]);
-//		messages.erase(messages.begin() + i);
-//		i--;
-//	}
-//  // OLD - delete child and parents vectors
-//  // Ensure that this object is removed from the render tree before deletion.
-//  for(unsigned int i=0; i < parents.size(); i++){
-//    parents[i]->removeChild(this);
-//        cout<<"----- 1"<<endl;
-//  }
-//	// Get rid of parent references to this object in all its children.
-//	for (unsigned int i = 0; i < children.size(); i++) {
-//		
-//    cout<<"CHILD ["<<i<<"] - - - "<<endl;
-//    
-//    ofxObject *child = children[i];
-//		for (unsigned int j = 0; j < child->parents.size(); j++) {
-//			if (child->parents[j] == this) {
-//        
-//        cout<<"PARENT ["<<j<<"] - - - "<<endl;
-//        
-//				child->parents.erase(child->parents.begin() + j);
-//				i--;
-//        
-//                      cout<<"---------- 2"<<endl;
-//			}
-//		}
-//	}
 
   //DEV_jc_1: this was here already, do we get rid of these unused vars?
 	//if (matrix != NULL) free(matrix);
