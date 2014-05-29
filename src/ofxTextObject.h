@@ -40,7 +40,7 @@ public:
     
 public:
 	ofxSosoTrueTypeFont				*font;
-	char							*fontName;
+	string							fontName;
     
 };
 
@@ -84,8 +84,7 @@ enum TextObjectAlignment{
 class ofxTextObject : public ofxObject
 {
 public:
-	ofxTextObject(ofxSosoTrueTypeFont *iFont, char *iString=NULL);	
-	ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString=NULL);	//LM 063012
+	ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString=NULL);
 	~ofxTextObject();
 
 	void							render();
@@ -108,9 +107,8 @@ public:
     void                            enableWordColoring(bool iFlag); //eg
 	void							enableDrawAsShapes(bool iFlag);
 
-    virtual void					setString(char *iString);
 	virtual void					setString(string iString); 
-    char*							getString();
+    string							getString();
 
 	virtual void					setColumnWidth(float iWidth);
 	virtual void					setColumnBox(float iWidth, float iHeight);
@@ -142,8 +140,8 @@ public:
     
     
     static void						addFont(ofxTextFont *iFont);
-	static ofxTextFont*				addFont(char *iName, ofxSosoTrueTypeFont *iFont);
-	static ofxSosoTrueTypeFont*		getFont(char *iFontName);
+	static ofxTextFont*				addFont(string iName, ofxSosoTrueTypeFont *iFont);
+	static ofxSosoTrueTypeFont*		getFont(string iFontName);
     
     string                          getLineString(int iIndex);
     
@@ -161,7 +159,7 @@ protected:
     float                           _getWidthOfWords();
     int                             _getLinedWords();
         
-    void                            _checkString(string & inputString, char *checkBuf, string checkString);
+    void                            _checkString(string & inputString, string checkBuf, string checkString);
     
 protected:	
     string                          rawText;

@@ -6,28 +6,28 @@
 ofxTextFont::ofxTextFont(string iFontName, ofxSosoTrueTypeFont *iFont)
 {
 	font = iFont;
-	fontName = strdup((char *)iFontName.c_str());
+    fontName = iFontName;
 }
 
 ofxTextFont::ofxTextFont(string iFontName, string iFilename, int iFontsize, bool iAntiAliased, bool iFullCharacterSet, bool iMakeContours, bool iMakeMipMaps)
 {
 	font = new ofxSosoTrueTypeFont();
 	font->loadFont(iFilename, iFontsize, iAntiAliased, iFullCharacterSet, iMakeContours, iMakeMipMaps);
-	fontName = strdup((char *)iFontName.c_str());
+	fontName = iFontName;
 }
 
 ofxTextFont::~ofxTextFont()
 {
 	if (font) delete(font);
-	if (fontName) delete(fontName);
+	//if (fontName) delete(fontName); // (wes) I don't think this is needed anymore
 }
 
 //class ofxTextObject 
 
 vector<ofxTextFont *> ofxTextObject::allFonts;	
 
-ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, char *iString)
-{	
+ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString)
+{
     //NOTE pointsize and leading should always be explicity set after creating text object
     pointSize = iFont->getSize();       //pointSize defaults to resolution of font
     leading = (14.0/12.0) * pointSize;  //leading defaults to 14/12 proportion   
@@ -50,11 +50,6 @@ ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, char *iString)
 
     //this is so that text will be z-sorted by ofxScene as a transparent object
 	setSpecialTransparency(true);	
-}
-
-ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString) //LM 063012
-{
-	ofxTextObject(iFont, (char*)iString.c_str());
 }
 
 ofxTextObject::~ofxTextObject()
@@ -122,7 +117,7 @@ void ofxTextObject::enableDisplayList(bool iEnable)
 
 
 
-void ofxTextObject::setString(char *iString)
+void ofxTextObject::setString(string iString)
 {	
     rawText = iString;	//PEND does string clean itself up when you use the = operator to reassign it?    
 
@@ -133,11 +128,6 @@ void ofxTextObject::setString(char *iString)
 	
 	wrapTextX(columnWidth);
 	renderDirty = true;	
-}
-
-void ofxTextObject::setString(string iString) 
-{
-	setString((char*)iString.c_str());
 }
 
 string ofxTextObject::getLineString(int iIndex)
@@ -404,9 +394,9 @@ float ofxTextObject::getLeading()
 }
 
 
-char* ofxTextObject::getString()
+string ofxTextObject::getString()
 {	
-    return (char *)rawText.c_str();
+    return rawText;
 }
 
 int ofxTextObject::wrapTextX(float lineWidth)	 
@@ -873,8 +863,8 @@ void ofxTextObject::_loadWords()
     
 	words.clear();
     
-	char *rawBuf = (char *)rawText.c_str();
-	int size = (int)strlen(rawBuf);
+	string rawBuf = rawText;
+	int size = rawBuf.length();
     
 	const int maxWordSize = 500;
 	char wordBuf[maxWordSize];
@@ -959,13 +949,14 @@ void ofxTextObject::_loadWords()
     
 }
 
-//helper function for 
-void ofxTextObject::_checkString(string & inputString, char *checkBuf, string checkString)
+//helper function for replacing checkBuf (if it's found) in inputString with checkString
+void ofxTextObject::_checkString(string & inputString, string checkBuf, string checkString)
 {
 	int res = inputString.find(checkBuf);
+    
 	if (res != string::npos)
 	{
-		int len = strlen(checkBuf);
+		int len = checkBuf.length();
 		inputString.replace(res, len, checkString);
 	}
 }
@@ -1005,17 +996,17 @@ void ofxTextObject::addFont(ofxTextFont *iFont)
 }
 
 
-ofxTextFont* ofxTextObject::addFont(char *iName, ofxSosoTrueTypeFont *iFont)
+ofxTextFont* ofxTextObject::addFont(string iName, ofxSosoTrueTypeFont *iFont)
 {
 	ofxTextFont *font = new ofxTextFont(iName, iFont);
 	allFonts.push_back(font);
 	return font;
 }
 
-ofxSosoTrueTypeFont* ofxTextObject::getFont(char *iFontName)
+ofxSosoTrueTypeFont* ofxTextObject::getFont(string iFontName)
 {
 	for(int i=0; i < allFonts.size(); i++){
-		if(strcmp(allFonts[i]->fontName, iFontName)==0)
+		if(allFonts[i]->fontName.compare(iFontName)==0)
 			return allFonts[i]->font;
 	}
 	return NULL;
