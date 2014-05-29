@@ -52,7 +52,7 @@ public:
 class ofxLetterTextObject : public ofxTextObject
 {
 public:
-	ofxLetterTextObject(ofxSosoTrueTypeFont *iFont, char *iString=NULL);
+	ofxLetterTextObject(ofxSosoTrueTypeFont *iFont, string iString=NULL);
 	~ofxLetterTextObject();
 			
 	//void							predraw();

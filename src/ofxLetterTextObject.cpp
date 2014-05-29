@@ -40,7 +40,7 @@ void ofxLetterTextObjectLetter::render()
 
 
 //class ofxLetterTextObject
-ofxLetterTextObject::ofxLetterTextObject(ofxSosoTrueTypeFont *iFont, char *iString):ofxTextObject(iFont, iString)
+ofxLetterTextObject::ofxLetterTextObject(ofxSosoTrueTypeFont *iFont, string iString):ofxTextObject(iFont, iString)
 {	
 	//Format the text with a call to drawText(). Note last arg is false, which says format, but do not draw.
 	//drawText(0,0,false);		
