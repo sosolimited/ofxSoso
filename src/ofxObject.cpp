@@ -66,11 +66,12 @@ ofxObject::~ofxObject()
 {
   
   // 1 --- Destroy new'ed items.
-  delete(material);
-	delete(drawMaterial);
+  delete material;
+	delete drawMaterial;
   for (auto message : messages){
     delete message;
   }
+  messages.clear();
 
   // 2 --- Destroy other items.
   for (auto parent : parents){
