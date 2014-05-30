@@ -17,6 +17,7 @@
 #include "ofxImageObject.h"
 #include "ofxRectangleObject.h"
 #include "ofxRoundedArcObject.h"
+#include "ofxStateMachine.h"
 
 class emptyApp : public ofBaseApp{
   
@@ -65,6 +66,6 @@ public:
   int                       numCreatedSceneObjects;
   int                       numCreatedRendererObjects;
   int                       numCreatedFonts;
-  
+  int                       numCreatedStateMachines;
 };
 

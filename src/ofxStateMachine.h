@@ -13,7 +13,7 @@
 class ofxState {
 public:
   ofxState(string iName){ name = iName; }
-  ~ofxState();
+  ~ofxState(){};
 public:
   string              name;
 };
@@ -21,7 +21,7 @@ public:
 class ofxStateTransition {
 public:
   ofxStateTransition(ofxState *iStartState, ofxState *iEndState, float iDur);
-  ~ofxStateTransition();
+  ~ofxStateTransition(){};
 public:
   ofxState            *startState;
   ofxState            *endState;
@@ -61,15 +61,15 @@ private:
   void                startTransition(ofxStateTransition *iTransition);
   
 private:
-  vector<ofxState *>  states;
-  vector<ofxStateTransition *> transitions;
-  
-  ofxState            *curState;
-  ofxStateTransition  *curTransition;
   float               transitionClock;
   float               timeP;
   float               timeD;
   bool                isTransitionBlocking;
   bool                isVerbose;
   
+  vector<ofxState *>  states;
+  vector<ofxStateTransition *> transitions;
+  ofxState            *curState;
+  ofxStateTransition  *curTransition;
+
 };

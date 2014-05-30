@@ -30,7 +30,18 @@ ofxStateMachine::ofxStateMachine()
   timeD = 0;  // Time difference.
 }
 
-ofxStateMachine::~ofxStateMachine(){}
+ofxStateMachine::~ofxStateMachine(){
+  delete curState;
+  delete curTransition;
+  for (auto state : states){
+    delete state;
+  }
+  states.clear();
+  for (auto transition : transitions){
+    delete transition;
+  }
+  transitions.clear();
+}
 
 // If added as child object, it updates itself automatically.
 void ofxStateMachine::idle(float iTime)

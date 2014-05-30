@@ -47,6 +47,7 @@ void emptyApp::setup(){
   numCreatedSceneObjects = 0;
   numCreatedRendererObjects = 0;
   numCreatedFonts = 0;
+  numCreatedStateMachines = 0;
 }
 
 //--------------------------------------------------------------
@@ -242,6 +243,21 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedFonts += numObjectsToCreate;
     counterDisplay->setString("# of ofxSosoTrueTypeFont: "+ ofToString(numCreatedFonts));
+  } else if(key == 't'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxStateMachine* state = new ofxStateMachine();
+      state->setVerbose(true);
+      state->enableTransitionBlocking(true);
+      state->addTransition("MAP", "INTRO", 2.01);
+      state->addTransition("INTRO", "MAP", 2.01);
+      state->addTransition("INTRO", "LIST", 2.01);
+      state->addTransition("LIST", "MAP", 2.01);
+      
+      delete state;
+    }
+    numCreatedStateMachines += numObjectsToCreate;
+    counterDisplay->setString("# of ofxStateMachine: "+ ofToString(numCreatedStateMachines));
   }
   
   
