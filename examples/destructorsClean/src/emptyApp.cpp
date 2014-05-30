@@ -49,6 +49,7 @@ void emptyApp::setup(){
   numCreatedFonts = 0;
   numCreatedStateMachines = 0;
   numCreatedAnimations = 0;
+  numCreatedScrollers = 0;
 }
 
 //--------------------------------------------------------------
@@ -272,6 +273,15 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedAnimations += numObjectsToCreate;
     counterDisplay->setString("# of ofxAnimation: "+ ofToString(numCreatedAnimations));
+  } else if(key == 'v'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxScroller* scroller = new ofxScroller(1000.0);
+      scroller->addSnapPoint(500.0);
+      delete scroller;
+    }
+    numCreatedScrollers += numObjectsToCreate;
+    counterDisplay->setString("# of ofxScroller: "+ ofToString(numCreatedScrollers));
   }
   
   

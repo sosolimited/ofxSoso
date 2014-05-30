@@ -19,6 +19,7 @@
 #include "ofxRoundedArcObject.h"
 #include "ofxStateMachine.h"
 #include "ofxAnimation.h"
+#include "ofxScroller.h"
 
 class emptyApp : public ofBaseApp{
   
@@ -69,5 +70,6 @@ public:
   int                       numCreatedFonts;
   int                       numCreatedStateMachines;
   int                       numCreatedAnimations;
+  int                       numCreatedScrollers;
 };
 
