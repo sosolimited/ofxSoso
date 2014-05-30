@@ -40,6 +40,7 @@ void emptyApp::setup(){
   numCreatedLineStripObjects = 0;
   numCreatedDynPolygonObjects = 0;
   numCreatedVideoPlayerObjects = 0;
+  numCreatedFboObjects = 0;
 }
 
 //--------------------------------------------------------------
@@ -166,7 +167,6 @@ void emptyApp::keyPressed  (int key){
     
     for(int i=0; i < numVideosToCreate; i++) {
       ofxVideoPlayerObject* videoPlayer = new ofxVideoPlayerObject("RF1308-Superbowl_Closing-Ver02.mp4");
-//      delete videoPlayer;
       videoPlayer->start();
       videoPlayerCollection.push_back(videoPlayer);
     }
@@ -179,6 +179,22 @@ void emptyApp::keyPressed  (int key){
     videoPlayerCollection.clear();
     numCreatedVideoPlayerObjects = videoPlayerCollection.size();
     counterDisplay->setString("# of ofxVideoPlayerObjects *: "+ ofToString(numCreatedVideoPlayerObjects));
+  } else if(key == 'm'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxFboObject* fbo = new ofxFboObject(400, 400);
+      delete fbo;
+    }
+    numCreatedFboObjects += numObjectsToCreate;
+    counterDisplay->setString("# of ofxFboObjects: "+ ofToString(numCreatedFboObjects));
+  } else if(key == 'n'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxImageObject* image = new ofxImageObject("plasticman.jpg");
+      delete image;
+    }
+    numCreatedImageObjects += numObjectsToCreate;
+    counterDisplay->setString("# of ofxImageObjects: "+ ofToString(numCreatedImageObjects));
   }
   
   

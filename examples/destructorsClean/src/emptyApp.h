@@ -13,6 +13,8 @@
 #include "ofxLineStripObject.h"
 #include "ofxDynamicPolygonObject.h"
 #include "ofxVideoPlayerObject.h"
+#include "ofxFboObject.h"
+#include "ofxImageObject.h"
 
 class emptyApp : public ofBaseApp{
   
@@ -54,5 +56,8 @@ public:
   int                       numCreatedLineStripObjects;
   int                       numCreatedDynPolygonObjects;
   int                       numCreatedVideoPlayerObjects;
+  int                       numCreatedFboObjects;
+  int                       numCreatedImageObjects;
+  
 };
 
