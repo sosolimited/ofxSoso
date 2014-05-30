@@ -22,8 +22,9 @@ ofxDynamicPolygonObject::~ofxDynamicPolygonObject(){
     delete vert->posTracker;
     delete vert->texTracker;
     delete vert->colorTracker;
-    delete vert;
+    delete vert;                //DEV: should this be: delete[] vert?
   }
+//  delete dynamicVerts;    //DEV: why cant i delete this
 }
 
 void ofxDynamicPolygonObject::idle(float iTime)
