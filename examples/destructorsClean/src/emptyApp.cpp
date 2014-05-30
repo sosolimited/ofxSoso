@@ -41,6 +41,9 @@ void emptyApp::setup(){
   numCreatedDynPolygonObjects = 0;
   numCreatedVideoPlayerObjects = 0;
   numCreatedFboObjects = 0;
+  numCreatedImageObjects = 0;
+  numCreatedRectangleObjects = 0;
+  numCreatedRoundedArcObjects = 0;
 }
 
 //--------------------------------------------------------------
@@ -195,6 +198,22 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedImageObjects += numObjectsToCreate;
     counterDisplay->setString("# of ofxImageObjects: "+ ofToString(numCreatedImageObjects));
+  } else if(key == 'o'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxRectangleObject* rect = new ofxRectangleObject(1000, 800);
+      delete rect;
+    }
+    numCreatedRectangleObjects += numObjectsToCreate;
+    counterDisplay->setString("# of ofxRectangleObjects: "+ ofToString(numCreatedRectangleObjects));
+  } else if(key == 'p'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxRoundedArcObject* rArc = new ofxRoundedArcObject(100,80,90,270);
+      delete rArc;
+    }
+    numCreatedRoundedArcObjects += numObjectsToCreate;
+    counterDisplay->setString("# of ofxRoundedArcObjects: "+ ofToString(numCreatedRoundedArcObjects));
   }
   
   

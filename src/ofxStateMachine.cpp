@@ -108,7 +108,7 @@ ofxStateTransition* ofxStateMachine::addTransition(ofxState *iStartState, ofxSta
     transitions.push_back(t);
   }
   
-  return t;  
+  return t;
 }
 
 ofxStateTransition* ofxStateMachine::addTransition(string iStartState, string iEndState, float iDur)
@@ -232,5 +232,5 @@ float ofxStateMachine::getTransitionProgress()
 		return transitionClock/curTransition->duration;
 	else
 		return 1.0;
-
+  
 }

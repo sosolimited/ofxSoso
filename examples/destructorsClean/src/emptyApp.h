@@ -15,6 +15,8 @@
 #include "ofxVideoPlayerObject.h"
 #include "ofxFboObject.h"
 #include "ofxImageObject.h"
+#include "ofxRectangleObject.h"
+#include "ofxRoundedArcObject.h"
 
 class emptyApp : public ofBaseApp{
   
@@ -58,6 +60,8 @@ public:
   int                       numCreatedVideoPlayerObjects;
   int                       numCreatedFboObjects;
   int                       numCreatedImageObjects;
+  int                       numCreatedRectangleObjects;
+  int                       numCreatedRoundedArcObjects;
   
 };
 

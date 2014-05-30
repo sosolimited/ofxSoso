@@ -11,18 +11,18 @@
 #include "ofxObject.h"
 
 class ofxState {
-
+  
 public:
   ofxState(string iName){ name = iName; }
   ~ofxState();
 public:
   string name;
-
+  
 };
 
 
 class ofxStateTransition {
-
+  
 public:
   ofxStateTransition(ofxState *iStartState, ofxState *iEndState, float iDur);
   ~ofxStateTransition();
@@ -30,12 +30,12 @@ public:
   ofxState *startState;
   ofxState *endState;
   float duration;
-
+  
 };
 
 
 class ofxStateMachine : public ofxObject{
-
+  
 public:
   ofxStateMachine();
   ~ofxStateMachine();
@@ -67,7 +67,7 @@ public:
 private:
   void startTransition(ofxStateTransition *iTransition);
   
-
+  
 private:
   vector<ofxState *> states;
   vector<ofxStateTransition *> transitions;
@@ -84,8 +84,8 @@ private:
   
   bool isVerbose;
   
-
   
-
-
+  
+  
+  
 };
