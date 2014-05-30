@@ -11,81 +11,65 @@
 #include "ofxObject.h"
 
 class ofxState {
-  
 public:
   ofxState(string iName){ name = iName; }
   ~ofxState();
 public:
-  string name;
-  
+  string              name;
 };
 
-
 class ofxStateTransition {
-  
 public:
   ofxStateTransition(ofxState *iStartState, ofxState *iEndState, float iDur);
   ~ofxStateTransition();
 public:
-  ofxState *startState;
-  ofxState *endState;
-  float duration;
-  
+  ofxState            *startState;
+  ofxState            *endState;
+  float               duration;
 };
 
-
 class ofxStateMachine : public ofxObject{
-  
 public:
   ofxStateMachine();
   ~ofxStateMachine();
   
-  void idle(float iTime);
-  void update(float iTime);
+  void                idle(float iTime);
+  void                update(float iTime);
   
-  ofxState* addState(string iName);
-  ofxState* getState(string iName);
+  ofxState*           addState(string iName);
+  ofxState*           getState(string iName);
   ofxStateTransition* addTransition(string iStartState, string iEndState, float iDur);
   ofxStateTransition* addTransition(ofxState *iStartState, ofxState *iEndState, float iDur);
   ofxStateTransition* getTransition(ofxState *iStartState, ofxState *iEndState);
   
-  bool gotoState(ofxState *iState);
-  bool forceState(ofxState *iState);
-  bool gotoState(string iName);
-  void forceState(string iName);
+  bool                gotoState(ofxState *iState);
+  bool                forceState(ofxState *iState);
+  bool                gotoState(string iName);
+  void                forceState(string iName);
   
-  string getCurState();
+  string              getCurState();
   
-  float getTransitionDuration();
-  bool isTransitioning();
-  float getTransitionClock();
-  float getTransitionProgress();
+  float               getTransitionDuration();
+  bool                isTransitioning();
+  float               getTransitionClock();
+  float               getTransitionProgress();
   
-  void enableTransitionBlocking(bool iEnable);
-  void setVerbose(bool iEnable);
-  
-private:
-  void startTransition(ofxStateTransition *iTransition);
-  
+  void                enableTransitionBlocking(bool iEnable);
+  void                setVerbose(bool iEnable);
   
 private:
-  vector<ofxState *> states;
+  void                startTransition(ofxStateTransition *iTransition);
+  
+private:
+  vector<ofxState *>  states;
   vector<ofxStateTransition *> transitions;
   
-  ofxState *curState;
-  ofxStateTransition *curTransition;
-  
-  float transitionClock;
-  
-  float timeP;
-  float timeD;
-  
-  bool isTransitionBlocking;
-  
-  bool isVerbose;
-  
-  
-  
-  
+  ofxState            *curState;
+  ofxStateTransition  *curTransition;
+  float               transitionClock;
+  float               timeP;
+  float               timeD;
+  bool                isTransitionBlocking;
+  bool                isVerbose;
   
 };
