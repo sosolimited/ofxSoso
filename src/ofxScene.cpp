@@ -95,7 +95,9 @@ ofxScene::~ofxScene(){
 //  delete root;            //DEV: should i be deleting this?
 //  delete defaultMaterial; //DEV: can't delete this or else my test crashes...
   delete sortedObjects;     //DEV: hopefully we can delete a double pointer like a normal pointer, like this.
+                            // how can i clear() this vector?
   delete onTopObjects;      //DEV: hopefully we can delete a double pointer like a normal pointer, like this.
+                            // how can i clear() this vector?
 }
 
 void ofxScene::update(float iTime)

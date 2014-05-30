@@ -1058,29 +1058,11 @@ bool ofxObject::isAnimating()
 	return false;
 }
 
-/*	//deprecated - we now clean messages up right in updateMessage() on a one-by-one basis using deleteMessage()
- void ofxObject::cleanupMessages()
- {
- float curTime = ofGetElapsedTimef();
- for(unsigned int i=0; i < messages.size(); i++){
- if(messages[i]->autoDelete){
- if(curTime > messages[i]->getFinishTime()){
- //printf("message %d deleted!\n", i);
- delete(messages[i]);
- messages.erase(messages.begin() + i);
- i--;
- 
- }
- }
- }
- }
- */
-
 void ofxObject::deleteMessage(ofxMessage *iMessage)
 {
 	for(unsigned int i=0; i < messages.size(); i++){
 		if(iMessage == messages[i]){
-			delete(iMessage);
+			delete iMessage;
 			messages.erase(messages.begin() + i);
 			//printf("ofxObject::deleteMessage()\n");
       
@@ -1107,6 +1089,7 @@ bool ofxObject::removeMessage(ofxMessage *iMessage)
 void ofxObject::stopMessages(int iMessageType)
 {
 	bool deleteFlag = true;
+  //DEV: refactor this loop not to iterate backwards?
 	for(unsigned int i=0; i < messages.size(); i++){
 		if(iMessageType > -1){
 			if(messages[i]->id != iMessageType)
