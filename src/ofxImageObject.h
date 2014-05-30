@@ -33,19 +33,21 @@ public:
 	ofxImageObject(string iFilename, bool iLoadNow=true);
 	~ofxImageObject();
   
-	void              loadImage(string iFilename);
-	void              render();
-	void              setCentered(bool iEnable);
-	void              enableTexture(bool iB);
-	void              clear();
-  ofTexture         getTexture();   //EG 021513
+	void            loadImage(string iFilename);
+	void						render();
+	void						setCentered(bool iEnable);
+  void            setDestroyPixels(bool iDestroyPixels);
+	void						enableTexture(bool iB);
+	void						clear();
+  ofTexture       getTexture();   //EG 021513
 	
 public:
-	bool              isCentered;
-	float             width,
-                    height;
-  bool              loaded;
-	string						filename;
-  ofImage						*image;
-  
+	bool            isCentered;
+	float           width,
+                  height;
+  bool            loaded;
+  bool            destroyPixels=true; // Flag for if we should destroy pixels after loading image, AO 053014
+	string          filename;
+  ofImage         *image;
+
 };
