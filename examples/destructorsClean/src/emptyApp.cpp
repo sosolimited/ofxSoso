@@ -48,6 +48,7 @@ void emptyApp::setup(){
   numCreatedRendererObjects = 0;
   numCreatedFonts = 0;
   numCreatedStateMachines = 0;
+  numCreatedAnimations = 0;
 }
 
 //--------------------------------------------------------------
@@ -258,6 +259,19 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedStateMachines += numObjectsToCreate;
     counterDisplay->setString("# of ofxStateMachine: "+ ofToString(numCreatedStateMachines));
+  } else if(key == 'u'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxAnimation* animation = new ofxAnimation();
+      ofxCircleObject *circle = new ofxCircleObject(120, 100.0);
+      scene->getRoot()->addChild(circle);
+      animation->tween(circle, OF_SCALE, 0, 1, OF_EASE_OUT, OF_RELATIVE_VAL, 0.5);
+      
+      delete circle;
+      delete animation;
+    }
+    numCreatedAnimations += numObjectsToCreate;
+    counterDisplay->setString("# of ofxAnimation: "+ ofToString(numCreatedAnimations));
   }
   
   
