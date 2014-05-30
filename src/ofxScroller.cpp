@@ -153,8 +153,16 @@ void ofxScroller::update(float iTime) {
     // TODO: Fix hack
     scrollPosition = scrollTracker->getScale().x;
     isSnapping = false;
+  }else if (isUsingVelocity){
+    scrollVelocity*=0.9f; // decrease scroll velocity
+    if (abs(scrollVelocity) < 0.1f) {
+     scrollVelocity = 0.0f;
+      isUsingVelocity = false;
+    }
+    moveScroll(scrollVelocity * timeElapsed);
+    scrollTracker->setScale(scrollPosition);
   }else{
-    
+  
     scrollTracker->setScale(scrollPosition);
   }
   
@@ -600,6 +608,7 @@ float ofxScroller::gotoSnapPoint(int iIndex, float iVelocity, int iBezier){
       scrollTracker->stopMessages();
       scrollTracker->setScale(scrollPosition); // set scale to current scroll position
       scrollTracker->doMessage1f(OF_SCALE, 0.0f, duration, iBezier, snapPoints[iIndex]);
+      isUsingVelocity = false;
       isSnapping = true;  // Set this flag - needed for hack to ensure we finish snap animation
     }
     return duration;
@@ -669,6 +678,18 @@ float ofxScroller::setScroll(float iPosition) {
 // Move scroll position by a certain amount
 float ofxScroller::moveScroll(float iDistance) {
   return setScroll(getScrollPosition() + iDistance);
+}
+
+// Move scroll position by a certain amount
+float ofxScroller::setScrollVelocity(float iVelocity) {
+  
+  //Make sure we're not going to a snap
+  if (!isSnapping){
+    
+    scrollVelocity = iVelocity;
+    isUsingVelocity = true;
+  }
+  //return setScroll(getScrollPosition() + iDistance);
 }
 
 

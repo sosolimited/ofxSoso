@@ -111,6 +111,8 @@ public:
   // For updating scroll position
   float setScroll(float iPosition);
   float moveScroll(float iDistance);
+  float setScrollVelocity(float iVelocity);
+  float getScrollVelocity(){ return scrollVelocity; }
   float getScrollPosition(){ return scrollPosition; }
   
   // To set max scroll value
@@ -145,5 +147,9 @@ private:
   float disable_time = -1;
   float disable_duration = -1;
   float time;
+  
+  // For velocity
+  bool isUsingVelocity;
+  float scrollVelocity;
 
 };

@@ -15,7 +15,7 @@
 
 #include "ofxScroller.h"
 
-class testApp : public ofBaseApp{
+class scrollerApp : public ofBaseApp{
   
 public:
   
@@ -33,35 +33,35 @@ public:
   void dragEvent(ofDragInfo dragInfo);
   void gotMessage(ofMessage msg);
   
+  // Helper method to build instruction text
   void buildInstructionText();
   
   
 public:
-  ofxScene						*scene;
   
+  // ofxSoso scene
+  ofxScene  *scene;
+  
+  // Scroller objects
   ofxScroller *horizontalScroller;
   ofxScroller *verticalScroller;
   
-	ofxSosoTrueTypeFont				*font16,
-  *font64;
-  
+	ofxSosoTrueTypeFont *font16;
   
   vector<ofxImageObject *> stars;
   vector<ofxTextObject*> instructions;
   ofxRectangleObject *textBackground;
-
   
-	scrollDirection horizontalDragDirection = OF_SCROLL_FORWARD;
-  scrollDirection verticalDragDirection = OF_SCROLL_FORWARD;
-
-  
+  // Variables for calculating mouse drag velocity
   float time = 0;
-  
-  float dragVelocity = 0.2f;
-  
+
   float prevMouseX = 0;
   float prevMouseY = 0;
   
+  float prevDragTime = 0;
+  
+  float mouseYVelocity = 0.0f;
+  float mouseXVelocity = 0.0f;
   
 };
 
