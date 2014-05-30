@@ -129,6 +129,7 @@ ofxScroller::ofxScroller(float iHeight) {
 ofxScroller::~ofxScroller() {
 
   delete scrollTracker;
+  delete scrollRoot;
   
   //delete all scroll objects
   for (auto scroll_obj : scrollObjects){
@@ -431,6 +432,16 @@ void ofxScroller::update(float iTime) {
   }
 }
 
+// Enable the scroller
+void ofxScroller::enable() {
+  isEnabled = true;
+  
+  start_disable_time = -1;
+  disable_duration = -1;
+  disable_time = -1;
+  
+}
+
 // Disable the scroller - it will not update
 void ofxScroller::disable() {
   
@@ -439,14 +450,6 @@ void ofxScroller::disable() {
   disable_time = -1; //overwrite timer if necessary
   disable_duration = -1;
 }
-
-
-/*void ofxScroller::disable(float iDuration) {
- isEnabled = false;
- disable_time = time + iDuration;
- 
- //start timer.
- }*/
 
 // Disable the scroller after a delay - it will not update
 void ofxScroller::disable(float iDelay) {
@@ -465,131 +468,8 @@ void ofxScroller::disable(float iDelay, float iDuration) {
 
 }
 
-// Enable the scroller
-void ofxScroller::enable() {
-  isEnabled = true;
-  
-  start_disable_time = -1;
-  disable_duration = -1;
-  disable_time = -1;
-  
-}
 
-// Add a new snap point - we can jump to this scroll position
-int ofxScroller::addSnapPoint(float iScrollPos){
-  
-  int newSnap = snapPoints.size();
-  snapPoints[newSnap] = iScrollPos;
-  
-  return newSnap;
-  
-}
-
-// Add a scroll point at a certain index
-int ofxScroller::addSnapPoint(float iScrollPos, int iSnapInd){
-
-  snapPoints[iSnapInd] = iScrollPos;
-  return iSnapInd;
-  
-}
-
-// Delete all snap points
-void ofxScroller::clearSnapPoints(){
-  snapPoints.clear();
-}
-
-// Go to a saved snap point with a given velocity and interpolation
-float ofxScroller::gotoSnapPoint(int iIndex, float iVelocity, int iBezier){
-  
-  // If we have this snap point...
-  if (snapPoints.count(iIndex) > 0){
-    
-    // Given the velocity, calculate the snap duration
-    float duration = abs(scrollPosition-snapPoints[iIndex])/iVelocity;
-    
-    // If we're not already at this position...
-    if (duration >= 0){
-        
-      // Start animating the scroll tracker (using scale to keep track of scrollPosition)
-      scrollTracker->stopMessages();
-      scrollTracker->setScale(scrollPosition); // set scale to current scroll position
-      scrollTracker->doMessage1f(OF_SCALE, 0.0f, duration, iBezier, snapPoints[iIndex]);
-      isSnapping = true;  // Set this flag - needed for hack to ensure we finish snap animation
-      }
-      return duration;
-    }
-  return 0;
-}
-
-// Goes to the closest snap point in a given direction (forward or backward)
-int ofxScroller::gotoNextSnapPoint(scrollDirection iDirection){
-  
-  float minDist = 999999.0f;
-  int minIndex = -1;
-  float scrollDist = 0;
-    
-  for (auto mapkey : snapPoints){
-      
-    float scrollPos = scrollPosition;
-    float diff = mapkey.second - scrollPos;
-    
-      // Snapping backwards
-      if (iDirection == OF_SCROLL_BACKWARD){
-        
-        if ((diff <= 0)&&(abs(diff) < abs(minDist))){
-          minIndex = mapkey.first;
-          minDist = diff;
-        }
-
-      // Snapping forwards
-      }else{
-        
-        if ((diff >= 0)&&(diff < minDist)){
-          minIndex = mapkey.first;
-          minDist = diff;
-        }
-      }
-    }
-    
-  scrollDist = minDist;
-  
-  //get the scroll position of the snap point and use it to calculate velocity
-  
-  float velocity = abs(minDist/2.0f); // 2 seconds to next
-  float minVelocity = 250.0f; // same as magnetCheck? no -- but related. adjust together.
-  
-  velocity = max(velocity, minVelocity);
-
-  gotoSnapPoint(minIndex, velocity,  OF_EASE_OUT);
-  
-  return minIndex;
-  
-}
-
-
-// Goes to absolute closest snap point in either direction
-int ofxScroller::gotoClosestSnapPoint(float iVelocity){
-
-  float minDist = 999999.0f;
-  int minIndex = -1;
-
-    for (auto mapkey : snapPoints){
-
-      float scrollPos = scrollPosition; //not really
-      float diff = abs(scrollPos - mapkey.second);
-
-      if (diff < minDist){
-
-       minIndex = mapkey.first;
-        minDist = diff;
-      }
-    }
-
-  return gotoSnapPoint(minIndex, iVelocity,  OF_EASE_OUT);
-
-}
-
-// Add a new scroll object.
+// Add another scroll object.
 // ATTENTION: By default, this adds the objects as a child of the scroller
 // Make sure you're not adding the object as a child elsewhere!
 ofxScrollObject* ofxScroller::addObject(ofxObject *iObject, bool iAddAsChild)
@@ -622,12 +502,152 @@ ofxScrollObject* ofxScroller::getScrollObject(ofxObject *iObject)
   return NULL;
 }
 
+// Add another snap point - we can jump to this scroll position
+int ofxScroller::addSnapPoint(float iScrollPos){
+  
+  int snap = snapPoints.size();
+  snapPoints[snap] = iScrollPos;
+  
+  return snap;
+  
+}
+
+// Add a scroll point at a certain index
+int ofxScroller::addSnapPoint(float iScrollPos, int iSnapInd){
+  
+  snapPoints[iSnapInd] = iScrollPos;
+  return iSnapInd;
+  
+}
+
+// Delete all snap points
+void ofxScroller::clearSnapPoints(){
+  snapPoints.clear();
+}
+
+
+// Gets the closest snap point
+// if iGetNext is true, we ignore current snap point and go to the next one
+// if iGetNext is false, we can stay on the current snap point if we're on one
+// Direction specifies if we want to a snap backwards or forwards
+int ofxScroller::getClosestSnapPoint(scrollDirection iDirection, bool iGetNext){
+  
+  float minDist = 999999.0f;
+  int minIndex = -1;
+  float scrollDist = 0;
+  
+  // Go through all snap points
+  for (auto mapkey : snapPoints){
+    
+    float scrollPos = scrollPosition;
+    float diff = mapkey.second - scrollPos;
+    
+    bool isNotCurrentSnap = (diff!=0);
+    
+    if (!iGetNext) isNotCurrentSnap = true;
+    
+    // If we want to get the closest snap
+    // smaller than current scroll position
+    if (iDirection == OF_SCROLL_BACKWARD){
+      
+      // diff must be nevative
+      if ((diff <= 0)&&(abs(diff) < abs(minDist))&&isNotCurrentSnap){
+        minIndex = mapkey.first;
+        minDist = diff;
+      }
+      
+      // If we want to get the closest snap
+      // larger than current scroll position
+    }else if (iDirection == OF_SCROLL_FORWARD){
+      
+      // diff must be positive
+      if ((diff >= 0)&&(diff < minDist)&&isNotCurrentSnap){
+        minIndex = mapkey.first;
+        minDist = diff;
+      }
+      
+      // If we want to get the closest snap
+      // in either direction
+    }else if (iDirection == OF_SCROLL_EITHER_DIRECTION){
+      
+      // diff just needs to be smaller than minDist
+      if (abs(diff) < abs(minDist)&&isNotCurrentSnap){
+        minIndex = mapkey.first;
+        minDist = diff;
+      }
+    }
+  }
+  
+  if (abs(minDist) <= 0)
+    minIndex = -1;
+  
+  return minIndex;
+}
+
+// Go to a saved snap point with a given velocity and interpolation
+float ofxScroller::gotoSnapPoint(int iIndex, float iVelocity, int iBezier){
+  
+  // If we have this snap point...
+  if (snapPoints.count(iIndex) > 0){
+    
+    // Given the velocity, calculate the snap duration
+    float duration = abs(scrollPosition-snapPoints[iIndex])/iVelocity;
+    
+    // If we're not already at this position...
+    if (duration >= 0){
+      
+      // Start animating the scroll tracker (using scale to keep track of scrollPosition)
+      scrollTracker->stopMessages();
+      scrollTracker->setScale(scrollPosition); // set scale to current scroll position
+      scrollTracker->doMessage1f(OF_SCALE, 0.0f, duration, iBezier, snapPoints[iIndex]);
+      isSnapping = true;  // Set this flag - needed for hack to ensure we finish snap animation
+    }
+    return duration;
+  }
+  return 0;
+}
+
+// Goes to the closest NEXT snap point in a given direction (forward or backward)
+int ofxScroller::gotoNextSnapPoint(float iVelocity, scrollDirection iDirection){
+  
+  // Get the closest snap point
+  int next_snap = getClosestSnapPoint(iDirection, true);
+  gotoSnapPoint(next_snap, iVelocity,  OF_EASE_OUT);
+  
+  return next_snap;
+  
+}
+
+// Goes to the closest snap point in a given direction (forward or backward)
+// If we're already on a snap point, stay there
+int ofxScroller::gotoClosestSnapPoint(float iVelocity, scrollDirection iDirection){
+  
+  // Get the closest snap point
+  int next_snap = getClosestSnapPoint(iDirection, false);
+  gotoSnapPoint(next_snap, iVelocity,  OF_EASE_OUT);
+  
+  return next_snap;
+}
+
+// Goes to absolute closest snap point in either direction
+// If we're already on a snap point, stay there
+int ofxScroller::gotoClosestSnapPoint(float iVelocity){
+  
+  // Get the closest snap point
+  int next_snap = getClosestSnapPoint(OF_SCROLL_EITHER_DIRECTION, false);
+  gotoSnapPoint(next_snap, iVelocity, OF_EASE_OUT);
+  
+  return next_snap;
+  
+}
 
 // Set the max scroll position.
+// It's important to fit the scroll height to content
+// Otherwise we can scroll way out of range
+// TODO: Consider auto-updating this value as transforms are added
 void ofxScroller::setScrollHeight(float iHeight) {
   scrollHeight = iHeight;
 }
-
 
 // Set the scroll position of the list. iPosition is in pixels and 0 moves the list to the top.
 float ofxScroller::setScroll(float iPosition) {
@@ -638,7 +658,7 @@ float ofxScroller::setScroll(float iPosition) {
       scrollTracker->setScale(iPosition);
       scrollPosition = iPosition;
       scrollPosition = max(0.0f, scrollPosition);
-      scrollPosition = min(scrollHeight+1, scrollPosition);  //TODO:
+      scrollPosition = min(scrollHeight, scrollPosition);
       
     }
   }
@@ -652,7 +672,3 @@ float ofxScroller::moveScroll(float iDistance) {
 }
 
 
-// Get current scroll position
-float ofxScroller::getScrollPosition() {
-  return scrollPosition;
-}

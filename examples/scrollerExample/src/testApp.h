@@ -45,6 +45,7 @@ public:
 	ofxSosoTrueTypeFont				*font16,
   *font64;
   
+  
   vector<ofxImageObject *> stars;
   vector<ofxTextObject*> instructions;
   ofxRectangleObject *textBackground;

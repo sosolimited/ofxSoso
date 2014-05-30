@@ -14,8 +14,10 @@
 
 
 enum scrollDirection{
+  OF_SCROLL_EITHER_DIRECTION = 0,
   OF_SCROLL_FORWARD = 1,
   OF_SCROLL_BACKWARD = -1
+  
   
 };
 
@@ -58,14 +60,11 @@ class ofxScrollObject{
   
     bool isTrumped(ofxScrollTransform *iTransform, float iScrollPosition);
 
-
-  
   public:
     
     ofxObject *object;
     vector<ofxScrollTransform *> transforms;
 
-    
   };
 
 // END SUPPORTING CLASSES
@@ -76,16 +75,20 @@ class ofxScrollObject{
 // Scroll list that puts it all together.
 class ofxScroller : public ofxObject
 {
-  
 
-
-  
+// Public methods
 public:
   
   ofxScroller(float iHeight);
   ~ofxScroller();
-
+  
   void update(float iTime);
+  
+  // Set flags to enable/disable scroll list
+  void enable();
+  void disable();
+  void disable(float iDelay); //disable for a certain number of seconds
+  void disable(float iDelay, float iDuration); //disable for a certain number of seconds
   
   // For adding objects
   ofxScrollObject* addObject(ofxObject *iObject, bool iAddAsChild=true);
@@ -94,57 +97,53 @@ public:
   // To get collection of scroll objects
   vector<ofxScrollObject *> getScrollObjects(){ return scrollObjects;}
   
-  // For updating scroll position
-  float setScroll(float iPosition);
-  float moveScroll(float iDistance);
-  float getScrollPosition();
-  
-  // To set max scroll value
-  void setScrollHeight(float iHeight);
-  
-  // for snap points
+  // Methods for adding new snap points
   int addSnapPoint(float iScrollPos);
   int addSnapPoint(float iScrollPos, int iSnapInd);
   void clearSnapPoints();
+  
+  // Methods for going to snap poitns
   float gotoSnapPoint(int iIndex, float iVelocity, int iBezier=OF_EASE_INOUT);
-  int gotoClosestSnapPoint(float iVelocity);
-  int gotoNextSnapPoint(scrollDirection iDirection);
+  int gotoClosestSnapPoint(float iVelocity); //just go to closest in either dir
+  int gotoClosestSnapPoint(float iVelocity, scrollDirection iDirection);
+  int gotoNextSnapPoint(float iVelocity, scrollDirection iDirection);
   
-  // Set flags to enable/disable scroll list
-  void enable();
-  void disable();
-  void disable(float iDelay); //disable for a certain number of seconds
-  void disable(float iDelay, float iDuration); //disable for a certain number of seconds
+  // For updating scroll position
+  float setScroll(float iPosition);
+  float moveScroll(float iDistance);
+  float getScrollPosition(){ return scrollPosition; }
+  
+  // To set max scroll value
+  void setScrollHeight(float iHeight);
+  float getScrollHeight(){ return scrollHeight; }
+  
 
-  
+// Private methods
 private:
   
-  // Size of scroller
-  float scrollHeight;
+  int getClosestSnapPoint(scrollDirection iDirection, bool iGetNext);
   
-  // Current scroll position
-  float scrollPosition;
   
-  // For timing scroll disable
-  float start_disable_time = -1;
-  float disable_time = -1;
-  float disable_duration = -1;
-  float time;
+// Private variables
+private:
   
-  // Option for disabling scroller
-  bool isEnabled = true;
-  
-  // Object root
-  ofxObject *scrollRoot;
+  float scrollHeight;   // Size of scroller
+  float scrollPosition; // Current scroll position
 
-  // Collection of scroll objects
-  vector<ofxScrollObject *> scrollObjects;
+  ofxObject *scrollRoot;  // Object root
+  vector<ofxScrollObject *> scrollObjects;  // Collection of scroll objects
+
+  // Collection of snap points
+  map<int, float> snapPoints;
   
   // Scroll tracking object (for jumping to snap points)
   ofxObject *scrollTracker;
   bool isSnapping = false;
-
-  // Collection of snap points
-  map<int, float> snapPoints;
+  
+  bool isEnabled = true;  // Option for disabling scroller
+  float start_disable_time = -1; // For timing scroll disable
+  float disable_time = -1;
+  float disable_duration = -1;
+  float time;
 
 };

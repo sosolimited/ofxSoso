@@ -101,33 +101,41 @@ void testApp::buildInstructionText(){
 	//ofxSosoTrueTypeFont inherits from ofTrueTypeFont and adds some nice functionality, used by ofxTextObject.
 	//Note: If the font has them, kerning pairs are loaded by default.
   font16 = new ofxSosoTrueTypeFont();
-  font16->loadFont("Arial.ttf", 24.0f, true,  true, false, true);		//The last bool argument enables mipmapping on the letter textures.
+  font16->loadFont("Arial.ttf", 16.0f, true,  true, false, true);		//The last bool argument enables mipmapping on the letter textures.
 	font16->setKerningPair('T', 'y', -2);								//After you've loaded a font, you can also manually adjust kerning pairs.
   
-  string instructionText[4] = { "Drag mouse horizontally to zip in stars.",
-    "Drag mouse vertically to animate stars.",
-    "Press 's' to snap stars to center.",
-    "Press 'a' to snap stars to sides"};
+  string instructionText[6] = { "Drag mouse horizontally to zip in stars.",
+                                "Drag mouse vertically to animate stars.",
+                                "Press 's' to snap stars to center.",
+                                "Press 'a' to snap stars to sides",
+                                "Press 'x' to snap animation to pink.",
+                                "Press 'z' to snap animtation to yellow."};
   
-  textBackground = new ofxRectangleObject(400,300);
+  textBackground = new ofxRectangleObject(330,300);
   textBackground->setColor(200, 200, 200,240);
   textBackground->setTrans(-530,-450,1);
   scene->getRoot()->addChild(textBackground);
   
   float yPos = 100;
-  for (int i=0; i < 4; i++){
+  for (int i=0; i < 6; i++){
     
     char *s = &instructionText[i][0]; //convert to char*
     ofxTextObject *instruction = new ofxTextObject(font16, s);
     instruction->setColumnWidth(350);
     instruction->setTrans(50,yPos,2);
+    instruction->setPointSize(16.0f);
+    
+    if (i<2)
+    instruction->setColor(10,10,255);
+    else if (i<4)
+    instruction->setColor(255,10,10);
+    else
     instruction->setColor(10,10,10);
-    instruction->setPointSize(20.0f);
     
     instructions.push_back(instruction);
     textBackground->addChild(instruction);
     
-    yPos+=50;
+    yPos+=30;
     
     
   }
@@ -143,7 +151,7 @@ void testApp::update(){
   scene->update(ofGetElapsedTimef());
   
   time+=ofGetElapsedTimef();
-  //horizontalScroller->update(time);
+  horizontalScroller->update(time);
   verticalScroller->update(time);
 }
 
@@ -167,11 +175,11 @@ void testApp::keyPressed  (int key){
     
   }else if (key == 'z'){
     
-    verticalScroller->gotoSnapPoint(0, 1000);
+    horizontalScroller->gotoSnapPoint(0, 500);
     
   }else if (key == 'x'){
     
-    verticalScroller->gotoSnapPoint(10, 1000);
+    horizontalScroller->gotoSnapPoint(10, 500);
   }
 }
 
@@ -202,7 +210,7 @@ void testApp::mouseDragged(int x, int y, int button){
   else verticalDragDirection = OF_SCROLL_FORWARD;
 
   if (abs(fMouseXDelta) > abs(fMouseYDelta)){
-  //horizontalScroller->moveScroll(fMouseXDelta);
+  horizontalScroller->moveScroll(fMouseXDelta);
   }else{
   verticalScroller->moveScroll(fMouseYDelta);
   }
@@ -225,8 +233,8 @@ void testApp::mousePressed(int x, int y, int button){
 //------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
   
-  horizontalScroller->gotoNextSnapPoint(horizontalDragDirection);
-  verticalScroller->gotoNextSnapPoint(verticalDragDirection);
+  horizontalScroller->gotoClosestSnapPoint(1500,horizontalDragDirection);
+  verticalScroller->gotoClosestSnapPoint(1500,verticalDragDirection);
   
 }
 
