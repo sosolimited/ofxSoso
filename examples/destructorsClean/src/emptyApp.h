@@ -62,6 +62,7 @@ public:
   int                       numCreatedImageObjects;
   int                       numCreatedRectangleObjects;
   int                       numCreatedRoundedArcObjects;
+  int                       numCreatedSceneObjects;
   
 };
 

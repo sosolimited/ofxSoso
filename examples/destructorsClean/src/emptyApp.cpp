@@ -44,6 +44,7 @@ void emptyApp::setup(){
   numCreatedImageObjects = 0;
   numCreatedRectangleObjects = 0;
   numCreatedRoundedArcObjects = 0;
+  numCreatedSceneObjects = 0;
 }
 
 //--------------------------------------------------------------
@@ -214,6 +215,14 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedRoundedArcObjects += numObjectsToCreate;
     counterDisplay->setString("# of ofxRoundedArcObjects: "+ ofToString(numCreatedRoundedArcObjects));
+  } else if(key == 'q'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxScene* scene = new ofxScene(ofGetWidth(), ofGetHeight());
+      delete scene;
+    }
+    numCreatedSceneObjects += numObjectsToCreate;
+    counterDisplay->setString("# of ofxSceneObjects: "+ ofToString(numCreatedSceneObjects));
   }
   
   
