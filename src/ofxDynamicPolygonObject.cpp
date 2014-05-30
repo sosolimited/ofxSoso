@@ -24,6 +24,7 @@ ofxDynamicPolygonObject::~ofxDynamicPolygonObject(){
     delete vert->colorTracker;
     delete vert;                //DEV: should this be: delete[] vert?
   }
+  dynamicVerts.clear();
 //  delete dynamicVerts;    //DEV: why cant i delete this
 }
 

@@ -14,6 +14,7 @@ ofxLineStripObject::~ofxLineStripObject(){
   for (auto vertex : vertices){
     delete vertex;
   }
+  vertices.clear();
 }
 
 void ofxLineStripObject::render()

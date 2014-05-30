@@ -38,9 +38,11 @@ ofxGridSystem::~ofxGridSystem(){
   for (auto line : lines){
     delete line;
   }
+  lines.clear();
   for (auto baseline : baselineLines){
     delete baseline;
   }
+  baselineLines.clear();
 }
 
 //Returns the X position of a column.
