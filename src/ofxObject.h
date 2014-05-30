@@ -59,7 +59,7 @@ class ofxObject{
 public :
   
 	ofxObject();
-	~ofxObject();
+	virtual ~ofxObject();
   
 	int								addChild(ofxObject *child);
 	void 							removeChild(ofxObject *child);

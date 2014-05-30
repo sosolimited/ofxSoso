@@ -166,29 +166,21 @@ void emptyApp::keyPressed  (int key){
     counterDisplay->setString("# of ofxDynamicPolygonObjects: "+ ofToString(numCreatedDynPolygonObjects));
   } else if(key == 'k'){
     
-    for(int i=0; i < numObjectsToCreate; i++) {
-      ofxDynamicPolygonObject* dynPoly = new ofxDynamicPolygonObject(8);
-      delete dynPoly;
-    }
-    numCreatedDynPolygonObjects += numObjectsToCreate;
-    counterDisplay->setString("# of ofxDynamicPolygonObjects: "+ ofToString(numCreatedDynPolygonObjects));
-  } else if(key == 'l'){
-    
     for(int i=0; i < numVideosToCreate; i++) {
       ofxVideoPlayerObject* videoPlayer = new ofxVideoPlayerObject("RF1308-Superbowl_Closing-Ver02.mp4");
       videoPlayer->start();
       videoPlayerCollection.push_back(videoPlayer);
     }
     numCreatedVideoPlayerObjects += numVideosToCreate;
-    counterDisplay->setString("# of ofxVideoPlayerObjects: "+ ofToString(numCreatedVideoPlayerObjects));
-  } else if(key == 'L'){
+    counterDisplay->setString("# of ofxVideoPlayerObjects CREATED: "+ ofToString(numCreatedVideoPlayerObjects));
+  } else if(key == 'K'){
     for(auto videoPlayer : videoPlayerCollection) {
       delete videoPlayer;
     }
     videoPlayerCollection.clear();
     numCreatedVideoPlayerObjects = videoPlayerCollection.size();
-    counterDisplay->setString("# of ofxVideoPlayerObjects *: "+ ofToString(numCreatedVideoPlayerObjects));
-  } else if(key == 'm'){
+    counterDisplay->setString("# of ofxVideoPlayerObjects DELETED: "+ ofToString(numCreatedVideoPlayerObjects));
+  } else if(key == 'l'){
     
     for(int i=0; i < numObjectsToCreate; i++) {
       ofxFboObject* fbo = new ofxFboObject(400, 400);
@@ -196,7 +188,7 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedFboObjects += numObjectsToCreate;
     counterDisplay->setString("# of ofxFboObjects: "+ ofToString(numCreatedFboObjects));
-  } else if(key == 'n'){
+  } else if(key == 'm'){
     
     for(int i=0; i < numObjectsToCreate; i++) {
       ofxImageObject* image = new ofxImageObject("plasticman.jpg");
@@ -204,7 +196,7 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedImageObjects += numObjectsToCreate;
     counterDisplay->setString("# of ofxImageObjects: "+ ofToString(numCreatedImageObjects));
-  } else if(key == 'o'){
+  } else if(key == 'n'){
     
     for(int i=0; i < numObjectsToCreate; i++) {
       ofxRectangleObject* rect = new ofxRectangleObject(1000, 800);
@@ -212,7 +204,7 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedRectangleObjects += numObjectsToCreate;
     counterDisplay->setString("# of ofxRectangleObjects: "+ ofToString(numCreatedRectangleObjects));
-  } else if(key == 'p'){
+  } else if(key == 'o'){
     
     for(int i=0; i < numObjectsToCreate; i++) {
       ofxRoundedArcObject* rArc = new ofxRoundedArcObject(100,80,90,270);
@@ -220,7 +212,7 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedRoundedArcObjects += numObjectsToCreate;
     counterDisplay->setString("# of ofxRoundedArcObjects: "+ ofToString(numCreatedRoundedArcObjects));
-  } else if(key == 'q'){
+  } else if(key == 'p'){
     
     for(int i=0; i < numObjectsToCreate; i++) {
       ofxScene* scene = new ofxScene(ofGetWidth(), ofGetHeight());
@@ -228,7 +220,7 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedSceneObjects += numObjectsToCreate;
     counterDisplay->setString("# of ofxSceneObjects: "+ ofToString(numCreatedSceneObjects));
-  } else if(key == 'r'){
+  } else if(key == 'q'){
     
     for(int i=0; i < numObjectsToCreate; i++) {
       ofxSosoRenderer* renderer = new ofxSosoRenderer();
@@ -236,7 +228,7 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedRendererObjects += numObjectsToCreate;
     counterDisplay->setString("# of ofxSosoRenderer: "+ ofToString(numCreatedRendererObjects));
-  } else if(key == 's'){
+  } else if(key == 'r'){
     
     for(int i=0; i < numObjectsToCreate; i++) {
       ofxSosoTrueTypeFont* font = new ofxSosoTrueTypeFont();
@@ -245,7 +237,7 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedFonts += numObjectsToCreate;
     counterDisplay->setString("# of ofxSosoTrueTypeFont: "+ ofToString(numCreatedFonts));
-  } else if(key == 't'){
+  } else if(key == 's'){
     
     for(int i=0; i < numObjectsToCreate; i++) {
       ofxStateMachine* state = new ofxStateMachine();
@@ -260,7 +252,7 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedStateMachines += numObjectsToCreate;
     counterDisplay->setString("# of ofxStateMachine: "+ ofToString(numCreatedStateMachines));
-  } else if(key == 'u'){
+  } else if(key == 't'){
     
     for(int i=0; i < numObjectsToCreate; i++) {
       ofxAnimation* animation = new ofxAnimation();
@@ -273,7 +265,7 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedAnimations += numObjectsToCreate;
     counterDisplay->setString("# of ofxAnimation: "+ ofToString(numCreatedAnimations));
-  } else if(key == 'v'){
+  } else if(key == 'u'){
     
     for(int i=0; i < numObjectsToCreate; i++) {
       ofxScroller* scroller = new ofxScroller(1000.0);

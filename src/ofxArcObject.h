@@ -6,7 +6,7 @@ class ofxArcObject : public ofxObject{
   
 public:
 	ofxArcObject(float iOuterRadius, float iInnerRadius, float iStartAngle, float iEndAngle);
-	~ofxArcObject();
+	virtual ~ofxArcObject();
   
 	void						render();
 	void						setResolution(int iRes);

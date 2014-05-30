@@ -82,7 +82,7 @@ class ofxTextObject : public ofxObject
 public:
 	ofxTextObject(ofxSosoTrueTypeFont *iFont, char *iString=NULL);
 	ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString=NULL);	//LM 063012
-	~ofxTextObject();
+	virtual ~ofxTextObject();
   
 	void                render();
   

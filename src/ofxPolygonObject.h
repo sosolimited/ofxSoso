@@ -31,7 +31,7 @@ class ofxPolygonObject : public ofxObject
 {
 public:
 	ofxPolygonObject(int iNumVertices);
-	~ofxPolygonObject();
+	virtual ~ofxPolygonObject();
 	
 	void                  render();
   
