@@ -38,14 +38,14 @@ IN THE SOFTWARE.
 class ofxSosoMappedChar 
 {
 public:
-	ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeIndex, string iNamedEntity, char iUTFByte0, char iUTFByte1=0, char iUTFByte2=0, char iUTFByte3=0, char iUTFByte4=0, char iUTFByte5=0);
+	ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeIndex, char *iNamedEntity, char iUTFByte0, char iUTFByte1=0, char iUTFByte2=0, char iUTFByte3=0, char iUTFByte4=0, char iUTFByte5=0);
 	~ofxSosoMappedChar();
 
 public:
 	unsigned char		mapToIndex;
 	FT_ULong			unicodeIndex;
 	char				*utf8Sequence;
-	string				namedEntity;
+	char				*namedEntity;
 };
 
 

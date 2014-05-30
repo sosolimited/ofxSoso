@@ -23,14 +23,14 @@
 #include "ofTexture.h"  //for mipmap building
 
 //helper class for mapping higher Unicode characters down into the 0-255 range 
-ofxSosoMappedChar::ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeIndex, string iNamedEntity, char iUTFByte0, char iUTFByte1, char iUTFByte2, char iUTFByte3, char iUTFByte4, char iUTFByte5)
+ofxSosoMappedChar::ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeIndex, char *iNamedEntity, char iUTFByte0, char iUTFByte1, char iUTFByte2, char iUTFByte3, char iUTFByte4, char iUTFByte5)
 {
 	//index within 0-255 range to which we're mapping
 	mapToIndex = iMapToIndex;
 	//standard unicode index
 	unicodeIndex = iUnicodeIndex;
 	//HTML named entity
-	namedEntity = iNamedEntity;
+	namedEntity = strdup(iNamedEntity);
 	//UTF-8 byte sequence
 	utf8Sequence = new char[7];
 	utf8Sequence[0] = iUTFByte0;
@@ -47,7 +47,7 @@ ofxSosoMappedChar::ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeInde
 ofxSosoMappedChar::~ofxSosoMappedChar()
 {
 	if (utf8Sequence) delete utf8Sequence; //LM 070612
-	//if (namedEntity) delete namedEntity;
+	if (namedEntity) delete namedEntity;
 }
 
 
@@ -252,14 +252,14 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
     FT_Error err;
     
     FT_Library library;
-    if ((err = FT_Init_FreeType( &library ))){
+    if (err = FT_Init_FreeType( &library )){
 		ofLog(OF_LOG_ERROR,"ofTrueTypeFont::loadFont - Error initializing freetype lib: FT_Error = %d", err);
 		return false;
 	}
     
 	FT_Face face;
     
-	if ((err = FT_New_Face( library, filename.c_str(), 0, &face ))) {
+	if (err = FT_New_Face( library, filename.c_str(), 0, &face )) {
         // simple error table in lieu of full table (see fterrors.h)
         string errorString = "unknown freetype";
         if(err == 1) errorString = "INVALID FILENAME";
@@ -298,7 +298,7 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
         
 		//------------------------------------------ anti aliased or not:
 		//if(err = FT_Load_Glyph( face, FT_Get_Char_Index( face, (unsigned char)(i+NUM_CHARACTER_TO_START) ), FT_LOAD_DEFAULT )){
-		if((err = FT_Load_Glyph( face, getFTCharIndex( face, (unsigned char)(i+NUM_CHARACTER_TO_START) ), FT_LOAD_DEFAULT ))){		//soso replaced FT_Get_Char_Index with our custom version
+		if(err = FT_Load_Glyph( face, getFTCharIndex( face, (unsigned char)(i+NUM_CHARACTER_TO_START) ), FT_LOAD_DEFAULT )){		//soso replaced FT_Get_Char_Index with our custom version
 			ofLog(OF_LOG_ERROR,"ofTrueTypeFont::loadFont - Error with FT_Load_Glyph %i: FT_Error = %d", i, err);
             
 		}
@@ -729,13 +729,13 @@ int ofxSosoTrueTypeFont::getMappedChar(string iString, int &iIndex)
 	if(iString[iIndex] == '&'){
 		for(int i=0; i < mappedChars.size(); i++){
 			bool found = true;
-			for(int j=0; j < mappedChars[i]->namedEntity.length(); j++){
+			for(int j=0; j < strlen(mappedChars[i]->namedEntity); j++){
 				if(iString[iIndex + j] != mappedChars[i]->namedEntity[j])
 					found = false;
 			}			
 			if(found){
 				//advance index for drawString loop
-				iIndex += (mappedChars[i]->namedEntity.length() - 1);
+				iIndex += (strlen(mappedChars[i]->namedEntity) - 1);
 				return mappedChars[i]->mapToIndex - NUM_CHARACTER_TO_START;
 			}
 		}
@@ -767,14 +767,14 @@ char* ofxSosoTrueTypeFont::getMappedCharSequence(string iString, int &iIndex)   
 	if(iString[iIndex] == '&'){
 		for(int i=0; i < mappedChars.size(); i++){
 			bool found = true;
-			for(int j=0; j < mappedChars[i]->namedEntity.length(); j++){
+			for(int j=0; j < strlen(mappedChars[i]->namedEntity); j++){
 				if(iString[iIndex + j] != mappedChars[i]->namedEntity[j])
 					found = false;
 			}			
 			if(found){
 				//advance index for drawString loop
-				iIndex += (mappedChars[i]->namedEntity.length() - 1);
-				return (char*)iString.substr(iIndex, mappedChars[i]->namedEntity.length() - 1).c_str();
+				iIndex += (strlen(mappedChars[i]->namedEntity) - 1);
+				return (char*)iString.substr(iIndex, strlen(mappedChars[i]->namedEntity) - 1).c_str();
 			}
 		}
 	}
@@ -1146,7 +1146,7 @@ void ofxSosoTrueTypeFont::replaceNamedEntities(string &iString)
 		
 		size_t pos = iString.find(namedEntityChars[i]->namedEntity);		
 		while(pos != string::npos){	//search for multiple copies of named entity in string
-			iString.replace(pos, (size_t)namedEntityChars[i]->namedEntity.length(), 1, namedEntityChars[i]->mapToIndex);
+			iString.replace(pos, (size_t)strlen(namedEntityChars[i]->namedEntity), 1, namedEntityChars[i]->mapToIndex);
 
 			pos = iString.find(namedEntityChars[i]->namedEntity);
 		}
