@@ -37,19 +37,21 @@ public:
 	void            loadImage(string iFilename);
 	void						render();
 	void						setCentered(bool iEnable);
+  void            setDestroyPixels(bool iDestroyPixels);
 	void						enableTexture(bool iB);
 	void						clear();
     
-    ofTexture                   getTexture();   //EG 021513
+  ofTexture       getTexture();   //EG 021513
 	
 public:
-	ofImage						*image;
-	bool              isCentered;
-	float             width,
-                    height;
+	ofImage *image;
+	bool  isCentered;
+	float width,
+        height;
     
-    bool                        loaded;
-    
-	string						filename;
+  bool  loaded;
+  bool  destroyPixels=true; // Flag for if we should destroy pixels after loading image, AO 053014
+  
+	string  filename;
     
 };
