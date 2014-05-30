@@ -63,6 +63,8 @@ public:
   int                       numCreatedRectangleObjects;
   int                       numCreatedRoundedArcObjects;
   int                       numCreatedSceneObjects;
+  int                       numCreatedRendererObjects;
+  int                       numCreatedFonts;
   
 };
 

@@ -45,6 +45,8 @@ void emptyApp::setup(){
   numCreatedRectangleObjects = 0;
   numCreatedRoundedArcObjects = 0;
   numCreatedSceneObjects = 0;
+  numCreatedRendererObjects = 0;
+  numCreatedFonts = 0;
 }
 
 //--------------------------------------------------------------
@@ -223,6 +225,23 @@ void emptyApp::keyPressed  (int key){
     }
     numCreatedSceneObjects += numObjectsToCreate;
     counterDisplay->setString("# of ofxSceneObjects: "+ ofToString(numCreatedSceneObjects));
+  } else if(key == 'r'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxSosoRenderer* renderer = new ofxSosoRenderer();
+      delete renderer;
+    }
+    numCreatedRendererObjects += numObjectsToCreate;
+    counterDisplay->setString("# of ofxSosoRenderer: "+ ofToString(numCreatedRendererObjects));
+  } else if(key == 's'){
+    
+    for(int i=0; i < numObjectsToCreate; i++) {
+      ofxSosoTrueTypeFont* font = new ofxSosoTrueTypeFont();
+      font->loadFont("Arial.ttf", 16, true,  true, false, true);
+      delete font;
+    }
+    numCreatedFonts += numObjectsToCreate;
+    counterDisplay->setString("# of ofxSosoTrueTypeFont: "+ ofToString(numCreatedFonts));
   }
   
   
