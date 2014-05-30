@@ -968,6 +968,52 @@ void ofxObject::updateMessages()
 						setColor(c.x, c.y, c.z, material->color.w);
 					}
 				}	
+			}		else if(messages[i]->id == OF_SETCOLOR){
+				if(curTime >= startTime){
+					if(!messages[i]->isRunning){
+						//set start values once
+						ofVec3f *vec = (ofVec3f *)messages[i]->baseStartVals;
+						if(vec){
+							if(vec->x == OF_RELATIVE_VAL) x = material->color.x;
+							else x = vec->x;
+							if(vec->y == OF_RELATIVE_VAL) y = material->color.y;
+							else y = vec->y;
+							if(vec->z == OF_RELATIVE_VAL) z = material->color.z;
+							else z = vec->z;
+              
+							messages[i]->setStartVals(x, y, z);
+						}
+            
+						//set end values once
+						ofVec3f *vecEnd = (ofVec3f *)messages[i]->baseEndVals;
+						if(vecEnd){
+							if(vecEnd->x == OF_RELATIVE_VAL) x = material->color.x;
+							else x = vecEnd->x;
+							if(vecEnd->y == OF_RELATIVE_VAL) y = material->color.y;
+							else y = vecEnd->y;
+							if(vecEnd->z == OF_RELATIVE_VAL) z = material->color.z;
+							else z = vecEnd->z;
+              
+							messages[i]->setEndVals(x,y,z);
+						}
+            
+						//printf("color startvals = %f, %f , %f\n", x,y,z);
+						messages[i]->isRunning = true;
+					}
+					//update value
+					if(messages[i]->path == OF_LINEAR_PATH){
+						setColor((1-t)*((ofVec3f *)messages[i]->startVals)->x + t*((ofVec3f *)messages[i]->endVals)->x,
+                     (1-t)*((ofVec3f *)messages[i]->startVals)->y + t*((ofVec3f *)messages[i]->endVals)->y,
+                     (1-t)*((ofVec3f *)messages[i]->startVals)->z + t*((ofVec3f *)messages[i]->endVals)->z,
+                     material->color.w);
+					}else if(messages[i]->path == OF_BEZIER_PATH){
+						ofVec4f c = ofxMessage::bezier(t, messages[i]->pathPoints);
+						setColor(c.x, c.y, c.z, material->color.w);
+					}else if(messages[i]->path == OF_SPLINE_PATH){
+						ofVec4f c = ofxMessage::spline(t, messages[i]->pathPoints);
+						setColor(c.x, c.y, c.z, material->color.w);
+					}
+				}	
 			}
 			//alpha__________________________________________________________________
 			else if(messages[i]->id == OF_SETALPHA){

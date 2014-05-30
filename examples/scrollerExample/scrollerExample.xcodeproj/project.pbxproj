@@ -250,8 +250,6 @@
 		D0244E8B23E9BDA4222A2E1B /* src */ = {
 			isa = PBXGroup;
 			children = (
-				E0B4F3B119365A8C00DCA85A /* ofxScroller.cpp */,
-				E0B4F3B219365A8C00DCA85A /* ofxScroller.h */,
 				F29736B722EF53C94B796455 /* ofxAnimation.cpp */,
 				402CD85B7C6B2EBB86EC8EA6 /* ofxAnimation.h */,
 				A1629FBCD3B4615F4A2976C9 /* ofxArcObject.cpp */,
@@ -286,6 +284,8 @@
 				5904011353731E304979B098 /* ofxRoundedArcObject.h */,
 				BCD48F72590D5029F6154F54 /* ofxScene.cpp */,
 				AB6E485E84FD9B1F5148E381 /* ofxScene.h */,
+				E0B4F3B119365A8C00DCA85A /* ofxScroller.cpp */,
+				E0B4F3B219365A8C00DCA85A /* ofxScroller.h */,
 				88FB5C3CC3C4C7DA62C30A11 /* ofxSosoRenderer.cpp */,
 				910A9C041F0490A0B7776A85 /* ofxSosoRenderer.h */,
 				80897F89549F3B92332DE157 /* ofxSosoTrueTypeFont.cpp */,
