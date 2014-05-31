@@ -45,6 +45,8 @@ ofxImageObject::~ofxImageObject(){
   if (image){
     delete image;
   }
+  
+  //TODO: memory leak here caused by ofImage!
 }
 
 

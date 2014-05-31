@@ -190,10 +190,18 @@ void emptyApp::keyPressed  (int key){
     counterDisplay->setString("# of ofxFboObjects: "+ ofToString(numCreatedFboObjects));
   } else if(key == 'm'){
     
+    
+    
+//    for(int i=0; i < numObjectsToCreate; i++) {
+//      ofxImageObject* image = new ofxImageObject("plasticman.jpg");
+//      delete image;
+//    }
+
     for(int i=0; i < numObjectsToCreate; i++) {
-      ofxImageObject* image = new ofxImageObject("plasticman.jpg");
+      ofImage* image = new ofImage("plasticman.jpg");
       delete image;
     }
+    
     numCreatedImageObjects += numObjectsToCreate;
     counterDisplay->setString("# of ofxImageObjects: "+ ofToString(numCreatedImageObjects));
   } else if(key == 'n'){
