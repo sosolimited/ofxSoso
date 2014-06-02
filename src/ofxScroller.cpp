@@ -259,9 +259,11 @@ void ofxScroller::update(float iTime) {
               
               // Set trans
               obj->object->setTrans(startVals + p*(endVals - startVals));
-              break;
+             
             }
   
+              break;
+              
             case OF_ROTATE:
             {
               float x,y,z;
@@ -297,8 +299,9 @@ void ofxScroller::update(float iTime) {
               endVals = ofVec3f(x, y, z);
               
               obj->object->setRot(startVals + p*(endVals - startVals));
-              break;
+              
             }
+              break;
              
             case OF_SCALE:
             {
@@ -322,8 +325,9 @@ void ofxScroller::update(float iTime) {
               else endVal = val1;
 
               obj->object->setScale(startVal + p*(endVal - startVal));
-              break;
+              
             }
+              break;
               
             case OF_SCALE3:
             {
@@ -360,8 +364,10 @@ void ofxScroller::update(float iTime) {
               endVals = ofVec3f(x, y, z);
               
               obj->object->setScale(startVals + p*(endVals - startVals));
-              break;
+              
             }
+              
+              break;
               
             case OF_SETALPHA:
             {
@@ -388,8 +394,10 @@ void ofxScroller::update(float iTime) {
               //maybe do set color w/ new alpha?
               obj->object->setAlpha((startVal + p*(endVal - startVal)));
               
-              break;
+          
             }
+              
+              break;
               
             case OF_SETCOLOR:
             {
@@ -397,7 +405,7 @@ void ofxScroller::update(float iTime) {
               ofVec3f startVals;
               ofVec3f endVals;
               
-              ofVec4f color = obj->object->getColor();
+              ofVec4f color = obj->object->getColorVec4f(); //TODO:  Potentially change this to ofColor
               ofVec3f vec = t->valueRange[0];
               
               // FIRST check if we are using any OF_RELATIVE_VAL values...
@@ -426,10 +434,9 @@ void ofxScroller::update(float iTime) {
               endVals = ofVec3f(r, g, b);
               
               obj->object->setColor((startVals + p*(endVals - startVals)).x,(startVals + p*(endVals - startVals)).y,(startVals + p*(endVals - startVals)).z);
+            }
               
               break;
-            
-            }
 
             default:
               break;

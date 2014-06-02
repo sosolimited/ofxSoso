@@ -71,6 +71,7 @@ void scrollerApp::setup(){
   // For each star image, we will add different scroll transforms
   for (auto star : stars){
     
+    
     // VERTICAL SCROLLER
     // We first need to add the object to our scroller
     // By default, the object is added as a child of the scroller

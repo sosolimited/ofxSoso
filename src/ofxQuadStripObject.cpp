@@ -102,7 +102,7 @@ void ofxQuadStripObject::setVertexColor(int iVertexNum, float iR, float iG, floa
 		vertexColors[4*iVertexNum] = iR/255.0f;
 		vertexColors[4*iVertexNum + 1] = iG/255.0f;
 		vertexColors[4*iVertexNum + 2] = iB/255.0f;
-		vertexColors[4*iVertexNum + 3] = drawMaterial->color.w/255.0f * iA/255.0f;
+		vertexColors[4*iVertexNum + 3] = drawMaterial->color.a/255.0f * iA/255.0f;
 		//automatically enable vertex coloring if this is called
 		vertexColoringEnabled = true;
 	}
@@ -122,7 +122,7 @@ void ofxQuadStripObject::setVertexColorOnly(int iVertexNum, float iR, float iG, 
 void ofxQuadStripObject::setVertexAlpha(int iVertexNum, float iA)
 {
 	if(iVertexNum < numVertices){
-		vertexColors[4*iVertexNum + 3] = drawMaterial->color.w/255.0f * iA/255.0f;
+		vertexColors[4*iVertexNum + 3] = drawMaterial->color.a/255.0f * iA/255.0f;
 		//automatically enable vertex coloring if this is called
 		vertexColoringEnabled = true;
 	}
