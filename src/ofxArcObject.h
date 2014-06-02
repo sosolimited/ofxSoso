@@ -16,7 +16,7 @@ public:
 	void  setEndAngle(float iAngle);
   float getStartAngle(); //LM 062012
   float getEndAngle(); //LM 062012
-	void  setColors(ofColor *iColor1, ofColor *iColor2);
+	void  setColors(ofColor iColor1, ofColor iColor2);
 	
   
 public:
@@ -27,7 +27,7 @@ public:
   startAngle,
   endAngle;
   
-  ofColor *color1, *color2;
+  ofColor color1, color2;
 	float height;
   
   
