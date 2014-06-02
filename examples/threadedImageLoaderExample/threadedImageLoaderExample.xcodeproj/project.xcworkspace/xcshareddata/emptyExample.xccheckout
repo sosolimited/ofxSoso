@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>064A81E5-6F17-43EC-A1DB-904B0181775A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>emptyExample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>0DFB3822-C837-4C35-A987-FA4D3EEFE8E4</key>
+		<string>https://github.com/jcnesci/openFrameworks.git</string>
+		<key>DD124FD6-4B55-40F5-9F2E-DAC0857392FD</key>
+		<string>https://github.com/jcnesci/ofxSoso</string>
+		<key>DF60E5CA-25B9-4C42-9B4B-71F2FB0E9E7A</key>
+		<string>https://github.com/jcnesci/ofxAVFVideoPlayer</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>addons/ofxSoso/examples/threadedImageLoaderExample/emptyExample.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>0DFB3822-C837-4C35-A987-FA4D3EEFE8E4</key>
+		<string>../../../../../..</string>
+		<key>DD124FD6-4B55-40F5-9F2E-DAC0857392FD</key>
+		<string>../../../..</string>
+		<key>DF60E5CA-25B9-4C42-9B4B-71F2FB0E9E7A</key>
+		<string>../../../../../ofxAVFVideoPlayer</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/jcnesci/ofxSoso</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>0DFB3822-C837-4C35-A987-FA4D3EEFE8E4</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DF60E5CA-25B9-4C42-9B4B-71F2FB0E9E7A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxAVFVideoPlayer</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DD124FD6-4B55-40F5-9F2E-DAC0857392FD</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxSoso</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0DFB3822-C837-4C35-A987-FA4D3EEFE8E4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>openFrameworks</string>
+		</dict>
+	</array>
+</dict>
+</plist>
