@@ -13,7 +13,9 @@
 #include "ofxLineSegmentObject.h"
 #include "ofxDynamicPolygonObject.h"
 
-class testApp : public ofBaseApp{
+#include "ofxScroller.h"
+
+class scrollerApp : public ofBaseApp{
   
 public:
   
@@ -31,34 +33,35 @@ public:
   void dragEvent(ofDragInfo dragInfo);
   void gotMessage(ofMessage msg);
   
+  // Helper method to build instruction text
+  void buildInstructionText();
+  
   
 public:
-  ofxScene						*scene;
   
-	ofxSosoTrueTypeFont				*font16,
-  *font64;
+  // ofxSoso scene
+  ofxScene  *scene;
   
-	ofxTextObject				    *text,
-  *circlesLabel,
-  *lineLabel,
-  *polygonLabel;
-	
-	ofxLetterTextObject				*letterText;
+  // Scroller objects
+  ofxScroller *horizontalScroller;
+  ofxScroller *verticalScroller;
   
-  ofxImageObject					*image;
-	ofImage							*polyTex;
-	ofxDynamicPolygonObject			*dynamicPolygon;
+	ofxSosoTrueTypeFont *font16;
   
-  ofxObject						*circleRoot,
-  *lineRoot;
-	vector<ofxCircleObject *>		circles;
-	vector<ofxLineSegmentObject *>	lines;
+  vector<ofxImageObject *> stars;
+  vector<ofxTextObject*> instructions;
+  ofxRectangleObject *textBackground;
   
-	ofxAnimation					*animation;
+  // Variables for calculating mouse drag velocity
+  float time = 0;
+
+  float prevMouseX = 0;
+  float prevMouseY = 0;
   
-	ofxVideoPlayerObject			*movie;
-	ofVideoPlayer					player;
+  float prevDragTime = 0;
   
+  float mouseYVelocity = 0.0f;
+  float mouseXVelocity = 0.0f;
   
 };
 
