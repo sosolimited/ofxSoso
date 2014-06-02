@@ -17,8 +17,8 @@ ofxScrollTransform::ofxScrollTransform(int iTransform, float iStartScroll, float
   transform = iTransform;
   scrollRange[0] = iStartScroll;
   scrollRange[1] = iEndScroll;
-  valueRange[0].set(iStartVal, 0, 0, 255.0f);  // Make sure not to call OF_SETCOLOR4 with ofVec3f
-  valueRange[1].set(iEndVal, 0, 0, 255.0f);
+  valueRange[0].set(iStartVal, 0, 0);
+  valueRange[1].set(iEndVal, 0, 0);
 }
 
 
@@ -31,17 +31,6 @@ ofxScrollTransform::ofxScrollTransform(int iTransform, float iStartScroll, float
   valueRange[0] = iStartVal;
   valueRange[1] = iEndVal;
 
-}
-
-ofxScrollTransform::ofxScrollTransform(int iTransform, float iStartScroll, float iEndScroll, int iInterpolation, ofVec4f iStartVal, ofVec4f iEndVal)
-{
-  interpolation = iInterpolation;
-  transform = iTransform;
-  scrollRange[0] = iStartScroll;
-  scrollRange[1] = iEndScroll;
-  valueRange[0] = iStartVal;
-  valueRange[1] = iEndVal;
-  
 }
 
 
@@ -74,11 +63,6 @@ void ofxScrollObject::addTransform(int iTransform, float iStartScroll, float iEn
 
 // Create and add a scroll transform to the list of transforms
 void ofxScrollObject::addTransform(int iTransform, float iStartScroll, float iEndScroll, int iInterpolation, ofVec3f iStartVal, ofVec3f iEndVal) {
-  addTransform(new ofxScrollTransform(iTransform, iStartScroll, iEndScroll, iInterpolation, iStartVal, iEndVal));
-}
-
-// Create and add a scroll transform to the list of transforms
-void ofxScrollObject::addTransform(int iTransform, float iStartScroll, float iEndScroll, int iInterpolation, ofVec4f iStartVal, ofVec4f iEndVal) {
   addTransform(new ofxScrollTransform(iTransform, iStartScroll, iEndScroll, iInterpolation, iStartVal, iEndVal));
 }
 
@@ -452,52 +436,6 @@ void ofxScroller::update(float iTime) {
               obj->object->setColor((startVals + p*(endVals - startVals)).x,(startVals + p*(endVals - startVals)).y,(startVals + p*(endVals - startVals)).z);
             }
               
-              break;
-              
-            // AO: Adding support for simultaneous alpha/color scroll transform
-            case OF_SETCOLOR4:
-            {
-              
-              float r,g,b,a;
-              ofVec4f startVals;
-              ofVec4f endVals;
-              
-              ofVec4f color = obj->object->getColorVec4f(); //TODO:  Potentially change this to ofColor
-              ofVec4f vec = t->valueRange[0];
-              
-              // FIRST check if we are using any OF_RELATIVE_VAL values...
-              // If so, we should grab the object's current alpha
-              
-              // Check for relative start vals
-              if(vec.x == OF_RELATIVE_VAL) r = color.x;
-              else r = vec.x;
-              if(vec.y == OF_RELATIVE_VAL) g = color.y;
-              else g = vec.y;
-              if(vec.z == OF_RELATIVE_VAL) b = color.z;
-              else b = vec.z;
-              if(vec.w == OF_RELATIVE_VAL) a = color.w;
-              else a = vec.w;
-              
-              
-              startVals = ofVec4f(r, g, b, a);
-              
-              ofVec4f endVec = t->valueRange[1];
-              
-              // Check for relative end vals
-              if(endVec.x == OF_RELATIVE_VAL) r = color.x;
-              else r = endVec.x;
-              if(endVec.y == OF_RELATIVE_VAL) g = color.y;
-              else g = endVec.y;
-              if(endVec.z == OF_RELATIVE_VAL) b = color.z;
-              else b = endVec.z;
-              if(endVec.w == OF_RELATIVE_VAL) a = color.w;
-              else a = endVec.w;
-              
-              endVals = ofVec4f(r, g, b, a);
-              
-              obj->object->setColor((startVals + p*(endVals - startVals)).x,(startVals + p*(endVals - startVals)).y,(startVals + p*(endVals - startVals)).z, (startVals + p*(endVals - startVals)).w);
-              
-            }
               break;
 
             default:

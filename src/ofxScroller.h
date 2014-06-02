@@ -32,7 +32,6 @@ class ofxScrollTransform{
   
     ofxScrollTransform(int iTransform, float iStartScroll, float iEndScroll, int iInterpolation, float iStartVal, float iEndVal);
     ofxScrollTransform(int iTransform, float iStartScroll, float iEndScroll, int iInterpolation, ofVec3f iStartVal, ofVec3f iEndVal);
-    ofxScrollTransform(int iTransform, float iStartScroll, float iEndScroll, int iInterpolation, ofVec4f iStartVal, ofVec4f iEndVal);
     ~ofxScrollTransform(){};
 
   
@@ -41,7 +40,7 @@ class ofxScrollTransform{
     int transform;
     int interpolation;
     float scrollRange[2];
-    ofVec4f valueRange[2];
+    ofVec3f valueRange[2];
 
 };
 
@@ -58,7 +57,6 @@ class ofxScrollObject{
     void addTransform(ofxScrollTransform *iTransform);
     void addTransform(int iTransform, float startScroll, float endScroll, int iInterpolation=OF_LINEAR, float startVal=0, float endVal=0);
     void addTransform(int iTransform, float startScroll, float endScroll, int iInterpolation, ofVec3f startVal, ofVec3f endVal);
-    void addTransform(int iTransform, float startScroll, float endScroll, int iInterpolation, ofVec4f startVal, ofVec4f endVal);
   
     bool isTrumped(ofxScrollTransform *iTransform, float iScrollPosition);
 
