@@ -966,14 +966,13 @@ void ofxObject::updateMessages()
 					if(messages[i]->path == OF_LINEAR_PATH){
 						setColor((1-t)*((ofVec3f *)messages[i]->startVals)->x + t*((ofVec3f *)messages[i]->endVals)->x,
 								 (1-t)*((ofVec3f *)messages[i]->startVals)->y + t*((ofVec3f *)messages[i]->endVals)->y,
-								 (1-t)*((ofVec3f *)messages[i]->startVals)->z + t*((ofVec3f *)messages[i]->endVals)->z,
-								 material->color.w);					
+								 (1-t)*((ofVec3f *)messages[i]->startVals)->z + t*((ofVec3f *)messages[i]->endVals)->z);
 					}else if(messages[i]->path == OF_BEZIER_PATH){
 						ofVec4f c = ofxMessage::bezier(t, messages[i]->pathPoints);
-						setColor(c.x, c.y, c.z, material->color.w);
+						setColor(c.x, c.y, c.z);
 					}else if(messages[i]->path == OF_SPLINE_PATH){
 						ofVec4f c = ofxMessage::spline(t, messages[i]->pathPoints);
-						setColor(c.x, c.y, c.z, material->color.w);
+						setColor(c.x, c.y, c.z);
 					}
 				}	
 			}      // color with alpha channel
