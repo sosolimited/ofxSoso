@@ -491,6 +491,14 @@ void ofxObject::setLighting(bool iOnOff)
 	isLit = iOnOff;
 }
 
+// Set color, keep original alpha
+void ofxObject::setColor(float r, float g, float b)
+{
+	//color.set(r, g, b, a);
+	material->color.set(r, g, b, material->color.w);			// AO: Keep original alpha
+}
+
+// Set color and alpha
 void ofxObject::setColor(float r, float g, float b, float a)
 {
 	//color.set(r, g, b, a);

@@ -90,7 +90,8 @@ class ofxObject{
 	virtual void     				setScale(float x, float y, float z);
 	virtual void     				setScale(ofVec3f vec);	
 
-	virtual void					setColor(float r, float g, float b, float a=255.0);
+	virtual void					setColor(float r, float g, float b, float a);
+  virtual void					setColor(float r, float g, float b); // Applies object's current alpha value
 	virtual void					setColor(ofVec4f c);	//v4.0 virtual for text object
     virtual void                    setColor(ofColor c);    
 	ofVec4f							getColor();
