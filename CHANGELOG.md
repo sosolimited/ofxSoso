@@ -11,10 +11,18 @@ Copyright (C) 2013 Sosolimited
 
 CORE
 ----
+### ofxLetterTextObject
+	5/30/2014, WT:
+	/ constructor uses strings like ofxTextObject
+
 ### ofxScroller
 	5/28/2014, AO:
 	+ Added ofxScroller.cpp
-	+ Added ofxScroller.h
+	+ Added ofxScroller.
+
+### ofxTextObject
+	5/30/2014, WT:
+	/ use strings instead of (char *)'s
 
 
 EXAMPLES
