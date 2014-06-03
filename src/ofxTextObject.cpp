@@ -616,7 +616,7 @@ void ofxTextObject::drawLeft(float x, float y, bool drawFlag)
                 
 				if(drawFlag){						
 					if (drawWordColor){
-						ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.w/255.0f);	
+						ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.a/255.0f);
 						//printf("word %d color is %f, %f, %f\n", currentWordID, words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a);
 					}
 													
@@ -678,7 +678,7 @@ void ofxTextObject::drawCenter(float x, float y, bool drawFlag)
 				words[currentWordID].pos.set(drawX, drawY); //Record word position.
                 
 				if(drawFlag){						
-					if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.w/255.0f);	
+					if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.a/255.0f);
 										
 					if(!drawAsShapes){						
 						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);	
@@ -730,7 +730,7 @@ void ofxTextObject::drawRight(float x, float y, bool drawFlag)
 				words[currentWordID].pos.set(drawX, drawY); //Record word position.
                 
 				if(drawFlag){						
-					if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.w/255.0f);	//soso - removed this functionality for now //LM13 added back in..eep?					
+					if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.a/255.0f);	//soso - removed this functionality for now //LM13 added back in..eep?
 													
 					if(!drawAsShapes){						
 						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);	
@@ -797,7 +797,7 @@ void ofxTextObject::drawJustified(float x, float y, bool drawFlag)
                 
 				if (words[currentWordID].rawWord != " ") {
 					if(drawFlag){						
-						if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.w/255.0f);	//soso - removed this functionality for now //LM13 added back in..eep?					
+						if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.a/255.0f);	//soso - removed this functionality for now //LM13 added back in..eep?
 
 						if(!drawAsShapes){						
 							words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);	
@@ -884,10 +884,10 @@ void ofxTextObject::_loadWords()
 				tmpWord.rawWord = wordString;
 				tmpWord.width   = font->stringWidth(tmpWord.rawWord);
 				tmpWord.height  = font->stringHeight(tmpWord.rawWord);				
-				tmpWord.color.r = material->color.x;
-				tmpWord.color.g = material->color.y;
-				tmpWord.color.b = material->color.z;
-				tmpWord.color.a = material->color.w;
+				tmpWord.color.r = material->color.r;
+				tmpWord.color.g = material->color.g;
+				tmpWord.color.b = material->color.b;
+				tmpWord.color.a = material->color.a;
 				tmpWord.isNewLine = false;	//soso
 				tmpWord.font = font;		//soso
                 
@@ -925,10 +925,10 @@ void ofxTextObject::_loadWords()
 		tmpWord.rawWord = wordString;
 		tmpWord.width   = font->stringWidth(tmpWord.rawWord);
 		tmpWord.height  = font->stringHeight(tmpWord.rawWord);		
-		tmpWord.color.r = material->color.x;
-		tmpWord.color.g = material->color.y;
-		tmpWord.color.b = material->color.z;
-		tmpWord.color.a = material->color.w;
+		tmpWord.color.r = material->color.r;
+		tmpWord.color.g = material->color.g;
+		tmpWord.color.b = material->color.b;
+		tmpWord.color.a = material->color.a;
 		tmpWord.isNewLine = false; //soso
 		tmpWord.font = font;		//soso
 		
