@@ -29,8 +29,7 @@ void testApp::setup(){
 	
   
 	//Create a text object.
-  text = new ofxTextObject(font16, "An OpenFrameworks Addon by Sosolimited. Tyson. é"
-                           );
+  text = new ofxTextObject(font16, "An OpenFrameworks Addon by Sosolimited. Tyson.");
   text->setColor(255, 255, 255);                  //Set the color of the text.
   text->setPointSize(16);                         //Set the point size of the text, independent of the font resolution.
   text->setLeading(19);                           //Set the leading (line-spacing) of the text.
@@ -41,7 +40,7 @@ void testApp::setup(){
   
 	//Create a letter text object. This lets you treat each letter as a separate object to animate as you please.
   //See how the letters are animated below in keyPressed()
-  letterText = new ofxLetterTextObject(font64, "This is a letter text object. Press &times;&times;&times; &amp; g to animate the letters. &frac12; ");
+  letterText = new ofxLetterTextObject(font64, "This is a letter text object. Press &times;&times;&times; &amp; g to animate the letters. &frac12;");
   letterText->setTrans(-350, 200,0);
   letterText->setColor(255, 255, 255);
   letterText->setPointSize(48);
