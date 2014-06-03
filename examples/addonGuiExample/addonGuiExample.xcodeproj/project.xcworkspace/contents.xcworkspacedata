@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:addonExample.xcodeproj">
+      location = "self:addonGuiExample.xcodeproj">
    </FileRef>
 </Workspace>
