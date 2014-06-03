@@ -12,9 +12,7 @@
 # include <iostream>
 # include "ofxGuiObject.h"
 
-//ofxGuiObject::ofxGuiObject(float iWidth, float iHeight)
 ofxGuiObject::ofxGuiObject()
-// TODO: wa -- improve this appropriately
 {
   ofLogNotice("ofxGuiObject::ofxGuiObject()");
   
@@ -37,6 +35,29 @@ ofxGuiObject::~ofxGuiObject()
   delete gui; // TODO: wa -- is this correct?
 }
 
+void ofxGuiObject::setup()
+{
+  ofLogNotice("ofxGuiObject::setup()");
+  
+  string gui_title = "gui title";
+  string xml_path = "settings.xml";
+  int gui_x = 0;
+  int gui_y = 0;
+  
+  gui->setup(gui_title, xml_path, gui_x, gui_y);
+  
+  button = new ofxButton();
+  toggle = new ofxToggle();
+  slider = new ofxSlider<int>();
+  label = new ofxLabel();
+  
+  gui->add(button->setup("button", false));
+  gui->add(toggle->setup("toggle", false));
+  gui->add(slider->setup("int slider", 5, 0, 10));
+  gui->add(label->setup("label", "thing said"));
+  
+}
+
 void ofxGuiObject::idle(float iTime)
 {
   //  gui->update(); // TODO: wa -- ofxPanel has no update();
@@ -46,12 +67,14 @@ void ofxGuiObject::render()
 {
   if (isVisible)
   {
-    ofPushMatrix(); // TODO: wa -- what's this?
+    ofPushMatrix();
     
     // To draw correctly in soso universe, we gotta flip it.
     ofScale(1, -1, 1);
     
     gui->draw();
+    
+    ofPopMatrix();
   }
 }
 

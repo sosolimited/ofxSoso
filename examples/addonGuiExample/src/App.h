@@ -4,7 +4,9 @@
 #include "ofxScene.h"
 #include "ofxSosoRenderer.h"
 
-class emptyApp : public ofBaseApp{
+#include "ofxGuiObject.h"
+
+class App : public ofBaseApp{
   
 public:
   
@@ -25,6 +27,7 @@ public:
   
 public:
   ofxScene						*scene;
+  ofxGuiObject        *guiObject;
  
 };
 

@@ -21,6 +21,7 @@ public:
   ofxGuiObject();
   ~ofxGuiObject();
   
+  void        setup();
   void        idle(float iTime);
   void        render();
   
@@ -41,7 +42,11 @@ public:
   int         intendedWindowWidth;
   int         intendedWindowHeight;
   
-  ofxPanel    *gui;
+  ofxPanel        *gui;
+  ofxButton       *button;
+  ofxToggle       *toggle;
+  ofxSlider<int>  *slider;
+  ofxLabel        *label;
   
 private:
   
