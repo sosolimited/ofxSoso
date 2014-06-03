@@ -150,15 +150,15 @@ void testApp::setup(){
 	for(int i=0; i < circles.size(); i++){
 		//Grab translation and color for circles, as set above.
 		ofVec3f curTrans = circles[i]->getTrans();
-		ofVec4f curColor = circles[i]->getColor();
+		ofColor curColor = circles[i]->getColor();
     
 		animation->tween(circles[i], OF_SCALE, i*offset, i*offset + 0.5, OF_EASE_OUT, OF_RELATIVE_VAL, 0.5);		//You can pass OF_RELATIVE_VAL as the first animation value to animate from wherever the object is at the time the animation is called
 		animation->tween(circles[i], OF_SETCOLOR, i*offset, i*offset + 0.5, OF_EASE_OUT,							//Animate the color over this timeframe with this interpolation,
-                     curColor.x, curColor.y, curColor.z, curColor.w,												//starting with this color,
+                     curColor.r, curColor.g, curColor.b, curColor.a,												//starting with this color,
                      0, 255, 0, 255);																			//and ending at this color.
 		animation->tween(circles[i], OF_SETCOLOR, i*offset + 0.5, i*offset + 1.0, OF_EASE_OUT,						//Animate the color back...
                      0, 255, 0, 255,
-                     curColor.x, curColor.y, curColor.z, curColor.w);
+                     curColor.r, curColor.g, curColor.b, curColor.a);
 	}
   
   
