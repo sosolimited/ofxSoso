@@ -14,9 +14,8 @@ ofxArcObject::ofxArcObject(float iOuterRadius, float iInnerRadius, float iStartA
 	endAngle = ofDegToRad(iEndAngle);		
 	
 	height = 0;
-    nullColor.set(-1,-1,-1,-1); // LM added this to fix compatability w 0072
-	color1 = nullColor;
-	color2 = nullColor;
+	color1 = NULL;
+	color2 = NULL;
 	
 }
 
@@ -48,10 +47,10 @@ float ofxArcObject::getEndAngle() {
     return ofRadToDeg(endAngle);
 }
 
-void ofxArcObject::setColors(ofVec4f iColor1, ofVec4f iColor2) {
+void ofxArcObject::setColors(ofColor iColor1, ofColor iColor2) {
 
-	color1 = iColor1/255.0;
-	color2 = iColor2/255.0;
+	color1 = iColor1;
+	color2 = iColor2;
 }
 
 
@@ -69,9 +68,9 @@ void ofxArcObject::render()
 		glBegin(GL_QUAD_STRIP);
 		while(angle < endAngle){
 			glNormal3f(cos(angle+PI), sin(angle+PI),0);
-			if (color1 != nullColor && color2 != nullColor) {
+			if (color1 != NULL && color2 != NULL) {
 				portion = 1.0 -(angle - startAngle) / (endAngle - startAngle);
-				glColor4f(portion*color1[0] + (1.0-portion)*color2[0], portion*color1[1] + (1.0-portion)*color2[1], portion*color1[2] + (1.0-portion)*color2[2], portion*color1[3] + (1.0-portion)*color2[3]);
+				glColor4f(portion*color1.r/255.0f + (1.0-portion)*color2.r/255.0f, portion*color1.g/255.0f + (1.0-portion)*color2.g/255.0f, portion*color1.b/255.0f + (1.0-portion)*color2.b/255.0f, portion*color1.a/255.0f + (1.0-portion)*color2.a/255.0f);
 						  
 			}
 			glVertex3f(innerRadius * cos(angle), innerRadius * sin(angle), 0);
@@ -83,9 +82,9 @@ void ofxArcObject::render()
 		//finish it
 		glNormal3f(cos(angle+PI), sin(angle+PI),0);
 		
-		if (color1 != nullColor && color2 != nullColor) {
+		if (color1 != NULL && color2 != NULL) {
 			portion = 1.0 -(angle - startAngle) / (endAngle - startAngle);
-			glColor4f(portion*color1[0] + (1.0-portion)*color2[0], portion*color1[1] + (1.0-portion)*color2[1], portion*color1[2] + (1.0-portion)*color2[2], portion*color1[3] + (1.0-portion)*color2[3]);
+			glColor4f(portion*color1.r/255.0f + (1.0-portion)*color2.r/255.0f, portion*color1.g/255.0f + (1.0-portion)*color2.g/255.0f, portion*color1.b/255.0f + (1.0-portion)*color2.b/255.0f, portion*color1.a/255.0f + (1.0-portion)*color2.a/255.0f);
 			
 		}
 		
@@ -100,9 +99,9 @@ void ofxArcObject::render()
 	glNormal3f(0,0,1);
 	while(angle < endAngle){
 
-		if (color1 != nullColor && color2 != nullColor) {
+		if (color1 != NULL && color2 != NULL) {
 			portion = 1.0 -(angle - startAngle) / (endAngle - startAngle);
-			glColor4f(portion*color1[0] + (1.0-portion)*color2[0], portion*color1[1] + (1.0-portion)*color2[1], portion*color1[2] + (1.0-portion)*color2[2], portion*color1[3] + (1.0-portion)*color2[3]);
+			glColor4f(portion*color1.r/255.0f + (1.0-portion)*color2.r/255.0f, portion*color1.g/255.0f + (1.0-portion)*color2.g/255.0f, portion*color1.b/255.0f + (1.0-portion)*color2.b/255.0f, portion*color1.a/255.0f + (1.0-portion)*color2.a/255.0f);
 		}		
 		glVertex3f(innerRadius * cos(angle), innerRadius * sin(angle), height);
 		glVertex3f(outerRadius * cos(angle), outerRadius * sin(angle), height);
@@ -110,9 +109,9 @@ void ofxArcObject::render()
 		angle += angleInc;
 	}
 	//finish it
-	if (color1 != nullColor && color2 != nullColor) {
+	if (color1 != NULL && color2 != NULL) {
 		portion = 1.0 -(angle - startAngle) / (endAngle - startAngle);
-		glColor4f(portion*color1[0] + (1.0-portion)*color2[0], portion*color1[1] + (1.0-portion)*color2[1], portion*color1[2] + (1.0-portion)*color2[2], portion*color1[3] + (1.0-portion)*color2[3]);
+		glColor4f(portion*color1.r/255.0f + (1.0-portion)*color2.r/255.0f, portion*color1.g/255.0f + (1.0-portion)*color2.g/255.0f, portion*color1.b/255.0f + (1.0-portion)*color2.b/255.0f, portion*color1.a/255.0f + (1.0-portion)*color2.a/255.0f);
 		
 	}	
 	glVertex3f(innerRadius * cos(endAngle), innerRadius * sin(endAngle), height);

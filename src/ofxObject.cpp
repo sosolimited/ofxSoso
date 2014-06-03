@@ -6,15 +6,20 @@
 //class ofxObjectMaterial _____________________________________________________________________________
 ofxObjectMaterial::ofxObjectMaterial()
 {
-	color.set(255.0f, 255.0f, 255.0f, 255.0f);
+  ofColor color(255.0f, 255.0f, 255.0f, 255.0f);
 	inheritAlphaFlag = true;
 }
 
 ofxObjectMaterial::~ofxObjectMaterial(){}
 
 
-	
+// Returns ofColor as a ofVec4f
+// Convenience method for ofxMessage calculations
+ofVec4f ofxObjectMaterial::getColorVec4f(){
 
+  return ofVec4f(color.r, color.g, color.b, color.a);
+  
+}
 
 
 
@@ -245,16 +250,16 @@ float* ofxObject::updateMatrix(float *iParentMatrix)
 ofxObjectMaterial* ofxObject::updateMaterial(ofxObjectMaterial *iMat)
 {	
 	//firebrand - added support for disabling alpha inheritance
-    float alpha = material->color.w;
-    float r = material->color.x;
-    float g = material->color.y;
-    float b = material->color.z;
-    
-	if(material->inheritAlphaFlag) alpha *= (float)iMat->color.w / 255.0f;
+    float alpha = material->color.a;
+    float r = material->color.r;
+    float g = material->color.g;
+    float b = material->color.b;
+  
+	if(material->inheritAlphaFlag) alpha *= (float)iMat->color.a / 255.0f;
     if(inheritColor) {  // SK added color inheritence flag
-        r *= (float)iMat->color.x / 255.0f;
-        g *= (float)iMat->color.y / 255.0f;
-        b *= (float)iMat->color.z / 255.0f;
+        r *= (float)iMat->color.r / 255.0f;
+        g *= (float)iMat->color.g / 255.0f;
+        b *= (float)iMat->color.b / 255.0f;
     }
 
     drawMaterial->color.set(r,g,b,alpha);
@@ -299,7 +304,7 @@ void ofxObject::idleBase(float iTime)
 //void ofxObject::draw(float *_matrix){
 void ofxObject::draw(ofxObjectMaterial *iMaterial, float *iMatrix, int iSelect, bool iDrawAlone)	
 {
-	//if(id == 1) printf("i am a circle %f - %f, %f, %f\n", ofGetElapsedTimef(), color.x, color.y, color.z);
+	//if(id == 1) printf("i am a circle %f - %f, %f, %f\n", ofGetElapsedTimef(), color.r, color.g, color.b);
 
 	//moved to idleBase
 	//timeElapsed = ofGetElapsedTimef() - timePrev; //ofGetSystemTime()/1000.0f - timePrev;
@@ -362,8 +367,7 @@ void ofxObject::predraw()
 {  
 	glPushName(id); 	
 	
-	//ofSetColor(color.x, color.y, color.z, color.w);
-	ofSetColor(drawMaterial->color.x, drawMaterial->color.y, drawMaterial->color.z, drawMaterial->color.w);	//v4.0 
+	ofSetColor(drawMaterial->color.r, drawMaterial->color.g, drawMaterial->color.b, drawMaterial->color.a);	//v4.0
 	
 	//update lighting
 	if (isLit != prevLit) {
@@ -491,33 +495,43 @@ void ofxObject::setLighting(bool iOnOff)
 	isLit = iOnOff;
 }
 
+// Set color, keep original alpha
+void ofxObject::setColor(float r, float g, float b)
+{
+	material->color.set(r, g, b, material->color.a);			// AO: Keep original alpha
+}
+
+// Set color and alpha
 void ofxObject::setColor(float r, float g, float b, float a)
 {
-	//color.set(r, g, b, a);
 	material->color.set(r, g, b, a);			//v4.0
 }
 
 void ofxObject::setColor(ofColor c)
 {
-    material->color.set(c.r, c.g, c.b, c.a);
+  material->color.set(c.r, c.g, c.b, c.a);
 }
 
 void ofxObject::setAlpha(float iA)
 {
-	//color.set(color.x, color.y, color.z, iA);
-	material->color.set(material->color.x, material->color.y, material->color.z, iA);	//v4.0
+	material->color.set(material->color.r, material->color.g, material->color.b, iA);	//v4.0
 }
 
-ofVec4f ofxObject::getColor()
+// AO: Providing a way to access using ofVec4f
+// in case we still need support
+ofVec4f ofxObject::getColorVec4f()
 {
-	//return color;
+	return ofVec4f(material->color.r, material->color.g, material->color.b, material->color.a);	//v4.0
+}
+
+ofColor ofxObject::getColor()
+{
 	return material->color;	//v4.0
 }
 
 float ofxObject::getAlpha()
 {
-	//return color.w;
-	return material->color.w;	//v4.0
+	return material->color.a;	//v4.0
 }
 
 bool ofxObject::hasTransparency()
@@ -542,9 +556,9 @@ void ofxObject::setRot(float x, float y, float z)
 
 void ofxObject::setColor(ofVec4f c)
 {
-	//color = c;
-	material->color = c;	 //v4.0
+	material->color.set(c.x, c.y, c.z, c.w);	 //v4.0
 }
+
 
 
 void ofxObject::setRot(ofVec3f r)
@@ -928,11 +942,11 @@ void ofxObject::updateMessages()
 						//set start values once
 						ofVec3f *vec = (ofVec3f *)messages[i]->baseStartVals;
 						if(vec){
-							if(vec->x == OF_RELATIVE_VAL) x = material->color.x;
+							if(vec->x == OF_RELATIVE_VAL) x = material->getColorVec4f().x;
 							else x = vec->x;
-							if(vec->y == OF_RELATIVE_VAL) y = material->color.y;
+							if(vec->y == OF_RELATIVE_VAL) y = material->getColorVec4f().y;
 							else y = vec->y;
-							if(vec->z == OF_RELATIVE_VAL) z = material->color.z;
+							if(vec->z == OF_RELATIVE_VAL) z = material->getColorVec4f().z;
 							else z = vec->z;
 
 							messages[i]->setStartVals(x, y, z);
@@ -941,11 +955,11 @@ void ofxObject::updateMessages()
 						//set end values once
 						ofVec3f *vecEnd = (ofVec3f *)messages[i]->baseEndVals;
 						if(vecEnd){
-							if(vecEnd->x == OF_RELATIVE_VAL) x = material->color.x;
+							if(vecEnd->x == OF_RELATIVE_VAL) x = material->getColorVec4f().x;
 							else x = vecEnd->x;
-							if(vecEnd->y == OF_RELATIVE_VAL) y = material->color.y;
+							if(vecEnd->y == OF_RELATIVE_VAL) y = material->getColorVec4f().y;
 							else y = vecEnd->y;
-							if(vecEnd->z == OF_RELATIVE_VAL) z = material->color.z;
+							if(vecEnd->z == OF_RELATIVE_VAL) z = material->getColorVec4f().z;
 							else z = vecEnd->z;
 
 							messages[i]->setEndVals(x,y,z);
@@ -958,16 +972,66 @@ void ofxObject::updateMessages()
 					if(messages[i]->path == OF_LINEAR_PATH){
 						setColor((1-t)*((ofVec3f *)messages[i]->startVals)->x + t*((ofVec3f *)messages[i]->endVals)->x,
 								 (1-t)*((ofVec3f *)messages[i]->startVals)->y + t*((ofVec3f *)messages[i]->endVals)->y,
-								 (1-t)*((ofVec3f *)messages[i]->startVals)->z + t*((ofVec3f *)messages[i]->endVals)->z,
-								 material->color.w);					
+								 (1-t)*((ofVec3f *)messages[i]->startVals)->z + t*((ofVec3f *)messages[i]->endVals)->z);
 					}else if(messages[i]->path == OF_BEZIER_PATH){
 						ofVec4f c = ofxMessage::bezier(t, messages[i]->pathPoints);
-						setColor(c.x, c.y, c.z, material->color.w);
+						setColor(c.x, c.y, c.z);
 					}else if(messages[i]->path == OF_SPLINE_PATH){
 						ofVec4f c = ofxMessage::spline(t, messages[i]->pathPoints);
-						setColor(c.x, c.y, c.z, material->color.w);
+						setColor(c.x, c.y, c.z);
 					}
 				}	
+			}      // color with alpha channel
+      else if(messages[i]->id == OF_SETCOLOR4){
+				if(curTime >= startTime){
+					if(!messages[i]->isRunning){
+						//set start values once
+						ofVec4f *vec = (ofVec4f *)messages[i]->baseStartVals;
+						if(vec){
+							if(vec->x == OF_RELATIVE_VAL) x = material->getColorVec4f().x;
+							else x = vec->x;
+							if(vec->y == OF_RELATIVE_VAL) y = material->getColorVec4f().y;
+							else y = vec->y;
+							if(vec->z == OF_RELATIVE_VAL) z = material->getColorVec4f().z;
+							else z = vec->z;
+              if(vec->w == OF_RELATIVE_VAL) w = material->getColorVec4f().w;
+							else w = vec->w;
+              
+							messages[i]->setStartVals(x, y, z, w);
+						}
+            
+						//set end values once
+						ofVec4f *vecEnd = (ofVec4f *)messages[i]->baseEndVals;
+						if(vecEnd){
+							if(vecEnd->x == OF_RELATIVE_VAL) x = material->getColorVec4f().x;
+							else x = vecEnd->x;
+							if(vecEnd->y == OF_RELATIVE_VAL) y = material->getColorVec4f().y;
+							else y = vecEnd->y;
+							if(vecEnd->z == OF_RELATIVE_VAL) z = material->getColorVec4f().z;
+							else z = vecEnd->z;
+              if(vecEnd->w == OF_RELATIVE_VAL) w = material->getColorVec4f().w;
+							else w = vecEnd->w;
+              
+							messages[i]->setEndVals(x,y,z,w);
+						}
+            
+						//printf("color startvals = %f, %f , %f\n", x,y,z);
+						messages[i]->isRunning = true;
+					}
+					//update value
+					if(messages[i]->path == OF_LINEAR_PATH){
+						setColor((1-t)*((ofVec4f *)messages[i]->startVals)->x + t*((ofVec4f *)messages[i]->endVals)->x,
+                     (1-t)*((ofVec4f *)messages[i]->startVals)->y + t*((ofVec4f *)messages[i]->endVals)->y,
+                     (1-t)*((ofVec4f *)messages[i]->startVals)->z + t*((ofVec4f *)messages[i]->endVals)->z,
+                     (1-t)*((ofVec4f *)messages[i]->startVals)->w + t*((ofVec4f *)messages[i]->endVals)->w);
+					}else if(messages[i]->path == OF_BEZIER_PATH){
+						ofVec4f c = ofxMessage::bezier(t, messages[i]->pathPoints);
+						setColor(c.x, c.y, c.z, c.w);
+					}else if(messages[i]->path == OF_SPLINE_PATH){
+						ofVec4f c = ofxMessage::spline(t, messages[i]->pathPoints);
+						setColor(c.x, c.y, c.z, c.w);
+					}
+				}
 			}
 			//alpha__________________________________________________________________
 			else if(messages[i]->id == OF_SETALPHA){
@@ -976,7 +1040,7 @@ void ofxObject::updateMessages()
 						//set start values once
 						float *v = (float *)messages[i]->baseStartVals;
 						if(v){
-							if(v[0] == OF_RELATIVE_VAL) x = material->color.w;
+							if(v[0] == OF_RELATIVE_VAL) x = material->getColorVec4f().w;
 							else x = v[0];
 
 							messages[i]->setStartVals(x);						
@@ -985,7 +1049,7 @@ void ofxObject::updateMessages()
 						//set end values once
 						float *vEnd = (float *)messages[i]->baseEndVals;
 						if(vEnd){
-							if(vEnd[0] == OF_RELATIVE_VAL) x = material->color.w;
+							if(vEnd[0] == OF_RELATIVE_VAL) x = material->getColorVec4f().w;
 							else x = vEnd[0];
 
 							messages[i]->setEndVals(x);						
