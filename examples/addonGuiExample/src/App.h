@@ -4,7 +4,8 @@
 #include "ofxScene.h"
 #include "ofxSosoRenderer.h"
 
-#include "ofxGuiObject.h"
+#include "exampleGuiObject.h"
+#include "exampleUIObject.h"
 
 class App : public ofBaseApp{
   
@@ -24,10 +25,14 @@ public:
   void dragEvent(ofDragInfo dragInfo);
   void gotMessage(ofMessage msg);
   
+  void UIevent(ofxUIEventArgs &e); // TODO: Needed here?
+  
   
 public:
   ofxScene						*scene;
-  ofxGuiObject        *guiObject;
+  
+  exampleGuiObject        *guiObject;
+  exampleUIObject         *UIObject;
  
 };
 

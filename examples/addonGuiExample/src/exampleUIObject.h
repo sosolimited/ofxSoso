@@ -1,25 +1,23 @@
 //
-//  ofxGuiObject.h
+//  exampleUIObject.h
 //  ofxSoso addonExample
 //
-//  Created by Wade Aaron on 5/30/14.
 //  Copyright 2014 Sosolimited. All rights reserved.
-//  ofxObject encapsulation of ofxGui, so you can just add it as an object
+//  ofxObject encapsulation of openFramworks addon (ofxUI), so you can just add it as an object
 //
 
 # pragma once
 
 #include "ofxObject.h"
-#include "ofxGui.h"
+#include "ofxUI.h"
+  // Note: ofxUI.h is dependent on ofxXmlSettings.h
+  #include "ofxXmlSettings.h"
 
-#include "ofAppRunner.h" // TODO: wa -- hacked in for now. should this come in from somewhere else? ofxGuiObject/ofxObject?
-
-class ofxGuiObject : public ofxObject {
+class exampleUIObject : public ofxObject {
   
 public:
-//  ofxGuiObject(float iWidth, float iHeight);
-  ofxGuiObject();
-  ~ofxGuiObject();
+  exampleUIObject();
+  ~exampleUIObject();
   
   void        setup();
   void        idle(float iTime);
@@ -42,11 +40,10 @@ public:
   int         intendedWindowWidth;
   int         intendedWindowHeight;
   
-  ofxPanel        *gui;
-  ofxButton       *button;
-  ofxToggle       *toggle;
-  ofxSlider<int>  *slider;
-  ofxLabel        *label;
+  // TODO: Add parts and comment
+  ofxUICanvas   *UI;
+  
+  float         UISliderVal;
   
 private:
   

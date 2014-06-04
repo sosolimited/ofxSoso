@@ -15,12 +15,25 @@ void App::setup(){
   scene = new ofxScene(ofGetWidth(), ofGetHeight());
 	scene->setBackgroundColor(100, 100, 100);
   
-  guiObject = new ofxGuiObject();
+  // Build ofxGuiObject
+  guiObject = new exampleGuiObject();
   guiObject->setup();
-
   scene->getRoot()->addChild(guiObject);
-  
   guiObject->setVisible(true);
+  
+  int gui_x = -ofGetWindowWidth()/2;
+  int gui_y = ofGetWindowHeight()/2;
+  guiObject->setTrans(gui_x, gui_y, 0);
+  
+  // Build ofxUIObject
+  UIObject = new exampleUIObject();
+  UIObject->setup();
+  scene->getRoot()->addChild(UIObject);
+  UIObject->setVisible(true);
+  
+  int UI_x = 0;
+  int UI_y = ofGetWindowHeight()/2;
+  UIObject->setTrans(UI_x, UI_y, 0);
   
 }
 
@@ -77,13 +90,17 @@ void App::windowResized(int w, int h){
 }
 
 //--------------------------------------------------------------
+void App::dragEvent(ofDragInfo dragInfo){ 
+  
+}
+
+//--------------------------------------------------------------
 void App::gotMessage(ofMessage msg){
   
 }
 
 //--------------------------------------------------------------
-void App::dragEvent(ofDragInfo dragInfo){ 
-  
+void App::UIevent(ofxUIEventArgs &e){
+  //TODO: Does this go here? If so, fill in.
 }
-
 

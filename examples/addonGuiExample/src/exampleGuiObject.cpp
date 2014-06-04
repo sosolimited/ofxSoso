@@ -1,69 +1,69 @@
 //
-//  ofxGuiObject.cpp
+//  exampleGuiObject.cpp
 //  ofxSoso addonExample
 //
-//  Created by Wade Aaron on 5/30/14.
 //  Copyright 2014 Sosolimited. All rights reserved.
-//  ofxObject encapsulation of ofxGui, so you can just add it as an object
+//  ofxObject encapsulation of openFramworks addon (ofxGui), so you can just add it as an object
 //
 
-#include "ofxGuiObject.h"
-
 # include <iostream>
-# include "ofxGuiObject.h"
+# include "exampleGuiObject.h"
 
-ofxGuiObject::ofxGuiObject()
+exampleGuiObject::exampleGuiObject()
 {
-  ofLogNotice("ofxGuiObject::ofxGuiObject()");
+  ofLogNotice("exampleGuiObject::exampleGuiObject()");
   
+  // Initialize visibility
   bool isVisible = true;
   
-  gui = new ofxPanel();
-  
-  ofAddListener(ofEvents().mouseReleased, this, & ofxGuiObject::onMouseReleased);
-  ofAddListener(ofEvents().mousePressed, this, & ofxGuiObject::onMousePressed);
-  ofAddListener(ofEvents().mouseMoved, this, & ofxGuiObject::onMouseMoved);
-  ofAddListener(ofEvents().mouseDragged, this, & ofxGuiObject::onMouseDragged);
-  
+  // TODO: Are these necessary?
   windowBarHack = 0;
   screenWidthHack = 0;
   
+  // TODO: REMOVE -- Reassign mouse callback to flip y-coords.
+  ofAddListener(ofEvents().mouseReleased, this, & exampleGuiObject::onMouseReleased);
+  ofAddListener(ofEvents().mousePressed, this, & exampleGuiObject::onMousePressed);
+  ofAddListener(ofEvents().mouseMoved, this, & exampleGuiObject::onMouseMoved);
+  ofAddListener(ofEvents().mouseDragged, this, & exampleGuiObject::onMouseDragged);
+  
 }
 
-ofxGuiObject::~ofxGuiObject()
+exampleGuiObject::~exampleGuiObject()
 {
   delete gui; // TODO: wa -- is this correct?
 }
 
-void ofxGuiObject::setup()
+void exampleGuiObject::setup()
 {
-  ofLogNotice("ofxGuiObject::setup()");
+  ofLogNotice("exampleGuiObject::setup()");
   
-  string gui_title = "gui title";
+  // Build panel
+  gui = new ofxPanel();
+  string gui_title = "exampleGuiObject";
   string xml_path = "settings.xml";
-  int gui_x = 0;
-  int gui_y = 0;
+  gui->setup(gui_title, xml_path, 0, 0);
+    // Use zeros for translation here and setTrans on guiObject in App.
   
-  gui->setup(gui_title, xml_path, gui_x, gui_y);
-  
+  // Build components
   button = new ofxButton();
   toggle = new ofxToggle();
   slider = new ofxSlider<int>();
   label = new ofxLabel();
   
+  // Add components to panel
   gui->add(button->setup("button", false));
   gui->add(toggle->setup("toggle", false));
-  gui->add(slider->setup("int slider", 5, 0, 10));
-  gui->add(label->setup("label", "thing said"));
+  gui->add(slider->setup("slider<int>", 5, 0, 10));
+  gui->add(label->setup("label", "label_value"));
   
 }
 
-void ofxGuiObject::idle(float iTime)
+void exampleGuiObject::idle(float iTime)
 {
   //  gui->update(); // TODO: wa -- ofxPanel has no update();
 }
 
-void ofxGuiObject::render()
+void exampleGuiObject::render()
 {
   if (isVisible)
   {
@@ -78,13 +78,13 @@ void ofxGuiObject::render()
   }
 }
 
-void ofxGuiObject::exit()
+void exampleGuiObject::exit()
 {
   //  gui->exit(); // TODO: wa -- ofxPanel has no exit();
 }
 
 // TODO: wa -- needs Y-flipping
-void ofxGuiObject::onMouseReleased(ofMouseEventArgs & iArgs)
+void exampleGuiObject::onMouseReleased(ofMouseEventArgs & iArgs)
 {
   if (ofGetHeight() != intendedWindowHeight)
     windowBarHack = (intendedWindowHeight - ofGetHeight() )/2.0;
@@ -96,7 +96,7 @@ void ofxGuiObject::onMouseReleased(ofMouseEventArgs & iArgs)
   
 }
 
-void ofxGuiObject::onMousePressed(ofMouseEventArgs & iArgs)
+void exampleGuiObject::onMousePressed(ofMouseEventArgs & iArgs)
 {
   if (ofGetHeight() != intendedWindowHeight)
     windowBarHack = (intendedWindowHeight - ofGetHeight() )/2.0;
@@ -108,7 +108,7 @@ void ofxGuiObject::onMousePressed(ofMouseEventArgs & iArgs)
   
 }
 
-void ofxGuiObject::onMouseMoved(ofMouseEventArgs & iArgs)
+void exampleGuiObject::onMouseMoved(ofMouseEventArgs & iArgs)
 {
   if (ofGetHeight() != intendedWindowHeight)
     windowBarHack = (intendedWindowHeight - ofGetHeight() )/2.0;
@@ -120,7 +120,7 @@ void ofxGuiObject::onMouseMoved(ofMouseEventArgs & iArgs)
   
 }
 
-void ofxGuiObject::onMouseDragged(ofMouseEventArgs & iArgs)
+void exampleGuiObject::onMouseDragged(ofMouseEventArgs & iArgs)
 {
   if (ofGetHeight() != intendedWindowHeight)
     windowBarHack = (intendedWindowHeight - ofGetHeight() )/2.0;
