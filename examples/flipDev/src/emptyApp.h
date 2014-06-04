@@ -31,6 +31,8 @@ public:
   ofxScene						*scene;
   
   ofxImageObject      *image;
+  
+  ofImage             ofIm;
  
 };
 

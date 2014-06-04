@@ -19,6 +19,8 @@ void emptyApp::setup(){
   image->isCentered = true;
   scene->getRoot()->addChild(image);
   
+  //ofIm.loadImage("plasticman.jpg");
+  
   
 }
 
@@ -35,6 +37,9 @@ void emptyApp::draw(){
   
 	//Call draw on scene, which initiates the drawing of the root object.
   scene->draw();
+  
+  //ofIm.draw(0,400);
+
 }
 
 //--------------------------------------------------------------

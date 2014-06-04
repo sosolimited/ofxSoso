@@ -1,6 +1,7 @@
 .DS_Store
 example/bin/sosoExampleAppDebug.app/*
 example/bin/sosoExampleApp.app/*
+examples/destructorsClean/bin/data/RF1308-Superbowl_Closing-Ver02.mp4
 
 #Compiled Object files
 *.slo

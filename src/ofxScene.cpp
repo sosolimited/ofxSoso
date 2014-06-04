@@ -7,19 +7,19 @@
 ofxViewportData::ofxViewportData(int iScreenNum, int iScreenX, int iScreenY, int iWorldX, int iWorldY, int iWidth, int iHeight)
 {
 	screenNum = iScreenNum;
-
+  
 	screenOrigin[0] = iScreenX;
 	screenOrigin[1] = iScreenY;
-
+  
 	worldOrigin[0] = iWorldX;
 	worldOrigin[1] = iWorldY;
-
+  
 	dimensions[0] = iWidth;
 	dimensions[1] = iHeight;
 }
 
 ofxViewportData::~ofxViewportData(){}
-	
+
 
 
 //class ofxScene _______________________________________________________________________________
@@ -27,54 +27,54 @@ float* ofxScene::defaultMatrix = NULL;
 ofxObjectMaterial* ofxScene::defaultMaterial = NULL;
 
 ofxScene::ofxScene(int w, int h)
-{	
+{
 	sceneWidth = w;
 	sceneHeight = h;
 	
-	root = new ofxObject();	
+	root = new ofxObject();
 	
 	isClearBackgroundOn = true;
 	backgroundColor.set(255,255,255,255);
-		
+  
 	isScissorOn = false;
 	scissorOrigin[0] = 0;
 	scissorOrigin[1] = 0;
 	scissorDimensions[0] = sceneWidth;
 	scissorDimensions[1] = sceneHeight;
-
-	enableBlending(true);		
+  
+	enableBlending(true);
 	enableDepthTest(true);
 	setDepthFunc(GL_LESS);
 	setDepthMask(true);
 	setShadingModel(GL_SMOOTH);
-
-	sortedObjects = NULL;	
+  
+	sortedObjects = NULL;
 	//default max number of sorted objects
 	maxSortedObjects = 10000;
   
   onTopObjects = NULL;
 	maxOnTopObjects = 100;
-
-		
+  
+  
 	centerOffset.set(sceneWidth/2.0f, sceneHeight/2.0f, 0);
-
+  
 	if(!defaultMatrix){
 		defaultMatrix = (float *)malloc(sizeof(float) * 16);
 		defaultMatrix[0] = 1.0;
 		defaultMatrix[1] = 0;
 		defaultMatrix[2] = 0;
 		defaultMatrix[3] = 0;
-
+    
 		defaultMatrix[4] = 0;
 		defaultMatrix[5] = 1.0;
 		defaultMatrix[6] = 0;
 		defaultMatrix[7] = 0;
-
+    
 		defaultMatrix[8] = 0;
 		defaultMatrix[9] = 0;
 		defaultMatrix[10] = 1.0;
 		defaultMatrix[11] = 0;
-
+    
 		defaultMatrix[12] = 0;
 		defaultMatrix[13] = 0;
 		defaultMatrix[14] = 0;
@@ -83,20 +83,28 @@ ofxScene::ofxScene(int w, int h)
 	
 	if(!defaultMaterial)
 		defaultMaterial = new ofxObjectMaterial();	//v4.0
-
+  
 	//setRenderMode(RENDER_NORMAL);
 	//setRenderMode(RENDER_ALPHA_DEPTH);	//not working yet
 	setRenderMode(RENDER_ALPHA_DEPTH_SORTED);
-
+  
 }
 
-ofxScene::~ofxScene(){}
+// Destructor.
+ofxScene::~ofxScene(){
+//  delete root;            //DEV: should i be deleting this?
+//  delete defaultMaterial; //DEV: can't delete this or else my test crashes...
+  delete sortedObjects;     //DEV: hopefully we can delete a double pointer like a normal pointer, like this.
+                            // how can i clear() this vector?
+  delete onTopObjects;      //DEV: hopefully we can delete a double pointer like a normal pointer, like this.
+                            // how can i clear() this vector?
+}
 
 void ofxScene::update(float iTime)
 {
 	//This call to root's idle propagates down to all children in the tree.
-	root->idleBase(iTime);	
-
+	root->idleBase(iTime);
+  
 	//Updates all object's curTime, which is used for things like messages.
 	ofxObject::curTime = iTime;
 }
@@ -119,12 +127,12 @@ void ofxScene::setCenterOffset(float iX, float iY, float iZ)
 void ofxScene::draw()
 {
 	//Necessary for proper rendering of transparency.
-	ofEnableAlphaBlending();    
-
+	ofEnableAlphaBlending();
+  
 	//Scissoring
 	if(isScissorOn){
 		glEnable(GL_SCISSOR_TEST);
-		glScissor(scissorOrigin[0], scissorOrigin[1], scissorDimensions[0], scissorDimensions[1]);	
+		glScissor(scissorOrigin[0], scissorOrigin[1], scissorDimensions[0], scissorDimensions[1]);
 	}else{
 		glDisable(GL_SCISSOR_TEST);
 	}
@@ -135,37 +143,37 @@ void ofxScene::draw()
 	}else{
 		glDisable(GL_DEPTH_TEST);
 	}
-	//Blending 
+	//Blending
 	if(isBlendingOn){
-		glEnable(GL_BLEND);				
+		glEnable(GL_BLEND);
 	}else{
-		glDisable(GL_BLEND);	
+		glDisable(GL_BLEND);
 	}
 	//Shading
 	glShadeModel(shadingModel);
-
+  
 	//Clear background
 	glClearColor(backgroundColor[0]/255.0f, backgroundColor[1]/255.0f, backgroundColor[2]/255.0f, backgroundColor[3]/255.0f);
 	if(isClearBackgroundOn){
 		if(isDepthTestOn)
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		else
-			glClear(GL_COLOR_BUFFER_BIT);		
+			glClear(GL_COLOR_BUFFER_BIT);
 	}else{
 		if(isDepthTestOn)
-			glClear(GL_DEPTH_BUFFER_BIT);		
+			glClear(GL_DEPTH_BUFFER_BIT);
 	}
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	glPushMatrix();		
+  
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity(); // Dont' need this now?
+  
+	glPushMatrix();
 	
 	//ofTranslate(centerOffset.x, centerOffset.y, 0);	//offset root
 	
-	//Depending on the render mode, choose a draw method	
-	if (renderMode == RENDER_NORMAL)	
-		drawNormal();		
+	//Depending on the render mode, choose a draw method
+	if (renderMode == RENDER_NORMAL)
+		drawNormal();
 	else if(renderMode == RENDER_ALPHA_DEPTH)
 		drawAlphaDepth();
 	else if(renderMode == RENDER_ALPHA_DEPTH_SORTED)
@@ -175,7 +183,7 @@ void ofxScene::draw()
   if (onTopDrawingEnabled) {
     // Grab objects that have mDrawOnTop set to true.
     int size = root->collectNodes(OF_RENDER_ONTOP, onTopObjects, 0, maxOnTopObjects);
-  
+    
     glDisable(GL_DEPTH_TEST);
     
     // Draw them.
@@ -186,7 +194,7 @@ void ofxScene::draw()
     // Reset depth test if it's supposed to be true.
     if (isDepthTestOn){
       glEnable(GL_DEPTH_TEST);
-    }						
+    }
   }
   
 	glPopMatrix();
@@ -205,7 +213,7 @@ void ofxScene::drawAlphaDepth()
 	//First draw opaque objects.
 	root->draw(defaultMaterial, defaultMatrix, OF_RENDER_OPAQUE);
 	//Disable depth buffer writing and draw transparent objects.
-	setDepthMask(false);	
+	setDepthMask(false);
 	root->draw(defaultMaterial, defaultMatrix, OF_RENDER_TRANSPARENT);
 	//Re-enable depth buffer writing.
 	setDepthMask(true);
@@ -221,13 +229,13 @@ void ofxScene::drawAlphaDepthSorted()
 	//Collect transparent objects.
 	int size = root->collectNodes(OF_RENDER_TRANSPARENT, sortedObjects, 0, maxSortedObjects);
 	//Sort them according to their z value.
-	qsort((void *)sortedObjects, size, sizeof(ofxObject *), ofxScene::depthCompareFunc); 		
-
-	//Render transparent objects. 
-	for (int i=0; i < size; i++) {		
-		sortedObjects[i]->draw(defaultMaterial, defaultMatrix, OF_RENDER_ALL, true);	
+	qsort((void *)sortedObjects, size, sizeof(ofxObject *), ofxScene::depthCompareFunc);
+  
+	//Render transparent objects.
+	for (int i=0; i < size; i++) {
+		sortedObjects[i]->draw(defaultMaterial, defaultMatrix, OF_RENDER_ALL, true);
 	}
-
+  
 	//Re-enable depth buffer writing.
 	setDepthMask(true);
 }
@@ -236,16 +244,16 @@ int ofxScene::depthCompareFunc(const void *iElement1, const void *iElement2)
 {
 	ofxObject *o1 = *((ofxObject **)iElement1);
 	ofxObject *o2 = *((ofxObject **)iElement2);
-
+  
 	float z1  = o1->sortedObjectsWindowZ;
 	float z2  = o2->sortedObjectsWindowZ;
-
+  
 	if(z1 < z2)
 		return 1;
 	else if(z1 > z2)
-		return -1;	
+		return -1;
 	else
-		return 0;	
+		return 0;
 }
 
 
@@ -265,25 +273,25 @@ void ofxScene::setScissorParameters(int iX, int iY, int iW, int iH)
 void ofxScene::setRenderMode(int iMode)
 {
 	renderMode = iMode;
-
+  
 	if (sortedObjects) {
 		delete sortedObjects;
 		sortedObjects = NULL;
 	}
-
+  
 	if(renderMode == RENDER_NORMAL){
 		enableDepthTest(true);
 	}else if(renderMode == RENDER_ALPHA_DEPTH){
 		enableDepthTest(true);
 	}else if(renderMode == RENDER_ALPHA_DEPTH_SORTED){
 		enableDepthTest(true);
-		sortedObjects = new (ofxObject (*[maxSortedObjects]));				
+		sortedObjects = new (ofxObject (*[maxSortedObjects]));
 	}
 }
 
 void ofxScene::setMaxSortedObjects(int iMax)
 {
-	maxSortedObjects = iMax;	
+	maxSortedObjects = iMax;
 	//Call this to update sortedObjects array.
 	setRenderMode(renderMode);
 }
