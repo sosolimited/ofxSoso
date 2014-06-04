@@ -13,7 +13,12 @@ void emptyApp::setup(){
 	//The scene is a scene graph that renders objects added to its root and their children and their children's children and so on.
 	//When the render mode of the scene is set to RENDER_ALPHA_DEPTH_SORTED, it handles sorting of both transparent and opaque objects in the z-axis.
   scene = new ofxScene(ofGetWidth(), ofGetHeight());
-	scene->setBackgroundColor(10, 10, 10);
+	scene->setBackgroundColor(245, 0, 184);
+  
+  image = new ofxImageObject("plasticman.jpg");
+  image->isCentered = true;
+  scene->getRoot()->addChild(image);
+  
   
 }
 

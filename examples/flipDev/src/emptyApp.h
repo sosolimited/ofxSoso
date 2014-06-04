@@ -4,6 +4,9 @@
 #include "ofxScene.h"
 #include "ofxSosoRenderer.h"
 
+#include "ofxImageObject.h"
+
+
 class emptyApp : public ofBaseApp{
   
 public:
@@ -23,8 +26,11 @@ public:
   void gotMessage(ofMessage msg);
   
   
+  
 public:
   ofxScene						*scene;
+  
+  ofxImageObject      *image;
  
 };
 
