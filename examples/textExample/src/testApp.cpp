@@ -4,6 +4,7 @@
 //--------------------------------------------------------------
 void testApp::setup(){
   
+  
   //Replace the default ofGLRenderer with ofxSosoRenderer which has overriden setupScreen() and setupScreenPerspective().
     //This lets us set up the scene graph how we want to.
 	//Warning: Up is up and down is down in this world.
@@ -13,33 +14,82 @@ void testApp::setup(){
 	//The scene is a scene graph that renders objects added to its root and their children and their children's children and so on.
 	//When the render mode of the scene is set to RENDER_ALPHA_DEPTH_SORTED, it handles sorting of both transparent and opaque objects in the z-axis.
   scene = new ofxScene(ofGetWidth(), ofGetHeight());
-	scene->setBackgroundColor(10, 10, 10);
+	scene->setBackgroundColor(40, 40, 40);
 	
 	//_________________________________________________________________________________________________________________
   
 	//Load a font.
 	//ofxSosoTrueTypeFont inherits from ofTrueTypeFont and adds some nice functionality, used by ofxTextObject.
 	//Note: If the font has them, kerning pairs are loaded by default.
-  font16 = new ofxSosoTrueTypeFont();
-  font16->loadFont("Arial.ttf", 16, true,  true, false, true);		//The last bool argument enables mipmapping on the letter textures.
-	font16->setKerningPair('T', 'y', -2);								//After you've loaded a font, you can also manually adjust kerning pairs.
+  font24 = new ofxSosoTrueTypeFont();
+  font24->loadFont("TiemposText-Medium.otf", 24, true,  true, false, true);		//The last bool argument enables mipmapping on the letter textures.
+	font24->setKerningPair('T', 'y', -2);								//After you've loaded a font, you can also manually adjust kerning pairs.
   
 	font64 = new ofxSosoTrueTypeFont();
-  font64->loadFont("Arial.ttf", 64, true,  true, false, true);
+  font64->loadFont("National-Regular.otf", 64, true,  true, false, true);
 	
   
 	//Create a text object.
-  text = new ofxTextObject(font16, "An OpenFrameworks Addon by Sosolimited. Tyson.");
-  text->setColor(255, 255, 255);                  //Set the color of the text.
-  text->setPointSize(16);                         //Set the point size of the text, independent of the font resolution.
-  text->setLeading(19);                           //Set the leading (line-spacing) of the text.
-  //text->setScale(0.5);                          //Text can be scaled like any other object. So the final scale is the pointSize x scale.
-  text->setColumnWidth(360);											//Set the column width, which determines how the words wrap.
-	text->setTrans(-200,-200,0);			//Position the text, relative to the image object above.
-	scene->getRoot()->addChild(text);								//Add the text object to the scene.
+  escapeText = new ofxTextObject(font24, "This block of &lsquo;text&rsquo; demonstrates the use of extended characters in ofxTextObject&trade; &mdash; initialized with &copy;HTML escape sequences.");
+  escapeText->setColor(240, 240, 240);                  //Set the color of the text.
+  escapeText->setPointSize(24);                         //Set the point size of the text, independent of the font resolution.
+  escapeText->setLeading(28);                           //Set the leading (line-spacing) of the text.
+  escapeText->setSpaceWidth(0.25);
+  //text->setScale(0.5);                                //Text can be scaled like any other object. So the final scale is the pointSize x scale.
+  escapeText->setColumnWidth(ofGetWidth() - 1.0*escapeText->getLeading());											//Set the column width, which determines how the words wrap.
+	ofVec3f trans(-ofGetWidth()/2. + escapeText->getLeading(), ofGetHeight()/2. - escapeText->getLeading()*2.0, 0);
+  escapeText->setTrans(trans);                          //Position the text, relative to the image object above.
+	scene->getRoot()->addChild(escapeText);								//Add the text object to the scene.
   
-	//Create a letter text object. This lets you treat each letter as a separate object to animate as you please.
+  //verifying the results of getWidth() and getHeight()
+  ofxRectangleObject *measureRect = new ofxRectangleObject(escapeText->getWidth(), escapeText->getHeight());
+  measureRect->setTrans(trans + ofVec3f(0, -escapeText->getHeight() + escapeText->getPointSize(), 0));
+  measureRect->setAlpha(50);
+  scene->getRoot()->addChild(measureRect);
+  
+  //checking pointSize
+  ofxRectangleObject *pointRect = new ofxRectangleObject(24, 24);
+  pointRect->setAlpha(200);
+  pointRect->setTrans(trans + ofVec3f(0, 0, 0));
+  scene->getRoot()->addChild(pointRect);
+  
+  //testing Illustrator text for layout reference
+  ofxImageObject *guide = new ofxImageObject("Illustrator-Text.png");
+  guide->setSpecialTransparency(true);
+  guide->setTrans(trans + ofVec3f(0, -escapeText->getLeading()*4.0, 0));
+  //scene->getRoot()->addChild(guide);
+  
+  
+  //Unicode and Hex escape sequences - note that HEX is required for chars below 255
+  unicodeText = new ofxTextObject(font24, "This block of \u2018text\u2019 demonstrates the use of extended characters in ofxTextObject\u2122 \u2014 initialized with \u00A9Unicode escape sequences. \u0152");
+  unicodeText->setColor(240, 240, 240);
+  unicodeText->setPointSize(24);
+  unicodeText->setLeading(28);
+  unicodeText->setSpaceWidth(0.25);
+  unicodeText->setColumnWidth(ofGetWidth() - 1.0*unicodeText->getLeading());
+  unicodeText->setTrans(trans + ofVec3f(0, -unicodeText->getLeading()*3.0, 0));
+	scene->getRoot()->addChild(unicodeText);
+  
+  string s("This block of ‘text’ demonstrates the use of extended characters in ofxTextObject™ — initialized with ©Inline éêscape sequences.");
+  for (int i=0; i<s.length(); i++)
+  {
+    cout << s[i] << " " << ofToString(ofToHex(s[i])) << endl;
+  }
+  
+  inlineText = new ofxTextObject(font24, "This block of ‘text’ demonstrates the use of extended characters in ofxTextObject™ — initialized with ©Inline éêscape sequences.");
+  inlineText->setColor(240, 240, 240);
+  inlineText->setPointSize(24);
+  inlineText->setLeading(28);
+  inlineText->setSpaceWidth(0.25);
+  inlineText->setColumnWidth(ofGetWidth() - 1.0*inlineText->getLeading());
+  inlineText->setTrans(trans + ofVec3f(0, -inlineText->getLeading()*6.0, 0));
+	scene->getRoot()->addChild(inlineText);
+  
+  
+  
+  //Create a letter text object. This lets you treat each letter as a separate object to animate as you please.
   //See how the letters are animated below in keyPressed()
+  //TODO: letterText doesn't have the mapped chars working yet &lsquo; fails
   letterText = new ofxLetterTextObject(font64, "This is a letter text object. Press &times;&times;&times; &amp; g to animate the letters. &frac12;");
   letterText->setTrans(-350, 200,0);
   letterText->setColor(255, 255, 255);
@@ -47,16 +97,8 @@ void testApp::setup(){
   letterText->setLeading(52);
   letterText->setColumnWidth(700);
   letterText->setAlignment(OF_TEXT_ALIGN_LEFT);
-  scene->getRoot()->addChild(letterText);
-    
-	//Create a label for the polygon.
-	polygonLabel = new ofxTextObject(font16, "This body of &lsquo;text&rsquo; will demonstrate the column width feature of ofxTextObject by automatically wrapping if the line gets too long. ");
-	polygonLabel->setColor(255, 255, 255);
-	polygonLabel->setPointSize(16);
-	polygonLabel->setLeading(19);
-	polygonLabel->setColumnWidth(150);
-	polygonLabel->setTrans(ofVec3f(0, polygonLabel->getLeading() + 5, -1.0));	//Position the text relative to the position of the polygon created above.
-	scene->getRoot()->addChild(polygonLabel);
+  //scene->getRoot()->addChild(letterText);
+  
 }
 
 //--------------------------------------------------------------
@@ -72,6 +114,7 @@ void testApp::draw(){
   
 	//Call draw on scene, which initiates the drawing of the root object.
   scene->draw();
+  
 }
 
 //--------------------------------------------------------------
