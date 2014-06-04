@@ -6,42 +6,36 @@
 ofxTextFont::ofxTextFont(string iFontName, ofxSosoTrueTypeFont *iFont)
 {
 	font = iFont;
-  //	fontName = strdup((char *)iFontName.c_str());
-	fontName2 = iFontName;
-  
+  fontName = iFontName;
 }
 
 ofxTextFont::ofxTextFont(string iFontName, string iFilename, int iFontsize, bool iAntiAliased, bool iFullCharacterSet, bool iMakeContours, bool iMakeMipMaps)
 {
 	font = new ofxSosoTrueTypeFont();
 	font->loadFont(iFilename, iFontsize, iAntiAliased, iFullCharacterSet, iMakeContours, iMakeMipMaps);
-  //	fontName = strdup((char *)iFontName.c_str());
-  fontName2 = iFontName;
-  
+	fontName = iFontName;
 }
 
 ofxTextFont::~ofxTextFont()
 {
-	if (font) delete(font);
-  //	if (fontName) delete(fontName);
-  
+  if (font) delete(font);
 }
 
 //class ofxTextObject
 
 vector<ofxTextFont *> ofxTextObject::allFonts;
 
-ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, char *iString)
+ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString)
 {
-  //NOTE pointsize and leading should always be explicity set after creating text object
-  pointSize = iFont->getSize();       //pointSize defaults to resolution of font
-  leading = (14.0/12.0) * pointSize;  //leading defaults to 14/12 proportion
-  
-  init(iFont);
-  
-  setString(iString);
-  
-  //make these huge by default so there is not wrapping
+    //NOTE pointsize and leading should always be explicity set after creating text object
+    pointSize = iFont->getSize();       //pointSize defaults to resolution of font
+    leading = (14.0/12.0) * pointSize;  //leading defaults to 14/12 proportion   
+    
+    init(iFont);
+        
+    setString(iString);
+        
+    //make these huge by default so there is not wrapping
 	//PEND add wrapping switch
 	columnWidth = 1920000;
 	columnHeight = 1080000;
@@ -57,15 +51,8 @@ ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, char *iString)
 	setSpecialTransparency(true);
 }
 
-ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString) //LM 063012
-{
-	ofxTextObject(iFont, (char*)iString.c_str());
-}
-
 ofxTextObject::~ofxTextObject()
 {
-	//PEND write this! BUT DON'T delete font (it's passed in from the outside)
-  
   words.clear();
   lines.clear();
 }
@@ -127,10 +114,10 @@ void ofxTextObject::enableDisplayList(bool iEnable)
 
 
 
-void ofxTextObject::setString(char *iString)
-{
-  rawText = iString;	//PEND does string clean itself up when you use the = operator to reassign it?
-  
+void ofxTextObject::setString(string iString)
+{	
+    rawText = iString;	//PEND does string clean itself up when you use the = operator to reassign it?    
+
 	//replace any Named Entities (i.e. &amp;) within the [0,255] range with their appropriate unicode characters
 	ofxSosoTrueTypeFont::replaceNamedEntities(rawText);
   
@@ -138,11 +125,6 @@ void ofxTextObject::setString(char *iString)
 	
 	wrapTextX(columnWidth);
 	renderDirty = true;
-}
-
-void ofxTextObject::setString(string iString)
-{
-	setString((char*)iString.c_str());
 }
 
 string ofxTextObject::getLineString(int iIndex)
@@ -409,9 +391,9 @@ float ofxTextObject::getLeading()
 }
 
 
-char* ofxTextObject::getString()
-{
-  return (char *)rawText.c_str();
+string ofxTextObject::getString()
+{	
+    return rawText;
 }
 
 int ofxTextObject::wrapTextX(float lineWidth)
@@ -631,7 +613,7 @@ void ofxTextObject::drawLeft(float x, float y, bool drawFlag)
         
 				if(drawFlag){
 					if (drawWordColor){
-						ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.w/255.0f);
+						ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.a/255.0f);
 						//printf("word %d color is %f, %f, %f\n", currentWordID, words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a);
 					}
           
@@ -692,12 +674,12 @@ void ofxTextObject::drawCenter(float x, float y, bool drawFlag)
         
 				words[currentWordID].pos.set(drawX, drawY); //Record word position.
         
-				if(drawFlag){
-					if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.w/255.0f);
-          
-					if(!drawAsShapes){
-						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);
-					}else{ //Support for vector drawing
+				if(drawFlag){						
+					if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.a/255.0f);
+										
+					if(!drawAsShapes){						
+						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);	
+					}else{ //Support for vector drawing																										
 						words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 					}
 				}
@@ -744,12 +726,12 @@ void ofxTextObject::drawRight(float x, float y, bool drawFlag)
 				
 				words[currentWordID].pos.set(drawX, drawY); //Record word position.
         
-				if(drawFlag){
-					if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.w/255.0f);	//soso - removed this functionality for now //LM13 added back in..eep?
-          
-					if(!drawAsShapes){
-						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);
-					}else{ //Support for vector drawing
+				if(drawFlag){						
+					if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.a/255.0f);	//soso - removed this functionality for now //LM13 added back in..eep?
+													
+					if(!drawAsShapes){						
+						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);	
+					}else{ //Support for vector drawing																												 
 						words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 					}
 				}
@@ -812,11 +794,11 @@ void ofxTextObject::drawJustified(float x, float y, bool drawFlag)
         
 				if (words[currentWordID].rawWord != " ") {
 					if(drawFlag){
-						if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.w/255.0f);	//soso - removed this functionality for now //LM13 added back in..eep?
-            
-						if(!drawAsShapes){
-							words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);
-						}else{ //Support for vector drawing
+						if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.a/255.0f);	//soso - removed this functionality for now //LM13 added back in..eep?
+
+						if(!drawAsShapes){						
+							words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);	
+						}else{ //Support for vector drawing																												 
 							words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 						}
 					}
@@ -877,9 +859,9 @@ void ofxTextObject::_loadWords()
   wordBlock tmpWord;
   
 	words.clear();
-  
-	char *rawBuf = (char *)rawText.c_str();
-	int size = (int)strlen(rawBuf);
+    
+	string rawBuf = rawText;
+	int size = rawBuf.length();
   
 	const int maxWordSize = 500;
 	char wordBuf[maxWordSize];
@@ -899,10 +881,10 @@ void ofxTextObject::_loadWords()
 				tmpWord.rawWord = wordString;
 				tmpWord.width   = font->stringWidth(tmpWord.rawWord);
 				tmpWord.height  = font->stringHeight(tmpWord.rawWord);
-				tmpWord.color.r = material->color.x;
-				tmpWord.color.g = material->color.y;
-				tmpWord.color.b = material->color.z;
-				tmpWord.color.a = material->color.w;
+				tmpWord.color.r = material->color.r;
+				tmpWord.color.g = material->color.g;
+				tmpWord.color.b = material->color.b;
+				tmpWord.color.a = material->color.a;
 				tmpWord.isNewLine = false;	//soso
 				tmpWord.font = font;		//soso
         
@@ -940,10 +922,10 @@ void ofxTextObject::_loadWords()
 		tmpWord.rawWord = wordString;
 		tmpWord.width   = font->stringWidth(tmpWord.rawWord);
 		tmpWord.height  = font->stringHeight(tmpWord.rawWord);
-		tmpWord.color.r = material->color.x;
-		tmpWord.color.g = material->color.y;
-		tmpWord.color.b = material->color.z;
-		tmpWord.color.a = material->color.w;
+		tmpWord.color.r = material->color.r;
+		tmpWord.color.g = material->color.g;
+		tmpWord.color.b = material->color.b;
+		tmpWord.color.a = material->color.a;
 		tmpWord.isNewLine = false; //soso
 		tmpWord.font = font;		//soso
 		
@@ -964,13 +946,14 @@ void ofxTextObject::_loadWords()
   
 }
 
-//helper function for
-void ofxTextObject::_checkString(string & inputString, char *checkBuf, string checkString)
+//helper function for replacing checkBuf (if it's found) in inputString with checkString
+void ofxTextObject::_checkString(string & inputString, string checkBuf, string checkString)
 {
 	int res = inputString.find(checkBuf);
+    
 	if (res != string::npos)
 	{
-		int len = strlen(checkBuf);
+		int len = checkBuf.length();
 		inputString.replace(res, len, checkString);
 	}
 }
@@ -1009,23 +992,6 @@ void ofxTextObject::addFont(ofxTextFont *iFont)
 }
 
 
-ofxTextFont* ofxTextObject::addFont(char *iName, ofxSosoTrueTypeFont *iFont)
-{
-	ofxTextFont *font = new ofxTextFont(iName, iFont);
-	allFonts.push_back(font);
-	return font;
-}
-
-ofxSosoTrueTypeFont* ofxTextObject::getFont(char *iFontName)
-{
-	for(int i=0; i < allFonts.size(); i++){
-		if(strcmp(allFonts[i]->fontName, iFontName)==0)
-			return allFonts[i]->font;
-	}
-	return NULL;
-}
-
-// New version of the method using a string instead of chars.
 ofxTextFont* ofxTextObject::addFont(string iName, ofxSosoTrueTypeFont *iFont)
 {
 	ofxTextFont *font = new ofxTextFont(iName, iFont);
@@ -1033,20 +999,22 @@ ofxTextFont* ofxTextObject::addFont(string iName, ofxSosoTrueTypeFont *iFont)
 	return font;
 }
 
-// New version of the method using a string instead of chars.
 ofxSosoTrueTypeFont* ofxTextObject::getFont(string iFontName)
 {
 	for(int i=0; i < allFonts.size(); i++){
-		if(allFonts[i]->fontName2 == iFontName)
+		if(allFonts[i]->fontName.compare(iFontName)==0)
 			return allFonts[i]->font;
 	}
 	return NULL;
 }
 
+
+
 // Static method for destroying our global font repository.
-void ofxTextObject::destroyAllFonts() {
-  for (auto font : allFonts){
-    delete font;
-  }
-  allFonts.clear();
-}
+// WARNING Do not call this unless you've deleted all known existing ofxTextObjects in your app
+//void ofxTextObject::destroyAllFonts() {
+//  for (auto font : allFonts){
+//    delete font;
+//  }
+//  allFonts.clear();
+//}

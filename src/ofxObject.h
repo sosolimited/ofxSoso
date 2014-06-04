@@ -47,12 +47,16 @@ class ofxObjectMaterial{
 public:
 	ofxObjectMaterial();
 	~ofxObjectMaterial();
-  
+  ofVec4f getColorVec4f(); //AO: for using ofvec4f with messages
+
 public:
-	ofVec4f           color;
+
+  ofColor           color;
 	bool							inheritAlphaFlag;	//firebrand
 
 };
+
+
 
 class ofxObject{
   
@@ -66,50 +70,67 @@ public :
   //! variant of removeChild that is safe to call within idle()
   void              removeChildSafe(ofxObject *child);
 	int 							isDescendant(ofxObject *iObject);
+
 	virtual void			predraw();
 	virtual void			postdraw();
 	void							draw(ofxObjectMaterial *iMaterial, float *iMatrix, int iSelect=OF_RENDER_ALL, bool iDrawAlone=false);		//v4.0 added material arg
 	virtual void			render();
-	void							idleBase(float iTime);
+	
+  void							idleBase(float iTime);
 	virtual void			idle(float iTime){};
-	void							setTrans(ofVec3f vec);
+	
+  void   						hide();
+	void   						show();
+	bool   						isShown();
+  
+  void							setTrans(ofVec3f vec);
 	void							setTrans(float x, float y, float z);
 	ofVec3f           getTrans();
-	void							setRot(ofVec3f r);
+	
+  void							setRot(ofVec3f r);
 	void							setRot(float x, float y, float z);
 	ofVec3f           getRot();
-	float							getAlpha();
-	virtual ofVec3f   getScale();			//v4.0 virtual for text object
-	virtual void     	setScale(float s);	//v4.0 virtual for text object
+	
+	virtual void     	setScale(float s);
 	virtual void     	setScale(float x, float y, float z);
 	virtual void     	setScale(ofVec3f vec);
-	virtual void      setColor(float r, float g, float b, float a=255.0);
-	virtual void			setColor(ofVec4f c);	//v4.0 virtual for text object
+  virtual ofVec3f   getScale();
+  
+ 	virtual void			setAlpha(float iA);
+  float             getAlpha();
+
+	virtual void			setColor(float r, float g, float b, float a);
+  virtual void      setColor(float r, float g, float b); // Applies object's current alpha value
+	virtual void			setColor(ofVec4f c);
   virtual void      setColor(ofColor c);
-	ofVec4f           getColor();
-	virtual void			setAlpha(float iA);		//v4.0 virtual for text object
-	bool							hasTransparency();
+	ofVec4f						getColorVec4f();
+  ofColor           getColor();
+
 	void							setSpecialTransparency(bool iFlag);
+	bool							hasTransparency();
   void              setRenderOnTop(bool iSet) { renderOntop = iSet; }
+  
 	float*						getMatrix();
 	float*						getLocalMatrix();
 	virtual float*		updateMatrix(float *iParentMatrix);
 	void							updateMatrices(float *iParentMatrix = NULL);
 	void							updateLocalMatrix();
-  GLuint            getDisplayList(){ return displayList; } //eg 070112
-  void              setDisplayList(GLuint iList);    //eg 070112
-	ofxObjectMaterial*				updateMaterial(ofxObjectMaterial *iMat);
-	void							enableAlphaInheritance(bool iEnable);	//firebrand
+
+  ofxObjectMaterial*				updateMaterial(ofxObjectMaterial *iMat);
+  
+  GLuint            getDisplayList(){ return displayList; }
+  void              setDisplayList(GLuint iList);
+	
+ 	void							enableAlphaInheritance(bool iEnable);
 	int								collectNodes(int iSelect, ofxObject *iNodes[], int iNumber, int iMax);
 	ofVec3f						getWindowCoords();
-	void   						hide();
-	void   						show();
-	bool   						isShown();
+
+  void							setLighting(bool iOnOff);
+  
 	int								getID();
-	bool							isAnimating();
-	void							setLighting(bool iOnOff);
   bool              isObjectID(vector<GLuint> iIDs);
-	//void							cleanupMessages();	//replaced by deleteMessage below
+
+  bool							isAnimating();
 	void							updateMessages();
 	void							deleteMessage(ofxMessage *iMessage);
 	bool							hasMessage(ofxMessage *iMessage);
@@ -133,17 +154,23 @@ protected:
 	bool							matrixDirty;
 	bool							localMatrixDirty;
 	bool							isSortedObject;
+  
 	GLuint						displayList;
   bool              displayListFlag;    //eg 070112
+  
 	static int				numObjects;
 	int								id;
+  
 	bool							isLit;
 	static bool				prevLit;
+  
 	ofVec3f						xyzRot,
                     xyz,
                     scale;
+  
   bool              hasSpecialTransparency;
 	bool							renderOntop;
+
 	float							timeElapsed,
                     timePrev;
 

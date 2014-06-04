@@ -32,21 +32,26 @@ public:
 	~ofxLineStripObject();
   
 	void								render();
+	
   void								addVertex(float iX, float iY, float iZ);
-  void                addVertex(float iX, float iY, float iZ, ofVec4f iColor);
+  void                                addVertex(float iX, float iY, float iZ, ofColor iColor);
+  
 	void								setLineWidth(float iWeight);
 	void								setVertexPos(int iVertNum, float iX, float iY, float iZ);
 	void								setVertexColor(int iVertNum, float iR, float iG, float iB, float iA);
   void                enableVertexColoring(bool iEnable);
   
 public:
+  
   struct ofxLineStripVertex{
     ofVec3f position;
-    ofVec4f color;
+    //ofVec4f color;
+    ofColor color;
   };
+	vector<ofxLineStripVertex *>		vertices;
+  
 	float								lineWidth;
   bool                isVertexColoringEnabled;
-
-  vector<ofxLineStripVertex *>		vertices;
-
+  
+  
 };

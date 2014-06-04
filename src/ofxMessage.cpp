@@ -38,7 +38,19 @@ ofxMessage::ofxMessage(int iID, void *iVals, int iInterpolation, float iDuration
 		ofVec3f *end = (ofVec3f *)malloc(sizeof(ofVec3f));
 		end->set(0,0,0);
 		endVals = (void *)end;
-	}else{
+	}else if(id==OF_SETCOLOR4){
+		ofVec4f *vals = (ofVec4f *)malloc(sizeof(ofVec3f));
+		vals->set(0,0,0,0);
+		startVals = (void *)vals;
+    
+		ofVec4f *baseVal = (ofVec4f *)malloc(sizeof(ofVec3f));
+		baseVal->set(OF_RELATIVE_VAL, OF_RELATIVE_VAL, OF_RELATIVE_VAL, OF_RELATIVE_VAL);
+		baseStartVals = (void *)baseVal;
+    
+		ofVec4f *end = (ofVec4f *)malloc(sizeof(ofVec3f));
+		end->set(0,0,0,0);
+		endVals = (void *)end;
+  }else{
 		startVals = NULL;
 		baseStartVals = NULL;
 		endVals = NULL;
