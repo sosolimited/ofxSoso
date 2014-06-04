@@ -31,14 +31,27 @@
 class ofxSosoRenderer : public ofGLRenderer
 {
 public:
-  ofxSosoRenderer(bool useShapeColor=true, bool useOrthographic=false);
+  ofxSosoRenderer(float iWidth, float iHeight, bool iOrthographic=false, bool iVFlip=false, float iFov=60, float iNearDist = 0, float iFarDist = 0);
   ~ofxSosoRenderer();
   
 	void setupScreen();
-  void setupScreenPerspective(float width = 0, float height = 0, ofOrientation orientation = OF_ORIENTATION_UNKNOWN, bool vFlip = false, float fov = 60, float nearDist = 0, float farDist = 0);
+  void setupScreenPerspective(float iWidth, float iHeight, bool iOrthographic, bool iVFlip, float iFov, float iNearDist, float iFarDist);
   
 private:
-  bool        orthographic;
+  bool            orthographic;
+  
+  bool            vFlip;
+  ofOrientation   orientation;
+  
+  float           width;
+  float           height;
+  
+  float           fov;
+  float           nearDist,
+                  farDist;
+  
+  
+  
   
 };
 

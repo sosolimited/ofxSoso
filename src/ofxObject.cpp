@@ -362,7 +362,7 @@ void ofxObject::predraw()
 	}
 	
 	glLoadMatrixf(matrix);
-	
+  
 	/*
    //Older way of doing transformations.
    

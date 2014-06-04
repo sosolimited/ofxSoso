@@ -165,7 +165,7 @@ void ofxScene::draw()
 	}
   
 	//glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity(); // Dont' need this now?
+	//glLoadIdentity();
   
 	glPushMatrix();
 	
