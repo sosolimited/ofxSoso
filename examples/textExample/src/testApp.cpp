@@ -5,10 +5,8 @@
 void testApp::setup(){
   
   
-  //Replace the default ofGLRenderer with ofxSosoRenderer which has overriden setupScreen() and setupScreenPerspective().
-    //This lets us set up the scene graph how we want to.
-	//Warning: Up is up and down is down in this world.
-  ofSetCurrentRenderer(ofPtr<ofBaseRenderer>(new ofxSosoRenderer(false)));
+  // Disable the of setupScreen because now each scene has a custom renderer.
+  ofDisableSetupScreen();
   
   //Create a scene.
 	//The scene is a scene graph that renders objects added to its root and their children and their children's children and so on.
