@@ -93,7 +93,7 @@ public:
 	ofVec4f				getBackgroundColor(); //LM 061312
 
   void          enableSetupScreen(bool iEnable);
-  void          setScreenParams(bool iOrthographic, bool iVFlip, float iFov, float iNearDist, float iFarDist);
+  void          setScreenParams(bool iOrthographic, bool iVFlip=false, float iFov=60, float iNearDist=0, float iFarDist=0);
   
 	static int		depthCompareFunc(const void *iElement1, const void *iElement2);
 	

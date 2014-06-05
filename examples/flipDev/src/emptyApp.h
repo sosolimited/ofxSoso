@@ -28,12 +28,11 @@ public:
   
 public:
   
-  ofxScene						*scene;
+  ofxScene						*mainScene;
   ofxImageObject      *image;
-  ofImage             ofIm;
  
-  
-  ofxScene            *fboScene;
   ofxFboObject        *fbo;
+  ofxScene            *fboScene;
+  ofxImageObject      *fboImage;
 };
 

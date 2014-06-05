@@ -7,8 +7,9 @@
 //--------------------------------------------------------------
 void scrollerApp::setup(){
   
-  // Setup basic Soso world
-  ofSetCurrentRenderer(ofPtr<ofBaseRenderer>(new ofxSosoRenderer(false)));
+  // Disable the of setupScreen because now each scene has a custom renderer.
+  ofDisableSetupScreen();
+  
   scene = new ofxScene(ofGetWidth(), ofGetHeight());
 	scene->setBackgroundColor(10,10,10);
   

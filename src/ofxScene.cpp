@@ -310,7 +310,7 @@ void ofxScene::enableSetupScreen(bool iEnable)
 }
 
 // Let's the owner of the scene customize the projection and model view matrices.
-void ofxScene::setScreenParams(bool iOrthographic, bool iVFlip=false, float iFov=60, float iNearDist=0, float iFarDist=0)
+void ofxScene::setScreenParams(bool iOrthographic, bool iVFlip, float iFov, float iNearDist, float iFarDist)
 {
   renderer->setScreenParams(iOrthographic, iVFlip, iFov, iNearDist, iFarDist);
 }
