@@ -27,6 +27,7 @@
 #pragma once
 
 #include "ofTrueTypeFont.h"
+
 //had to add these in for FT_UInt
 #include "ft2build.h"
 #include "freetype2/freetype/freetype.h"
@@ -37,16 +38,16 @@
 class ofxSosoMappedChar
 {
 public:
-	ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeIndex, char *iNamedEntity, char iUTFByte0, char iUTFByte1=0, char iUTFByte2=0, char iUTFByte3=0, char iUTFByte4=0, char iUTFByte5=0);
+	ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeIndex,  string iNamedEntity, char iUTFByte0, char iUTFByte1=0, char iUTFByte2=0, char iUTFByte3=0, char iUTFByte4=0, char iUTFByte5=0);
 	~ofxSosoMappedChar();
   
 public:
-	unsigned char           mapToIndex;
-	FT_ULong                unicodeIndex;
-	char                    *utf8Sequence;
-	char                    *namedEntity;
-  
+	unsigned char		mapToIndex;
+	FT_ULong        unicodeIndex;
+	string          utf8Sequence;
+	string          namedEntity;
 };
+
 
 class ofxSosoTrueTypeFont : public ofTrueTypeFont
 {
@@ -54,8 +55,10 @@ public:
   ofxSosoTrueTypeFont();
 	~ofxSosoTrueTypeFont();
   
+  
 	//overridden methods from ofTrueTypeFont
   bool                    loadFont(string filename, int fontsize, bool _bAntiAliased=true, bool _bFullCharacterSet=true, bool makeContours=false, bool makeMipMaps=true, float simplifyAmt=0.3, int dpi=72);
+  
   void                    drawString(string c, float x, float y);
   void                    drawChar(int c, float x, float y);
 	void                    drawStringAsShapes(string s, float x, float y);
@@ -67,22 +70,23 @@ public:
 	//new methods
   vector <ofVec2f>        getCharPositions(string s, float x=0, float y=0);
 	FT_UInt                 getFTCharIndex(FT_Face iFace, unsigned char iIndex);
+
 	
 	float                   getKerningAdjustment(int c1, int c2);
 	void                    setKerningPair(unsigned char iChar0, unsigned char iChar1, int iUnits);
 	void                    enableKerning(bool iEnable);
 	void                    printNonzeroKerningPairs();
+
+	static void             removeCharacters(string &iString, string iCharsToRemove);   //eg 070412
+  
   int                     getMappedChar(string iString, int &iIndex);   //eg 0701412 made public
   char*                   getMappedCharSequence(string iString, int &iIndex);   //eg 0701412
-  
-  static void             replaceNamedEntities(string &iString);
-	static void             removeCharacters(string &iString, string iCharsToRemove);   //eg 070412
   
 private:
   void                    buildMappedChars();
   
 	static vector<ofxSosoMappedChar *>		mappedChars;
-	static vector<ofxSosoMappedChar *>		namedEntityChars;
+
 	static bool             areMappedCharsBuilt;
 	
 protected:
@@ -94,4 +98,5 @@ protected:
 	bool                    isKerningEnabled;
 	int                     kerningPairs[FONT_NUM_CHARS][FONT_NUM_CHARS];
   
+
 };

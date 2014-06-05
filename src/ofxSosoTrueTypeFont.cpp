@@ -23,34 +23,36 @@
 #include "ofTexture.h"  //for mipmap building
 
 //helper class for mapping higher Unicode characters down into the 0-255 range
-ofxSosoMappedChar::ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeIndex, char *iNamedEntity, char iUTFByte0, char iUTFByte1, char iUTFByte2, char iUTFByte3, char iUTFByte4, char iUTFByte5)
+ofxSosoMappedChar::ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeIndex, string iNamedEntity, char iUTFByte0, char iUTFByte1, char iUTFByte2, char iUTFByte3, char iUTFByte4, char iUTFByte5)
+
 {
 	//index within 0-255 range to which we're mapping
 	mapToIndex = iMapToIndex;
-	//standard unicode index
+	
+  //standard unicode index
 	unicodeIndex = iUnicodeIndex;
-	//HTML named entity
-	namedEntity = strdup(iNamedEntity);
-	//UTF-8 byte sequence
-	utf8Sequence = new char[7];
-	utf8Sequence[0] = iUTFByte0;
-	utf8Sequence[1] = iUTFByte1;
-	utf8Sequence[2] = iUTFByte2;
-	utf8Sequence[3] = iUTFByte3;
-	utf8Sequence[4] = iUTFByte4;
-	utf8Sequence[5] = iUTFByte5;
-	utf8Sequence[6] = 0;
+
+	
+  //HTML named entity
+	namedEntity = iNamedEntity;
+	
+  //UTF-8 byte sequence (not the unicode val:0x00A9, but the utf-8 bytes: 0xC2, 0xA9)
+  utf8Sequence = "";
+  
+  if (iUTFByte0 != 0) utf8Sequence += iUTFByte0;
+  if (iUTFByte1 != 0) utf8Sequence += iUTFByte1;
+  if (iUTFByte2 != 0) utf8Sequence += iUTFByte2;
+  if (iUTFByte3 != 0) utf8Sequence += iUTFByte3;
+  if (iUTFByte4 != 0) utf8Sequence += iUTFByte4;
+  if (iUTFByte5 != 0) utf8Sequence += iUTFByte5;
   
 }
 
 
 ofxSosoMappedChar::~ofxSosoMappedChar()
 {
-	if (utf8Sequence) delete utf8Sequence; //LM 070612
-	if (namedEntity) delete namedEntity;
+  //destructor is currently empty
 }
-
-
 
 
 
@@ -61,7 +63,6 @@ static int ttfGlobalDpi = 72;   //this is standard dpi to get you pixel-accurate
 
 bool ofxSosoTrueTypeFont::areMappedCharsBuilt = false;
 vector<ofxSosoMappedChar *> ofxSosoTrueTypeFont::mappedChars;
-vector<ofxSosoMappedChar *> ofxSosoTrueTypeFont::namedEntityChars;
 
 
 //BAD! static global functions in ofTrueTypeFont.cpp
@@ -206,27 +207,19 @@ ofxSosoTrueTypeFont::ofxSosoTrueTypeFont()
 }
 
 ofxSosoTrueTypeFont::~ofxSosoTrueTypeFont(){ //LM 070612
-  cout<<"0 mappedChars size = "<< mappedChars.size() <<endl;
-  cout<<"0 namedEntityChars size = "<< namedEntityChars.size() <<endl;
 
+  cout<<"0 mappedChars size = "<< mappedChars.size() <<endl;
   
   for ( int i=0; i < mappedChars.size(); i++ )
   {
     delete mappedChars[i];
   }
+	
   cout<<"1 mappedChars size = "<< mappedChars.size() <<endl;
 	mappedChars.clear();
 	
-	for ( int i=0; i < namedEntityChars.size(); i++)
-  {
-    delete namedEntityChars[i];
-  }
-  cout<<"1 namedEntityChars size = "<< namedEntityChars.size() <<endl;
-	namedEntityChars.clear();
-  
-  
   cout<<"2 mappedChars size = "<< mappedChars.size() <<endl;
-  cout<<"2 namedEntityChars size = "<< namedEntityChars.size() <<endl;
+
 }
 
 
@@ -288,7 +281,10 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 	//------------------------------------------------------
   
 	//nCharacters = bFullCharacterSet ? 256 : 128 - NUM_CHARACTER_TO_START;
-	nCharacters = bFullCharacterSet ? 512 : 128 - NUM_CHARACTER_TO_START;
+	
+  //nCharacters was 512, but we are mapping everything down to 0 to 255
+  nCharacters = bFullCharacterSet ? 256 : 128 - NUM_CHARACTER_TO_START;
+
   
 	//--------------- initialize character info and textures
 	cps.resize(nCharacters);
@@ -347,7 +343,7 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 		// info about the character:
 		cps[i].character		= i;
 		cps[i].height 			= face->glyph->bitmap_top;
-		cps[i].width 			= face->glyph->bitmap.width;
+		cps[i].width        = face->glyph->bitmap.width;
 		cps[i].setWidth 		= face->glyph->advance.x >> 6;
 		cps[i].topExtent 		= face->glyph->bitmap.rows;
 		cps[i].leftExtent		= face->glyph->bitmap_left;
@@ -584,122 +580,120 @@ void ofxSosoTrueTypeFont::buildMappedChars()
 {
 	if(!areMappedCharsBuilt){
 		
-		//named entities of chars within [0,255] range
-		//NOTE: the UTF8 byte sequences are not used for these, so they're set to 0x00
-		namedEntityChars.push_back(new ofxSosoMappedChar(0x22, 0x0022, "&quot;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0x26, 0x0026, "&amp;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0x27, 0x0027, "&apos;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0x3C, 0x003C, "&lt;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0x3E, 0x003E, "&gt;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xA0, 0x00A0, "&nbsp;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xA1, 0x00A1, "&iexcl;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xA2, 0x00A2, "&cent;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xA3, 0x00A3, "&pound;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xA4, 0x00A4, "&curren;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xA5, 0x00A5, "&yen;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xA6, 0x00A6, "&brvbar;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xA7, 0x00A7, "&sect;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xA8, 0x00A8, "&uml;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xA9, 0x00A9, "&copy;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xAA, 0x00AA, "&ordf;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xAB, 0x00AB, "&laquo;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xAC, 0x00AC, "&not;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xAD, 0x00AD, "&shy;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xAE, 0x00AE, "&reg;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xAF, 0x00AF, "&macr;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xB0, 0x00B0, "&deg;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xB1, 0x00B1, "&plusmn;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xB2, 0x00B2, "&sup2;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xB3, 0x00B3, "&sup3;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xB4, 0x00B4, "&acute;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xB5, 0x00B5, "&micro;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xB6, 0x00B6, "&para;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xB7, 0x00B7, "&middot;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xB8, 0x00B8, "&cedil;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xB9, 0x00B9, "&sup1;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xBA, 0x00BA, "&ordm;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xBB, 0x00BB, "&raquo;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xBC, 0x00BC, "&frac14;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xBD, 0x00BD, "&frac12;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xBE, 0x00BE, "&frac34;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xBF, 0x00BF, "&iquest;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xC0, 0x00C0, "&Agrave;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xC1, 0x00C1, "&Aacute;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xC2, 0x00C2, "&Acirc;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xC3, 0x00C3, "&Atilde;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xC4, 0x00C4, "&Auml;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xC5, 0x00C5, "&Aring;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xC6, 0x00C6, "&AElig;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xC7, 0x00C7, "&Ccedil;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xC8, 0x00C8, "&Egrave;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xC9, 0x00C9, "&Eacute;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xCA, 0x00CA, "&Ecirc;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xCB, 0x00CB, "&Euml;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xCC, 0x00CC, "&lgrave;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xCD, 0x00CD, "&lacute;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xCE, 0x00CE, "&lcirc;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xCF, 0x00CF, "&luml;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xD0, 0x00D0, "&ETH;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xD1, 0x00D1, "&Ntilde;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xD2, 0x00D2, "&Ograve;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xD3, 0x00D3, "&Oacute;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xD4, 0x00D4, "&Ocirc;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xD5, 0x00D5, "&Otilde;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xD6, 0x00D6, "&Ouml;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xD7, 0x00D7, "&times;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xD8, 0x00D8, "&Oslash;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xD9, 0x00D9, "&Ugrave;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xDA, 0x00DA, "&Uacute;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xDB, 0x00DB, "&Ucirc;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xDC, 0x00DC, "&Uuml;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xDD, 0x00DD, "&Yacute;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xDE, 0x00DE, "&THORN;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xDF, 0x00DF, "&szlig;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xE0, 0x00E0, "&agrave;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xE1, 0x00E1, "&aacute;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xE2, 0x00E2, "&acirc;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xE3, 0x00E3, "&atilde;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xE4, 0x00E4, "&auml;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xE5, 0x00E5, "&aring;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xE6, 0x00E6, "&aelig;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xE7, 0x00E7, "&ccedil;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xE8, 0x00E8, "&egrave;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xE9, 0x00E9, "&eacute;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xEA, 0x00EA, "&ecirc;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xEB, 0x00EB, "&euml;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xEC, 0x00EC, "&igrave;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xED, 0x00ED, "&iacute;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xEE, 0x00EE, "&icirc;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xEF, 0x00EF, "&iuml;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xF0, 0x00F0, "&eth;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xF1, 0x00F1, "&ntilde;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xF2, 0x00F2, "&ograve;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xF3, 0x00F3, "&oacute;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xF4, 0x00F4, "&ocirc;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xF5, 0x00F5, "&otilde;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xF6, 0x00F6, "&ouml;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xF7, 0x00F7, "&divide;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xF8, 0x00F8, "&oslash;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xF9, 0x00F9, "&ugrave;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xFA, 0x00FA, "&uacute;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xFB, 0x00FB, "&ucirc;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xFC, 0x00FC, "&uuml;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xFD, 0x00FD, "&yacute;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xFE, 0x00FE, "&thorn;", 0x00));
-		namedEntityChars.push_back(new ofxSosoMappedChar(0xFF, 0x00FF, "&yuml;", 0x00));
-    
+    //UTF-8 byte sequences for special characters within the 0 to 255 unicode range
+    mappedChars.push_back(new ofxSosoMappedChar(0x22, 0x0022, "&quot;", 0x22));
+		mappedChars.push_back(new ofxSosoMappedChar(0x26, 0x0026, "&amp;", 0x26));
+		mappedChars.push_back(new ofxSosoMappedChar(0x27, 0x0027, "&apos;", 0x27));
+		mappedChars.push_back(new ofxSosoMappedChar(0x3C, 0x003C, "&lt;", 0x3C));
+		mappedChars.push_back(new ofxSosoMappedChar(0x3E, 0x003E, "&gt;", 0x3E));
+		mappedChars.push_back(new ofxSosoMappedChar(0xA0, 0x00A0, "&nbsp;", 0xC2, 0xA0));
+		mappedChars.push_back(new ofxSosoMappedChar(0xA1, 0x00A1, "&iexcl;", 0xC2, 0xA1));
+		mappedChars.push_back(new ofxSosoMappedChar(0xA2, 0x00A2, "&cent;", 0xC2, 0xA2));
+		mappedChars.push_back(new ofxSosoMappedChar(0xA3, 0x00A3, "&pound;", 0xC2, 0xA3));
+		mappedChars.push_back(new ofxSosoMappedChar(0xA4, 0x00A4, "&curren;", 0xC2, 0xA4));
+		mappedChars.push_back(new ofxSosoMappedChar(0xA5, 0x00A5, "&yen;", 0xC2, 0xA5));
+		mappedChars.push_back(new ofxSosoMappedChar(0xA6, 0x00A6, "&brvbar;", 0xC2, 0xA6));
+		mappedChars.push_back(new ofxSosoMappedChar(0xA7, 0x00A7, "&sect;", 0xC2, 0xA7));
+		mappedChars.push_back(new ofxSosoMappedChar(0xA8, 0x00A8, "&uml;", 0xC2, 0xA8));
+    mappedChars.push_back(new ofxSosoMappedChar(0xA9, 0x00A9, "&copy;", 0xC2, 0xA9));
+		mappedChars.push_back(new ofxSosoMappedChar(0xAA, 0x00AA, "&ordf;", 0xC2, 0xAA));
+		mappedChars.push_back(new ofxSosoMappedChar(0xAB, 0x00AB, "&laquo;", 0xC2, 0xAB));
+		mappedChars.push_back(new ofxSosoMappedChar(0xAC, 0x00AC, "&not;", 0xC2, 0xAC));
+		mappedChars.push_back(new ofxSosoMappedChar(0xAD, 0x00AD, "&shy;", 0xC2, 0xAD));
+		mappedChars.push_back(new ofxSosoMappedChar(0xAE, 0x00AE, "&reg;", 0xC2, 0xAE));
+		mappedChars.push_back(new ofxSosoMappedChar(0xAF, 0x00AF, "&macr;", 0xC2, 0xAF));
+		mappedChars.push_back(new ofxSosoMappedChar(0xB0, 0x00B0, "&deg;", 0xC2, 0xB0));
+		mappedChars.push_back(new ofxSosoMappedChar(0xB1, 0x00B1, "&plusmn;", 0xC2, 0xB1));
+		mappedChars.push_back(new ofxSosoMappedChar(0xB2, 0x00B2, "&sup2;", 0xC2, 0xB2));
+		mappedChars.push_back(new ofxSosoMappedChar(0xB3, 0x00B3, "&sup3;", 0xC2, 0xB3));
+		mappedChars.push_back(new ofxSosoMappedChar(0xB4, 0x00B4, "&acute;", 0xC2, 0xB4));
+		mappedChars.push_back(new ofxSosoMappedChar(0xB5, 0x00B5, "&micro;", 0xC2, 0xB5));
+		mappedChars.push_back(new ofxSosoMappedChar(0xB6, 0x00B6, "&para;", 0xC2, 0xB6));
+		mappedChars.push_back(new ofxSosoMappedChar(0xB7, 0x00B7, "&middot;", 0xC2, 0xB7));
+		mappedChars.push_back(new ofxSosoMappedChar(0xB8, 0x00B8, "&cedil;", 0xC2, 0xB8));
+		mappedChars.push_back(new ofxSosoMappedChar(0xB9, 0x00B9, "&sup1;", 0xC2, 0xB9));
+		mappedChars.push_back(new ofxSosoMappedChar(0xBA, 0x00BA, "&ordm;", 0xC2, 0xBA));
+		mappedChars.push_back(new ofxSosoMappedChar(0xBB, 0x00BB, "&raquo;", 0xC2, 0xBB));
+		mappedChars.push_back(new ofxSosoMappedChar(0xBC, 0x00BC, "&frac14;", 0xC2, 0xBC));
+		mappedChars.push_back(new ofxSosoMappedChar(0xBD, 0x00BD, "&frac12;", 0xC2, 0xBD));
+		mappedChars.push_back(new ofxSosoMappedChar(0xBE, 0x00BE, "&frac34;", 0xC2, 0xBE));
+		mappedChars.push_back(new ofxSosoMappedChar(0xBF, 0x00BF, "&iquest;", 0xC2, 0xBF));
+		mappedChars.push_back(new ofxSosoMappedChar(0xC0, 0x00C0, "&Agrave;", 0xC3, 0x80));
+		mappedChars.push_back(new ofxSosoMappedChar(0xC1, 0x00C1, "&Aacute;", 0xC3, 0x81));
+		mappedChars.push_back(new ofxSosoMappedChar(0xC2, 0x00C2, "&Acirc;", 0xC3, 0x82));
+		mappedChars.push_back(new ofxSosoMappedChar(0xC3, 0x00C3, "&Atilde;", 0xC3, 0x83));
+		mappedChars.push_back(new ofxSosoMappedChar(0xC4, 0x00C4, "&Auml;", 0xC3, 0x84));
+		mappedChars.push_back(new ofxSosoMappedChar(0xC5, 0x00C5, "&Aring;", 0xC3, 0x85));
+		mappedChars.push_back(new ofxSosoMappedChar(0xC6, 0x00C6, "&AElig;", 0xC3, 0x86));
+		mappedChars.push_back(new ofxSosoMappedChar(0xC7, 0x00C7, "&Ccedil;", 0xC3, 0x87));
+    mappedChars.push_back(new ofxSosoMappedChar(0xC8, 0x00C8, "&Egrave;", 0xC3, 0x88));
+		mappedChars.push_back(new ofxSosoMappedChar(0xC9, 0x00C9, "&Eacute;", 0xC3, 0x89));
+		mappedChars.push_back(new ofxSosoMappedChar(0xCA, 0x00CA, "&Ecirc;", 0xC3, 0x8A));
+		mappedChars.push_back(new ofxSosoMappedChar(0xCB, 0x00CB, "&Euml;", 0xC3, 0x8B));
+		mappedChars.push_back(new ofxSosoMappedChar(0xCC, 0x00CC, "&lgrave;", 0xC3, 0x8C));
+		mappedChars.push_back(new ofxSosoMappedChar(0xCD, 0x00CD, "&lacute;", 0xC3, 0x8D));
+		mappedChars.push_back(new ofxSosoMappedChar(0xCE, 0x00CE, "&lcirc;", 0xC3, 0x8E));
+		mappedChars.push_back(new ofxSosoMappedChar(0xCF, 0x00CF, "&luml;", 0xC3, 0x8F));
+		mappedChars.push_back(new ofxSosoMappedChar(0xD0, 0x00D0, "&ETH;", 0xC3, 0x90));
+		mappedChars.push_back(new ofxSosoMappedChar(0xD1, 0x00D1, "&Ntilde;", 0xC3, 0x91));
+		mappedChars.push_back(new ofxSosoMappedChar(0xD2, 0x00D2, "&Ograve;", 0xC3, 0x92));
+		mappedChars.push_back(new ofxSosoMappedChar(0xD3, 0x00D3, "&Oacute;", 0xC3, 0x93));
+		mappedChars.push_back(new ofxSosoMappedChar(0xD4, 0x00D4, "&Ocirc;", 0xC3, 0x94));
+    mappedChars.push_back(new ofxSosoMappedChar(0xD5, 0x00D5, "&Otilde;", 0xC3, 0x95));
+		mappedChars.push_back(new ofxSosoMappedChar(0xD6, 0x00D6, "&Ouml;", 0xC3, 0x96));
+		mappedChars.push_back(new ofxSosoMappedChar(0xD7, 0x00D7, "&times;", 0xC3, 0x97));
+		mappedChars.push_back(new ofxSosoMappedChar(0xD8, 0x00D8, "&Oslash;", 0xC3, 0x98));
+		mappedChars.push_back(new ofxSosoMappedChar(0xD9, 0x00D9, "&Ugrave;", 0xC3, 0x99));
+		mappedChars.push_back(new ofxSosoMappedChar(0xDA, 0x00DA, "&Uacute;", 0xC3, 0x9A));
+		mappedChars.push_back(new ofxSosoMappedChar(0xDB, 0x00DB, "&Ucirc;", 0xC3, 0x9B));
+		mappedChars.push_back(new ofxSosoMappedChar(0xDC, 0x00DC, "&Uuml;", 0xC3, 0x9C));
+		mappedChars.push_back(new ofxSosoMappedChar(0xDD, 0x00DD, "&Yacute;", 0xC3, 0x94));
+		mappedChars.push_back(new ofxSosoMappedChar(0xDE, 0x00DE, "&THORN;", 0xC3, 0x9E));
+		mappedChars.push_back(new ofxSosoMappedChar(0xDF, 0x00DF, "&szlig;", 0xC3, 0x9F));
+		mappedChars.push_back(new ofxSosoMappedChar(0xE0, 0x00E0, "&agrave;", 0xC3, 0xA0));
+		mappedChars.push_back(new ofxSosoMappedChar(0xE1, 0x00E1, "&aacute;", 0xC3, 0xA1));
+		mappedChars.push_back(new ofxSosoMappedChar(0xE2, 0x00E2, "&acirc;", 0xC3, 0xA2));
+		mappedChars.push_back(new ofxSosoMappedChar(0xE3, 0x00E3, "&atilde;", 0xC3, 0xA3));
+		mappedChars.push_back(new ofxSosoMappedChar(0xE4, 0x00E4, "&auml;", 0xC3, 0xA4));
+		mappedChars.push_back(new ofxSosoMappedChar(0xE5, 0x00E5, "&aring;", 0xC3, 0xA5));
+		mappedChars.push_back(new ofxSosoMappedChar(0xE6, 0x00E6, "&aelig;", 0xC3, 0xA6));
+		mappedChars.push_back(new ofxSosoMappedChar(0xE7, 0x00E7, "&ccedil;", 0xC3, 0xA7));
+    mappedChars.push_back(new ofxSosoMappedChar(0xE8, 0x00E8, "&egrave;", 0xC3, 0xA8));
+		mappedChars.push_back(new ofxSosoMappedChar(0xE9, 0x00E9, "&eacute;", 0xC3, 0xA9));
+    mappedChars.push_back(new ofxSosoMappedChar(0xEA, 0x00EA, "&ecirc;", 0xC3, 0xAA));
+		mappedChars.push_back(new ofxSosoMappedChar(0xEB, 0x00EB, "&euml;", 0xC3, 0xAB));
+		mappedChars.push_back(new ofxSosoMappedChar(0xEC, 0x00EC, "&igrave;", 0xC3, 0xAC));
+		mappedChars.push_back(new ofxSosoMappedChar(0xED, 0x00ED, "&iacute;", 0xC3, 0xAD));
+		mappedChars.push_back(new ofxSosoMappedChar(0xEE, 0x00EE, "&icirc;", 0xC3, 0xAE));
+		mappedChars.push_back(new ofxSosoMappedChar(0xEF, 0x00EF, "&iuml;", 0xC3, 0xAF));
+		mappedChars.push_back(new ofxSosoMappedChar(0xF0, 0x00F0, "&eth;", 0xC3, 0xB0));
+		mappedChars.push_back(new ofxSosoMappedChar(0xF1, 0x00F1, "&ntilde;", 0xC3, 0xB1));
+		mappedChars.push_back(new ofxSosoMappedChar(0xF2, 0x00F2, "&ograve;", 0xC3, 0xB2));
+		mappedChars.push_back(new ofxSosoMappedChar(0xF3, 0x00F3, "&oacute;", 0xC3, 0xB3));
+		mappedChars.push_back(new ofxSosoMappedChar(0xF4, 0x00F4, "&ocirc;", 0xC3, 0xB4));
+		mappedChars.push_back(new ofxSosoMappedChar(0xF5, 0x00F5, "&otilde;", 0xC3, 0xB5));
+		mappedChars.push_back(new ofxSosoMappedChar(0xF6, 0x00F6, "&ouml;", 0xC3, 0xB6));
+		mappedChars.push_back(new ofxSosoMappedChar(0xF7, 0x00F7, "&divide;", 0xC3, 0xB7));
+		mappedChars.push_back(new ofxSosoMappedChar(0xF8, 0x00F8, "&oslash;", 0xC3, 0xB8));
+		mappedChars.push_back(new ofxSosoMappedChar(0xF9, 0x00F9, "&ugrave;", 0xC3, 0xB9));
+		mappedChars.push_back(new ofxSosoMappedChar(0xFA, 0x00FA, "&uacute;", 0xC3, 0xBA));
+		mappedChars.push_back(new ofxSosoMappedChar(0xFB, 0x00FB, "&ucirc;", 0xC3, 0xBB));
+		mappedChars.push_back(new ofxSosoMappedChar(0xFC, 0x00FC, "&uuml;", 0xC3, 0xBC));
+		mappedChars.push_back(new ofxSosoMappedChar(0xFD, 0x00FD, "&yacute;", 0xC3, 0xBD));
+		mappedChars.push_back(new ofxSosoMappedChar(0xFE, 0x00FE, "&thorn;", 0xC3, 0xBE));
+		mappedChars.push_back(new ofxSosoMappedChar(0xFF, 0x00FF, "&yuml;", 0xC3, 0xBF));
     
 		//useful characters mapped from above Unicode 255 down into unused range below 255 from 0x007F-0x009F or 127-159
 		//NOTE: 0xC5=197, 0xC6=198, 0x5E=94, 0xE2=226, 0xEF=239
-		mappedChars.push_back(new ofxSosoMappedChar(0x7F, 0x0152, "&OElig;", 0xC5, 0x92));			//capital ligature OE
-		mappedChars.push_back(new ofxSosoMappedChar(0x80, 0x0153, "&oelig;", 0xC5, 0x93));			//small ligature oe
-		mappedChars.push_back(new ofxSosoMappedChar(0x81, 0x0160, "&Scaron;", 0xC5, 0xA0));			//capital letter S with caron
-		mappedChars.push_back(new ofxSosoMappedChar(0x82, 0x0161, "&scaron;", 0xC5, 0xA1));			//small letter s with caron
-		mappedChars.push_back(new ofxSosoMappedChar(0x83, 0x0178, "&Yuml;", 0xC5, 0xB8));			//capital Y with diaeresis
-		mappedChars.push_back(new ofxSosoMappedChar(0x84, 0x017D, "&#x17d;", 0xC5, 0xBD));			//capital letter Z with caron
-		mappedChars.push_back(new ofxSosoMappedChar(0x85, 0x017E, "&#x17e;", 0xC5, 0xBE));			//small letter z with caron
-		mappedChars.push_back(new ofxSosoMappedChar(0x86, 0x0192, "&fnof;", 0xC6, 0x92));			//small letter f with hook
-		mappedChars.push_back(new ofxSosoMappedChar(0x87, 0x02C6, "&#x5e;", 0x5E));					//circumflex
+		mappedChars.push_back(new ofxSosoMappedChar(0x7F, 0x0152, "&OElig;", 0xC5, 0x92));        //capital ligature OE
+		mappedChars.push_back(new ofxSosoMappedChar(0x80, 0x0153, "&oelig;", 0xC5, 0x93));        //small ligature oe
+		mappedChars.push_back(new ofxSosoMappedChar(0x81, 0x0160, "&Scaron;", 0xC5, 0xA0));       //capital letter S with caron
+		mappedChars.push_back(new ofxSosoMappedChar(0x82, 0x0161, "&scaron;", 0xC5, 0xA1));       //small letter s with caron
+		mappedChars.push_back(new ofxSosoMappedChar(0x83, 0x0178, "&Yuml;", 0xC5, 0xB8));         //capital Y with diaeresis
+		mappedChars.push_back(new ofxSosoMappedChar(0x84, 0x017D, "&#x17d;", 0xC5, 0xBD));        //capital letter Z with caron
+		mappedChars.push_back(new ofxSosoMappedChar(0x85, 0x017E, "&#x17e;", 0xC5, 0xBE));        //small letter z with caron
+		mappedChars.push_back(new ofxSosoMappedChar(0x86, 0x0192, "&fnof;", 0xC6, 0x92));         //small letter f with hook
+		mappedChars.push_back(new ofxSosoMappedChar(0x87, 0x02C6, "&#x5e;", 0x5E));               //circumflex
 		mappedChars.push_back(new ofxSosoMappedChar(0x88, 0x02DC, "&sim;", 0xE2, 0x88, 0xBC));		//tilde
 		mappedChars.push_back(new ofxSosoMappedChar(0x89, 0x2013, "&ndash;", 0xE2, 0x80, 0x93));	//en dash
 		mappedChars.push_back(new ofxSosoMappedChar(0x8A, 0x2014, "&mdash;", 0xE2, 0x80, 0x94));	//em dash
@@ -716,8 +710,7 @@ void ofxSosoTrueTypeFont::buildMappedChars()
 		mappedChars.push_back(new ofxSosoMappedChar(0x95, 0x2030, "&permil;", 0xE2, 0x80, 0xB0));	//per mille
 		mappedChars.push_back(new ofxSosoMappedChar(0x96, 0x2039, "&lsaquo;", 0xE2, 0x80, 0xB9));	//single left pointing angle quotation mark
 		mappedChars.push_back(new ofxSosoMappedChar(0x97, 0x203A, "&rsaquo;", 0xE2, 0x80, 0xBA));	//single right pointing angle quotation mark
-		//mappedChars.push_back(new ofxSosoMappedChar(0x98, 0x20AC, "&euro;", 0xE2, 0x82, 0xAC));		//euro sign
-    mappedChars.push_back(new ofxSosoMappedChar(0x98, 0x00A3, "&pound;", 0xC2, 0xA3));		//pound sign    //eg 071012 - TEMP test for London
+		mappedChars.push_back(new ofxSosoMappedChar(0x98, 0x20AC, "&euro;", 0xE2, 0x82, 0xAC));		//euro sign
 		mappedChars.push_back(new ofxSosoMappedChar(0x99, 0x2122, "&trade;", 0xE2, 0x84, 0xA2));	//trademark sign
 		mappedChars.push_back(new ofxSosoMappedChar(0x9A, 0x25A1, "&#x25a1;", 0xE2, 0x96, 0xA1));	//white square
 		mappedChars.push_back(new ofxSosoMappedChar(0x9B, 0x25CA, "&loz;", 0xE2, 0x97, 0x8A));		//lozenge
@@ -738,13 +731,13 @@ int ofxSosoTrueTypeFont::getMappedChar(string iString, int &iIndex)
 	if(iString[iIndex] == '&'){
 		for(int i=0; i < mappedChars.size(); i++){
 			bool found = true;
-			for(int j=0; j < strlen(mappedChars[i]->namedEntity); j++){
+			for(int j=0; j < mappedChars[i]->namedEntity.length(); j++){
 				if(iString[iIndex + j] != mappedChars[i]->namedEntity[j])
 					found = false;
 			}
 			if(found){
 				//advance index for drawString loop
-				iIndex += (strlen(mappedChars[i]->namedEntity) - 1);
+				iIndex += (mappedChars[i]->namedEntity.length() - 1);
 				return mappedChars[i]->mapToIndex - NUM_CHARACTER_TO_START;
 			}
 		}
@@ -754,13 +747,13 @@ int ofxSosoTrueTypeFont::getMappedChar(string iString, int &iIndex)
 	for(int i=0; i < mappedChars.size(); i++){
 		if(iString[iIndex] == mappedChars[i]->utf8Sequence[0]){
 			bool found = true;
-			for(int j=0; j < strlen(mappedChars[i]->utf8Sequence); j++){
+			for(int j=0; j < mappedChars[i]->utf8Sequence.length(); j++){
 				if(iString[iIndex + j] != mappedChars[i]->utf8Sequence[j])
 					found = false;
 			}
 			if(found){
 				//advance index for drawString loop
-				iIndex += (strlen(mappedChars[i]->utf8Sequence) - 1);
+				iIndex += (mappedChars[i]->utf8Sequence.length() - 1);
 				return mappedChars[i]->mapToIndex - NUM_CHARACTER_TO_START;
 			}
 		}
@@ -776,14 +769,14 @@ char* ofxSosoTrueTypeFont::getMappedCharSequence(string iString, int &iIndex)   
 	if(iString[iIndex] == '&'){
 		for(int i=0; i < mappedChars.size(); i++){
 			bool found = true;
-			for(int j=0; j < strlen(mappedChars[i]->namedEntity); j++){
+			for(int j=0; j < mappedChars[i]->namedEntity.length(); j++){
 				if(iString[iIndex + j] != mappedChars[i]->namedEntity[j])
 					found = false;
 			}
 			if(found){
 				//advance index for drawString loop
-				iIndex += (strlen(mappedChars[i]->namedEntity) - 1);
-				return (char*)iString.substr(iIndex, strlen(mappedChars[i]->namedEntity) - 1).c_str();
+				iIndex += (mappedChars[i]->namedEntity.length() - 1);
+				return (char*)iString.substr(iIndex, mappedChars[i]->namedEntity.length() - 1).c_str();
 			}
 		}
 	}
@@ -792,14 +785,14 @@ char* ofxSosoTrueTypeFont::getMappedCharSequence(string iString, int &iIndex)   
 	for(int i=0; i < mappedChars.size(); i++){
 		if(iString[iIndex] == mappedChars[i]->utf8Sequence[0]){
 			bool found = true;
-			for(int j=0; j < strlen(mappedChars[i]->utf8Sequence); j++){
+			for(int j=0; j < mappedChars[i]->utf8Sequence.length(); j++){
 				if(iString[iIndex + j] != mappedChars[i]->utf8Sequence[j])
 					found = false;
 			}
 			if(found){
 				//advance index for drawString loop
-				iIndex += (strlen(mappedChars[i]->utf8Sequence) - 1);
-				return (char*)iString.substr(iIndex, strlen(mappedChars[i]->utf8Sequence) - 1).c_str();
+				iIndex += (mappedChars[i]->utf8Sequence.length() - 1);
+				return (char*)iString.substr(iIndex, mappedChars[i]->utf8Sequence.length() - 1).c_str();
 			}
 		}
 	}
@@ -969,8 +962,8 @@ void ofxSosoTrueTypeFont::drawChar(int c, float x, float y) {
   t1		= cps[c].t1;
 	v1		= cps[c].v1;
   
-  
-  //ofTrueTypeFont
+  //ofTrueTypeFont - original for inverted Y
+
 	//x1		= cps[c].x1+x;
 	//y1		= cps[c].y1+y;
   //x2		= cps[c].x2+x;
@@ -986,8 +979,6 @@ void ofxSosoTrueTypeFont::drawChar(int c, float x, float y) {
 	y1		= -cps[c].y1+y;
   x2		= cps[c].x2+x;
 	y2		= -cps[c].y2+y;
-  
-  
 	
 	int firstIndex = stringQuads.getVertices().size();
   
@@ -1144,22 +1135,7 @@ ofRectangle ofxSosoTrueTypeFont::getStringBoundingBox(string c, float x, float y
   myRect.width    = maxx-minx;
   myRect.height   = maxy-miny;
   return myRect;
-}
 
-
-//this static method goes through the string and finds any Named Entites (i.e. &amp;) within the [0,255] range and replaces them with the appropriate single Unicode character
-//NOTE: getMappedChar() also looks for named entities, but only those for the special upper range Unicode characters mapped down in buildMappedChars()
-void ofxSosoTrueTypeFont::replaceNamedEntities(string &iString)
-{
-	for(int i=0; i < namedEntityChars.size(); i++){
-		
-		size_t pos = iString.find(namedEntityChars[i]->namedEntity);
-		while(pos != string::npos){	//search for multiple copies of named entity in string
-			iString.replace(pos, (size_t)strlen(namedEntityChars[i]->namedEntity), 1, namedEntityChars[i]->mapToIndex);
-      
-			pos = iString.find(namedEntityChars[i]->namedEntity);
-		}
-	}
 }
 
 
