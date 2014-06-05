@@ -88,8 +88,7 @@ ofxScene::ofxScene(int w, int h)
 	if(!defaultMaterial)
 		defaultMaterial = new ofxObjectMaterial();
   
-  // Testing - using model view matrix as default matrix.
-  //defaultMatrix = renderer->getModelViewMatrix().getPtr();
+  // Multiply default matrix by renderer's modelview matrix (which has lookAt values embedded in it)
   ofxObject::Mul(defaultMatrix, renderer->getModelViewMatrix().getPtr(), defaultMatrix);
   
 	//setRenderMode(RENDER_NORMAL);
