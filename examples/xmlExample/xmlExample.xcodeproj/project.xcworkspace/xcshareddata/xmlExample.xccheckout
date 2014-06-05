@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>CDC64CA0-0C22-4942-97E9-B2C39BBC83D3</string>
+	<key>IDESourceControlProjectName</key>
+	<string>xmlExample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>A166E0AC-3C30-4907-9F05-9F3876AC1FD2</key>
+		<string>https://github.com/kronick/ofxAVFVideoPlayer</string>
+		<key>F20B1109-762D-48BF-893A-AF51509D2A0D</key>
+		<string>https://github.com/fwthomas/ofxSoso</string>
+		<key>FF942BE8-BDB3-4839-8DE1-8E8A6262730E</key>
+		<string>https://github.com/sosolimited/openFrameworks</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>addons/ofxSoso/examples/xmlExample/xmlExample.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>A166E0AC-3C30-4907-9F05-9F3876AC1FD2</key>
+		<string>../../../../../ofxAVFVideoPlayer</string>
+		<key>F20B1109-762D-48BF-893A-AF51509D2A0D</key>
+		<string>../../../..</string>
+		<key>FF942BE8-BDB3-4839-8DE1-8E8A6262730E</key>
+		<string>../../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/fwthomas/ofxSoso</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>FF942BE8-BDB3-4839-8DE1-8E8A6262730E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A166E0AC-3C30-4907-9F05-9F3876AC1FD2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxAVFVideoPlayer</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F20B1109-762D-48BF-893A-AF51509D2A0D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxSoso</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FF942BE8-BDB3-4839-8DE1-8E8A6262730E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>openFrameworks</string>
+		</dict>
+	</array>
+</dict>
+</plist>
