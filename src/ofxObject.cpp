@@ -497,6 +497,37 @@ void ofxObject::setColor(ofColor c)
   material->color.set(c.r, c.g, c.b, c.a);
 }
 
+//Colin added get and set R,G,B
+void ofxObject::setRed(float iRed)
+{
+    material->color.r = iRed;
+}
+
+void ofxObject::setGreen(float iGreen)
+{
+    material->color.g = iGreen;
+}
+
+void ofxObject::setBlue(float iBlue)
+{
+    material->color.b = iBlue;
+}
+
+float ofxObject::getRed()
+{
+    return material->color.r;
+}
+
+float ofxObject::getGreen()
+{
+    return material->color.g;
+}
+
+float ofxObject::getBlue()
+{
+    return material->color.b;
+}
+
 void ofxObject::setAlpha(float iA)
 {
 	material->color.set(material->color.r, material->color.g, material->color.b, iA);	//v4.0
@@ -583,6 +614,37 @@ void ofxObject::setTrans(ofVec3f vec)
 	localMatrix[13] = xyz[1];
 	localMatrix[14] = xyz[2];
 	matrixDirty = true;
+}
+
+// Colin add set and get X,Y,Z
+float ofxObject::getX()
+{
+    return localMatrix[12];
+}
+
+float ofxObject::getY()
+{
+    return localMatrix[13];
+}
+
+float ofxObject::getZ()
+{
+    return localMatrix[14];
+}
+
+void ofxObject::setX(float iX)
+{
+    localMatrix[12] = iX;
+}
+
+void ofxObject::setY(float iY)
+{
+    localMatrix[13] = iY;
+}
+
+void ofxObject::setZ(float iZ)
+{
+    localMatrix[14] = iZ;
 }
 
 
