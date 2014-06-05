@@ -61,7 +61,7 @@ void testApp::setup(){
   
   
   //Unicode and Hex escape sequences - note that HEX is required for chars below 255
-  unicodeText = new ofxTextObject(font24, "This block of \u2018text\u2019 demonstrates the use of extended characters in ofxTextObject\u2122 \u2014 initialized with \u00A9Unicode escape sequences. \u0152");
+  unicodeText = new ofxTextObject(font24, "This block of \u2018text\u2019 demonstrates the use of extended characters in ofxTextObject\u2122 \u2014 initialized with \u00A9Unicode escape sequences.");
   unicodeText->setColor(240, 240, 240);
   unicodeText->setPointSize(24);
   unicodeText->setLeading(28);
@@ -70,13 +70,7 @@ void testApp::setup(){
   unicodeText->setTrans(trans + ofVec3f(0, -unicodeText->getLeading()*3.0, 0));
 	scene->getRoot()->addChild(unicodeText);
   
-  string s("This block of ‘text’ demonstrates the use of extended characters in ofxTextObject™ — initialized with ©Inline éêscape sequences.");
-  for (int i=0; i<s.length(); i++)
-  {
-    cout << s[i] << " " << ofToString(ofToHex(s[i])) << endl;
-  }
-  
-  inlineText = new ofxTextObject(font24, "This block of ‘text’ demonstrates the use of extended characters in ofxTextObject™ — initialized with ©Inline éêscape sequences.");
+  inlineText = new ofxTextObject(font24, "This block of ‘text’ demonstrates the use of extended characters in ofxTextObject™ — initialized with ©Inline escape sequences.");
   inlineText->setColor(240, 240, 240);
   inlineText->setPointSize(24);
   inlineText->setLeading(28);
@@ -85,6 +79,13 @@ void testApp::setup(){
   inlineText->setTrans(trans + ofVec3f(0, -inlineText->getLeading()*6.0, 0));
 	scene->getRoot()->addChild(inlineText);
   
+  //Testing the character encodings with C
+//  string s("This block of ‘text’ demonstrates the use of extended characters in ofxTextObject™ — initialized with ©Inline escape sequences.");
+//  for (int i=0; i<s.length(); i++)
+//  {
+//    cout << s[i] << " ";
+//  }
+//  cout << endl;
   
   
   //Create a letter text object. This lets you treat each letter as a separate object to animate as you please.

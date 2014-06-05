@@ -122,7 +122,7 @@ void ofxTextObject::setString(string iString)
   rawText = iString;	//PEND does string clean itself up when you use the = operator to reassign it?
   
 	//replace any Named Entities (i.e. &amp;) within the [0,255] range with their appropriate unicode characters
-	ofxSosoTrueTypeFont::replaceNamedEntities(rawText);
+	//ofxSosoTrueTypeFont::replaceNamedEntities(rawText);
   
 	_loadWords();
 	
