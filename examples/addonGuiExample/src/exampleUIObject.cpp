@@ -63,7 +63,7 @@ void exampleUIObject::setup()
   
   // Build and attach some dummy demostration objects
   UI->addSpacer();
-  UI->addLabel("assorted dummy objects:");
+  UI->addLabel("Assorted dummy objects");
   UI->addLabel("(not connected to anything)", OFX_UI_FONT_SMALL);
 
   UI->addButton("button", false, UIButtonHeight, UIButtonHeight);
@@ -75,7 +75,7 @@ void exampleUIObject::setup()
 
   // Build some functional objects to connect to scene background color in the App
   UI->addSpacer();
-  UI->addLabel("assorted functional objects:");
+  UI->addLabel("Assorted functional objects");
   UI->addLabel("(connected to background color)", OFX_UI_FONT_SMALL);
   
   demoToggleBG = new ofxUILabelToggle("toggle bg control", false, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM, true);
@@ -96,6 +96,12 @@ void exampleUIObject::setup()
   demoLabel = NULL;
   demoLabel = new ofxUILabel("updating label: ", OFX_UI_FONT_MEDIUM);
   UI->addWidgetDown(demoLabel);
+  
+  // Add "Sometimes I'm busted message"
+  UI->addSpacer();
+  UI->addLabel("Sometimes I don't work");
+  UI->addLabel("Not sure why.", OFX_UI_FONT_SMALL);
+  UI->addLabel("Restart if unresponsive.", OFX_UI_FONT_SMALL);
   
 }
 
