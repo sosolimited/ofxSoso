@@ -21,7 +21,6 @@ ofxViewportData::ofxViewportData(int iScreenNum, int iScreenX, int iScreenY, int
 ofxViewportData::~ofxViewportData(){}
 
 
-
 //class ofxScene _______________________________________________________________________________
 float* ofxScene::defaultMatrix = NULL;
 ofxObjectMaterial* ofxScene::defaultMaterial = NULL;
@@ -55,8 +54,13 @@ ofxScene::ofxScene(int w, int h)
   onTopObjects = NULL;
 	maxOnTopObjects = 100;
   
-  
 	centerOffset.set(sceneWidth/2.0f, sceneHeight/2.0f, 0);
+  
+  
+  setupScreenEnabled = true;
+  
+  // Build renderer with width, height, and default parameters.
+  renderer = new ofxSosoRenderer(sceneWidth, sceneHeight);
   
 	if(!defaultMatrix){
 		defaultMatrix = (float *)malloc(sizeof(float) * 16);
@@ -82,22 +86,27 @@ ofxScene::ofxScene(int w, int h)
 	}
 	
 	if(!defaultMaterial)
-		defaultMaterial = new ofxObjectMaterial();	//v4.0
+		defaultMaterial = new ofxObjectMaterial();
+  
+  // Testing - using model view matrix as default matrix.
+  //defaultMatrix = renderer->getModelViewMatrix().getPtr();
+  ofxObject::Mul(defaultMatrix, renderer->getModelViewMatrix().getPtr(), defaultMatrix);
   
 	//setRenderMode(RENDER_NORMAL);
-	//setRenderMode(RENDER_ALPHA_DEPTH);	//not working yet
+	//setRenderMode(RENDER_ALPHA_DEPTH);	// Not working yet.
 	setRenderMode(RENDER_ALPHA_DEPTH_SORTED);
+  
   
 }
 
 // Destructor.
 ofxScene::~ofxScene(){
-//  delete root;            //DEV: should i be deleting this?
-//  delete defaultMaterial; //DEV: can't delete this or else my test crashes...
+  delete root;
+  //  delete defaultMaterial; //DEV: can't delete this or else my test crashes...
   delete sortedObjects;     //DEV: hopefully we can delete a double pointer like a normal pointer, like this.
-                            // how can i clear() this vector?
+  // how can i clear() this vector?
   delete onTopObjects;      //DEV: hopefully we can delete a double pointer like a normal pointer, like this.
-                            // how can i clear() this vector?
+  // how can i clear() this vector?
 }
 
 void ofxScene::update(float iTime)
@@ -126,6 +135,13 @@ void ofxScene::setCenterOffset(float iX, float iY, float iZ)
 
 void ofxScene::draw()
 {
+  
+  // Call setupScreen on the custom renderer here.
+  // This lets each ofxScene have its own custom projection and modelview setup.
+  if(setupScreenEnabled){
+    renderer->setupScreen();
+  }
+  
 	//Necessary for proper rendering of transparency.
 	ofEnableAlphaBlending();
   
@@ -164,10 +180,10 @@ void ofxScene::draw()
 			glClear(GL_DEPTH_BUFFER_BIT);
 	}
   
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
+  // All subsequent glLoadMatrix calls by ofxObjects will be operating on the MODELVIEW matrix.
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
   
-	glPushMatrix();
 	
 	//ofTranslate(centerOffset.x, centerOffset.y, 0);	//offset root
 	
@@ -197,8 +213,6 @@ void ofxScene::draw()
     }
   }
   
-	glPopMatrix();
-	
 	if(isScissorOn)
 		glDisable(GL_SCISSOR_TEST);
 }
@@ -289,6 +303,21 @@ void ofxScene::setRenderMode(int iMode)
 	}
 }
 
+// Enable or disable calling setupScreen on custom renderer.
+void ofxScene::enableSetupScreen(bool iEnable)
+{
+  setupScreenEnabled = iEnable;
+}
+
+// Let's the owner of the scene customize the projection and model view matrices.
+void ofxScene::setScreenParams(bool iOrthographic, bool iVFlip=false, float iFov=60, float iNearDist=0, float iFarDist=0)
+{
+  renderer->setScreenParams(iOrthographic, iVFlip, iFov, iNearDist, iFarDist);
+}
+
+
+
+
 void ofxScene::setMaxSortedObjects(int iMax)
 {
 	maxSortedObjects = iMax;
@@ -324,6 +353,7 @@ void ofxScene::enableDepthTest(bool iEnable)
 {
 	isDepthTestOn = iEnable;
 }
+
 
 void ofxScene::setDepthFunc(GLenum iFunc)
 {

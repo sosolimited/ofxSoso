@@ -2,9 +2,9 @@
 
 #include "ofMain.h"
 #include "ofxScene.h"
-#include "ofxSosoRenderer.h"
 
 #include "ofxImageObject.h"
+#include "ofxFboObject.h"
 
 
 class emptyApp : public ofBaseApp{
@@ -26,13 +26,14 @@ public:
   void gotMessage(ofMessage msg);
   
   
-  
 public:
+  
   ofxScene						*scene;
-  
   ofxImageObject      *image;
-  
   ofImage             ofIm;
  
+  
+  ofxScene            *fboScene;
+  ofxFboObject        *fbo;
 };
 

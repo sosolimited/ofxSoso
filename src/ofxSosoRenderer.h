@@ -34,14 +34,17 @@ public:
   ofxSosoRenderer(float iWidth, float iHeight, bool iOrthographic=false, bool iVFlip=false, float iFov=60, float iNearDist = 0, float iFarDist = 0);
   ~ofxSosoRenderer();
   
-	void setupScreen();
-  void setupScreenPerspective(float iWidth, float iHeight, bool iOrthographic, bool iVFlip, float iFov, float iNearDist, float iFarDist);
+  void        setScreenParams(bool iOrthographic, bool iVFlip=false, float iFov=60, float iNearDist=0, float iFarDist=0);
   
+	void        setupScreen();
+  
+  ofMatrix4x4 getModelViewMatrix() { return modelViewMatrix; }
+  ofMatrix4x4 getProjectionMatrix() { return projectionMatrix; }
+
 private:
   bool            orthographic;
   
   bool            vFlip;
-  ofOrientation   orientation;
   
   float           width;
   float           height;
@@ -49,6 +52,9 @@ private:
   float           fov;
   float           nearDist,
                   farDist;
+  
+  ofMatrix4x4     projectionMatrix;
+  ofMatrix4x4     modelViewMatrix;
   
   
   
