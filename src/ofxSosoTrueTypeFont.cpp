@@ -24,12 +24,14 @@
 
 //helper class for mapping higher Unicode characters down into the 0-255 range
 ofxSosoMappedChar::ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeIndex, string iNamedEntity, char iUTFByte0, char iUTFByte1, char iUTFByte2, char iUTFByte3, char iUTFByte4, char iUTFByte5)
+
 {
 	//index within 0-255 range to which we're mapping
 	mapToIndex = iMapToIndex;
 	
   //standard unicode index
 	unicodeIndex = iUnicodeIndex;
+
 	
   //HTML named entity
 	namedEntity = iNamedEntity;
@@ -205,13 +207,19 @@ ofxSosoTrueTypeFont::ofxSosoTrueTypeFont()
 }
 
 ofxSosoTrueTypeFont::~ofxSosoTrueTypeFont(){ //LM 070612
+
+  cout<<"0 mappedChars size = "<< mappedChars.size() <<endl;
   
   for ( int i=0; i < mappedChars.size(); i++ )
   {
     delete mappedChars[i];
   }
+	
+  cout<<"1 mappedChars size = "<< mappedChars.size() <<endl;
 	mappedChars.clear();
 	
+  cout<<"2 mappedChars size = "<< mappedChars.size() <<endl;
+
 }
 
 
@@ -276,6 +284,7 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 	
   //nCharacters was 512, but we are mapping everything down to 0 to 255
   nCharacters = bFullCharacterSet ? 256 : 128 - NUM_CHARACTER_TO_START;
+
   
 	//--------------- initialize character info and textures
 	cps.resize(nCharacters);
@@ -954,6 +963,7 @@ void ofxSosoTrueTypeFont::drawChar(int c, float x, float y) {
 	v1		= cps[c].v1;
   
   //ofTrueTypeFont - original for inverted Y
+
 	//x1		= cps[c].x1+x;
 	//y1		= cps[c].y1+y;
   //x2		= cps[c].x2+x;
@@ -1125,6 +1135,7 @@ ofRectangle ofxSosoTrueTypeFont::getStringBoundingBox(string c, float x, float y
   myRect.width    = maxx-minx;
   myRect.height   = maxy-miny;
   return myRect;
+
 }
 
 

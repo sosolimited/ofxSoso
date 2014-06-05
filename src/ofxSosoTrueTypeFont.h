@@ -70,14 +70,13 @@ public:
 	//new methods
   vector <ofVec2f>        getCharPositions(string s, float x=0, float y=0);
 	FT_UInt                 getFTCharIndex(FT_Face iFace, unsigned char iIndex);
-	
+
 	
 	float                   getKerningAdjustment(int c1, int c2);
 	void                    setKerningPair(unsigned char iChar0, unsigned char iChar1, int iUnits);
 	void                    enableKerning(bool iEnable);
 	void                    printNonzeroKerningPairs();
-  
-	//static void             replaceNamedEntities(string &iString);
+
 	static void             removeCharacters(string &iString, string iCharsToRemove);   //eg 070412
   
   int                     getMappedChar(string iString, int &iIndex);   //eg 0701412 made public
@@ -87,7 +86,7 @@ private:
   void                    buildMappedChars();
   
 	static vector<ofxSosoMappedChar *>		mappedChars;
-	//static vector<ofxSosoMappedChar *>		namedEntityChars;
+
 	static bool             areMappedCharsBuilt;
 	
 protected:
@@ -99,5 +98,5 @@ protected:
 	bool                    isKerningEnabled;
 	int                     kerningPairs[FONT_NUM_CHARS][FONT_NUM_CHARS];
   
-  
+
 };

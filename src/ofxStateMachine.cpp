@@ -30,7 +30,18 @@ ofxStateMachine::ofxStateMachine()
   timeD = 0;  // Time difference.
 }
 
-ofxStateMachine::~ofxStateMachine(){}
+ofxStateMachine::~ofxStateMachine(){
+  delete curState;
+  delete curTransition;
+  for (auto state : states){
+    delete state;
+  }
+  states.clear();
+  for (auto transition : transitions){
+    delete transition;
+  }
+  transitions.clear();
+}
 
 // If added as child object, it updates itself automatically.
 void ofxStateMachine::idle(float iTime)
@@ -108,7 +119,7 @@ ofxStateTransition* ofxStateMachine::addTransition(ofxState *iStartState, ofxSta
     transitions.push_back(t);
   }
   
-  return t;  
+  return t;
 }
 
 ofxStateTransition* ofxStateMachine::addTransition(string iStartState, string iEndState, float iDur)
@@ -232,5 +243,5 @@ float ofxStateMachine::getTransitionProgress()
 		return transitionClock/curTransition->duration;
 	else
 		return 1.0;
-
+  
 }

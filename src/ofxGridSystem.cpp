@@ -30,7 +30,20 @@ ofxGridSystem::ofxGridSystem()
   isBaselineGridShown = false;
 }
 
-ofxGridSystem::~ofxGridSystem(){}
+// Destructor.
+ofxGridSystem::~ofxGridSystem(){
+  // This is how you destroy an array that is a pointer.
+  delete[] baselines;
+  // This is how you destroy a vector of pointers.
+  for (auto line : lines){
+    delete line;
+  }
+  lines.clear();
+  for (auto baseline : baselineLines){
+    delete baseline;
+  }
+  baselineLines.clear();
+}
 
 //Returns the X position of a column.
 float ofxGridSystem::colX(int iNumber)
@@ -60,7 +73,7 @@ void ofxGridSystem::buildGrid(float iPageWidth, float iPageHeight, int iNumColum
   tail = iTail;
   head = iHead;
   
-
+  
   leading = iBaselineLeading;
   
   // Make gutter multiple of leading.

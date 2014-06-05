@@ -5,6 +5,7 @@
 class ofxArcObject : public ofxObject{
   
 public:
+  
 	
   ofxArcObject(float iOuterRadius, float iInnerRadius, float iStartAngle, float iEndAngle);
 	~ofxArcObject();

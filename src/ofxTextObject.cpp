@@ -18,8 +18,7 @@ ofxTextFont::ofxTextFont(string iFontName, string iFilename, int iFontsize, bool
 
 ofxTextFont::~ofxTextFont()
 {
-	if (font) delete(font);
-	//if (fontName) delete(fontName); // (wes) I don't think this is needed anymore
+  if (font) delete(font);
 }
 
 //class ofxTextObject
@@ -54,8 +53,7 @@ ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString)
 
 ofxTextObject::~ofxTextObject()
 {
-	//PEND write this! BUT DON'T delete font (it's passed in from the outside)
-  
+
   words.clear();
   lines.clear();
 }
@@ -120,9 +118,6 @@ void ofxTextObject::enableDisplayList(bool iEnable)
 void ofxTextObject::setString(string iString)
 {
   rawText = iString;	//PEND does string clean itself up when you use the = operator to reassign it?
-  
-	//replace any Named Entities (i.e. &amp;) within the [0,255] range with their appropriate unicode characters
-	//ofxSosoTrueTypeFont::replaceNamedEntities(rawText);
   
 	_loadWords();
 	
@@ -203,7 +198,9 @@ void ofxTextObject::setLeading(float iLeading)
 
 void ofxTextObject::setSpaceWidth(float iWidth)
 {
+
   blankSpaceWord.width = iWidth*pointSize;
+
 	for(unsigned int i=0; i < words.size(); i++){
 		if(words[i].rawWord == blankSpaceWord.rawWord){
 			words[i].width = iWidth*pointSize;
@@ -344,6 +341,7 @@ float ofxTextObject::getWidth()
     }
     //return maxWidth * scale;
 		return maxWidth;
+
   }
   else return 0;
 }
@@ -683,6 +681,7 @@ void ofxTextObject::drawCenter(float x, float y, bool drawFlag)
 					if(!drawAsShapes){
 						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);
 					}else{ //Support for vector drawing
+
 						words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 					}
 				}
@@ -729,12 +728,13 @@ void ofxTextObject::drawRight(float x, float y, bool drawFlag)
 				
 				words[currentWordID].pos.set(drawX, drawY); //Record word position.
         
-				if(drawFlag){
+				if(drawFlag){						
 					if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.a/255.0f);	//soso - removed this functionality for now //LM13 added back in..eep?
-          
-					if(!drawAsShapes){
-						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);
-					}else{ //Support for vector drawing
+													
+					if(!drawAsShapes){						
+						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);	
+					}else{ //Support for vector drawing																												 
+
 						words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 					}
 				}
@@ -798,10 +798,11 @@ void ofxTextObject::drawJustified(float x, float y, bool drawFlag)
 				if (words[currentWordID].rawWord != " ") {
 					if(drawFlag){
 						if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.a/255.0f);	//soso - removed this functionality for now //LM13 added back in..eep?
-            
-						if(!drawAsShapes){
-							words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);
-						}else{ //Support for vector drawing
+
+						if(!drawAsShapes){						
+							words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);	
+						}else{ //Support for vector drawing																												 
+
 							words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 						}
 					}
@@ -982,7 +983,6 @@ float ofxTextObject::_getWidthOfWords()
   
 }
 
-
 //Turns on/off shape drawing. The font has to have been made with the makeContours constructor argument set to true.
 void ofxTextObject::enableDrawAsShapes(bool iFlag)
 {
@@ -1011,3 +1011,14 @@ ofxSosoTrueTypeFont* ofxTextObject::getFont(string iFontName)
 	}
 	return NULL;
 }
+
+
+
+// Static method for destroying our global font repository.
+// WARNING Do not call this unless you've deleted all known existing ofxTextObjects in your app
+//void ofxTextObject::destroyAllFonts() {
+//  for (auto font : allFonts){
+//    delete font;
+//  }
+//  allFonts.clear();
+//}
