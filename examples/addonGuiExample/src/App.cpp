@@ -13,7 +13,7 @@ void App::setup(){
 	//The scene is a scene graph that renders objects added to its root and their children and their children's children and so on.
 	//When the render mode of the scene is set to RENDER_ALPHA_DEPTH_SORTED, it handles sorting of both transparent and opaque objects in the z-axis.
   scene = new ofxScene(ofGetWidth(), ofGetHeight());
-	scene->setBackgroundColor(100, 100, 100);
+	scene->setBackgroundColor(bgR, bgG, bgB);
   
   // Build ofxGuiObject
   guiObject = new exampleGuiObject();
@@ -31,9 +31,12 @@ void App::setup(){
   scene->getRoot()->addChild(UIObject);
   UIObject->setVisible(true);
   
-  int UI_x = 0;
-  int UI_y = ofGetWindowHeight()/2;
+  int UI_x = -ofGetWindowWidth()/2+50;
+  int UI_y = ofGetWindowHeight()/2-50;
   UIObject->setTrans(UI_x, UI_y, 0);
+  
+  // Add UI Event Listeners
+  ofAddListener(UIObject->UI->newGUIEvent, this, &App::UIEvent);
   
 }
 
@@ -43,6 +46,20 @@ void App::update(){
 	//Update the scene with the current time. This call propagates the idle() call to all objects as well.
 	//Note: If you are capturing frames to create a movie, simply replace ofGetElapsedTimef() with a float variable that you increment by a fixed time interval each frame.
   scene->update(ofGetElapsedTimef());
+  
+  guiObject->update(); // TODO: This could be done with an idle() method in guiObject.
+  
+  UIObject->update(); // TODO: This could be done with an idle() method in UIObject.
+  
+  if (bgControl) {
+    if (!bgInvert) {
+      scene->setBackgroundColor(sliderR, sliderG, sliderB);
+    } else {
+      scene->setBackgroundColor(255-sliderR, 255-sliderG, 255-sliderB);
+    }
+  } else {
+    scene->setBackgroundColor(bgR, bgG, bgB);
+  }
   
 }
 
@@ -100,7 +117,41 @@ void App::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void App::UIevent(ofxUIEventArgs &e){
-  //TODO: Does this go here? If so, fill in.
+void App::UIEvent(ofxUIEventArgs &e){
+  
+  // TODO: explain this
+  string name = e.widget->getName();
+  
+  if (name == "toggle bg control") {
+    ofxUILabelToggle *toggle = (ofxUILabelToggle *) e.widget;
+    bgControl = toggle->getValue();
+//    cout << "bgControl: " << ofToString(bgControl) << endl;
+  }
+  
+  if (name == "red"){
+    ofxUIMinimalSlider *slider = (ofxUIMinimalSlider *) e.widget;
+    sliderR = (int) slider->getValue();
+//    cout << "sliderR: " << ofToString(sliderR) << endl;
+  }
+
+  if (name == "green"){
+    ofxUIMinimalSlider *slider = (ofxUIMinimalSlider *) e.widget;
+    sliderG = (int) slider->getValue();
+//    cout << "sliderG: " << ofToString(sliderG) << endl;
+  }
+
+  if (name == "blue"){
+    ofxUIMinimalSlider *slider = (ofxUIMinimalSlider *) e.widget;
+    sliderB = (int) slider->getValue();
+//    cout << "sliderB: " << ofToString(sliderB) << endl;
+  }
+  
+  if (name == "invert bg color"){
+    ofxUILabelButton *button = (ofxUILabelButton *) e.widget;
+    bgInvert = button->getValue();
+//    cout << "bgInvert: " << ofToString(bgInvert) << endl;
+  }
+
+
 }
 

@@ -21,6 +21,7 @@ public:
   
   void        setup();
   void        idle(float iTime);
+  void        update(); // TODO: explain why not use idle();
   void        render();
   
   void        exit();
@@ -43,13 +44,22 @@ public:
   // TODO: Add parts and comment
   ofxUICanvas   *UI;
   
-  float         UISliderVal;
+  ofxUILabelToggle      *demoToggleBG;
+  ofxUIMinimalSlider    *demoSliderR;
+  ofxUIMinimalSlider    *demoSliderG;
+  ofxUIMinimalSlider    *demoSliderB;
+  ofxUILabelButton      *demoButtonInv;
+  ofxUILabel            *demoLabel;
   
+  float       sliderValR = 0;
+  float       sliderValG = 0;
+  float       sliderValB = 0;
+
 private:
   
   bool        isVisible;
   
   int         windowBarHack;
   int         screenWidthHack;
-  
+
 };

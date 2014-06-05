@@ -25,14 +25,25 @@ public:
   void dragEvent(ofDragInfo dragInfo);
   void gotMessage(ofMessage msg);
   
-  void UIevent(ofxUIEventArgs &e); // TODO: Needed here?
-  
+  void UIEvent(ofxUIEventArgs &e);
   
 public:
   ofxScene						*scene;
   
   exampleGuiObject        *guiObject;
   exampleUIObject         *UIObject;
+  
+  // Default Background Color
+  int bgR = 100;
+  int bgG = 100;
+  int bgB = 100;
+  
+  int sliderR = 0;
+  int sliderG = 0;
+  int sliderB = 0;
+  
+  bool bgControl = 0;
+  bool bgInvert = 0;
  
 };
 

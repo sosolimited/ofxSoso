@@ -37,9 +37,14 @@ void exampleUIObject::setup()
 {
   ofLogNotice("exampleUIObject::setup()");
   
-  int canvas_width = ofGetWindowWidth()/2;
-  int canvas_height = ofGetWindowHeight();
-  
+  // Define some arbitrary sizing parameters
+  int canvas_width = 300;
+  int canvas_height = 600;
+
+  int UIButtonWidth = 200;
+  int UIButtonHeight = 20;
+  int UIRadioWidth = 20;
+ 
   // Build the UI Canvas
   UI = new ofxUICanvas(0, 0, canvas_width, canvas_height);
     // Use zeros for translation here and setTrans on UIObject in App.
@@ -49,40 +54,70 @@ void exampleUIObject::setup()
   // TODO: REMOVE -- Disable mouse even callbacks because we have to flip the y-coords.
   UI->disableMouseEventCallbacks();
 
-  int UIButtonWidth = 200;
-  int UIButtonHeight = 20;
-  int UIRadioWidth = 20;
+  // Add a lable to the top of the canvas
+  UI->addLabel("exampleUIObject", OFX_UI_FONT_MEDIUM);
+ 
+  // Define an arbitrary string vector for dummy radio button widget
+  vector<string> radioNames;
+  radioNames.push_back("radio_1");
+  radioNames.push_back("radio_2");
+  radioNames.push_back("radio_3");
+
   
-  UISliderVal = 5;
-  
-  string UI_title = "exampleUIObject";
-  
-  UI->addWidgetDown(new ofxUILabel(UI_title, OFX_UI_FONT_MEDIUM));
+  // Build and attach some dummy demostration objects
   UI->addSpacer();
-  UI->addWidgetDown(new ofxUILabel("label", OFX_UI_FONT_MEDIUM));
-  UI->addTextInput("text input", "text input", UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM);
-  UI->addWidgetDown(new ofxUIButton("button", false, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM));
-  UI->addWidgetDown(new ofxUIToggle("toggle", false, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM));
-  UI->addIntSlider("int slider", 0, 10, UISliderVal, UIButtonWidth, UIButtonHeight);
-  UI->addSlider("float slider", 0, 10, UISliderVal, UIButtonWidth, UIButtonHeight);
-  UI->addRangeSlider("range slider", 0, 10, 2, 7, UIButtonWidth, UIButtonHeight);
+  UI->addLabel("assorted dummy objects:");
+  UI->addLabel("(not connected)", OFX_UI_FONT_SMALL);
+
+  UI->addButton("button", false, UIButtonWidth, UIButtonHeight);
+  UI->addToggle("toggle", false, UIButtonWidth, UIButtonHeight);
+  UI->addIntSlider("int slider", 0, 10, 4, UIButtonWidth, UIButtonHeight);
+  UI->addSlider("float slider", 0, 10, 6, UIButtonWidth, UIButtonHeight);
+  UI->addRangeSlider("range slider", 0, 10, 2, 8, UIButtonWidth, UIButtonHeight);
+  UI->addTextInput("text input", "text input", UIButtonWidth, UIButtonHeight);
+  UI->addRadio("radio", radioNames, OFX_UI_ORIENTATION_HORIZONTAL);
+
+  // Build some functional demostration objects
   UI->addSpacer();
-  UI->addWidgetDown(new ofxUILabelButton("labelButton", false, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM));
-  UI->addWidgetDown(new ofxUILabelToggle("labelToggle", false, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM));
-  UI->addMinimalSlider("minimal slider", 0, 10, UISliderVal, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM);
+  UI->addLabel("assorted functional objects:");
+  UI->addLabel("(background color control)", OFX_UI_FONT_SMALL);
   
-  vector<string> modeNames;
-  modeNames.push_back("eric");
-  modeNames.push_back("john");
-  modeNames.push_back("justin");
+  demoToggleBG = new ofxUILabelToggle("toggle bg control", false, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM, true);
+  UI->addWidgetDown(demoToggleBG);
   
-  UI->addWidgetDown(new ofxUIRadio("radio", modeNames, OFX_UI_ORIENTATION_HORIZONTAL, UIRadioWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM));
+  demoSliderR = new ofxUIMinimalSlider("red", 0, 255, sliderValR, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM);
+  UI->addWidgetDown(demoSliderR);
+  
+  demoSliderG = new ofxUIMinimalSlider("green", 0, 255, sliderValG, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM);
+  UI->addWidgetDown(demoSliderG);
+  
+  demoSliderB = new ofxUIMinimalSlider("blue", 0, 255, sliderValB, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM);
+  UI->addWidgetDown(demoSliderB);
+  
+  demoButtonInv = new ofxUILabelButton("invert bg color", false, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM, true);
+  UI->addWidgetDown(demoButtonInv);
+  
+  demoLabel = NULL;
+  demoLabel = new ofxUILabel("updating label: ", OFX_UI_FONT_MEDIUM);
+  UI->addWidgetDown(demoLabel);
   
 }
 
 void exampleUIObject::idle(float iTime)
 {
+//  UI->update(); // TODO: moved to update() for funsies
+}
+
+void exampleUIObject::update()
+{
+  
+  float t = ofGetElapsedTimef();
+  
+  if(demoLabel)
+    demoLabel->setLabel("updating label: "+ ofToString(t, 2));
+  
   UI->update();
+  
 }
 
 void exampleUIObject::render()

@@ -63,6 +63,11 @@ void exampleGuiObject::idle(float iTime)
   //  gui->update(); // TODO: wa -- ofxPanel has no update();
 }
 
+void exampleGuiObject::update()
+{
+  // TODO: Fill in with the business
+}
+
 void exampleGuiObject::render()
 {
   if (isVisible)

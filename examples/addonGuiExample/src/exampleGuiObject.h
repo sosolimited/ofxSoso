@@ -22,6 +22,7 @@ public:
   
   void        setup();
   void        idle(float iTime);
+  void        update(); // TODO: explain why not use idle();
   void        render();
   
   void        exit();
