@@ -38,15 +38,6 @@
 		E08321EB19364075000BD296 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E08321EA19364075000BD296 /* AVFoundation.framework */; };
 		E08321ED1936408B000BD296 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E08321EC1936408B000BD296 /* Carbon.framework */; };
 		E09E8E9E19366B96003DA9FA /* ofxScroller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E09E8E9C19366B96003DA9FA /* ofxScroller.cpp */; };
-		E0FA9E24193E403B0074E3DB /* ofxBaseGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0FA9E13193E403B0074E3DB /* ofxBaseGui.cpp */; };
-		E0FA9E25193E403B0074E3DB /* ofxButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0FA9E15193E403B0074E3DB /* ofxButton.cpp */; };
-		E0FA9E26193E403B0074E3DB /* ofxGuiGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0FA9E18193E403B0074E3DB /* ofxGuiGroup.cpp */; };
-		E0FA9E27193E403B0074E3DB /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0FA9E1A193E403B0074E3DB /* ofxLabel.cpp */; };
-		E0FA9E28193E403B0074E3DB /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0FA9E1C193E403B0074E3DB /* ofxPanel.cpp */; };
-		E0FA9E29193E403B0074E3DB /* ofxSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0FA9E1E193E403B0074E3DB /* ofxSlider.cpp */; };
-		E0FA9E2A193E403B0074E3DB /* ofxSliderGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0FA9E20193E403B0074E3DB /* ofxSliderGroup.cpp */; };
-		E0FA9E2B193E403B0074E3DB /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0FA9E22193E403B0074E3DB /* ofxToggle.cpp */; };
-		E0FA9E2E193E40960074E3DB /* exampleGuiObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0FA9E2C193E40960074E3DB /* exampleGuiObject.cpp */; };
 		E0FAA117193E79000074E3DB /* ofxUI2DGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0FAA087193E79000074E3DB /* ofxUI2DGraph.cpp */; };
 		E0FAA118193E79000074E3DB /* ofxUI2DPad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0FAA089193E79000074E3DB /* ofxUI2DPad.cpp */; };
 		E0FAA119193E79000074E3DB /* ofxUIBaseDraws.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0FAA08B193E79000074E3DB /* ofxUIBaseDraws.cpp */; };
@@ -201,25 +192,6 @@
 		E08321EC1936408B000BD296 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		E09E8E9C19366B96003DA9FA /* ofxScroller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxScroller.cpp; path = ../../src/ofxScroller.cpp; sourceTree = "<group>"; };
 		E09E8E9D19366B96003DA9FA /* ofxScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxScroller.h; path = ../../src/ofxScroller.h; sourceTree = "<group>"; };
-		E0FA9E13193E403B0074E3DB /* ofxBaseGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBaseGui.cpp; sourceTree = "<group>"; };
-		E0FA9E14193E403B0074E3DB /* ofxBaseGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBaseGui.h; sourceTree = "<group>"; };
-		E0FA9E15193E403B0074E3DB /* ofxButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxButton.cpp; sourceTree = "<group>"; };
-		E0FA9E16193E403B0074E3DB /* ofxButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxButton.h; sourceTree = "<group>"; };
-		E0FA9E17193E403B0074E3DB /* ofxGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxGui.h; sourceTree = "<group>"; };
-		E0FA9E18193E403B0074E3DB /* ofxGuiGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGuiGroup.cpp; sourceTree = "<group>"; };
-		E0FA9E19193E403B0074E3DB /* ofxGuiGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxGuiGroup.h; sourceTree = "<group>"; };
-		E0FA9E1A193E403B0074E3DB /* ofxLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxLabel.cpp; sourceTree = "<group>"; };
-		E0FA9E1B193E403B0074E3DB /* ofxLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxLabel.h; sourceTree = "<group>"; };
-		E0FA9E1C193E403B0074E3DB /* ofxPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxPanel.cpp; sourceTree = "<group>"; };
-		E0FA9E1D193E403B0074E3DB /* ofxPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxPanel.h; sourceTree = "<group>"; };
-		E0FA9E1E193E403B0074E3DB /* ofxSlider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxSlider.cpp; sourceTree = "<group>"; };
-		E0FA9E1F193E403B0074E3DB /* ofxSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSlider.h; sourceTree = "<group>"; };
-		E0FA9E20193E403B0074E3DB /* ofxSliderGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxSliderGroup.cpp; sourceTree = "<group>"; };
-		E0FA9E21193E403B0074E3DB /* ofxSliderGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSliderGroup.h; sourceTree = "<group>"; };
-		E0FA9E22193E403B0074E3DB /* ofxToggle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxToggle.cpp; sourceTree = "<group>"; };
-		E0FA9E23193E403B0074E3DB /* ofxToggle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxToggle.h; sourceTree = "<group>"; };
-		E0FA9E2C193E40960074E3DB /* exampleGuiObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exampleGuiObject.cpp; sourceTree = "<group>"; };
-		E0FA9E2D193E40960074E3DB /* exampleGuiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exampleGuiObject.h; sourceTree = "<group>"; };
 		E0FAA086193E79000074E3DB /* ofxUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUI.h; sourceTree = "<group>"; };
 		E0FAA087193E79000074E3DB /* ofxUI2DGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxUI2DGraph.cpp; sourceTree = "<group>"; };
 		E0FAA088193E79000074E3DB /* ofxUI2DGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUI2DGraph.h; sourceTree = "<group>"; };
@@ -393,7 +365,6 @@
 			children = (
 				E0FAA179193F934F0074E3DB /* ofxXmlSettings */,
 				E0FA9EBB193E78FD0074E3DB /* ofxUI */,
-				E0FA9E11193E403B0074E3DB /* ofxGui */,
 				E08321AD1936401E000BD296 /* ofxAVFVideoPlayer */,
 				1A36ADDAF544F1D230A4DE59 /* ofxSoso */,
 			);
@@ -500,39 +471,6 @@
 				E08321D41936401E000BD296 /* ofxAVFVideoPlayer.mm */,
 				E08321D51936401E000BD296 /* ofxAVFVideoRenderer.h */,
 				E08321D61936401E000BD296 /* ofxAVFVideoRenderer.m */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
-		E0FA9E11193E403B0074E3DB /* ofxGui */ = {
-			isa = PBXGroup;
-			children = (
-				E0FA9E12193E403B0074E3DB /* src */,
-			);
-			name = ofxGui;
-			path = ../../../ofxGui;
-			sourceTree = "<group>";
-		};
-		E0FA9E12193E403B0074E3DB /* src */ = {
-			isa = PBXGroup;
-			children = (
-				E0FA9E13193E403B0074E3DB /* ofxBaseGui.cpp */,
-				E0FA9E14193E403B0074E3DB /* ofxBaseGui.h */,
-				E0FA9E15193E403B0074E3DB /* ofxButton.cpp */,
-				E0FA9E16193E403B0074E3DB /* ofxButton.h */,
-				E0FA9E17193E403B0074E3DB /* ofxGui.h */,
-				E0FA9E18193E403B0074E3DB /* ofxGuiGroup.cpp */,
-				E0FA9E19193E403B0074E3DB /* ofxGuiGroup.h */,
-				E0FA9E1A193E403B0074E3DB /* ofxLabel.cpp */,
-				E0FA9E1B193E403B0074E3DB /* ofxLabel.h */,
-				E0FA9E1C193E403B0074E3DB /* ofxPanel.cpp */,
-				E0FA9E1D193E403B0074E3DB /* ofxPanel.h */,
-				E0FA9E1E193E403B0074E3DB /* ofxSlider.cpp */,
-				E0FA9E1F193E403B0074E3DB /* ofxSlider.h */,
-				E0FA9E20193E403B0074E3DB /* ofxSliderGroup.cpp */,
-				E0FA9E21193E403B0074E3DB /* ofxSliderGroup.h */,
-				E0FA9E22193E403B0074E3DB /* ofxToggle.cpp */,
-				E0FA9E23193E403B0074E3DB /* ofxToggle.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -717,8 +655,6 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* App.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* App.h */,
-				E0FA9E2C193E40960074E3DB /* exampleGuiObject.cpp */,
-				E0FA9E2D193E40960074E3DB /* exampleGuiObject.h */,
 				E0FAA176193E798C0074E3DB /* exampleUIObject.cpp */,
 				E0FAA177193E798C0074E3DB /* exampleUIObject.h */,
 			);
@@ -840,7 +776,6 @@
 				96CAC5B63BE24884A7650D51 /* ofxCircleObject.cpp in Sources */,
 				E0FAA128193E79000074E3DB /* ofxUILabel.cpp in Sources */,
 				E0FAA117193E79000074E3DB /* ofxUI2DGraph.cpp in Sources */,
-				E0FA9E28193E403B0074E3DB /* ofxPanel.cpp in Sources */,
 				E0FAA136193E79000074E3DB /* ofxUISortableList.cpp in Sources */,
 				E0FAA133193E79000074E3DB /* ofxUIRotarySlider.cpp in Sources */,
 				61C270E06409BB631149E898 /* ofxDynamicPolygonObject.cpp in Sources */,
@@ -853,15 +788,12 @@
 				E0FAA11C193E79000074E3DB /* ofxUICanvas.cpp in Sources */,
 				E08321DD1936401E000BD296 /* ofxAVFVideoPlayer.mm in Sources */,
 				E0FAA12A193E79000074E3DB /* ofxUILabelToggle.cpp in Sources */,
-				E0FA9E27193E403B0074E3DB /* ofxLabel.cpp in Sources */,
 				026CF86B8E5DE58987E03F04 /* ofxLetterTextObject.cpp in Sources */,
 				E08321DE1936401E000BD296 /* ofxAVFVideoRenderer.m in Sources */,
-				E0FA9E24193E403B0074E3DB /* ofxBaseGui.cpp in Sources */,
 				E0FAA140193E79000074E3DB /* ofxUIWaveform.cpp in Sources */,
 				E0FAA121193E79000074E3DB /* ofxUIFPS.cpp in Sources */,
 				C5011EF6997C1099FC26CC1B /* ofxLineSegmentObject.cpp in Sources */,
 				E0FAA12F193E79000074E3DB /* ofxUINumberDialer.cpp in Sources */,
-				E0FA9E26193E403B0074E3DB /* ofxGuiGroup.cpp in Sources */,
 				E0FAA131193E79000074E3DB /* ofxUIRangeSlider.cpp in Sources */,
 				6720CB17BB1F777BD86119BD /* ofxLineStripObject.cpp in Sources */,
 				9A596E0751B532824F345053 /* ofxMessage.cpp in Sources */,
@@ -877,11 +809,9 @@
 				E0FAA12E193E79000074E3DB /* ofxUIMultiImageToggle.cpp in Sources */,
 				B8EB0219666AA8FFB95857FE /* ofxQuadStripObject.cpp in Sources */,
 				E0FAA178193E798C0074E3DB /* exampleUIObject.cpp in Sources */,
-				E0FA9E25193E403B0074E3DB /* ofxButton.cpp in Sources */,
 				E0FAA132193E79000074E3DB /* ofxUIRectangle.cpp in Sources */,
 				705C1D079461CD39C68403C9 /* ofxRectangleObject.cpp in Sources */,
 				E0FAA13D193E79000074E3DB /* ofxUIToggle.cpp in Sources */,
-				E0FA9E2E193E40960074E3DB /* exampleGuiObject.cpp in Sources */,
 				99092BF9204CB9B8061311F8 /* ofxRoundedArcObject.cpp in Sources */,
 				E0FAA129193E79000074E3DB /* ofxUILabelButton.cpp in Sources */,
 				E0FAA11A193E79000074E3DB /* ofxUIBiLabelSlider.cpp in Sources */,
@@ -896,12 +826,9 @@
 				E0FAA13A193E79000074E3DB /* ofxUITabBar.cpp in Sources */,
 				E0FAA126193E79000074E3DB /* ofxUIImageSlider.cpp in Sources */,
 				E0FAA127193E79000074E3DB /* ofxUIImageToggle.cpp in Sources */,
-				E0FA9E2B193E403B0074E3DB /* ofxToggle.cpp in Sources */,
 				E0FAA125193E79000074E3DB /* ofxUIImageSampler.cpp in Sources */,
 				B0CEF4C0826C2090ECF04681 /* ofxStateMachine.cpp in Sources */,
-				E0FA9E2A193E403B0074E3DB /* ofxSliderGroup.cpp in Sources */,
 				E0FAA120193E79000074E3DB /* ofxUIEventArgs.cpp in Sources */,
-				E0FA9E29193E403B0074E3DB /* ofxSlider.cpp in Sources */,
 				E0FAA123193E79000074E3DB /* ofxUIImage.cpp in Sources */,
 				597431DB068704AD793C0905 /* ofxTextObject.cpp in Sources */,
 				68FBC9C1A8949F60A46F3944 /* ofxTextureObject.cpp in Sources */,

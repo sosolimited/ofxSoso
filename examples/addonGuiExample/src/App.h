@@ -4,7 +4,6 @@
 #include "ofxScene.h"
 #include "ofxSosoRenderer.h"
 
-#include "exampleGuiObject.h"
 #include "exampleUIObject.h"
 
 class App : public ofBaseApp{
@@ -30,13 +29,12 @@ public:
 public:
   ofxScene						*scene;
   
-  exampleGuiObject        *guiObject;
-  exampleUIObject         *UIObject;
+  exampleUIObject     *UIObject;
   
-  // Default Background Color
-  int bgR = 100;
-  int bgG = 100;
-  int bgB = 100;
+  // Default Background Color and Values for Control
+  int defaultR = 100;
+  int defaultG = 100;
+  int defaultB = 100;
   
   int sliderR = 0;
   int sliderG = 0;

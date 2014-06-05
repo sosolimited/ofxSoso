@@ -10,7 +10,7 @@
 
 #include "ofxObject.h"
 #include "ofxUI.h"
-  // Note: ofxUI.h is dependent on ofxXmlSettings.h
+  // ofxUI.h addon is dependent on ofxXmlSettings.h addon
   #include "ofxXmlSettings.h"
 
 class exampleUIObject : public ofxObject {
@@ -21,7 +21,8 @@ public:
   
   void        setup();
   void        idle(float iTime);
-  void        update(); // TODO: explain why not use idle();
+  void        update();
+  
   void        render();
   
   void        exit();
@@ -51,15 +52,15 @@ public:
   ofxUILabelButton      *demoButtonInv;
   ofxUILabel            *demoLabel;
   
-  float       sliderValR = 0;
-  float       sliderValG = 0;
-  float       sliderValB = 0;
-
 private:
   
   bool        isVisible;
   
   int         windowBarHack;
   int         screenWidthHack;
+
+  float       sliderValR = 0;
+  float       sliderValG = 0;
+  float       sliderValB = 0;
 
 };
