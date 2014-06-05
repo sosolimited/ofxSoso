@@ -486,6 +486,17 @@ void ofxObject::setColor(float r, float g, float b)
 	material->color.set(r, g, b, material->color.a);			// AO: Keep original alpha
 }
 
+// set color with an HTML-style hex code string, keep original alpha
+void ofxObject::setColor(string iHex)
+{
+  if(iHex[0] == '#'){
+    iHex = iHex.substr(1,iHex.length());
+  }
+  
+  ofColor c = ofColor::fromHex( strtol(iHex.c_str(),NULL,16) );
+  material->color.set(c.r, c.g, c.b, material->color.a);
+}
+
 // Set color and alpha
 void ofxObject::setColor(float r, float g, float b, float a)
 {
