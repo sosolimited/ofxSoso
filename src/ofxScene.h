@@ -37,6 +37,8 @@
 #pragma once
 
 #include "ofxObject.h"
+#include "ofxSosoRenderer.h"
+
 
 enum{
 	RENDER_NORMAL,
@@ -89,6 +91,9 @@ public:
 	int						getSceneWidth();
 	int						getSceneHeight();
 	ofVec4f				getBackgroundColor(); //LM 061312
+
+  void          enableSetupScreen(bool iEnable);
+  void          setScreenParams(bool iOrthographic, bool iVFlip=false, float iFov=60, float iNearDist=0, float iFarDist=0);
   
 	static int		depthCompareFunc(const void *iElement1, const void *iElement2);
 	
@@ -97,6 +102,10 @@ private:
 	int						sceneHeight;
 	ofVec4f				backgroundColor;
 	bool					isClearBackgroundOn;
+  
+  bool          setupScreenEnabled;
+  ofxSosoRenderer *renderer;
+  
   int						maxSortedObjects;
 	int						maxOnTopObjects;
 	bool					onTopDrawingEnabled;
