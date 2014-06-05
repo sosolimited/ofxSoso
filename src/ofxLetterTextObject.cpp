@@ -20,10 +20,13 @@ ofxLetterTextObjectLetter::ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont,
 
 }
 
+// Destructor.
 ofxLetterTextObjectLetter::~ofxLetterTextObjectLetter()
 {
-    if(charPointer) delete(charPointer);    //eg 0701412
-	//if(font) delete(font); //LM 070612
+  if(charPointer){
+    delete[] charPointer;
+  }
+  //if(font) delete(font); //LM 070612
 }
 
 void ofxLetterTextObjectLetter::render()
@@ -34,13 +37,10 @@ void ofxLetterTextObjectLetter::render()
 	glPopMatrix();
 }
 
-
-
-
-
+//--------------------------------------------------------------------------------------------------------
 
 //class ofxLetterTextObject
-ofxLetterTextObject::ofxLetterTextObject(ofxSosoTrueTypeFont *iFont, char *iString):ofxTextObject(iFont, iString)
+ofxLetterTextObject::ofxLetterTextObject(ofxSosoTrueTypeFont *iFont, string iString):ofxTextObject(iFont, iString)
 {	
 	//Format the text with a call to drawText(). Note last arg is false, which says format, but do not draw.
 	//drawText(0,0,false);		
@@ -48,6 +48,7 @@ ofxLetterTextObject::ofxLetterTextObject(ofxSosoTrueTypeFont *iFont, char *iStri
 	rebuildLetters();
 }
 
+// Destructor.
 ofxLetterTextObject::~ofxLetterTextObject(){
 
     for ( int i = 0; i < letters.size(); i++ )
@@ -58,8 +59,6 @@ ofxLetterTextObject::~ofxLetterTextObject(){
     letters.clear();
     
 }
-
-
 
 void ofxLetterTextObject::cleanupLetters()
 {
