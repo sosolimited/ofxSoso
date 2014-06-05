@@ -33,18 +33,17 @@ public:
   
   
 public:
-  ofxScene						*scene;
+  ofxScene                  *scene;
   
-	ofxSosoTrueTypeFont				*font16,
-  *font64;
+	ofxSosoTrueTypeFont				*font24;
+  ofxSosoTrueTypeFont       *font64;
   
-	ofxTextObject				    *text,
-  *circlesLabel,
-  *lineLabel,
-  *polygonLabel;
-	
+	ofxTextObject             *escapeText;
+  ofxTextObject             *unicodeText;
+  ofxTextObject             *inlineText;
+  
 	ofxLetterTextObject				*letterText;
   
-	ofxAnimation					*animation;
+  
 };
 

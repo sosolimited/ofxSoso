@@ -27,15 +27,15 @@ vector<ofxTextFont *> ofxTextObject::allFonts;
 
 ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString)
 {
-    //NOTE pointsize and leading should always be explicity set after creating text object
-    pointSize = iFont->getSize();       //pointSize defaults to resolution of font
-    leading = (14.0/12.0) * pointSize;  //leading defaults to 14/12 proportion   
-    
-    init(iFont);
-        
-    setString(iString);
-        
-    //make these huge by default so there is not wrapping
+  //NOTE pointsize and leading should always be explicity set after creating text object
+  pointSize = iFont->getSize();       //pointSize defaults to resolution of font
+  leading = (14.0/12.0) * pointSize;  //leading defaults to 14/12 proportion
+  
+  init(iFont);
+  
+  setString(iString);
+  
+  //make these huge by default so there is not wrapping
 	//PEND add wrapping switch
 	columnWidth = 1920000;
 	columnHeight = 1080000;
@@ -53,6 +53,7 @@ ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString)
 
 ofxTextObject::~ofxTextObject()
 {
+
   words.clear();
   lines.clear();
 }
@@ -115,11 +116,8 @@ void ofxTextObject::enableDisplayList(bool iEnable)
 
 
 void ofxTextObject::setString(string iString)
-{	
-    rawText = iString;	//PEND does string clean itself up when you use the = operator to reassign it?    
-
-	//replace any Named Entities (i.e. &amp;) within the [0,255] range with their appropriate unicode characters
-	ofxSosoTrueTypeFont::replaceNamedEntities(rawText);
+{
+  rawText = iString;	//PEND does string clean itself up when you use the = operator to reassign it?
   
 	_loadWords();
 	
@@ -200,10 +198,12 @@ void ofxTextObject::setLeading(float iLeading)
 
 void ofxTextObject::setSpaceWidth(float iWidth)
 {
-  blankSpaceWord.width = iWidth;
+
+  blankSpaceWord.width = iWidth*pointSize;
+
 	for(unsigned int i=0; i < words.size(); i++){
 		if(words[i].rawWord == blankSpaceWord.rawWord){
-			words[i].width = iWidth;
+			words[i].width = iWidth*pointSize;
 		}
 	}
 	wrapTextX(columnWidth);
@@ -340,7 +340,8 @@ float ofxTextObject::getWidth()
       currX = 0.0f;
     }
     //return maxWidth * scale;
-		return maxWidth/getPointSize();
+		return maxWidth;
+
   }
   else return 0;
 }
@@ -348,7 +349,7 @@ float ofxTextObject::getWidth()
 float ofxTextObject::getHeight(){
   
   if (words.size() > 0) {
-    return leading * lines.size();	//soso
+    return leading * lines.size();
   }
   else return 0;
 }
@@ -392,8 +393,8 @@ float ofxTextObject::getLeading()
 
 
 string ofxTextObject::getString()
-{	
-    return rawText;
+{
+  return rawText;
 }
 
 int ofxTextObject::wrapTextX(float lineWidth)
@@ -674,12 +675,13 @@ void ofxTextObject::drawCenter(float x, float y, bool drawFlag)
         
 				words[currentWordID].pos.set(drawX, drawY); //Record word position.
         
-				if(drawFlag){						
+				if(drawFlag){
 					if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.a/255.0f);
-										
-					if(!drawAsShapes){						
-						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);	
-					}else{ //Support for vector drawing																										
+          
+					if(!drawAsShapes){
+						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);
+					}else{ //Support for vector drawing
+
 						words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 					}
 				}
@@ -732,6 +734,7 @@ void ofxTextObject::drawRight(float x, float y, bool drawFlag)
 					if(!drawAsShapes){						
 						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);	
 					}else{ //Support for vector drawing																												 
+
 						words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 					}
 				}
@@ -799,6 +802,7 @@ void ofxTextObject::drawJustified(float x, float y, bool drawFlag)
 						if(!drawAsShapes){						
 							words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);	
 						}else{ //Support for vector drawing																												 
+
 							words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 						}
 					}
@@ -859,7 +863,7 @@ void ofxTextObject::_loadWords()
   wordBlock tmpWord;
   
 	words.clear();
-    
+  
 	string rawBuf = rawText;
 	int size = rawBuf.length();
   
@@ -950,7 +954,7 @@ void ofxTextObject::_loadWords()
 void ofxTextObject::_checkString(string & inputString, string checkBuf, string checkString)
 {
 	int res = inputString.find(checkBuf);
-    
+  
 	if (res != string::npos)
 	{
 		int len = checkBuf.length();
