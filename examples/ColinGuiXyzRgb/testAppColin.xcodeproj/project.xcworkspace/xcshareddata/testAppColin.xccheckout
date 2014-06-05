@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3378046B-12B0-4D11-859B-9A2E2119537A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>testAppColin</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>244BE7AF-468B-4D1B-8F80-BDF81870AE05</key>
+		<string>https://github.com/kronick/ofxAVFVideoPlayer.git</string>
+		<key>C4BC67AE-06DB-4A75-8B44-19AF29979342</key>
+		<string>ssh://github.com/Surfincolin/openFrameworks.git</string>
+		<key>D0751F2F-F11B-4A7A-B9E7-12370E4157A8</key>
+		<string>ssh://github.com/Surfincolin/ofxSoso.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>addons/ofxSoso/examples/ColinGuiXyzRgb/testAppColin.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>244BE7AF-468B-4D1B-8F80-BDF81870AE05</key>
+		<string>../../../../../ofxAVFVideoPlayer</string>
+		<key>C4BC67AE-06DB-4A75-8B44-19AF29979342</key>
+		<string>../../../../../..</string>
+		<key>D0751F2F-F11B-4A7A-B9E7-12370E4157A8</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/Surfincolin/ofxSoso.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C4BC67AE-06DB-4A75-8B44-19AF29979342</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>244BE7AF-468B-4D1B-8F80-BDF81870AE05</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxAVFVideoPlayer</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D0751F2F-F11B-4A7A-B9E7-12370E4157A8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxSoso</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C4BC67AE-06DB-4A75-8B44-19AF29979342</string>
+			<key>IDESourceControlWCCName</key>
+			<string>openFrameworks</string>
+		</dict>
+	</array>
+</dict>
+</plist>
