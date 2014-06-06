@@ -1,11 +1,11 @@
 #include "emptyApp.h"
 
-
 //--------------------------------------------------------------
 void emptyApp::setup(){
   
-  // ofxScene setup
-  ofSetCurrentRenderer(ofPtr<ofBaseRenderer>(new ofxSosoRenderer(false)));
+  // Disable the of setupScreen because now each scene has a custom renderer.
+  ofDisableSetupScreen();
+  
   scene = new ofxScene(ofGetWidth(), ofGetHeight());
 	scene->setBackgroundColor(10, 10, 10);
   // Enable onTop drawing for the sake of the grid lines, which are set up to always render on top.
