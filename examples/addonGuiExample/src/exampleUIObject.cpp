@@ -93,6 +93,8 @@ void exampleUIObject::setup()
   demoButtonInv = new ofxUILabelButton("invert bg color", false, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM, true);
   UI->addWidgetDown(demoButtonInv);
   
+  // Build an updating label
+  UI->addSpacer();
   demoLabel = NULL;
   demoLabel = new ofxUILabel("updating label: ", OFX_UI_FONT_MEDIUM);
   UI->addWidgetDown(demoLabel);
