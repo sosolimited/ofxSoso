@@ -142,7 +142,7 @@ void testApp::update(){
   past = current;
   
   
-  //updating the strings on all the text objects
+  //updating the strings on all the memory text objects
   if (timer > period)
   {
     timer = 0;
