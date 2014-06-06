@@ -67,6 +67,10 @@ ofxObject::ofxObject(){
 	
 	timePrev = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;
 	timeElapsed = 0;
+  
+  //shader info
+  shader = new ofShader();
+  shaderEnabled = true; // Enabled by default
 }
 
 // Destructor.
@@ -350,6 +354,30 @@ void ofxObject::draw(ofxObjectMaterial *iMaterial, float *iMatrix, int iSelect, 
 
 void ofxObject::predraw()
 {
+  //float r = ofRandom(1);
+  //shader->setUniform1f("time", ofGetElapsedTimef());
+  
+  //shaderParams = (void*) shader->setUniform1f("percentX", r);
+  
+
+  // Start shader if there is one
+  if (shaderEnabled){
+    if (shader!=NULL){
+      if(shader->isLoaded()){
+      // Bind the shader
+        
+      shader->begin();
+        
+      setShaderParams();
+        
+       
+      }
+  }
+  }else{
+
+  }
+  
+  
 	glPushName(id);
 	
 	ofSetColor(drawMaterial->color.r, drawMaterial->color.g, drawMaterial->color.b, drawMaterial->color.a);	//v4.0
@@ -396,6 +424,17 @@ void ofxObject::postdraw()
 {
 	//ofPopMatrix();
 	glPopName();
+  
+  // End shader if there is one
+  if (shaderEnabled){
+    if (shader!=NULL){
+      if (shader->isLoaded()){
+      // End the shader
+      shader->end();
+      
+      }
+    }
+  }
 }
 
 int ofxObject::collectNodes(int iSelect, ofxObject *iNodes[], int iNumber, int iMax)
@@ -634,7 +673,52 @@ int ofxObject::getID()
 	return id;
 }
 
+// Set's the object's shader
+void ofxObject::setShader(ofShader *iShader){
+  
+  shader = iShader;
+  
+}
 
+// Load shader from a file.  Assumes frag and vertex shaders have the same filename.
+void ofxObject::loadShader(string iShaderName){
+  
+  if (shader == NULL){
+    shader = new ofShader();
+  }else{
+    delete shader;
+    shader = new ofShader();
+  }
+  shader->load(iShaderName);
+  
+}
+
+// Loads shader from file.  You can individually specify
+// the name of frag, vert, and geo shader.
+void ofxObject::loadShader(string iFragName, string iVertName){
+  
+  if (shader == NULL){
+    shader = new ofShader();
+  }else{
+    delete shader;
+    shader = new ofShader();
+  }
+  shader->load(iFragName, iVertName);
+  
+}
+
+// Enable shaders.  By default, true.
+void ofxObject::setEnableShaders(bool iSet){
+
+  ofLogNotice("Setting shader enabled to " + ofToString(iSet));
+  shaderEnabled = iSet;
+
+}
+
+void ofxObject::setShaderParams(){
+
+  //do nothing by default
+}
 
 void ofxObject::Mul(float *source1, float *source2, float *_dest)
 {

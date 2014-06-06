@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>CBE87EB4-6A4E-4D98-AA95-53472C51218D</string>
+	<string>55FFB390-C58E-459F-901C-9EA1CA13D611</string>
 	<key>IDESourceControlProjectName</key>
 	<string>basicExample</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -18,7 +18,7 @@
 		<string>ssh://github.com/aolivier/openFrameworks.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>addons/ofxSoso/examples/basicExample/basicExample.xcodeproj/project.xcworkspace</string>
+	<string>addons/ofxSoso/examples/mySketch/basicExample.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>085F225A-F22B-4EC2-96A0-264389F668E7</key>
