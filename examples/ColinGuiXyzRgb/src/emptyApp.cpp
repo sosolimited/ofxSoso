@@ -76,11 +76,10 @@ void emptyApp::update(){
     //string text = "Your values" + ofToString(container->getX());
    ofSetCircleResolution(circleResolution);
 
-    //ofColor = color.get();
-    //typedef myColor_<unsigned char> = color;
+    
     circle->outerRadius = radius*0.5;
-    ofSetColor(color);
-    //std:cout << myColor << std::endl;
+    //circle->setTrans(center->x, center->y, 0);
+    
 }
 
 
