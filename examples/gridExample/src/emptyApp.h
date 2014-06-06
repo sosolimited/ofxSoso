@@ -7,6 +7,8 @@
 #include "ofxGridSystem.h"
 #include "myGrid.h"
 #include "ofxTextObject.h"
+#include "ofxImageObject.h"
+#include "ofxRectangleObject.h"
 
 class emptyApp : public ofBaseApp{
   
@@ -26,7 +28,7 @@ public:
   void dragEvent(ofDragInfo dragInfo);
   void gotMessage(ofMessage msg);
   
-  void buildLayout(ofxGridSystem grid);
+  void buildLayout(ofxGridSystem* grid, ofxObject* iRoot);
   
 public:
   ofxScene						*scene;

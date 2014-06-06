@@ -49,7 +49,7 @@ void emptyApp::setup(){
   }
   while(tree.setToSibling()); // setToSibling() auto advances the target sibling element each call
   
-  // switch back to root and add a 5th child
+  // switch back to root and add a 6th child
   tree.setToParent();
   
   if(tree.addChild("story")){
@@ -57,18 +57,18 @@ void emptyApp::setup(){
   }
   
   // set inner value of the newly added story
-  tree.setValue("story[4]", "A final piece of the story");
+  tree.setValue("story[5]", "This is testing adding a node to the tree.");
   
   // give it an ID
-  tree.setToChild(4);
-  tree.setAttribute("id", "4");
+  tree.setToChild(5);
+  tree.setAttribute("id", "6");
   
   // add a new element inside of it
   //tree.addChild("author");
   //tree.setValue("author", "soso");
   
   // show new tree
-  cout << tree.toString() << endl;
+  //cout << tree.toString() << endl;
   
   // loop through tree and draw 3 stories to screen
   ofxSosoTrueTypeFont *font12;
@@ -76,7 +76,9 @@ void emptyApp::setup(){
   font12->loadFont("Arial.ttf", 12, true,  true, false, true);
   
   tree.setToParent();
-  for(int i=0; i<5; i++){
+  int numc = tree.getNumChildren();
+  
+  for(int i=0; i<numc; i++){
     tree.setToChild(i);
     ofxTextObject* tobj = new ofxTextObject(font12, tree.getValue());
     tobj->setColumnWidth(200);
