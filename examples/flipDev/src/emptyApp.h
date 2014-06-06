@@ -2,13 +2,10 @@
 
 #include "ofMain.h"
 #include "ofxScene.h"
-#include "ofxSosoRenderer.h"
 
-#include "ofxGridSystem.h"
-#include "myGrid.h"
-#include "ofxTextObject.h"
 #include "ofxImageObject.h"
-#include "ofxRectangleObject.h"
+#include "ofxFboObject.h"
+
 
 class emptyApp : public ofBaseApp{
   
@@ -28,15 +25,14 @@ public:
   void dragEvent(ofDragInfo dragInfo);
   void gotMessage(ofMessage msg);
   
-  void buildLayout(ofxGridSystem* grid, ofxObject* iRoot);
   
 public:
-  ofxScene						*scene;
-  ofxObject           *root;
   
-  // Specifying the grid as an object lets us use some nice
-  // shorthand conventions when requesting layout values from the grid.
-  myGrid              grid;
+  ofxScene						*mainScene;
+  ofxImageObject      *image;
  
+  ofxFboObject        *fbo;
+  ofxScene            *fboScene;
+  ofxImageObject      *fboImage;
 };
 
