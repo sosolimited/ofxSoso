@@ -32,16 +32,13 @@ public:
   void        onMouseMoved(ofMouseEventArgs & iArgs);
   void        onMouseDragged(ofMouseEventArgs & iArgs);
   
-  void        setIntendedWindowSize(int iW, int iH) { intendedWindowWidth = iW, intendedWindowHeight = iH; }
+//  void        setIntendedWindowSize(int iW, int iH) { intendedWindowWidth = iW, intendedWindowHeight = iH; }
   
   void        toggleVisible() { isVisible = !isVisible; }
   void        setVisible(bool iIsVisible) { isVisible = iIsVisible; }
   
 public:
-  
-  int         intendedWindowWidth;
-  int         intendedWindowHeight;
-  
+    
   // TODO: Add parts and comment
   ofxUICanvas   *UI;
   
@@ -51,6 +48,11 @@ public:
   ofxUIMinimalSlider    *demoSliderB;
   ofxUILabelButton      *demoButtonInv;
   ofxUILabel            *demoLabel;
+  
+  // TODO: MEMORY TEST --  Vector of labels for memory footprint test.
+  vector<ofxUILabel *>    memLabels;
+  // TODO: END MEMORY TEST
+
   
 private:
   

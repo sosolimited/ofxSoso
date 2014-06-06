@@ -28,14 +28,14 @@ exampleUIObject::exampleUIObject()
 
 exampleUIObject::~exampleUIObject()
 {
-
+  // TODO: DESTRUCTORS!
 }
 
 void exampleUIObject::setup()
 {
   // Define some sizing parameters
   int canvas_width = 300;
-  int canvas_height = 600;
+  int canvas_height = 800;
 
   int UIButtonWidth = 200;
   int UIButtonHeight = 20;
@@ -96,14 +96,20 @@ void exampleUIObject::setup()
   // Build an updating label
   UI->addSpacer();
   demoLabel = NULL;
-  demoLabel = new ofxUILabel("updating label: ", OFX_UI_FONT_MEDIUM);
+  demoLabel = new ofxUILabel("updating label", OFX_UI_FONT_MEDIUM);
   UI->addWidgetDown(demoLabel);
   
-  // Add "Sometimes I'm busted message"
+  // TODO: MEMORY TEST -- Labels for memory footprint test
   UI->addSpacer();
-  UI->addLabel("Sometimes I don't work");
-  UI->addLabel("Not sure why.", OFX_UI_FONT_SMALL);
-  UI->addLabel("Restart if unresponsive.", OFX_UI_FONT_SMALL);
+  UI->addLabel("Memory test labels");
+  
+  int labelCount = 50000;
+
+  for (int i = 0; i < labelCount; i++) {
+    memLabels.push_back(new ofxUILabel("memLabel"+ofToString(i), OFX_UI_FONT_MEDIUM));
+    UI->addWidgetDown(memLabels[i]);
+  }
+  // TODO: END MEMORY TEST
   
 }
 
@@ -117,8 +123,17 @@ void exampleUIObject::update()
   
   // Do something to the updating label (so it updates)
   float t = ofGetElapsedTimef();
-  if(demoLabel)
+  if (demoLabel)
     demoLabel->setLabel("updating label: "+ ofToString(t, 2));
+  
+  // TODO: MEMORY TEST --  Update memory test labels
+  int i = 0;
+  for (auto label : memLabels) {
+    if (memLabels[i])
+      memLabels[i]->setLabel(ofToString(rand()));
+    i++;
+  }
+  // TODO: END MEMORY TEST
   
   // Update the UI (ofxUICanvas)
   UI->update();
@@ -150,44 +165,33 @@ void exampleUIObject::exit()
 
 void exampleUIObject::onMouseReleased(ofMouseEventArgs & iArgs)
 {
-  if (ofGetHeight() != intendedWindowHeight)
-    windowBarHack = (intendedWindowHeight - ofGetHeight() )/2.0;
-  
-  if (ofGetWidth() != intendedWindowWidth)
-    screenWidthHack = (intendedWindowWidth - ofGetWidth() )/2.0;
+  windowBarHack = (0 - ofGetHeight() )/2.0;
+  screenWidthHack = (0 - ofGetWidth() )/2.0;
   
   UI->mouseReleased(iArgs.x - getTrans().x + screenWidthHack, iArgs.y+getTrans().y + windowBarHack, iArgs.button);
+
 }
 
 void exampleUIObject::onMousePressed(ofMouseEventArgs & iArgs)
 {
-  if (ofGetHeight() != intendedWindowHeight)
-    windowBarHack = (intendedWindowHeight - ofGetHeight() )/2.0;
-  
-  if (ofGetWidth() != intendedWindowWidth)
-    screenWidthHack = (intendedWindowWidth - ofGetWidth() )/2.0;
-  
+  windowBarHack = (0 - ofGetHeight() )/2.0;
+  screenWidthHack = (0 - ofGetWidth() )/2.0;
+
   UI->mousePressed(iArgs.x - getTrans().x + screenWidthHack, iArgs.y+getTrans().y + windowBarHack, iArgs.button);
 }
 
 void exampleUIObject::onMouseMoved(ofMouseEventArgs & iArgs)
 {
-  if (ofGetHeight() != intendedWindowHeight)
-    windowBarHack = (intendedWindowHeight - ofGetHeight() )/2.0;
-  
-  if (ofGetWidth() != intendedWindowWidth)
-    screenWidthHack = (intendedWindowWidth - ofGetWidth() )/2.0;
-  
+  windowBarHack = (0 - ofGetHeight() )/2.0;
+  screenWidthHack = (0 - ofGetWidth() )/2.0;
+
   UI->mouseMoved(iArgs.x - getTrans().x + screenWidthHack, iArgs.y+getTrans().y + windowBarHack);
 }
 
 void exampleUIObject::onMouseDragged(ofMouseEventArgs & iArgs)
 {
-  if (ofGetHeight() != intendedWindowHeight)
-    windowBarHack = (intendedWindowHeight - ofGetHeight() )/2.0;
-  
-  if (ofGetWidth() != intendedWindowWidth)
-    screenWidthHack = (intendedWindowWidth - ofGetWidth() )/2.0;
-  
+  windowBarHack = (0 - ofGetHeight() )/2.0;
+  screenWidthHack = (0 - ofGetWidth() )/2.0;
+
   UI->mouseDragged(iArgs.x - getTrans().x + screenWidthHack, iArgs.y+getTrans().y + windowBarHack, iArgs.button);
 }

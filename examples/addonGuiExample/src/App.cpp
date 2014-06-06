@@ -4,10 +4,8 @@
 //--------------------------------------------------------------
 void App::setup(){
   
-  //Replace the default ofGLRenderer with ofxSosoRenderer which has overriden setupScreen() and setupScreenPerspective().
-	//This lets us set up the scene graph how we want to.
-	//Warning: Up is up and down is down in this world.
-  ofSetCurrentRenderer(ofPtr<ofBaseRenderer>(new ofxSosoRenderer(false)));
+  // Disable the of setupScreen because now each scene has a custom renderer.
+  ofDisableSetupScreen();
   
   //Create a scene.
 	//The scene is a scene graph that renders objects added to its root and their children and their children's children and so on.
@@ -21,8 +19,10 @@ void App::setup(){
   scene->getRoot()->addChild(UIObject);
   UIObject->setVisible(true);
   
-  int UI_x = -ofGetWindowWidth()/2+50;
-  int UI_y = ofGetWindowHeight()/2-50;
+  int cornerOffset = 20;
+  
+  int UI_x = -ofGetWindowWidth()/2 + cornerOffset;
+  int UI_y = ofGetWindowHeight()/2 - cornerOffset;
   UIObject->setTrans(UI_x, UI_y, 0);
   
   // Add Event Listeners
