@@ -104,6 +104,7 @@ public :
   virtual void      setColor(float r, float g, float b); // Applies object's current alpha value
 	virtual void			setColor(ofVec4f c);
   virtual void      setColor(ofColor c);
+  virtual void      setColor(string iHex);
 	ofVec4f						getColorVec4f();
   ofColor           getColor();
 

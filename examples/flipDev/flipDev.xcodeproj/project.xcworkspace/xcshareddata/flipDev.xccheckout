@@ -5,9 +5,9 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>6311F7BF-929C-4115-A4F1-15C2CA139879</string>
+	<string>2A3234AC-23CA-4D38-BE6F-35939F8B7E9B</string>
 	<key>IDESourceControlProjectName</key>
-	<string>emptyExample</string>
+	<string>flipDev</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>75470FE5-FE14-4B2F-9941-7EE9C998E6E9</key>
@@ -18,7 +18,7 @@
 		<string>ssh://github.com/sosolimited/ofxAVFVideoPlayer.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>addons/ofxSoso/examples/emptyExample/emptyExample.xcodeproj/project.xcworkspace</string>
+	<string>addons/ofxSoso/examples/flipDev/flipDev.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>75470FE5-FE14-4B2F-9941-7EE9C998E6E9</key>
