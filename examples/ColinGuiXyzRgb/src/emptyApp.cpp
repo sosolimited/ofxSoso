@@ -5,16 +5,15 @@
 //--------------------------------------------------------------
 void emptyApp::setup(){
   ofSetVerticalSync(true);
-  //Replace the default ofGLRenderer with ofxSosoRenderer which has overriden setupScreen() and setupScreenPerspective().
-	//This lets us set up the scene graph how we want to.
-	//Warning: Up is up and down is down in this world.
-  ofSetCurrentRenderer(ofPtr<ofBaseRenderer>(new ofxSosoRenderer(false)));
+  
+    // Disable the of setupScreen because now each scene has a custom renderer.
+    ofDisableSetupScreen();
   
   //Create a scene.
 	//The scene is a scene graph that renders objects added to its root and their children and their children's children and so on.
 	//When the render mode of the scene is set to RENDER_ALPHA_DEPTH_SORTED, it handles sorting of both transparent and opaque objects in the z-axis.
-  scene = new ofxScene(ofGetWidth()/2, ofGetHeight()/2);
-    scene->setBackgroundColor(80, 80, 80, 0);
+  scene = new ofxScene(ofGetWidth(), ofGetHeight());
+  scene->setBackgroundColor(80, 80, 80, 0);
     
 //    font16 = new ofxSosoTrueTypeFont();
 //    font16->loadFont("Arial.ttf", 16, true,  true, false, true);		//The last bool argument enables mipmapping on the letter textures.
@@ -44,9 +43,6 @@ void emptyApp::setup(){
     
     // we add this listener before setting up so the initial circle resolution is correct
 	circleResolution.addListener(this, &emptyApp::circleResolutionChanged);
-	
-    fbo = new ofFbo();
-    fbo->allocate(ofGetWidth()/2,ofGetHeight()/2);
     
     //--------------------------------------------------------------
     
@@ -80,12 +76,23 @@ void emptyApp::update(){
     //string text = "Your values" + ofToString(container->getX());
    ofSetCircleResolution(circleResolution);
 
-    
+    //ofColor = color.get();
+    //typedef myColor_<unsigned char> = color;
+    circle->outerRadius = radius*0.5;
+    ofSetColor(color);
+    //std:cout << myColor << std::endl;
 }
 
 
 //--------------------------------------------------------------
 void emptyApp::draw(){
+    
+    scene->draw();
+    
+    ofPushMatrix();
+    ofScale(1,-1,-1);
+    ofTranslate(-ofGetWindowWidth()/2, -ofGetWindowHeight()/2);
+    
     ofBackgroundGradient(ofColor::white, ofColor::gray);
 	//Call draw on scene, which initiates the drawing of the root object.
 
@@ -107,18 +114,13 @@ void emptyApp::draw(){
 	// auto draw?
 	// should the gui control hiding?
 	if( bHide ){
-        ofPushMatrix();
-        
-        ofScale(1,-1,-1);
-        ofTranslate(-ofGetWindowWidth()/2, -ofGetWindowHeight()/2);
+
+
 		gui.draw();
-        ofPopMatrix();
+
 	}
-    fbo->begin();
-    scene->draw();
-    fbo->end();
     
-    fbo->draw(200,200);
+    ofPopMatrix();
 }
 
 //--------------------------------------------------------------

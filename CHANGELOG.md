@@ -11,6 +11,21 @@ Copyright (C) 2013 Sosolimited
 
 CORE
 ----
+
+
+### ofxScene  
+  6/5/2014, EG:
+  + added renderer to ofxScene, along with setScreenParns to set proj/modelview matrices in a scene
+  / cleaned up draw to accomodate this new approach
+
+### ofxSosoRenderer  
+  6/5/2014, EG:
+  + added projectionMatrix and modelViewMatrix
+  / simplified setupScreen( ). 
+  + added all projection and modelview params as member vars so that you can change them
+  / proj and modelview matrix are built in setScreenParams(...) and reused in setupScreen()
+  / no longer using gluLookAt in setupScreen. Now doing it the OF way.
+
 ### ofxCircleObject
 	5/30/2014, JN:
 	/ destructor: added proper deletion call for circlePoints (an array of pointers).
