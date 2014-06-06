@@ -551,7 +551,9 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 		}
 	}
   
-  
+  //TODO: Soso - can we clean up the memory footprint here, by deleting the pixels
+  //not using the pixels any more
+  //atlasPixels.clear();
   
 	// ------------- close the library and typeface
 	FT_Done_Face(face);

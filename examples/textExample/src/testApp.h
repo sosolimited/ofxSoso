@@ -44,6 +44,10 @@ public:
   
 	ofxLetterTextObject				*letterText;
   
+  //memory management
+  vector<ofxTextObject *>           memTexts;
+  vector<ofxSosoTrueTypeFont *>     memFonts;
+  
   
 };
 

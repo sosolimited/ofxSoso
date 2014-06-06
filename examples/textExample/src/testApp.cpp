@@ -25,6 +25,15 @@ void testApp::setup(){
   
 	font64 = new ofxSosoTrueTypeFont();
   font64->loadFont("National-Regular.otf", 64, true,  true, false, true);
+  
+  //memory test for lots of fonts
+  for (int i=0; i<20; i++)
+  {
+    ofxSosoTrueTypeFont *f = new ofxSosoTrueTypeFont();
+    //f->loadFont("National-Regular.otf", i*12+12, true, true);
+    f->loadFont("National-Regular.otf", 96, true, true);
+    memFonts.push_back(f);
+  }
 	
   
 	//Create a text object.
@@ -85,6 +94,22 @@ void testApp::setup(){
 //  }
 //  cout << endl;
   
+  //testing memory footprint
+  for (int i=0; i<1000; i++)
+  {
+    string s;
+    for (int i=0; i<150; i++)
+    {
+      s += (unsigned char)ofRandom(33, 240);
+    }
+    int font_index = (int) ofRandom(memFonts.size());
+    ofxTextObject *t = new ofxTextObject(memFonts[font_index], s);
+    t->setColor(240, 240, 240);
+    t->setPointSize(12);
+    t->setTrans(trans + ofVec3f(0, -unicodeText->getLeading()*9.0 - i*1.0, 0));
+    scene->getRoot()->addChild(t);
+    memTexts.push_back(t);
+  }
   
   //Create a letter text object. This lets you treat each letter as a separate object to animate as you please.
   //See how the letters are animated below in keyPressed()
@@ -106,6 +131,37 @@ void testApp::update(){
 	//Update the scene with the current time. This call propagates the idle() call to all objects as well.
 	//Note: If you are capturing frames to create a movie, simply replace ofGetElapsedTimef() with a float variable that you increment by a fixed time interval each frame.
   scene->update(ofGetElapsedTimef());
+  
+  static float current = ofGetElapsedTimef();
+  static float past = ofGetElapsedTimef();
+  static float timer = 0.0;
+  float period = 2.0;
+  
+  current = ofGetElapsedTimef();
+  timer += (current - past);
+  past = current;
+  
+  
+  //updating the strings on all the text objects
+  if (timer > period)
+  {
+    timer = 0;
+    
+    //set string for all the text
+    for (auto t : memTexts)
+    {
+      string s;
+      for (int i=0; i<150; i++)
+      {
+        s += (unsigned char)ofRandom(33, 240);
+      }
+      t->setString(s);
+    }
+    
+  }
+  
+  
+  
 }
 
 //--------------------------------------------------------------
