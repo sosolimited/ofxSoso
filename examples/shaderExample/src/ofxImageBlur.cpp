@@ -48,7 +48,7 @@ void ofxImageBlur::render(){
   float blur = 5;
   
   // Begin fbo one
-  fboBlurOnePass->begin();
+  fboBlurOnePass->begin(false);
   
   //begin first shader
   shaderX->begin();
@@ -59,7 +59,7 @@ void ofxImageBlur::render(){
   shaderX->end();
   
   //start fbo 2
-  fboBlurTwoPass->begin();
+  fboBlurTwoPass->begin(false);
   
   shaderY->begin();
   shaderY->setUniform1f("blurAmnt", blur);
