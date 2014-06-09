@@ -4,13 +4,9 @@
 #include "ofxScene.h"
 #include "ofxSosoRenderer.h"
 
-#include "ofxGridSystem.h"
-#include "myGrid.h"
-#include "ofxTextObject.h"
-#include "ofxImageObject.h"
-#include "ofxRectangleObject.h"
+#include "exampleUIObject.h"
 
-class emptyApp : public ofBaseApp{
+class App : public ofBaseApp{
   
 public:
   
@@ -28,15 +24,24 @@ public:
   void dragEvent(ofDragInfo dragInfo);
   void gotMessage(ofMessage msg);
   
-  void buildLayout(ofxGridSystem* grid, ofxObject* iRoot);
+  void UIEvent(ofxUIEventArgs &e);
   
 public:
   ofxScene						*scene;
-  ofxObject           *root;
   
-  // Specifying the grid as an object lets us use some nice
-  // shorthand conventions when requesting layout values from the grid.
-  myGrid              grid;
+  exampleUIObject     *UIObject;
+  
+  // Default Background Color and Values for Control
+  int defaultR = 100;
+  int defaultG = 100;
+  int defaultB = 100;
+  
+  int sliderR = 0;
+  int sliderG = 0;
+  int sliderB = 0;
+  
+  bool bgControl = 0;
+  bool bgInvert = 0;
  
 };
 

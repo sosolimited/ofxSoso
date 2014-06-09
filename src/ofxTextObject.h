@@ -47,6 +47,7 @@ public:
 class wordBlock {
 public:
   string              rawWord;
+  string              convertedWord;
   ofVec2f             pos;
   vector<ofVec2f>     charPositions;
   float               width;

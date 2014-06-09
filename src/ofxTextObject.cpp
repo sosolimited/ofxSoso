@@ -53,7 +53,7 @@ ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString)
 
 ofxTextObject::~ofxTextObject()
 {
-
+  
   words.clear();
   lines.clear();
 }
@@ -198,9 +198,9 @@ void ofxTextObject::setLeading(float iLeading)
 
 void ofxTextObject::setSpaceWidth(float iWidth)
 {
-
+  
   blankSpaceWord.width = iWidth*pointSize;
-
+  
 	for(unsigned int i=0; i < words.size(); i++){
 		if(words[i].rawWord == blankSpaceWord.rawWord){
 			words[i].width = iWidth*pointSize;
@@ -341,7 +341,7 @@ float ofxTextObject::getWidth()
     }
     //return maxWidth * scale;
 		return maxWidth;
-
+    
   }
   else return 0;
 }
@@ -358,6 +358,7 @@ float ofxTextObject::getColumnWidth()
 {
 	return columnWidth;
 }
+
 
 ofVec2f ofxTextObject::getCharPosition(int iIndex) {
   if (iIndex >= 0 && iIndex < rawText.size()) {
@@ -681,7 +682,7 @@ void ofxTextObject::drawCenter(float x, float y, bool drawFlag)
 					if(!drawAsShapes){
 						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);
 					}else{ //Support for vector drawing
-
+            
 						words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 					}
 				}
@@ -728,13 +729,13 @@ void ofxTextObject::drawRight(float x, float y, bool drawFlag)
 				
 				words[currentWordID].pos.set(drawX, drawY); //Record word position.
         
-				if(drawFlag){						
+				if(drawFlag){
 					if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.a/255.0f);	//soso - removed this functionality for now //LM13 added back in..eep?
-													
-					if(!drawAsShapes){						
-						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);	
-					}else{ //Support for vector drawing																												 
-
+          
+					if(!drawAsShapes){
+						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);
+					}else{ //Support for vector drawing
+            
 						words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 					}
 				}
@@ -798,11 +799,11 @@ void ofxTextObject::drawJustified(float x, float y, bool drawFlag)
 				if (words[currentWordID].rawWord != " ") {
 					if(drawFlag){
 						if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.a/255.0f);	//soso - removed this functionality for now //LM13 added back in..eep?
-
-						if(!drawAsShapes){						
-							words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);	
-						}else{ //Support for vector drawing																												 
-
+            
+						if(!drawAsShapes){
+							words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);
+						}else{ //Support for vector drawing
+              
 							words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 						}
 					}
@@ -855,20 +856,16 @@ int ofxTextObject::_getLinedWords()
   else return 0;
 }
 
-//soso - load words used to delete new lines
-//PEND - need to make sure we are deleting all the helper buffers
+//takes an input string and creates a series of word blocks
 void ofxTextObject::_loadWords()
 {
-	//soso - doing this the nitty gritty way
-  wordBlock tmpWord;
-  
 	words.clear();
   
 	string rawBuf = rawText;
 	int size = rawBuf.length();
   
 	const int maxWordSize = 500;
-	char wordBuf[maxWordSize];
+	string wordBuf = "";
   
 	int wordBufIndex = 0;
   
@@ -880,9 +877,11 @@ void ofxTextObject::_loadWords()
 			//close the existing word buffer
 			if (wordBufIndex > 0)
 			{
-				string wordString(wordBuf, wordBufIndex);
+				string wordString(wordBuf, 0, wordBufIndex);
         
+        wordBlock tmpWord;
 				tmpWord.rawWord = wordString;
+        tmpWord.convertedWord = ofxSosoTrueTypeFont::convertStringTo255(wordString);
 				tmpWord.width   = font->stringWidth(tmpWord.rawWord);
 				tmpWord.height  = font->stringHeight(tmpWord.rawWord);
 				tmpWord.color.r = material->color.r;
@@ -895,7 +894,7 @@ void ofxTextObject::_loadWords()
 				words.push_back(tmpWord);
         
 				//reset
-				wordBuf[0] = 0;
+				wordBuf = "";
 				wordBufIndex = 0;
 			}
       
@@ -911,8 +910,7 @@ void ofxTextObject::_loadWords()
 		else {
 			if (wordBufIndex < maxWordSize - 1)
 			{
-				wordBuf[wordBufIndex] = c;
-				wordBuf[wordBufIndex + 1] = 0;
+				wordBuf += c;
 				wordBufIndex++;
 			}
 		}
@@ -921,9 +919,11 @@ void ofxTextObject::_loadWords()
 	//close the last word
 	if (wordBufIndex > 0)
 	{
-		string wordString(wordBuf, wordBufIndex);
+		string wordString(wordBuf, 0, wordBufIndex);
     
+    wordBlock tmpWord;
 		tmpWord.rawWord = wordString;
+    tmpWord.convertedWord = ofxSosoTrueTypeFont::convertStringTo255(wordString);
 		tmpWord.width   = font->stringWidth(tmpWord.rawWord);
 		tmpWord.height  = font->stringHeight(tmpWord.rawWord);
 		tmpWord.color.r = material->color.r;
@@ -936,15 +936,13 @@ void ofxTextObject::_loadWords()
 		words.push_back(tmpWord);
     
 		//reset
-		wordBuf[0] = 0;
+		wordBuf = "";
 		wordBufIndex = 0;
 	}
   
-  
-  
   for(int i=0;i < words.size(); i++)
   {
-    ofLog(OF_LOG_VERBOSE, "Loaded word: %i, %s\n", i, words[i].rawWord.c_str());
+    //ofLog(OF_LOG_VERBOSE, "Loaded word: %i, %s\n", i, words[i].rawWord.c_str());
   }
   
   
