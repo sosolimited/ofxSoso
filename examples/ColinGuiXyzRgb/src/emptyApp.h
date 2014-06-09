@@ -4,10 +4,11 @@
 #include "ofxGui.h"
 #include "ofxScene.h"
 #include "ofxObject.h"
+#include "ofxGuiObject.h"
 #include "ofxTextObject.h"
 #include "ofxCircleObject.h"
 #include "ofxAnimation.h"
-#include "ofxSosoRenderer.h"
+//#include "ofxSosoRenderer.h"
 
 
 class emptyApp : public ofBaseApp{
@@ -37,22 +38,10 @@ public:
     ofxSosoTrueTypeFont			*font16;
     int                         countMe;
     
-    //GUI Assets
-    void circleResolutionChanged(int & circleResolution);
-	
+    ofxGuiObject                *controls;
     
-    bool bHide;
     
-    ofxFloatSlider radius;
-	ofxColorSlider color;
-	ofxVec2Slider center;
-	ofxIntSlider circleResolution;
-	ofxToggle filled;
-	ofxButton twoCircles;
-	
-	ofxLabel screenSize;
-    
-	ofxPanel gui;
-    ofFbo *fbo;
+   
+
 };
 

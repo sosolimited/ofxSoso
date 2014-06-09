@@ -36,36 +36,25 @@ void emptyApp::setup(){
     container = new ofxObject();
     
     container->addChild(circle);
-    container->setTrans(100,-200,0);
+    //container->setTrans(100,-200,0);
     
     scene->getRoot()->addChild(container);
     
+    controls = new ofxGuiObject();
+    //controls->setTrans(0, 0, -3);
+    scene->getRoot()->addChild(controls);
     
-    // we add this listener before setting up so the initial circle resolution is correct
-	circleResolution.addListener(this, &emptyApp::circleResolutionChanged);
     
-    //--------------------------------------------------------------
-    
-    gui.setup(); // most of the time you don't need a name
-	gui.add(filled.setup("fill", true));
-	gui.add(radius.setup( "radius", 140, 10, 300 ));
-	gui.add(center.setup("center",ofVec2f(ofGetWidth()*.5,ofGetHeight()*.5),ofVec2f(0,0),ofVec2f(ofGetWidth(),ofGetHeight())));
-	gui.add(color.setup("color",ofColor(100,100,140),ofColor(0,0),ofColor(255,255)));
-	gui.add(circleResolution.setup("circle res", 5, 3, 90));
-	gui.add(twoCircles.setup("two circles"));
-	
-	gui.add(screenSize.setup("screen size", ""));
-    
-	bHide = true;
     
     
   
 }
 
 //--------------------------------------------------------------
-void emptyApp::circleResolutionChanged(int & circleResolution){
+void ofxGuiObject::circleResolutionChanged(int & circleResolution){
 	ofSetCircleResolution(circleResolution);
 }
+
 
 //--------------------------------------------------------------
 void emptyApp::update(){
@@ -74,11 +63,12 @@ void emptyApp::update(){
 	//Note: If you are capturing frames to create a movie, simply replace ofGetElapsedTimef() with a float variable that you increment by a fixed time interval each frame.
   scene->update(ofGetElapsedTimef());
     //string text = "Your values" + ofToString(container->getX());
-   ofSetCircleResolution(circleResolution);
+   
+    ofSetCircleResolution(controls->circleResolution);
 
     
-    circle->outerRadius = radius*0.5;
-    //circle->setTrans(center->x, center->y, 0);
+    circle->outerRadius = controls->radius*0.5;
+    circle->setTrans(controls->center->x-ofGetWindowWidth()/2, (controls->center->y*-1)+ofGetWindowHeight()/2, 0);
     
 }
 
@@ -96,26 +86,26 @@ void emptyApp::draw(){
 	//Call draw on scene, which initiates the drawing of the root object.
 
     
-    if( filled ){
+    if( controls->filled ){
 		ofFill();
 	}else{
 		ofNoFill();
 	}
     
-	ofSetColor(color);
-	if(twoCircles){
-		ofCircle(center->x-radius*.5, center->y, radius );
-		ofCircle(center->x+radius*.5, center->y, radius );
+	ofSetColor(controls->color);
+	if(controls->twoCircles){
+		ofCircle(controls->center->x-controls->radius*.5, controls->center->y, controls->radius );
+		ofCircle(controls->center->x+controls->radius*.5, controls->center->y, controls->radius );
 	}else{
-		ofCircle((ofVec2f)center, radius );
+		ofCircle((ofVec2f)controls->center, controls->radius );
     }
 	
 	// auto draw?
 	// should the gui control hiding?
-	if( bHide ){
+	if( controls->bHide ){
 
 
-		gui.draw();
+		controls->gui.draw();
 
 	}
     
@@ -125,16 +115,16 @@ void emptyApp::draw(){
 //--------------------------------------------------------------
 void emptyApp::keyPressed  (int key){
     if( key == 'h' ){
-		bHide = !bHide;
+		controls->bHide = !controls->bHide;
 	}
 	if(key == 's') {
-		gui.saveToFile("settings.xml");
+		controls->gui.saveToFile("settings.xml");
 	}
 	if(key == 'l') {
-		gui.loadFromFile("settings.xml");
+		controls->gui.loadFromFile("settings.xml");
 	}
 	if(key == ' '){
-		color = ofColor(255);
+		controls->color = ofColor(255);
 	}
 
 }
@@ -169,7 +159,7 @@ void emptyApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void emptyApp::windowResized(int w, int h){
-  screenSize = ofToString(w) + "x" + ofToString(h);
+  controls->screenSize = ofToString(w) + "x" + ofToString(h);
 }
 
 //--------------------------------------------------------------

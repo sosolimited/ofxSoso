@@ -10,6 +10,7 @@
 		026CF86B8E5DE58987E03F04 /* ofxLetterTextObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1B8E0989DC53B6FDEFD880F /* ofxLetterTextObject.cpp */; };
 		0582076D75617CEFE6DA8FA7 /* ofxAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F29736B722EF53C94B796455 /* ofxAnimation.cpp */; };
 		0C37599CCC1E63C7BE2E2105 /* ofxArcObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1629FBCD3B4615F4A2976C9 /* ofxArcObject.cpp */; };
+		241DD93119462DF90086BC69 /* ofxGuiObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 241DD92F19462DF90086BC69 /* ofxGuiObject.cpp */; };
 		24923FCC194128BB00750214 /* ofxBaseGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24923FBB194128BB00750214 /* ofxBaseGui.cpp */; };
 		24923FCD194128BB00750214 /* ofxButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24923FBD194128BB00750214 /* ofxButton.cpp */; };
 		24923FCE194128BB00750214 /* ofxGuiGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24923FC0194128BB00750214 /* ofxGuiGroup.cpp */; };
@@ -99,6 +100,8 @@
 /* Begin PBXFileReference section */
 		02F94DB9B28278CE52047F76 /* ofxCircleObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxCircleObject.h; path = ../../src/ofxCircleObject.h; sourceTree = SOURCE_ROOT; };
 		18CEFEAF8B9335458C193C11 /* ofxQuadStripObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxQuadStripObject.cpp; path = ../../src/ofxQuadStripObject.cpp; sourceTree = SOURCE_ROOT; };
+		241DD92F19462DF90086BC69 /* ofxGuiObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGuiObject.cpp; sourceTree = "<group>"; };
+		241DD93019462DF90086BC69 /* ofxGuiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxGuiObject.h; sourceTree = "<group>"; };
 		24923FBB194128BB00750214 /* ofxBaseGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBaseGui.cpp; sourceTree = "<group>"; };
 		24923FBC194128BB00750214 /* ofxBaseGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBaseGui.h; sourceTree = "<group>"; };
 		24923FBD194128BB00750214 /* ofxButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxButton.cpp; sourceTree = "<group>"; };
@@ -421,6 +424,8 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* emptyApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* emptyApp.h */,
+				241DD92F19462DF90086BC69 /* ofxGuiObject.cpp */,
+				241DD93019462DF90086BC69 /* ofxGuiObject.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -545,6 +550,7 @@
 				B8EB0219666AA8FFB95857FE /* ofxQuadStripObject.cpp in Sources */,
 				24923FCD194128BB00750214 /* ofxButton.cpp in Sources */,
 				705C1D079461CD39C68403C9 /* ofxRectangleObject.cpp in Sources */,
+				241DD93119462DF90086BC69 /* ofxGuiObject.cpp in Sources */,
 				99092BF9204CB9B8061311F8 /* ofxRoundedArcObject.cpp in Sources */,
 				B7D9CC22C351CF45AC9C5C95 /* ofxScene.cpp in Sources */,
 				8F9FB5420679D5365862DAAC /* ofxSosoRenderer.cpp in Sources */,
