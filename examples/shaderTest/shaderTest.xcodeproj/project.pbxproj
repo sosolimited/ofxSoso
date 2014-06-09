@@ -38,23 +38,6 @@
 		E08321EB19364075000BD296 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E08321EA19364075000BD296 /* AVFoundation.framework */; };
 		E08321ED1936408B000BD296 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E08321EC1936408B000BD296 /* Carbon.framework */; };
 		E09E8E9E19366B96003DA9FA /* ofxScroller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E09E8E9C19366B96003DA9FA /* ofxScroller.cpp */; };
-		E0CA470B19420BF1002BC03E /* shaderWavyPlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0CA470A19420BF1002BC03E /* shaderWavyPlane.cpp */; };
-		E0CA470E19421266002BC03E /* shaderNoisyPlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0CA470D19421266002BC03E /* shaderNoisyPlane.cpp */; };
-		E0CA471119423365002BC03E /* shaderColorRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0CA471019423365002BC03E /* shaderColorRect.cpp */; };
-		E0CA471519423939002BC03E /* shaderImageMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0CA471419423939002BC03E /* shaderImageMask.cpp */; };
-		E0CA471819425397002BC03E /* shaderImageBlur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0CA471719425397002BC03E /* shaderImageBlur.cpp */; };
-		E0CA473719463327002BC03E /* shaderBlurX.frag in Sources */ = {isa = PBXBuildFile; fileRef = E0CA472719463327002BC03E /* shaderBlurX.frag */; };
-		E0CA473819463327002BC03E /* shaderBlurX.vert in Sources */ = {isa = PBXBuildFile; fileRef = E0CA472819463327002BC03E /* shaderBlurX.vert */; };
-		E0CA473919463327002BC03E /* shaderBlurY.frag in Sources */ = {isa = PBXBuildFile; fileRef = E0CA472919463327002BC03E /* shaderBlurY.frag */; };
-		E0CA473A19463327002BC03E /* shaderBlurY.vert in Sources */ = {isa = PBXBuildFile; fileRef = E0CA472A19463327002BC03E /* shaderBlurY.vert */; };
-		E0CA473B19463327002BC03E /* image_mask.frag in Sources */ = {isa = PBXBuildFile; fileRef = E0CA472C19463327002BC03E /* image_mask.frag */; };
-		E0CA473C19463327002BC03E /* image_mask.vert in Sources */ = {isa = PBXBuildFile; fileRef = E0CA472D19463327002BC03E /* image_mask.vert */; };
-		E0CA473D19463327002BC03E /* mouse_to_color.frag in Sources */ = {isa = PBXBuildFile; fileRef = E0CA472F19463327002BC03E /* mouse_to_color.frag */; };
-		E0CA473E19463327002BC03E /* mouse_to_color.vert in Sources */ = {isa = PBXBuildFile; fileRef = E0CA473019463327002BC03E /* mouse_to_color.vert */; };
-		E0CA473F19463327002BC03E /* noise_texture_plane.frag in Sources */ = {isa = PBXBuildFile; fileRef = E0CA473219463327002BC03E /* noise_texture_plane.frag */; };
-		E0CA474019463327002BC03E /* noise_texture_plane.vert in Sources */ = {isa = PBXBuildFile; fileRef = E0CA473319463327002BC03E /* noise_texture_plane.vert */; };
-		E0CA474119463327002BC03E /* sine_wave_plane.frag in Sources */ = {isa = PBXBuildFile; fileRef = E0CA473519463327002BC03E /* sine_wave_plane.frag */; };
-		E0CA474219463327002BC03E /* sine_wave_plane.vert in Sources */ = {isa = PBXBuildFile; fileRef = E0CA473619463327002BC03E /* sine_wave_plane.vert */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
@@ -65,7 +48,7 @@
 		E45BE9830E8CC7DD009D7055 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9790E8CC7DD009D7055 /* OpenGL.framework */; };
 		E45BE9840E8CC7DD009D7055 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
-		E4B69E210A3A1BDC003C02F2 /* shaderApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* shaderApp.cpp */; };
+		E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
 		E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424410CC5A17004149E2 /* AppKit.framework */; };
 		E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424510CC5A17004149E2 /* Cocoa.framework */; };
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
@@ -160,28 +143,6 @@
 		E08321EC1936408B000BD296 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		E09E8E9C19366B96003DA9FA /* ofxScroller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxScroller.cpp; path = ../../src/ofxScroller.cpp; sourceTree = "<group>"; };
 		E09E8E9D19366B96003DA9FA /* ofxScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxScroller.h; path = ../../src/ofxScroller.h; sourceTree = "<group>"; };
-		E0CA470919420BE1002BC03E /* shaderWavyPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shaderWavyPlane.h; sourceTree = "<group>"; };
-		E0CA470A19420BF1002BC03E /* shaderWavyPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shaderWavyPlane.cpp; sourceTree = "<group>"; };
-		E0CA470C19421258002BC03E /* shaderNoisyPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shaderNoisyPlane.h; sourceTree = "<group>"; };
-		E0CA470D19421266002BC03E /* shaderNoisyPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shaderNoisyPlane.cpp; sourceTree = "<group>"; };
-		E0CA470F19423357002BC03E /* shaderColorRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shaderColorRect.h; sourceTree = "<group>"; };
-		E0CA471019423365002BC03E /* shaderColorRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shaderColorRect.cpp; sourceTree = "<group>"; };
-		E0CA47131942392C002BC03E /* shaderImageMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shaderImageMask.h; sourceTree = "<group>"; };
-		E0CA471419423939002BC03E /* shaderImageMask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shaderImageMask.cpp; sourceTree = "<group>"; };
-		E0CA47161942538B002BC03E /* shaderImageBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shaderImageBlur.h; sourceTree = "<group>"; };
-		E0CA471719425397002BC03E /* shaderImageBlur.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shaderImageBlur.cpp; sourceTree = "<group>"; };
-		E0CA472719463327002BC03E /* shaderBlurX.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shaderBlurX.frag; sourceTree = "<group>"; };
-		E0CA472819463327002BC03E /* shaderBlurX.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shaderBlurX.vert; sourceTree = "<group>"; };
-		E0CA472919463327002BC03E /* shaderBlurY.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shaderBlurY.frag; sourceTree = "<group>"; };
-		E0CA472A19463327002BC03E /* shaderBlurY.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shaderBlurY.vert; sourceTree = "<group>"; };
-		E0CA472C19463327002BC03E /* image_mask.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = image_mask.frag; sourceTree = "<group>"; };
-		E0CA472D19463327002BC03E /* image_mask.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = image_mask.vert; sourceTree = "<group>"; };
-		E0CA472F19463327002BC03E /* mouse_to_color.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = mouse_to_color.frag; sourceTree = "<group>"; };
-		E0CA473019463327002BC03E /* mouse_to_color.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = mouse_to_color.vert; sourceTree = "<group>"; };
-		E0CA473219463327002BC03E /* noise_texture_plane.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = noise_texture_plane.frag; sourceTree = "<group>"; };
-		E0CA473319463327002BC03E /* noise_texture_plane.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = noise_texture_plane.vert; sourceTree = "<group>"; };
-		E0CA473519463327002BC03E /* sine_wave_plane.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = sine_wave_plane.frag; sourceTree = "<group>"; };
-		E0CA473619463327002BC03E /* sine_wave_plane.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = sine_wave_plane.vert; sourceTree = "<group>"; };
 		E1B8E0989DC53B6FDEFD880F /* ofxLetterTextObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLetterTextObject.cpp; path = ../../src/ofxLetterTextObject.cpp; sourceTree = SOURCE_ROOT; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -192,10 +153,10 @@
 		E45BE9770E8CC7DD009D7055 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		E45BE9790E8CC7DD009D7055 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
-		E4B69B5B0A3A1756003C02F2 /* shaderExampleDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shaderExampleDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B69B5B0A3A1756003C02F2 /* shaderTestDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shaderTestDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
-		E4B69E1E0A3A1BDC003C02F2 /* shaderApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = shaderApp.cpp; path = src/shaderApp.cpp; sourceTree = SOURCE_ROOT; };
-		E4B69E1F0A3A1BDC003C02F2 /* shaderApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = shaderApp.h; path = src/shaderApp.h; sourceTree = SOURCE_ROOT; };
+		E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofApp.cpp; path = src/ofApp.cpp; sourceTree = SOURCE_ROOT; };
+		E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ofApp.h; path = src/ofApp.h; sourceTree = SOURCE_ROOT; };
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
 		E4C2424410CC5A17004149E2 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		E4C2424510CC5A17004149E2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -289,6 +250,8 @@
 		D0244E8B23E9BDA4222A2E1B /* src */ = {
 			isa = PBXGroup;
 			children = (
+				E09E8E9C19366B96003DA9FA /* ofxScroller.cpp */,
+				E09E8E9D19366B96003DA9FA /* ofxScroller.h */,
 				F29736B722EF53C94B796455 /* ofxAnimation.cpp */,
 				402CD85B7C6B2EBB86EC8EA6 /* ofxAnimation.h */,
 				A1629FBCD3B4615F4A2976C9 /* ofxArcObject.cpp */,
@@ -327,8 +290,6 @@
 				910A9C041F0490A0B7776A85 /* ofxSosoRenderer.h */,
 				80897F89549F3B92332DE157 /* ofxSosoTrueTypeFont.cpp */,
 				C3AF64D4C898D60C5E0C40A4 /* ofxSosoTrueTypeFont.h */,
-				E09E8E9D19366B96003DA9FA /* ofxScroller.h */,
-				E09E8E9C19366B96003DA9FA /* ofxScroller.cpp */,
 				5A2A550BBA1D447BD4E6CCB6 /* ofxStateMachine.cpp */,
 				A8016EB18DD789148E47434C /* ofxStateMachine.h */,
 				F9C0A3AB8BF5A997501714BA /* ofxTextObject.cpp */,
@@ -361,83 +322,6 @@
 			path = src;
 			sourceTree = "<group>";
 		};
-		E0CA470819420B5A002BC03E /* ShaderObjects */ = {
-			isa = PBXGroup;
-			children = (
-				E0CA470F19423357002BC03E /* shaderColorRect.h */,
-				E0CA471019423365002BC03E /* shaderColorRect.cpp */,
-				E0CA47161942538B002BC03E /* shaderImageBlur.h */,
-				E0CA471719425397002BC03E /* shaderImageBlur.cpp */,
-				E0CA47131942392C002BC03E /* shaderImageMask.h */,
-				E0CA471419423939002BC03E /* shaderImageMask.cpp */,
-				E0CA470919420BE1002BC03E /* shaderWavyPlane.h */,
-				E0CA470A19420BF1002BC03E /* shaderWavyPlane.cpp */,
-				E0CA470C19421258002BC03E /* shaderNoisyPlane.h */,
-				E0CA470D19421266002BC03E /* shaderNoisyPlane.cpp */,
-			);
-			name = ShaderObjects;
-			sourceTree = "<group>";
-		};
-		E0CA472519463327002BC03E /* shaders */ = {
-			isa = PBXGroup;
-			children = (
-				E0CA472619463327002BC03E /* image_blur */,
-				E0CA472B19463327002BC03E /* image_mask */,
-				E0CA472E19463327002BC03E /* mouse_to_color */,
-				E0CA473119463327002BC03E /* noise_texture_plane */,
-				E0CA473419463327002BC03E /* sine_wave_plane */,
-			);
-			name = shaders;
-			path = bin/data/shaders;
-			sourceTree = SOURCE_ROOT;
-		};
-		E0CA472619463327002BC03E /* image_blur */ = {
-			isa = PBXGroup;
-			children = (
-				E0CA472719463327002BC03E /* shaderBlurX.frag */,
-				E0CA472819463327002BC03E /* shaderBlurX.vert */,
-				E0CA472919463327002BC03E /* shaderBlurY.frag */,
-				E0CA472A19463327002BC03E /* shaderBlurY.vert */,
-			);
-			path = image_blur;
-			sourceTree = "<group>";
-		};
-		E0CA472B19463327002BC03E /* image_mask */ = {
-			isa = PBXGroup;
-			children = (
-				E0CA472C19463327002BC03E /* image_mask.frag */,
-				E0CA472D19463327002BC03E /* image_mask.vert */,
-			);
-			path = image_mask;
-			sourceTree = "<group>";
-		};
-		E0CA472E19463327002BC03E /* mouse_to_color */ = {
-			isa = PBXGroup;
-			children = (
-				E0CA472F19463327002BC03E /* mouse_to_color.frag */,
-				E0CA473019463327002BC03E /* mouse_to_color.vert */,
-			);
-			path = mouse_to_color;
-			sourceTree = "<group>";
-		};
-		E0CA473119463327002BC03E /* noise_texture_plane */ = {
-			isa = PBXGroup;
-			children = (
-				E0CA473219463327002BC03E /* noise_texture_plane.frag */,
-				E0CA473319463327002BC03E /* noise_texture_plane.vert */,
-			);
-			path = noise_texture_plane;
-			sourceTree = "<group>";
-		};
-		E0CA473419463327002BC03E /* sine_wave_plane */ = {
-			isa = PBXGroup;
-			children = (
-				E0CA473519463327002BC03E /* sine_wave_plane.frag */,
-				E0CA473619463327002BC03E /* sine_wave_plane.vert */,
-			);
-			path = sine_wave_plane;
-			sourceTree = "<group>";
-		};
 		E4328144138ABC890047C5CB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -468,18 +352,16 @@
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
 				E45BE5980E8CC70C009D7055 /* frameworks */,
-				E4B69B5B0A3A1756003C02F2 /* shaderExampleDebug.app */,
+				E4B69B5B0A3A1756003C02F2 /* shaderTestDebug.app */,
 			);
 			sourceTree = "<group>";
 		};
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				E0CA472519463327002BC03E /* shaders */,
-				E0CA470819420B5A002BC03E /* ShaderObjects */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
-				E4B69E1E0A3A1BDC003C02F2 /* shaderApp.cpp */,
-				E4B69E1F0A3A1BDC003C02F2 /* shaderApp.h */,
+				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
+				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -496,9 +378,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E4B69B5A0A3A1756003C02F2 /* shaderExample */ = {
+		E4B69B5A0A3A1756003C02F2 /* shaderTest */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "shaderExample" */;
+			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "shaderTest" */;
 			buildPhases = (
 				E4B69B580A3A1756003C02F2 /* Sources */,
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
@@ -510,9 +392,9 @@
 			dependencies = (
 				E4EEB9AC138B136A00A80321 /* PBXTargetDependency */,
 			);
-			name = shaderExample;
+			name = shaderTest;
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* shaderExampleDebug.app */;
+			productReference = E4B69B5B0A3A1756003C02F2 /* shaderTestDebug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -523,7 +405,7 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 			};
-			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "shaderExample" */;
+			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "shaderTest" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -544,7 +426,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				E4B69B5A0A3A1756003C02F2 /* shaderExample */,
+				E4B69B5A0A3A1756003C02F2 /* shaderTest */,
 			);
 		};
 /* End PBXProject section */
@@ -580,49 +462,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0CA470E19421266002BC03E /* shaderNoisyPlane.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
-				E4B69E210A3A1BDC003C02F2 /* shaderApp.cpp in Sources */,
+				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				0582076D75617CEFE6DA8FA7 /* ofxAnimation.cpp in Sources */,
 				0C37599CCC1E63C7BE2E2105 /* ofxArcObject.cpp in Sources */,
-				E0CA473A19463327002BC03E /* shaderBlurY.vert in Sources */,
-				E0CA474219463327002BC03E /* sine_wave_plane.vert in Sources */,
-				E0CA473819463327002BC03E /* shaderBlurX.vert in Sources */,
 				96CAC5B63BE24884A7650D51 /* ofxCircleObject.cpp in Sources */,
 				61C270E06409BB631149E898 /* ofxDynamicPolygonObject.cpp in Sources */,
-				E0CA471519423939002BC03E /* shaderImageMask.cpp in Sources */,
-				E0CA473D19463327002BC03E /* mouse_to_color.frag in Sources */,
 				8947BB2A7B0ED26558985B9E /* ofxFboObject.cpp in Sources */,
 				A5246968290699ED6AF4B3D5 /* ofxGridSystem.cpp in Sources */,
 				45F62755794E24120E98A392 /* ofxImageObject.cpp in Sources */,
 				E08321DD1936401E000BD296 /* ofxAVFVideoPlayer.mm in Sources */,
 				026CF86B8E5DE58987E03F04 /* ofxLetterTextObject.cpp in Sources */,
-				E0CA473C19463327002BC03E /* image_mask.vert in Sources */,
-				E0CA471119423365002BC03E /* shaderColorRect.cpp in Sources */,
 				E08321DE1936401E000BD296 /* ofxAVFVideoRenderer.m in Sources */,
-				E0CA473E19463327002BC03E /* mouse_to_color.vert in Sources */,
 				C5011EF6997C1099FC26CC1B /* ofxLineSegmentObject.cpp in Sources */,
-				E0CA473719463327002BC03E /* shaderBlurX.frag in Sources */,
-				E0CA474119463327002BC03E /* sine_wave_plane.frag in Sources */,
-				E0CA471819425397002BC03E /* shaderImageBlur.cpp in Sources */,
 				6720CB17BB1F777BD86119BD /* ofxLineStripObject.cpp in Sources */,
 				9A596E0751B532824F345053 /* ofxMessage.cpp in Sources */,
-				E0CA474019463327002BC03E /* noise_texture_plane.vert in Sources */,
 				B87D5591C5CDABB37D6695BD /* ofxObject.cpp in Sources */,
 				646E94320D0CAE07B2781DEA /* ofxPolygonObject.cpp in Sources */,
-				E0CA473919463327002BC03E /* shaderBlurY.frag in Sources */,
 				B8EB0219666AA8FFB95857FE /* ofxQuadStripObject.cpp in Sources */,
 				705C1D079461CD39C68403C9 /* ofxRectangleObject.cpp in Sources */,
 				99092BF9204CB9B8061311F8 /* ofxRoundedArcObject.cpp in Sources */,
 				B7D9CC22C351CF45AC9C5C95 /* ofxScene.cpp in Sources */,
-				E0CA473B19463327002BC03E /* image_mask.frag in Sources */,
 				8F9FB5420679D5365862DAAC /* ofxSosoRenderer.cpp in Sources */,
 				DECE37CB3668FCE5D210E34A /* ofxSosoTrueTypeFont.cpp in Sources */,
 				E09E8E9E19366B96003DA9FA /* ofxScroller.cpp in Sources */,
 				B0CEF4C0826C2090ECF04681 /* ofxStateMachine.cpp in Sources */,
-				E0CA473F19463327002BC03E /* noise_texture_plane.frag in Sources */,
 				597431DB068704AD793C0905 /* ofxTextObject.cpp in Sources */,
-				E0CA470B19420BF1002BC03E /* shaderWavyPlane.cpp in Sources */,
 				68FBC9C1A8949F60A46F3944 /* ofxTextureObject.cpp in Sources */,
 				2B052435E993A39D37D8A86A /* ofxVideoPlayerObject.cpp in Sources */,
 			);
@@ -795,7 +660,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
 				);
-				PRODUCT_NAME = shaderExampleDebug;
+				PRODUCT_NAME = shaderTestDebug;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -880,7 +745,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 				);
-				PRODUCT_NAME = shaderExample;
+				PRODUCT_NAME = shaderTest;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -888,7 +753,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "shaderExample" */ = {
+		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "shaderTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B4E0A3A1720003C02F2 /* Debug */,
@@ -897,7 +762,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "shaderExample" */ = {
+		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "shaderTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B600A3A1757003C02F2 /* Debug */,

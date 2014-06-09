@@ -7,11 +7,13 @@
 #include "ofxSosoRenderer.h"
 #include "ofxRectangleObject.h"
 #include "ofxTextObject.h"
-#include "ofxWavyPlane.h"
-#include "ofxNoisyPlane.h"
-#include "ofxColorRect.h"
-#include "ofxImageMask.h"
-#include "ofxImageBlur.h"
+
+// Custom shader classes
+#include "shaderWavyPlane.h"
+#include "shaderNoisyPlane.h"
+#include "shaderColorRect.h"
+#include "shaderImageMask.h"
+#include "shaderImageBlur.h"
 
 
 
@@ -34,21 +36,33 @@ public:
   void dragEvent(ofDragInfo dragInfo);
   void gotMessage(ofMessage msg);
   
+  // helper method
+  void buildInstructionText();
   
 public:
+  
+  ofxSosoTrueTypeFont *font16;  // For instruction text
+  vector<ofxTextObject*> instructions;
+  
   ofxScene						*scene;
   
-  ofxWavyPlane  *wavyPlane;
-  ofxNoisyPlane *noisyPlane;
-  ofxColorRect  *rect;
-  ofxImageMask *imageMerge;
-  ofxImageBlur *imageBlur;
+  shaderWavyPlane  *wavyPlane;
+  shaderNoisyPlane *noisyPlane;
+  shaderColorRect  *colorRect;
+  shaderImageMask *imageMask;
+  shaderImageBlur *imageBlur;
   
-  
-  //ofxMe
-  ofxTextObject *instructions;
+  vector<ofxObject *> shaderObjects;
   
   bool shaderEnable = true;
+  
+  ofShader shaderBlurX;
+  ofShader shaderBlurY;
+  
+  ofFbo fboBlurOnePass;
+  ofFbo fboBlurTwoPass;
+  
+  ofImage image;
  
 };
 
