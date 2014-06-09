@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="yes" ?>
+<root>
+	<story id="1">This is testing 
+if linebreaks 
+are retained 
+by the 
+XML parser.</story>
+	<story id="2">This is testing the 5 XML entities:
+1) &gt; 2) &lt; 3) &amp; 4) &quot; 5) &apos;</story>
+	<story id="3">This is testing the use of raw UTF-8 symbols: © … ‰ §</story>
+	<story id="4">This is testing roman characters with accents: Publicité Entreprise À propos. Ça me plaît.</story>
+	<story id="5">This is testing HTML entities: &amp;euro; &amp;reg; &amp;cent; &amp;OElig;</story>
+</root>

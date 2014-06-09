@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xlink="http://www.w3.org/1999/xlink" >
+
+	<!-- Points -->
+
+	<circle r="0" fill="black" stroke="black"/>
+
+	<circle cx="10" cy="10" r="3" fill="black" stroke="black"/>
+
+	<circle cx="30" cy="10" r="5" fill="black" stroke="red" stroke-width="2"/>
+
+	<circle cx="50" cy="10" r="7" fill="black" stroke="red" stroke-width="2"/>
+
+	<!-- Circles -->
+
+	<circle cx="0" cy="50" r="20" fill="orange" stroke="black" stroke-width="3" />
+
+	<circle cx="70" cy="50" r="30" fill="grey" stroke="black" stroke-width="3" />
+
+	<circle cx="120" cy="50" r="40" fill="grey" fill-opacity="0.5" stroke="black" stroke-width="3"/>
+
+	<circle cx="200" cy="50" r="50" fill="grey" fill-opacity="0.3" stroke="black" stroke-width="3"/>
+
+</svg>
