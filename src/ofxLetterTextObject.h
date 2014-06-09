@@ -34,17 +34,15 @@
 class ofxLetterTextObjectLetter : public ofxObject
 {
 public:
-	//ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont, char iChar, float iX, float iY, float iScaleFactor);
-	ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont, char *iChar, float iX, float iY, float iScaleFactor);  //eg 070411
+	ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont, string iString, float iX, float iY, float iScaleFactor);  //eg 070411
   ~ofxLetterTextObjectLetter();
   
 	void                    render();
   
 public:
-	char                    character;
+	string                  letter;
   ofVec3f                 home;
   float                   scaleFactor;
-	char                    *charPointer;
 	ofxSosoTrueTypeFont			*font;
 };
 
@@ -55,11 +53,8 @@ public:
 	ofxLetterTextObject(ofxSosoTrueTypeFont *iFont, string iString=NULL);
 	~ofxLetterTextObject();
   
-	//void                  predraw();
-	//void                  postdraw();
 	void                    render();
   
-	void                    setString(char *iString);
   void                    setString(string iString);
 	void                    setFont(ofxSosoTrueTypeFont *iFont);
 	void                    setColumnWidth(float iWidth);
@@ -70,7 +65,6 @@ public:
 	void                    setColor(float iR, float iG, float iB, float iA=255);
 	void                    setColor(ofVec4f iColor);
 	void                    setColor(ofColor iColor);
-	//void                  normalizeScale();
 	void                    setWordColor(int iIndex, float iR, float iG, float iB, float iA=255.0);
   void                    setWordColor(string iWord, float iR, float iG, float iB, float iA=255.0, bool iExactMatch = true);
   
