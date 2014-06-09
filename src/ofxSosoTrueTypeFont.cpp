@@ -551,7 +551,9 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 		}
 	}
   
-  
+  //TODO: Soso - can we clean up the memory footprint here, by deleting the pixels
+  //not using the pixels any more
+  //atlasPixels.clear();
   
 	// ------------- close the library and typeface
 	FT_Done_Face(face);
@@ -798,6 +800,25 @@ char* ofxSosoTrueTypeFont::getMappedCharSequence(string iString, int &iIndex)   
 	}
 	
 	return NULL;
+}
+
+//using the mapped chars, convert a string from escape or byte sequences to single chars
+string ofxSosoTrueTypeFont::convertStringTo255(string iString)
+{
+  //cout << iString << endl;
+  
+  string convertedString = "";
+  int index = 0;
+  while (index < iString.length())
+  {
+    int c = ofxSosoTrueTypeFont::getMappedChar(iString, index) + NUM_CHARACTER_TO_START;
+    convertedString += c;
+    index++;
+  }
+  
+  //cout << convertedString << endl;
+  
+  return convertedString;
 }
 
 
