@@ -53,7 +53,7 @@ ofxTextObject::ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString)
 
 ofxTextObject::~ofxTextObject()
 {
-
+  
   words.clear();
   lines.clear();
 }
@@ -198,9 +198,9 @@ void ofxTextObject::setLeading(float iLeading)
 
 void ofxTextObject::setSpaceWidth(float iWidth)
 {
-
+  
   blankSpaceWord.width = iWidth*pointSize;
-
+  
 	for(unsigned int i=0; i < words.size(); i++){
 		if(words[i].rawWord == blankSpaceWord.rawWord){
 			words[i].width = iWidth*pointSize;
@@ -341,7 +341,7 @@ float ofxTextObject::getWidth()
     }
     //return maxWidth * scale;
 		return maxWidth;
-
+    
   }
   else return 0;
 }
@@ -681,7 +681,7 @@ void ofxTextObject::drawCenter(float x, float y, bool drawFlag)
 					if(!drawAsShapes){
 						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);
 					}else{ //Support for vector drawing
-
+            
 						words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 					}
 				}
@@ -728,13 +728,13 @@ void ofxTextObject::drawRight(float x, float y, bool drawFlag)
 				
 				words[currentWordID].pos.set(drawX, drawY); //Record word position.
         
-				if(drawFlag){						
+				if(drawFlag){
 					if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.a/255.0f);	//soso - removed this functionality for now //LM13 added back in..eep?
-													
-					if(!drawAsShapes){						
-						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);	
-					}else{ //Support for vector drawing																												 
-
+          
+					if(!drawAsShapes){
+						words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);
+					}else{ //Support for vector drawing
+            
 						words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 					}
 				}
@@ -798,11 +798,11 @@ void ofxTextObject::drawJustified(float x, float y, bool drawFlag)
 				if (words[currentWordID].rawWord != " ") {
 					if(drawFlag){
 						if (drawWordColor) ofSetColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a * drawMaterial->color.a/255.0f);	//soso - removed this functionality for now //LM13 added back in..eep?
-
-						if(!drawAsShapes){						
-							words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);	
-						}else{ //Support for vector drawing																												 
-
+            
+						if(!drawAsShapes){
+							words[currentWordID].font->drawString(words[currentWordID].rawWord.c_str(), drawX, drawY);
+						}else{ //Support for vector drawing
+              
 							words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 						}
 					}
@@ -883,6 +883,7 @@ void ofxTextObject::_loadWords()
 				string wordString(wordBuf, wordBufIndex);
         
 				tmpWord.rawWord = wordString;
+        tmpWord.convertedWord = ofxSosoTrueTypeFont::convertStringTo255(wordString);
 				tmpWord.width   = font->stringWidth(tmpWord.rawWord);
 				tmpWord.height  = font->stringHeight(tmpWord.rawWord);
 				tmpWord.color.r = material->color.r;
@@ -924,6 +925,7 @@ void ofxTextObject::_loadWords()
 		string wordString(wordBuf, wordBufIndex);
     
 		tmpWord.rawWord = wordString;
+    tmpWord.convertedWord = ofxSosoTrueTypeFont::convertStringTo255(wordString);
 		tmpWord.width   = font->stringWidth(tmpWord.rawWord);
 		tmpWord.height  = font->stringHeight(tmpWord.rawWord);
 		tmpWord.color.r = material->color.r;

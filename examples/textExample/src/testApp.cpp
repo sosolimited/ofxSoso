@@ -94,34 +94,34 @@ void testApp::setup(){
 //  }
 //  cout << endl;
   
-  //testing memory footprint
-  for (int i=0; i<1000; i++)
-  {
-    string s;
-    for (int i=0; i<150; i++)
-    {
-      s += (unsigned char)ofRandom(33, 240);
-    }
-    int font_index = (int) ofRandom(memFonts.size());
-    ofxTextObject *t = new ofxTextObject(memFonts[font_index], s);
-    t->setColor(240, 240, 240);
-    t->setPointSize(12);
-    t->setTrans(trans + ofVec3f(0, -unicodeText->getLeading()*9.0 - i*1.0, 0));
-    scene->getRoot()->addChild(t);
-    memTexts.push_back(t);
-  }
+//  //testing memory footprint
+//  for (int i=0; i<10; i++)
+//  {
+//    string s;
+//    for (int i=0; i<150; i++)
+//    {
+//      s += (unsigned char)ofRandom(33, 240);
+//    }
+//    int font_index = (int) ofRandom(memFonts.size());
+//    ofxTextObject *t = new ofxTextObject(memFonts[font_index], s);
+//    t->setColor(240, 240, 240);
+//    t->setPointSize(12);
+//    t->setTrans(trans + ofVec3f(0, -unicodeText->getLeading()*9.0 - i*1.0, 0));
+//    scene->getRoot()->addChild(t);
+//    memTexts.push_back(t);
+//  }
   
   //Create a letter text object. This lets you treat each letter as a separate object to animate as you please.
   //See how the letters are animated below in keyPressed()
   //TODO: letterText doesn't have the mapped chars working yet &lsquo; fails
-  letterText = new ofxLetterTextObject(font64, "This is a letter text object. Press &times;&times;&times; &amp; g to animate the letters. &frac12;");
-  letterText->setTrans(-350, 200,0);
+  letterText = new ofxLetterTextObject(font64, "This is a letter text object using extended characters in ofxTextObject™ — initialized with ©Inline escape sequences.");
+  letterText->setTrans(trans + ofVec3f(0, -unicodeText->getLeading()*10.0, 0));
   letterText->setColor(255, 255, 255);
-  letterText->setPointSize(48);
-  letterText->setLeading(52);
-  letterText->setColumnWidth(700);
+  letterText->setPointSize(64);
+  letterText->setLeading(72);
+  letterText->setColumnWidth(ofGetWidth() - 1.0*inlineText->getLeading());
   letterText->setAlignment(OF_TEXT_ALIGN_LEFT);
-  //scene->getRoot()->addChild(letterText);
+  scene->getRoot()->addChild(letterText);
   
 }
 

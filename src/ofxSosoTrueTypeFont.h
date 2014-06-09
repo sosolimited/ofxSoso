@@ -79,8 +79,10 @@ public:
 
 	static void             removeCharacters(string &iString, string iCharsToRemove);   //eg 070412
   
-  int                     getMappedChar(string iString, int &iIndex);   //eg 0701412 made public
+  static int              getMappedChar(string iString, int &iIndex);   //eg 0701412 made public
   char*                   getMappedCharSequence(string iString, int &iIndex);   //eg 0701412
+  
+  static string           convertStringTo255(string iString);
   
 private:
   void                    buildMappedChars();
