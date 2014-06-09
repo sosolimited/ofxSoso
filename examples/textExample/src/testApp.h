@@ -36,13 +36,17 @@ public:
   ofxScene                  *scene;
   
 	ofxSosoTrueTypeFont				*font24;
-  ofxSosoTrueTypeFont       *font64;
+  ofxSosoTrueTypeFont       *font48;
   
 	ofxTextObject             *escapeText;
   ofxTextObject             *unicodeText;
   ofxTextObject             *inlineText;
   
 	ofxLetterTextObject				*letterText;
+  
+  //memory management
+  vector<ofxTextObject *>           memTexts;
+  vector<ofxSosoTrueTypeFont *>     memFonts;
   
   
 };

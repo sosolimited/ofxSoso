@@ -122,22 +122,22 @@ ofxMessage::~ofxMessage()
   if(baseEndVals) {
     if(id==OF_SETALPHA){
       delete[] (float *)baseEndVals;
-            cout<<"* OF_SETALPHA * baseEndVals = "<< baseEndVals <<endl;
+            //cout<<"* OF_SETALPHA * baseEndVals = "<< baseEndVals <<endl;
     } else if(id==OF_SCALE){
       delete[] (float *)baseEndVals;
-            cout<<"* OF_SCALE * baseEndVals = "<< baseEndVals <<endl;
+            //cout<<"* OF_SCALE * baseEndVals = "<< baseEndVals <<endl;
     } else if(id==OF_TRANSLATE){
       delete (ofVec3f *)baseEndVals;
-            cout<<"* OF_TRANSLATE * baseEndVals = "<< baseEndVals <<endl;
+            //cout<<"* OF_TRANSLATE * baseEndVals = "<< baseEndVals <<endl;
     } else if(id==OF_ROTATE){
       delete (ofVec3f *)baseEndVals;
-            cout<<"* OF_ROTATE * baseEndVals = "<< baseEndVals <<endl;
+            //cout<<"* OF_ROTATE * baseEndVals = "<< baseEndVals <<endl;
     } else if(id==OF_SCALE3){
       delete (ofVec3f *)baseEndVals;
-            cout<<"* OF_SCALE3 * baseEndVals = "<< baseEndVals <<endl;
+            //cout<<"* OF_SCALE3 * baseEndVals = "<< baseEndVals <<endl;
     } else if(id==OF_SETCOLOR){
       delete (ofVec3f *)baseEndVals;
-            cout<<"* OF_SETCOLOR * baseEndVals = "<< baseEndVals <<endl;
+            //cout<<"* OF_SETCOLOR * baseEndVals = "<< baseEndVals <<endl;
     }
   }
   
