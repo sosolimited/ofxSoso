@@ -23,8 +23,8 @@ void testApp::setup(){
   font24->loadFont("TiemposText-Medium.otf", 24, true,  true, false, true);		//The last bool argument enables mipmapping on the letter textures.
 	font24->setKerningPair('T', 'y', -2);								//After you've loaded a font, you can also manually adjust kerning pairs.
   
-	font64 = new ofxSosoTrueTypeFont();
-  font64->loadFont("National-Regular.otf", 64, true,  true, false, true);
+	font48 = new ofxSosoTrueTypeFont();
+  font48->loadFont("National-Regular.otf", 48, true,  true, false, true);
   
   //memory test for lots of fonts
   for (int i=0; i<20; i++)
@@ -114,11 +114,11 @@ void testApp::setup(){
   //Create a letter text object. This lets you treat each letter as a separate object to animate as you please.
   //See how the letters are animated below in keyPressed()
   //TODO: letterText doesn't have the mapped chars working yet &lsquo; fails
-  letterText = new ofxLetterTextObject(font64, "This is a letter text object using extended characters in ofxTextObject™ — initialized with ©Inline escape sequences.");
+  letterText = new ofxLetterTextObject(font48, "This is an ofxLetterTextObject™ object using extended characters — initialized with ©Inline escape sequences. Press ‘a’ to animate.");
   letterText->setTrans(trans + ofVec3f(0, -unicodeText->getLeading()*10.0, 0));
   letterText->setColor(255, 255, 255);
-  letterText->setPointSize(64);
-  letterText->setLeading(72);
+  letterText->setPointSize(48);
+  letterText->setLeading(54);
   letterText->setColumnWidth(ofGetWidth() - 1.0*inlineText->getLeading());
   letterText->setAlignment(OF_TEXT_ALIGN_LEFT);
   scene->getRoot()->addChild(letterText);
@@ -175,7 +175,7 @@ void testApp::draw(){
 //--------------------------------------------------------------
 void testApp::keyPressed  (int key){
     //Animate the letter text with messages.
-	if(key == 'g'){
+	if(key == 'a'){
 		float travel = 100;
 		float leaveDuration = 1.0;
 		float returnDuration = 0.5;

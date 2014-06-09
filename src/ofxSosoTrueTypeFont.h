@@ -77,10 +77,10 @@ public:
 	void                    enableKerning(bool iEnable);
 	void                    printNonzeroKerningPairs();
 
-	static void             removeCharacters(string &iString, string iCharsToRemove);   //eg 070412
+	static void             removeCharacters(string &iString, string iCharsToRemove);
   
-  static int              getMappedChar(string iString, int &iIndex);   //eg 0701412 made public
-  char*                   getMappedCharSequence(string iString, int &iIndex);   //eg 0701412
+  static int              getMappedChar(string iString, int &iIndex);
+  char*                   getMappedCharSequence(string iString, int &iIndex);
   
   static string           convertStringTo255(string iString);
   

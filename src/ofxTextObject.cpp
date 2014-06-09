@@ -359,6 +359,7 @@ float ofxTextObject::getColumnWidth()
 	return columnWidth;
 }
 
+
 ofVec2f ofxTextObject::getCharPosition(int iIndex) {
   if (iIndex >= 0 && iIndex < rawText.size()) {
     int j = iIndex;
@@ -855,20 +856,16 @@ int ofxTextObject::_getLinedWords()
   else return 0;
 }
 
-//soso - load words used to delete new lines
-//PEND - need to make sure we are deleting all the helper buffers
+//takes an input string and creates a series of word blocks
 void ofxTextObject::_loadWords()
 {
-	//soso - doing this the nitty gritty way
-  wordBlock tmpWord;
-  
 	words.clear();
   
 	string rawBuf = rawText;
 	int size = rawBuf.length();
   
 	const int maxWordSize = 500;
-	char wordBuf[maxWordSize];
+	string wordBuf = "";
   
 	int wordBufIndex = 0;
   
@@ -880,8 +877,9 @@ void ofxTextObject::_loadWords()
 			//close the existing word buffer
 			if (wordBufIndex > 0)
 			{
-				string wordString(wordBuf, wordBufIndex);
+				string wordString(wordBuf, 0, wordBufIndex);
         
+        wordBlock tmpWord;
 				tmpWord.rawWord = wordString;
         tmpWord.convertedWord = ofxSosoTrueTypeFont::convertStringTo255(wordString);
 				tmpWord.width   = font->stringWidth(tmpWord.rawWord);
@@ -896,7 +894,7 @@ void ofxTextObject::_loadWords()
 				words.push_back(tmpWord);
         
 				//reset
-				wordBuf[0] = 0;
+				wordBuf = "";
 				wordBufIndex = 0;
 			}
       
@@ -912,8 +910,7 @@ void ofxTextObject::_loadWords()
 		else {
 			if (wordBufIndex < maxWordSize - 1)
 			{
-				wordBuf[wordBufIndex] = c;
-				wordBuf[wordBufIndex + 1] = 0;
+				wordBuf += c;
 				wordBufIndex++;
 			}
 		}
@@ -922,8 +919,9 @@ void ofxTextObject::_loadWords()
 	//close the last word
 	if (wordBufIndex > 0)
 	{
-		string wordString(wordBuf, wordBufIndex);
+		string wordString(wordBuf, 0, wordBufIndex);
     
+    wordBlock tmpWord;
 		tmpWord.rawWord = wordString;
     tmpWord.convertedWord = ofxSosoTrueTypeFont::convertStringTo255(wordString);
 		tmpWord.width   = font->stringWidth(tmpWord.rawWord);
@@ -938,15 +936,13 @@ void ofxTextObject::_loadWords()
 		words.push_back(tmpWord);
     
 		//reset
-		wordBuf[0] = 0;
+		wordBuf = "";
 		wordBufIndex = 0;
 	}
   
-  
-  
   for(int i=0;i < words.size(); i++)
   {
-    ofLog(OF_LOG_VERBOSE, "Loaded word: %i, %s\n", i, words[i].rawWord.c_str());
+    //ofLog(OF_LOG_VERBOSE, "Loaded word: %i, %s\n", i, words[i].rawWord.c_str());
   }
   
   
