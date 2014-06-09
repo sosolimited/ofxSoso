@@ -15,6 +15,8 @@
 // want to load a shader without parameters, simply call
 // object->loadShader(string filename)
 
+// Built-in shader can be enabled/disabled
+
 // If you need to pass parameters to a shader (mouse value, textures, etc.),
 // create your own class and override the ofxObject::setShaderParams() method.
 // Within this method, you can call methods like shader->setUniform1f(string varName, float varValue);
@@ -22,7 +24,7 @@
 //
 
 // If you want to use a more complicated shader that requires multiple
-// passes (like blur), you will have to implement
+// passes (like blur), you will have to manually start and end shaders in render()
 
 
 #include "shaderApp.h"
@@ -55,6 +57,7 @@ void shaderApp::setup(){
   colorRect->setTrans(-ofGetWidth()/2 + 50, ofGetHeight()/2 - 380,0);
   scene->getRoot()->addChild(colorRect);
   colorRect->setColor(25,25,250);
+  colorRect->setAppDimensions(ofGetWidth(), ofGetHeight());
   shaderObjects.push_back(colorRect);
 
   // Add a shader to control rects
@@ -87,6 +90,7 @@ void shaderApp::setup(){
   noisyPlane = new shaderNoisyPlane(300, 300, 10, 10);
   noisyPlane->setTrans(-ofGetWidth()/2 + 1250, ofGetHeight()/2 - 250, 0);
   scene->getRoot()->addChild(noisyPlane);
+  noisyPlane->setAppDimensions(ofGetWidth(), ofGetHeight());
   shaderObjects.push_back(noisyPlane);
   
   noisyPlane->loadShader("shaders/noise_texture_plane/noise_texture_plane");
@@ -116,6 +120,7 @@ void shaderApp::setup(){
   
   imageBlur = new shaderImageBlur("face1.png");
   imageBlur->setTrans(150,-350,0);
+  imageBlur->setAppDimensions(ofGetWidth(), ofGetHeight());
   scene->getRoot()->addChild(imageBlur);
   shaderObjects.push_back(imageBlur);
   // --------------------------------------------------------------------------
@@ -128,15 +133,13 @@ void shaderApp::setup(){
 
 //--------------------------------------------------------------
 void shaderApp::update(){
-  
-	//Update the scene with the current time. This call propagates the idle() call to all objects as well.
-	//Note: If you are capturing frames to create a movie, simply replace ofGetElapsedTimef() with a float variable that you increment by a fixed time interval each frame.
 
-  // For shaderObjects with mouse values, update the mouse values
+  // For shaderObjects using mouse values, update the mouse values
   colorRect->setMouseVals(mouseX, mouseY);
   imageBlur->setMouseVals(mouseX, mouseY);
   noisyPlane->setMouseVals(mouseX, mouseY);
 
+  // Update the scene with the current time
   scene->update(ofGetElapsedTimef());
 
 }
@@ -152,8 +155,7 @@ void shaderApp::draw(){
 //--------------------------------------------------------------
 void shaderApp::keyPressed  (int key){
   
-  ofLogNotice("Toggle shaders!");
-  
+  // Toggle shader enable
   if(key == 's'){
     
     shaderEnable = !shaderEnable;
@@ -213,9 +215,8 @@ void shaderApp::buildInstructionText(){
   //Load a font.
 	//ofxSosoTrueTypeFont inherits from ofTrueTypeFont and adds some nice functionality, used by ofxTextObject.
 	//Note: If the font has them, kerning pairs are loaded by default.
-  font16 = new ofxSosoTrueTypeFont();
-  font16->loadFont("Arial.ttf", 16.0f, true,  true, false, true);		//The last bool argument enables mipmapping on the letter textures.
-	font16->setKerningPair('T', 'y', -2);								//After you've loaded a font, you can also manually adjust kerning pairs.
+  font20 = new ofxSosoTrueTypeFont();
+  font20->loadFont("Arial.ttf", 20.0f, true,  true, false, true);		//The last bool argument enables mipmapping on the letter textures.							//After you've loaded a font, you can also manually adjust kerning pairs.
   
   string instructionText[6] = { "Shader maps mouse x/y to rectangle color",
     "Shader maps vertex offset to sine.",
@@ -229,10 +230,11 @@ void shaderApp::buildInstructionText(){
   for (int i=0; i < 6; i++){
     
     char *s = &instructionText[i][0]; //convert to char*
-    ofxTextObject *instruction = new ofxTextObject(font16, s);
+    ofxTextObject *instruction = new ofxTextObject(font20, s);
     instruction->setColumnWidth(350);
     instruction->setTrans(50,yPos,2);
-    instruction->setPointSize(16.0f);
+    instruction->setPointSize(20.0f);
+    instruction->setAlignment(OF_TEXT_ALIGN_CENTER);
     
     // Color instructions for ease of reading
     //if (i<2)
@@ -250,19 +252,16 @@ void shaderApp::buildInstructionText(){
     
   }
   
-  instructions[0]->setTrans(-700, 50, 0);
-  instructions[1]->setTrans(-150, 50, 0);
-  instructions[2]->setTrans(350, 50, 0);
-  instructions[3]->setTrans(-400, -400, 0);
-  instructions[4]->setTrans(150, -400, 0);
-  //instructions[5]->setTrans(-700, 150, 0);
+  instructions[0]->setTrans(-550, 50, 0);
+  instructions[1]->setTrans(-50, 50, 0);
+  instructions[2]->setTrans(500, 50, 0);
+  instructions[3]->setTrans(-300, -400, 0);
+  instructions[4]->setTrans(250, -400, 0);
+  instructions[5]->setTrans(-600, -200, 0);
   
   instructions[5]->setColor(255,0,0);
   
 }
 
-//
-
-//--------------------------------------------------------------
 
 

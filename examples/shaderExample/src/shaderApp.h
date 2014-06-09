@@ -41,7 +41,7 @@ public:
   
 public:
   
-  ofxSosoTrueTypeFont *font16;  // For instruction text
+  ofxSosoTrueTypeFont *font20;  // For instruction text
   vector<ofxTextObject*> instructions;
   
   ofxScene						*scene;

@@ -2,9 +2,10 @@
 //  wavyPlane.cpp
 //  shaderExample
 //
-//  Created by Sosolimited on 6/6/14.
+//  Created by Alex Olivier on 6/6/14.
 //
 //
+// Based on openFrameworks shader tutorials
 
 #include "shaderWavyPlane.h"
 
@@ -22,15 +23,18 @@ shaderWavyPlane::~shaderWavyPlane(){
   
 }
 
+// Implement render to draw plane
 void shaderWavyPlane::render(){
   
   plane->drawWireframe();
 
 }
 
-// Set shader's parameters
+// Extending class to override shader parameters
 void shaderWavyPlane::setShaderParams(){
   
-  shader->setUniform1f("time", ofGetElapsedTimef()*3);
+  // Create and pass a float values to shaders
+  // called "time"
+  shader->setUniform1f("time", ofGetElapsedTimef()*4);
   
 }

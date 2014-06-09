@@ -721,7 +721,6 @@ void ofxObject::loadShader(string iFragName, string iVertName){
 // Enable shaders.  By default, true.
 void ofxObject::setEnableShaders(bool iSet){
 
-  ofLogNotice("Setting shader enabled to " + ofToString(iSet));
   shaderEnabled = iSet;
 
 }

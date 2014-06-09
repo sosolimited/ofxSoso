@@ -6,5 +6,6 @@ varying vec2 texCoordVarying;
 
 void main()
 {
+  // Grab the color from tex0
   gl_FragColor = texture2DRect(tex0, texCoordVarying);
 }
