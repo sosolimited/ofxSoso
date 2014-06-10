@@ -33,6 +33,7 @@
 #include "ofGraphics.h"
 #include "ofMath.h"
 #include "ofxMessage.h"
+#include "ofShader.h"
 //#include "ofxVectorMath.h" //OF7
 
 enum{
@@ -128,6 +129,14 @@ public :
 
   void							setLighting(bool iOnOff);
   
+  // shaders
+  void  setShader(ofShader *iShader);
+  void  loadShader(string iShaderName);
+  void  loadShader(string iFragName, string iVertName);
+  virtual void  setShaderParams();
+  void  setEnableShaders(bool iSet);
+  ofShader* getShader(){ return shader; }
+  
 	int								getID();
   bool              isObjectID(vector<GLuint> iIDs);
 
@@ -177,6 +186,11 @@ protected:
 
 	float							*localMatrix;
 	float							*matrix;
+  
+  // shader
+  ofShader  *shader;
+  bool  shaderEnabled;
+  
 
   vector <ofxObject *>			children;
 	vector <ofxObject *>			parents;
