@@ -31,7 +31,7 @@ public:
   
   exampleUIObject     *UIObject;
   
-  // Default Background Color and Values for Control
+  // Default Background Color and Related Values
   int defaultR = 100;
   int defaultG = 100;
   int defaultB = 100;
