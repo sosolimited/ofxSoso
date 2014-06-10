@@ -67,15 +67,23 @@ void exampleUIObject::setup()
   
   // Build and attach some dummy demostration objects
   UI->addSpacer();
-  UI->addLabel("Assorted dummy objects");
-  UI->addLabel("(not connected to anything)", OFX_UI_FONT_SMALL);
+  //UI->addLabel("Assorted dummy objects");
+  //UI->addLabel("(not connected to anything)", OFX_UI_FONT_SMALL);
+  
+  UI->addLabel("Position");
+  demoPos = new ofxUI2DPad("position", ofPoint(0, ofGetWidth()), ofPoint(0, ofGetHeight()), ofPoint(ofGetWidth()/2,ofGetHeight()/2), 150, 150);
+  UI->addWidgetDown(demoPos);
+  
+  UI->addLabel("Resolution");
+  demoCircleRes = new ofxUIMinimalSlider("resolution", 3, 35, sliderValRes, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_SMALL);
+  UI->addWidgetDown(demoCircleRes);
 
-  UI->addButton("button", false, UIButtonHeight, UIButtonHeight);
-  UI->addToggle("toggle", false, UIButtonHeight, UIButtonHeight);
-  UI->addIntSlider("int slider", 0, 10, 4, UIButtonWidth, UIButtonHeight);
-  UI->addSlider("float slider", 0, 10, 6, UIButtonWidth, UIButtonHeight);
-  UI->addRangeSlider("range slider", 0, 10, 2, 8, UIButtonWidth, UIButtonHeight);
-  UI->addRadio("radio", radioNames, OFX_UI_ORIENTATION_HORIZONTAL, UIButtonHeight, UIButtonHeight, 0, 0, OFX_UI_FONT_SMALL);
+//  UI->addButton("button", false, UIButtonHeight, UIButtonHeight);
+//  UI->addToggle("toggle", false, UIButtonHeight, UIButtonHeight);
+//  UI->addIntSlider("int slider", 0, 10, 4, UIButtonWidth, UIButtonHeight);
+//  UI->addSlider("float slider", 0, 10, 6, UIButtonWidth, UIButtonHeight);
+//  UI->addRangeSlider("range slider", 0, 10, 2, 8, UIButtonWidth, UIButtonHeight);
+//  UI->addRadio("radio", radioNames, OFX_UI_ORIENTATION_HORIZONTAL, UIButtonHeight, UIButtonHeight, 0, 0, OFX_UI_FONT_SMALL);
 
   // Build some functional objects to connect to scene background color in the App
   UI->addSpacer();

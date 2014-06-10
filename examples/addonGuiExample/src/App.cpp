@@ -13,6 +13,11 @@ void App::setup(){
   scene = new ofxScene(ofGetWidth(), ofGetHeight());
 	scene->setBackgroundColor(defaultR, defaultG, defaultB);
   
+  //Create Circle Object
+  circle = new ofxCircleObject(5,50);
+  circle->setTrans(xPosition, yPosition, 0);
+  scene->getRoot()->addChild(circle);
+  
   // Build UIObject
   UIObject = new exampleUIObject();
   UIObject->setup();
@@ -49,6 +54,9 @@ void App::update(){
     scene->setBackgroundColor(defaultR, defaultG, defaultB);
   }
   
+  circle->setTrans(xPosition-ofGetWidth()/2, (yPosition-ofGetHeight()/2)*-1, 0);
+  circle->setColor(sliderR, sliderG, sliderB);
+  circle->setResolution(sliderRes);
 }
 
 //--------------------------------------------------------------
@@ -56,6 +64,7 @@ void App::draw(){
   
 	//Call draw on scene, which initiates the drawing of the root object.
   scene->draw();
+  
   
 }
 
@@ -125,6 +134,13 @@ void App::UIEvent(ofxUIEventArgs &e){
   } else if (name == "invert bg color"){
     ofxUILabelButton *button = (ofxUILabelButton *) e.widget;
     bgInvert = button->getValue();
+  } else if (name == "position") {
+    ofxUI2DPad *padPos = (ofxUI2DPad *) e.widget;
+    xPosition = (float) padPos->getValue().x*ofGetWidth();
+    yPosition = (float) padPos->getValue().y*ofGetHeight();
+  } else if (name == "resolution") {
+    ofxUIMinimalSlider *slider = (ofxUIMinimalSlider *) e.widget;
+    sliderRes = (int) slider->getValue();
   }
 
 

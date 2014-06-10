@@ -43,9 +43,13 @@ public:
   ofxUIMinimalSlider    *demoSliderR;
   ofxUIMinimalSlider    *demoSliderG;
   ofxUIMinimalSlider    *demoSliderB;
+  ofxUIMinimalSlider    *demoSliderH;
+  ofxUIMinimalSlider    *demoSliderS;
+  ofxUIMinimalSlider    *demoSliderL;
   ofxUILabelButton      *demoButtonInv;
   ofxUILabel            *demoLabel;
-  
+  ofxUI2DPad            *demoPos;
+  ofxUIMinimalSlider    *demoCircleRes;
   
 private:
   
@@ -57,5 +61,6 @@ private:
   float       sliderValR = 0;
   float       sliderValG = 0;
   float       sliderValB = 0;
+  int         sliderValRes = 5;
 
 };
