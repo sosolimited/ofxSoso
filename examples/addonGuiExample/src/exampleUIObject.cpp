@@ -33,15 +33,20 @@ exampleUIObject::~exampleUIObject()
   delete demoSliderB;
   delete demoButtonInv;
   delete demoLabel;
+  delete demoPos;
+  delete demoCircleRes;
+  delete demoCircleScale;
+  delete demoToggle1;
   
 }
 
 void exampleUIObject::setup()
 {
-  // Define some sizing parameters
-  int canvas_width = 300;
+  // Define UI Canvas Size Parameters
+  int canvas_width = 280;
   int canvas_height = 600;
 
+  //Define UI Object Parameters
   int UIButtonWidth = 200;
   int UIButtonHeight = 20;
   int UIRadioWidth = 20;
@@ -77,17 +82,22 @@ void exampleUIObject::setup()
   UI->addLabel("Resolution");
   demoCircleRes = new ofxUIMinimalSlider("resolution", 3, 35, sliderValRes, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_SMALL);
   UI->addWidgetDown(demoCircleRes);
-
-//  UI->addButton("button", false, UIButtonHeight, UIButtonHeight);
-//  UI->addToggle("toggle", false, UIButtonHeight, UIButtonHeight);
-//  UI->addIntSlider("int slider", 0, 10, 4, UIButtonWidth, UIButtonHeight);
-//  UI->addSlider("float slider", 0, 10, 6, UIButtonWidth, UIButtonHeight);
-//  UI->addRangeSlider("range slider", 0, 10, 2, 8, UIButtonWidth, UIButtonHeight);
-//  UI->addRadio("radio", radioNames, OFX_UI_ORIENTATION_HORIZONTAL, UIButtonHeight, UIButtonHeight, 0, 0, OFX_UI_FONT_SMALL);
+  
+  UI->addLabel("Scale");
+  demoCircleScale = new ofxUIMinimalSlider("scale", 0, 300, sliderValScale, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_SMALL);
+  UI->addWidgetDown(demoCircleScale);
+  
+  //Non-functioning UI objects, uncomment to view.
+  //  UI->addButton("button", false, UIButtonHeight, UIButtonHeight);
+  //  UI->addToggle("toggle", false, UIButtonHeight, UIButtonHeight);
+  //  UI->addIntSlider("int slider", 0, 10, 4, UIButtonWidth, UIButtonHeight);
+  //  UI->addSlider("float slider", 0, 10, 6, UIButtonWidth, UIButtonHeight);
+  //  UI->addRangeSlider("range slider", 0, 10, 2, 8, UIButtonWidth, UIButtonHeight);
+  //  UI->addRadio("radio", radioNames, OFX_UI_ORIENTATION_HORIZONTAL, UIButtonHeight, UIButtonHeight, 0, 0, OFX_UI_FONT_SMALL);
 
   // Build some functional objects to connect to scene background color in the App
   UI->addSpacer();
-  UI->addLabel("Assorted functional objects");
+  UI->addLabel("Color UI Controls");
   UI->addLabel("(connected to background color)", OFX_UI_FONT_SMALL);
   
   demoToggleBG = new ofxUILabelToggle("toggle bg control", false, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM, true);
@@ -104,6 +114,10 @@ void exampleUIObject::setup()
   
   demoButtonInv = new ofxUILabelButton("invert bg color", false, UIButtonWidth, UIButtonHeight, 0, 0, OFX_UI_FONT_MEDIUM, true);
   UI->addWidgetDown(demoButtonInv);
+  
+  UI->addSpacer();
+  demoToggle1 = new ofxUIToggle("Smile", false, UIButtonHeight, UIButtonHeight);
+  UI->addWidgetDown(demoToggle1);
   
   // Build an updating label
   UI->addSpacer();

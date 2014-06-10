@@ -50,6 +50,8 @@ public:
   ofxUILabel            *demoLabel;
   ofxUI2DPad            *demoPos;
   ofxUIMinimalSlider    *demoCircleRes;
+  ofxUIMinimalSlider    *demoCircleScale;
+  ofxUIToggle           *demoToggle1;
   
 private:
   
@@ -58,9 +60,11 @@ private:
   int         windowBarHack;
   int         screenWidthHack;
 
-  float       sliderValR = 0;
-  float       sliderValG = 0;
-  float       sliderValB = 0;
+  //Slider Values and default positions
+  float       sliderValR = 100;
+  float       sliderValG = 150;
+  float       sliderValB = 200;
   int         sliderValRes = 5;
+  float       sliderValScale = 100;
 
 };
