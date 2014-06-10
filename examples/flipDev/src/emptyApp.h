@@ -5,6 +5,7 @@
 
 #include "ofxImageObject.h"
 #include "ofxFboObject.h"
+#include "ofxRectangleObject.h"
 
 
 class emptyApp : public ofBaseApp{

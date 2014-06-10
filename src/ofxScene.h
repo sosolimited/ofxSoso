@@ -125,8 +125,10 @@ private:
   ofxObject			**onTopObjects;
   ofxObject			**sortedObjects;
   
+  float         *defaultMatrix;
+
+  
 public:
-	static float              *defaultMatrix;
-	static ofxObjectMaterial  *defaultMaterial;
+  static ofxObjectMaterial  *defaultMaterial;
   
 };

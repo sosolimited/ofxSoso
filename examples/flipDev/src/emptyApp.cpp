@@ -13,11 +13,11 @@ void emptyApp::setup(){
 	mainScene->setBackgroundColor(245, 0, 184);  // The main scene is pink.
   
   image = new ofxImageObject("plasticman.jpg");
+  //image = new ofxImageObject("maxresdefault.jpg");  // 1280x720 image proves that perspective and modelview are setup correctly!
   image->isCentered = true;
   image->setTrans(-100, 0, 0);
   mainScene->getRoot()->addChild(image);
   
-
   
   // ----------------------------------------
   // Set up a scene in an FBO.
@@ -39,6 +39,7 @@ void emptyApp::setup(){
   // Create an image to add to the fbo scene.
   fboImage = new ofxImageObject("plasticman2.jpg");
   fboImage->isCentered = true;
+  fboImage->setScale(0.25);
   fboScene->getRoot()->addChild(fboImage);
   
 }
@@ -56,7 +57,7 @@ void emptyApp::draw(){
   
   // Draw the main scene.
   mainScene->draw();
-
+  
   // Draw the fbo scene inside of the fbo begin/end block.
 
   // Note: Call begin with false to disable fbo setupscreen.

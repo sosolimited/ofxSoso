@@ -51,9 +51,21 @@ void ofxSosoRenderer::setScreenParams(bool iOrthographic, bool iVFlip, float iFo
 
 void ofxSosoRenderer::setupScreen()
 {
+  
+  float eyeX = width / 2;
+	float eyeY = height / 2;
+	float halfFov = PI * fov / 360;
+	float theTan = tanf(halfFov);
+	float dist = eyeY / theTan;
+	float aspect = (float) width / height;
+  
+	if(nearDist == 0) nearDist = dist / 10.0f;
+	if(farDist == 0) farDist = dist * 10.0f;
+  
+  
   // Load the projection matrix.
   matrixMode(OF_MATRIX_PROJECTION);
-	loadMatrix( projectionMatrix );
+  loadMatrix( projectionMatrix );
   
   // ModelView LookAt calculations are now multiplied into default scene root matrix in ofxScene.
   

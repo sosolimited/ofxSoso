@@ -22,7 +22,6 @@ ofxViewportData::~ofxViewportData(){}
 
 
 //class ofxScene _______________________________________________________________________________
-float* ofxScene::defaultMatrix = NULL;
 ofxObjectMaterial* ofxScene::defaultMaterial = NULL;
 
 ofxScene::ofxScene(int w, int h)
@@ -62,34 +61,33 @@ ofxScene::ofxScene(int w, int h)
   // Build renderer with width, height, and default parameters.
   renderer = new ofxSosoRenderer(sceneWidth, sceneHeight);
   
-	if(!defaultMatrix){
-		defaultMatrix = (float *)malloc(sizeof(float) * 16);
-		defaultMatrix[0] = 1.0;
-		defaultMatrix[1] = 0;
-		defaultMatrix[2] = 0;
-		defaultMatrix[3] = 0;
-    
-		defaultMatrix[4] = 0;
-		defaultMatrix[5] = 1.0;
-		defaultMatrix[6] = 0;
-		defaultMatrix[7] = 0;
-    
-		defaultMatrix[8] = 0;
-		defaultMatrix[9] = 0;
-		defaultMatrix[10] = 1.0;
-		defaultMatrix[11] = 0;
-    
-		defaultMatrix[12] = 0;
-		defaultMatrix[13] = 0;
-		defaultMatrix[14] = 0;
-		defaultMatrix[15] = 1.0;
-	}
-	
-	if(!defaultMaterial)
-		defaultMaterial = new ofxObjectMaterial();
+
+  defaultMatrix = (float *)malloc(sizeof(float) * 16);
+  defaultMatrix[0] = 1.0;
+  defaultMatrix[1] = 0;
+  defaultMatrix[2] = 0;
+  defaultMatrix[3] = 0;
+  
+  defaultMatrix[4] = 0;
+  defaultMatrix[5] = 1.0;
+  defaultMatrix[6] = 0;
+  defaultMatrix[7] = 0;
+  
+  defaultMatrix[8] = 0;
+  defaultMatrix[9] = 0;
+  defaultMatrix[10] = 1.0;
+  defaultMatrix[11] = 0;
+  
+  defaultMatrix[12] = 0;
+  defaultMatrix[13] = 0;
+  defaultMatrix[14] = 0;
+  defaultMatrix[15] = 1.0;
   
   // Multiply default matrix by renderer's modelview matrix (which has lookAt values embedded in it)
   ofxObject::Mul(defaultMatrix, renderer->getModelViewMatrix().getPtr(), defaultMatrix);
+  
+	if(!defaultMaterial)
+		defaultMaterial = new ofxObjectMaterial();
   
 	//setRenderMode(RENDER_NORMAL);
 	//setRenderMode(RENDER_ALPHA_DEPTH);	// Not working yet.

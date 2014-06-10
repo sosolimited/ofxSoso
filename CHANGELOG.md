@@ -12,6 +12,9 @@ Copyright (C) 2013 Sosolimited
 CORE
 ----
 
+### ofxScene  
+  6/10/2014, EG:
+  / made default matrix normal member (used to be static) because now the lookAt matrix is multiplied into it
 
 ### ofxScene  
   6/5/2014, EG:
