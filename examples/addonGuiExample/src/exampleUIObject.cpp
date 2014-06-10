@@ -14,12 +14,10 @@ exampleUIObject::exampleUIObject()
   bool isVisible = true;
 
   // Initialize "hack" variables for window bar and screen width corrections in Soso universe
-  // TODO: Remove when Soso Universe is flipped
   windowBarHack = 0;
   screenWidthHack = 0;
   
   // Reassign mouse callback to flip y-coords
-  // TODO: Remove when Soso universe is flipped
   ofAddListener(ofEvents().mouseReleased, this, &exampleUIObject::onMouseReleased);
   ofAddListener(ofEvents().mousePressed, this, &exampleUIObject::onMousePressed);
   ofAddListener(ofEvents().mouseMoved, this, &exampleUIObject::onMouseMoved);
@@ -28,14 +26,21 @@ exampleUIObject::exampleUIObject()
 
 exampleUIObject::~exampleUIObject()
 {
-  // TODO: DESTRUCTORS!
+  delete UI;
+  delete demoToggleBG;
+  delete demoSliderR;
+  delete demoSliderG;
+  delete demoSliderB;
+  delete demoButtonInv;
+  delete demoLabel;
+  
 }
 
 void exampleUIObject::setup()
 {
   // Define some sizing parameters
   int canvas_width = 300;
-  int canvas_height = 800;
+  int canvas_height = 600;
 
   int UIButtonWidth = 200;
   int UIButtonHeight = 20;
@@ -55,7 +60,6 @@ void exampleUIObject::setup()
   UI->disableAppEventCallbacks();
 
   // Disable mouse event callbacks because we have to flip the y-coords.
-  // TODO: Remove when Soso Universe is flipped
   UI->disableMouseEventCallbacks();
 
   // Add a label to the top of the canvas
@@ -99,18 +103,6 @@ void exampleUIObject::setup()
   demoLabel = new ofxUILabel("updating label", OFX_UI_FONT_MEDIUM);
   UI->addWidgetDown(demoLabel);
   
-  // TODO: MEMORY TEST -- Labels for memory footprint test
-  UI->addSpacer();
-  UI->addLabel("Memory test labels");
-  
-  int labelCount = 50000;
-
-  for (int i = 0; i < labelCount; i++) {
-    memLabels.push_back(new ofxUILabel("memLabel"+ofToString(i), OFX_UI_FONT_MEDIUM));
-    UI->addWidgetDown(memLabels[i]);
-  }
-  // TODO: END MEMORY TEST
-  
 }
 
 void exampleUIObject::idle(float iTime)
@@ -126,15 +118,6 @@ void exampleUIObject::update()
   if (demoLabel)
     demoLabel->setLabel("updating label: "+ ofToString(t, 2));
   
-  // TODO: MEMORY TEST --  Update memory test labels
-  int i = 0;
-  for (auto label : memLabels) {
-    if (memLabels[i])
-      memLabels[i]->setLabel(ofToString(rand()));
-    i++;
-  }
-  // TODO: END MEMORY TEST
-  
   // Update the UI (ofxUICanvas)
   UI->update();
   
@@ -146,7 +129,6 @@ void exampleUIObject::render()
     ofPushMatrix();
     
     // Flip y-coords to draw correctly in Soso universe.
-    // TODO: Remove when Soso universe is flipped
     ofScale(1, -1, 1);
     
     UI->draw();
@@ -161,7 +143,6 @@ void exampleUIObject::exit()
 }
 
 // Mouse callbacks that flip the y to bring interactions into soso universe.
-// TODO: Remove when Soso Universe is flipped
 
 void exampleUIObject::onMouseReleased(ofMouseEventArgs & iArgs)
 {
