@@ -105,9 +105,9 @@ void App::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
+// Monitor UI events to update the appropriate values based on input.
 void App::UIEvent(ofxUIEventArgs &e){
   
-  // TODO: understand/explain this
   string name = e.widget->getName();
   
   if (name == "toggle bg control") {
