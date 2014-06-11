@@ -16,8 +16,9 @@ ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
 	filename = iFilename;
 	if(iLoadNow){
     image = new ofImage();
-		loaded = image->loadImage(iFilename);
-        image->getTextureReference().texData.bFlipTexture = true;  //Get images right side up in soso world
+		loaded = image->loadImage(iFilename, destroyPixels);
+    image->getTextureReference().texData.bFlipTexture = true;  //Get images right side up in soso world
+    
 	}else{
     
     image = NULL;
@@ -36,14 +37,16 @@ ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
   }
   
 	isCentered = false;
-	
-    renderDirty = true; //eg 070112
+  renderDirty = true; //eg 070112
 }
 
+// Destructor.
 ofxImageObject::~ofxImageObject(){
-  
-  if (image)
+  if (image){
     delete image;
+  }
+  
+  //TODO: memory leak here caused by ofImage!
 }
 
 
@@ -61,10 +64,10 @@ void ofxImageObject::loadImage(string iFilename){
     
     //remake
     image = new ofImage();
- 
+    
   }
   
-  loaded = image->loadImage(iFilename);
+  loaded = image->loadImage(iFilename, destroyPixels);
   image->getTextureReference().texData.bFlipTexture = true;  //Get images right side up in soso world
   
   width = image->getWidth();
@@ -83,66 +86,73 @@ void ofxImageObject::enableTexture(bool iB)
 ofTexture ofxImageObject::getTexture()
 {
   
-    return image->getTextureReference();
+  return image->getTextureReference();
+}
+
+//AO 053014
+void ofxImageObject::setDestroyPixels(bool iDestroyPixels){
+  
+  destroyPixels = iDestroyPixels;
+  
 }
 
 void ofxImageObject::render()
-{	
-    //eg 070112 Added display lists.
-    if(renderDirty){
-        
-        glDeleteLists(displayList, 1);
-        glNewList(displayList, GL_COMPILE_AND_EXECUTE);
-
-        //For when iLoadNow=false is used in constructor
-        if(width==0 || height==0){
-          
-          if (image){
-            width = image->getWidth();
-            height = image->getHeight();
-          }else{
-            
-            width = 0;
-            height = 0;
-            
-          }
-        }
-        
-        if(isCentered){
-            ofPushMatrix();
-            ofTranslate(-width/2, -height/2, 0);
-        }
-        
-        glNormal3f(0,0,1);
+{
+  //eg 070112 Added display lists.
+  if(renderDirty){
+    
+    glDeleteLists(displayList, 1);
+    glNewList(displayList, GL_COMPILE_AND_EXECUTE);
+    
+    //For when iLoadNow=false is used in constructor
+    if(width==0 || height==0){
       
-        if (image)
-          image->draw(0,0);
+      if (image){
+        width = image->getWidth();
+        height = image->getHeight();
+      }else{
         
-        if(isCentered){
-            ofPopMatrix();
-        }
+        width = 0;
+        height = 0;
         
-        glEndList();
-        renderDirty = false;
-    }else{
-		glCallList(displayList);
+      }
     }
+    
+    if(isCentered){
+      ofPushMatrix();
+      ofTranslate(-width/2, -height/2, 0);
+    }
+    
+    glNormal3f(0,0,1);
+    
+    if (image)
+      image->draw(0,0);
+    
+    if(isCentered){
+      ofPopMatrix();
+    }
+    
+    glEndList();
+    renderDirty = false;
+  }else{
+		glCallList(displayList);
+  }
 }
 
 
 void ofxImageObject::setCentered(bool iEnable)
 {
 	isCentered = iEnable;
-    renderDirty = true;
+  renderDirty = true;
 }
 
 
 void ofxImageObject::clear()
 {
-    if (loaded) {
-        if (image)
-          image->clear();
-        loaded = false;
-    }
-    renderDirty = true;
+  if (loaded) {
+    if (image)
+      image->clear();
+    loaded = false;
+  }
+  renderDirty = true;
 }
