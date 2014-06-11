@@ -125,7 +125,7 @@ void scrollerApp::setup(){
 }
 
 
-//----Convenience class to build instruction text
+//----Convenience method to build instruction text
 void scrollerApp::buildInstructionText(){
   
   //Load a font.

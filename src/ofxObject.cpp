@@ -16,7 +16,7 @@ ofxObjectMaterial::~ofxObjectMaterial(){}
 // Returns ofColor as a ofVec4f
 // Convenience method for ofxMessage calculations
 ofVec4f ofxObjectMaterial::getColorVec4f(){
-
+  
   return ofVec4f(color.r, color.g, color.b, color.a);
   
 }
@@ -67,6 +67,10 @@ ofxObject::ofxObject(){
 	
 	timePrev = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;
 	timeElapsed = 0;
+  
+  //shader info
+  shader = new ofShader();
+  shaderEnabled = true; // Enabled by default
 }
 
 // Destructor.
@@ -80,22 +84,22 @@ ofxObject::~ofxObject()
     delete message;
   }
   messages.clear();
-
+  
   // 2 --- Destroy other items.
   for (auto parent : parents){
     parent->removeChild(this);
   }
   for (int i=0; i < children.size(); i++){
-//cout<<"CHILD ["<<i<<"] - - - "<<endl;
+    //cout<<"CHILD ["<<i<<"] - - - "<<endl;
     
     for (int j=0; j < children[i]->parents.size(); j++){
       if(children[i]->parents[j] == this){
         children[i]->parents.erase(children[i]->parents.begin() + j);
-//cout<<"PARENT ["<<j<<"] - - - "<<endl;
+        //cout<<"PARENT ["<<j<<"] - - - "<<endl;
       }
     }
   }
-
+  
   //DEV_jc_1: this was here already, do we get rid of these unused vars?
   // Destroy malloc'ed items.
 	//if (matrix != NULL) free(matrix);
@@ -244,19 +248,19 @@ float* ofxObject::updateMatrix(float *iParentMatrix)
 ofxObjectMaterial* ofxObject::updateMaterial(ofxObjectMaterial *iMat)
 {
 	//firebrand - added support for disabling alpha inheritance
-    float alpha = material->color.a;
-    float r = material->color.r;
-    float g = material->color.g;
-    float b = material->color.b;
+  float alpha = material->color.a;
+  float r = material->color.r;
+  float g = material->color.g;
+  float b = material->color.b;
   
 	if(material->inheritAlphaFlag) alpha *= (float)iMat->color.a / 255.0f;
-    if(inheritColor) {  // SK added color inheritence flag
-        r *= (float)iMat->color.r / 255.0f;
-        g *= (float)iMat->color.g / 255.0f;
-        b *= (float)iMat->color.b / 255.0f;
-    }
-
-    drawMaterial->color.set(r,g,b,alpha);
+  if(inheritColor) {  // SK added color inheritence flag
+    r *= (float)iMat->color.r / 255.0f;
+    g *= (float)iMat->color.g / 255.0f;
+    b *= (float)iMat->color.b / 255.0f;
+  }
+  
+  drawMaterial->color.set(r,g,b,alpha);
 	
 	return drawMaterial;
 }
@@ -299,7 +303,7 @@ void ofxObject::idleBase(float iTime)
 void ofxObject::draw(ofxObjectMaterial *iMaterial, float *iMatrix, int iSelect, bool iDrawAlone)
 {
 	//if(id == 1) printf("i am a circle %f - %f, %f, %f\n", ofGetElapsedTimef(), color.r, color.g, color.b);
-
+  
 	//call idle whether or not the object is shown
 	//PEND: this might have to move down, so it doesn't get called multiple times
 	//idle(ofGetElapsedTimef());
@@ -350,6 +354,30 @@ void ofxObject::draw(ofxObjectMaterial *iMaterial, float *iMatrix, int iSelect, 
 
 void ofxObject::predraw()
 {
+  //float r = ofRandom(1);
+  //shader->setUniform1f("time", ofGetElapsedTimef());
+  
+  //shaderParams = (void*) shader->setUniform1f("percentX", r);
+  
+
+  // Start shader if there is one
+  if (shaderEnabled){
+    if (shader!=NULL){
+      if(shader->isLoaded()){
+      // Bind the shader
+        
+      shader->begin();
+        
+      setShaderParams();
+        
+       
+      }
+  }
+  }else{
+
+  }
+  
+  
 	glPushName(id);
 	
 	ofSetColor(drawMaterial->color.r, drawMaterial->color.g, drawMaterial->color.b, drawMaterial->color.a);	//v4.0
@@ -396,6 +424,17 @@ void ofxObject::postdraw()
 {
 	//ofPopMatrix();
 	glPopName();
+  
+  // End shader if there is one
+  if (shaderEnabled){
+    if (shader!=NULL){
+      if (shader->isLoaded()){
+      // End the shader
+      shader->end();
+      
+      }
+    }
+  }
 }
 
 int ofxObject::collectNodes(int iSelect, ofxObject *iNodes[], int iNumber, int iMax)
@@ -500,12 +539,43 @@ void ofxObject::setColor(string iHex)
 // Set color and alpha
 void ofxObject::setColor(float r, float g, float b, float a)
 {
-	material->color.set(r, g, b, a);			//v4.0
+	material->color.set(r, g, b, a);
 }
 
 void ofxObject::setColor(ofColor c)
 {
   material->color.set(c.r, c.g, c.b, c.a);
+}
+
+// Convenience methods for getting and setting individual color components.
+void ofxObject::setRed(float iRed)
+{
+  material->color.r = iRed;
+}
+
+void ofxObject::setGreen(float iGreen)
+{
+  material->color.g = iGreen;
+}
+
+void ofxObject::setBlue(float iBlue)
+{
+  material->color.b = iBlue;
+}
+
+float ofxObject::getRed()
+{
+  return material->color.r;
+}
+
+float ofxObject::getGreen()
+{
+  return material->color.g;
+}
+
+float ofxObject::getBlue()
+{
+  return material->color.b;
 }
 
 void ofxObject::setAlpha(float iA)
@@ -596,6 +666,43 @@ void ofxObject::setTrans(ofVec3f vec)
 	matrixDirty = true;
 }
 
+// Convenience methods for setting and getting single axis of translation.
+float ofxObject::getX()
+{
+  return xyz.x;
+}
+
+float ofxObject::getY()
+{
+  return xyz.y;
+}
+
+float ofxObject::getZ()
+{
+  return xyz.z;
+}
+
+void ofxObject::setX(float iX)
+{
+  xyz[0] = iX;
+  localMatrix[12] = xyz[0];
+  matrixDirty = true;
+}
+
+void ofxObject::setY(float iY)
+{
+  xyz[1] = iY;
+  localMatrix[13] = xyz[1];
+  matrixDirty = true;
+}
+
+void ofxObject::setZ(float iZ)
+{
+  xyz[2] = iZ;
+  localMatrix[14] = xyz[2];
+  matrixDirty = true;
+}
+
 
 ofVec3f ofxObject::getScale()
 {
@@ -645,7 +752,51 @@ int ofxObject::getID()
 	return id;
 }
 
+// Set's the object's shader
+void ofxObject::setShader(ofShader *iShader){
+  
+  shader = iShader;
+  
+}
 
+// Load shader from a file.  Assumes frag and vertex shaders have the same filename.
+void ofxObject::loadShader(string iShaderName){
+  
+  if (shader == NULL){
+    shader = new ofShader();
+  }else{
+    delete shader;
+    shader = new ofShader();
+  }
+  shader->load(iShaderName);
+  
+}
+
+// Loads shader from file.  You can individually specify
+// the name of frag, vert, and geo shader.
+void ofxObject::loadShader(string iFragName, string iVertName){
+  
+  if (shader == NULL){
+    shader = new ofShader();
+  }else{
+    delete shader;
+    shader = new ofShader();
+  }
+  shader->load(iFragName, iVertName);
+  
+}
+
+// Enable shaders.  By default, true.
+void ofxObject::setEnableShaders(bool iSet){
+
+  shaderEnabled = iSet;
+
+}
+
+void ofxObject::setShaderParams(){
+
+  //do nothing by default
+}
 
 void ofxObject::Mul(float *source1, float *source2, float *_dest)
 {
@@ -967,8 +1118,8 @@ void ofxObject::updateMessages()
 					//update value
 					if(messages[i]->path == OF_LINEAR_PATH){
 						setColor((1-t)*((ofVec3f *)messages[i]->startVals)->x + t*((ofVec3f *)messages[i]->endVals)->x,
-								 (1-t)*((ofVec3f *)messages[i]->startVals)->y + t*((ofVec3f *)messages[i]->endVals)->y,
-								 (1-t)*((ofVec3f *)messages[i]->startVals)->z + t*((ofVec3f *)messages[i]->endVals)->z);
+                     (1-t)*((ofVec3f *)messages[i]->startVals)->y + t*((ofVec3f *)messages[i]->endVals)->y,
+                     (1-t)*((ofVec3f *)messages[i]->startVals)->z + t*((ofVec3f *)messages[i]->endVals)->z);
 					}else if(messages[i]->path == OF_BEZIER_PATH){
 						ofVec4f c = ofxMessage::bezier(t, messages[i]->pathPoints);
 						setColor(c.x, c.y, c.z);
@@ -1280,5 +1431,5 @@ void ofxObject::setDisplayList(GLuint iList)
 {
   displayList = iList;
   //Tells render to use the list.
-  displayListFlag = true; 
+  displayListFlag = true;
 }
