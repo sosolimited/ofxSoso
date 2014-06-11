@@ -23,3 +23,4 @@ examples/destructorsClean/bin/data/RF1308-Superbowl_Closing-Ver02.mp4
 
 *.xcodeproj/xcuserdata/*.xcuserdatad
 *.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad
+*.xccheckout

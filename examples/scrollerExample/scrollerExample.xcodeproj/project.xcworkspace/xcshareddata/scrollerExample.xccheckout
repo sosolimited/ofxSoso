@@ -5,36 +5,22 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-<<<<<<< HEAD
 	<string>D51E8D81-5650-4572-BBC1-E67D835EBD51</string>
-=======
-	<string>79EBE9F5-E336-4B78-BC8A-8EB176A6687D</string>
->>>>>>> cc51142e44b50404afb33db9eca714d0f65a2ba8
 	<key>IDESourceControlProjectName</key>
 	<string>scrollerExample</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-<<<<<<< HEAD
 		<key>2B189E95-7CCF-4326-83D7-573C69051AF3</key>
 		<string>ssh://github.com/Surfincolin/openFrameworks.git</string>
 		<key>8206554E-855C-4221-9951-AD65A8D1FBF3</key>
 		<string>ssh://github.com/Surfincolin/ofxSoso.git</string>
 		<key>93FA80A8-EAB0-4DD1-A213-BE6071381DD9</key>
 		<string>https://github.com/kronick/ofxAVFVideoPlayer.git</string>
-=======
-		<key>75470FE5-FE14-4B2F-9941-7EE9C998E6E9</key>
-		<string>ssh://github.com/ericgunther/ofxSoso.git</string>
-		<key>E433E649-FA0F-4764-B910-92EED674469C</key>
-		<string>ssh://github.com/ericgunther/openFrameworks.git</string>
-		<key>F0E76848-DF51-4EB4-AB53-D6AEA5D11DA0</key>
-		<string>ssh://github.com/sosolimited/ofxAVFVideoPlayer.git</string>
->>>>>>> cc51142e44b50404afb33db9eca714d0f65a2ba8
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>addons/ofxSoso/examples/scrollerExample/scrollerExample.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-<<<<<<< HEAD
 		<key>2B189E95-7CCF-4326-83D7-573C69051AF3</key>
 		<string>../../../../../..</string>
 		<key>8206554E-855C-4221-9951-AD65A8D1FBF3</key>
@@ -48,32 +34,25 @@
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
 	<string>2B189E95-7CCF-4326-83D7-573C69051AF3</string>
-=======
-		<key>75470FE5-FE14-4B2F-9941-7EE9C998E6E9</key>
 		<string>../../../..</string>
-		<key>E433E649-FA0F-4764-B910-92EED674469C</key>
-		<string>../../../../../..</string>
-		<key>F0E76848-DF51-4EB4-AB53-D6AEA5D11DA0</key>
+		<key>729C662C-E92C-426C-A064-04A46D1462C9</key>
 		<string>../../../../../ofxAVFVideoPlayer</string>
+		<key>DB6B6E96-8C91-4B03-AD35-9D76D542F36F</key>
+		<string>../../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/ericgunther/ofxSoso.git</string>
+	<string>ssh://github.com/aolivier/ofxSoso.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
 	<string>E433E649-FA0F-4764-B910-92EED674469C</string>
->>>>>>> cc51142e44b50404afb33db9eca714d0f65a2ba8
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-<<<<<<< HEAD
 			<string>93FA80A8-EAB0-4DD1-A213-BE6071381DD9</string>
-=======
-			<string>F0E76848-DF51-4EB4-AB53-D6AEA5D11DA0</string>
->>>>>>> cc51142e44b50404afb33db9eca714d0f65a2ba8
 			<key>IDESourceControlWCCName</key>
 			<string>ofxAVFVideoPlayer</string>
 		</dict>
@@ -81,11 +60,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-<<<<<<< HEAD
 			<string>8206554E-855C-4221-9951-AD65A8D1FBF3</string>
-=======
-			<string>75470FE5-FE14-4B2F-9941-7EE9C998E6E9</string>
->>>>>>> cc51142e44b50404afb33db9eca714d0f65a2ba8
 			<key>IDESourceControlWCCName</key>
 			<string>ofxSoso</string>
 		</dict>
@@ -93,11 +68,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-<<<<<<< HEAD
 			<string>2B189E95-7CCF-4326-83D7-573C69051AF3</string>
-=======
-			<string>E433E649-FA0F-4764-B910-92EED674469C</string>
->>>>>>> cc51142e44b50404afb33db9eca714d0f65a2ba8
 			<key>IDESourceControlWCCName</key>
 			<string>openFrameworks</string>
 		</dict>
