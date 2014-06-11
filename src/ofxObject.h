@@ -86,6 +86,14 @@ public :
   void							setTrans(ofVec3f vec);
 	void							setTrans(float x, float y, float z);
 	ofVec3f           getTrans();
+  
+  void            setX(float iX);
+  void            setY(float iY);
+  void            setZ(float iZ);
+  
+  float           getX();
+  float           getY();
+  float           getZ();
 	
   void							setRot(ofVec3f r);
 	void							setRot(float x, float y, float z);
@@ -106,6 +114,14 @@ public :
   virtual void      setColor(string iHex);
 	ofVec4f						getColorVec4f();
   ofColor           getColor();
+    
+  void              setRed(float iRed);
+  void              setGreen(float iGreen);
+  void              setBlue(float iBlue);
+  
+  float             getRed();
+  float             getGreen();
+  float             getBlue();
 
 	void							setSpecialTransparency(bool iFlag);
 	bool							hasTransparency();
