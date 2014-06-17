@@ -43,16 +43,21 @@ public:
 	void						reset();
 
   void            useShaders(string vert, string frag);
+  void            setUseAmplitudes(bool iEnable);
 
 public:
+  
   ofxAVFVideoPlayer *player;
 	bool						isCentered;
 	bool						isAutoIdling;
     
   ofShader        *mShader = 0;
   
-  
   bool            isPlaying = false;
+  
+private:
+  
+  bool            usingAmplitudes;
     
 
 };
