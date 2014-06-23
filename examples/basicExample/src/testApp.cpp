@@ -25,12 +25,12 @@ void testApp::setup(){
   
   
 	//Create a video object.
-	//movie = new ofxVideoPlayerObject("fingers.mov");
-	//movie->player->setLoopState(OF_LOOP_NORMAL);
-	//movie->setCentered(true);																			//Call this with true to center it. Defaults to lower left origin.
-	//movie->setTrans(0, 0, 10);
-	//movie->start();
-	//scene->getRoot()->addChild(movie);
+	movie = new ofxVideoPlayerObject("fingers.mov");
+	movie->player->setLoopState(OF_LOOP_NORMAL);
+	movie->setCentered(true);																			//Call this with true to center it. Defaults to lower left origin.
+	movie->setTrans(0, 0, 10);
+	movie->start();
+	scene->getRoot()->addChild(movie);
   
 	
 	//_________________________________________________________________________________________________________________
