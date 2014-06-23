@@ -2,13 +2,17 @@
 
 ofxVideoPlayerObject::ofxVideoPlayerObject(char *iPath)
 {
-  player = new ofxAVFVideoPlayer();
+
+    player = new ofxAVFVideoPlayer();
   
-  player->loadMovie(iPath);
-  player->getTextureReference().texData.bFlipTexture = true;
+    setUseAmplitudes(false); // Disable raw audio storage, ideally do this BEFORE memory load
   
-	isCentered = false;
-	isAutoIdling = true;
+    player->loadMovie(iPath);
+    player->getTextureReference().texData.bFlipTexture = true;
+        
+    isCentered = false;
+    isAutoIdling = true;
+
 }
 
 // Destructor.
@@ -82,6 +86,19 @@ void ofxVideoPlayerObject::reset()
 void ofxVideoPlayerObject::setCentered(bool iEnable)
 {
 	isCentered = iEnable;
+}
+
+// AO, 6/17/14:
+// If amplitudes are enabled, video player stores raw sound memory
+// This eats up memory, leave disabled by default
+void ofxVideoPlayerObject::setUseAmplitudes(bool iEnable)
+{
+	usingAmplitudes = iEnable;
+  
+  if (!iEnable)
+    player->disableAmplitude();
+  else player->enableAmplitude();
+  
 }
 
 void ofxVideoPlayerObject::useShaders(string vert, string frag) {
