@@ -37,17 +37,25 @@ public:
 	void						render();
 	void						setCentered(bool iEnable);
   void            setDestroyPixels(bool iDestroyPixels);
-	void						enableTexture(bool iB);
 	void						clear();
   ofTexture       getTexture();   //EG 021513
-	
+
+private:
+  
+  ofImage*        makeReferenceImage(string iFilename, bool iDestroyPixels);
+  
 public:
+  
 	bool            isCentered;
 	float           width,
                   height;
   bool            loaded;
   bool            destroyPixels=true; // Flag for if we should destroy pixels after loading image, AO 053014
 	string          filename;
-  ofImage         *image;
-
+  
+  
+private:
+  
+  // AO: Using ofTexture as of 6/26
+  ofTexture       *tex = NULL;
 };
