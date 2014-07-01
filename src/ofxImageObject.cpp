@@ -62,7 +62,7 @@ void ofxImageObject::loadImage(string iFilename){
     ofImage *imageRef = makeReferenceImage(iFilename, destroyPixels);
     
     tex = new ofTexture();
-    tex->loadData(imageRef->getPixelsRef());
+    tex->loadData(imageRef->getPixelsRef(), GL_RGBA);
   
     width = imageRef->getWidth();
     height = imageRef->getHeight();
