@@ -14,20 +14,16 @@ ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
 {
   
 	filename = iFilename;
-	if(iLoadNow){
-    image = new ofImage();
-		loaded = image->loadImage(iFilename, destroyPixels);
-    image->getTextureReference().texData.bFlipTexture = true;  //Get images right side up in soso world
+	
+  if(iLoadNow){
+
+    loadImage(iFilename);
     
-	}else{
-    
-    image = NULL;
-    
-  }
+	}
   
-  if (image){
-    width = image->getWidth();
-    height = image->getHeight();
+  if (tex!=NULL){
+    width = tex->getWidth();
+    height = tex->getHeight();
     
   }else{
     
@@ -42,56 +38,60 @@ ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
 
 // Destructor.
 ofxImageObject::~ofxImageObject(){
-  if (image){
-    delete image;
+  if (tex){
+    delete tex;
   }
   
   //TODO: memory leak here caused by ofImage!
 }
 
+ofImage* ofxImageObject::makeReferenceImage(string iFilename, bool iDestroyPixels){
 
-void ofxImageObject::loadImage(string iFilename){
+  ofImage *imageRef = new ofImage();
+  loaded = imageRef->loadImage(iFilename, iDestroyPixels);
+  imageRef->getTextureReference().texData.bFlipTexture = true;  //Get images right side up in soso world
   
-  if (image==NULL){
-    
-    image = new ofImage();
-    
-  }
-  
-  if (loaded){
-    
-    delete image;
-    
-    //remake
-    image = new ofImage();
-    
-  }
-  
-  loaded = image->loadImage(iFilename, destroyPixels);
-  image->getTextureReference().texData.bFlipTexture = true;  //Get images right side up in soso world
-  
-  width = image->getWidth();
-  height = image->getHeight();
+  return imageRef;
 }
 
-void ofxImageObject::enableTexture(bool iB)
-{
-  if (image){
-    image->setUseTexture(iB);
-    renderDirty = true;
+
+void ofxImageObject::loadImage(string iFilename){
+
+  if (tex==NULL){
+    
+    ofImage *imageRef = makeReferenceImage(iFilename, destroyPixels);
+    
+    tex = new ofTexture();
+    tex->loadData(imageRef->getPixelsRef(), GL_RGBA);
+  
+    width = imageRef->getWidth();
+    height = imageRef->getHeight();
+    
+    loaded = true;
+    
+    delete imageRef;
+    
+  }else{
+    
+    delete tex;
+    tex = NULL;
+    
+    loadImage(iFilename);
+
   }
 }
 
 //EG 021513
 ofTexture ofxImageObject::getTexture()
 {
-  
-  return image->getTextureReference();
+  return *tex;
+
 }
 
 //AO 053014
 void ofxImageObject::setDestroyPixels(bool iDestroyPixels){
   
+  //TODO: Implement this in ofTexture instead of ofImage
   destroyPixels = iDestroyPixels;
   
 }
@@ -106,16 +106,8 @@ void ofxImageObject::render()
     
     //For when iLoadNow=false is used in constructor
     if(width==0 || height==0){
-      
-      if (image){
-        width = image->getWidth();
-        height = image->getHeight();
-      }else{
-        
-        width = 0;
-        height = 0;
-        
-      }
+      width = tex->getWidth();
+      height = tex->getHeight();
     }
     
     if(isCentered){
@@ -124,10 +116,7 @@ void ofxImageObject::render()
     }
     
     glNormal3f(0,0,1);
-    
-    if (image)
-      image->draw(0,0);
-    
+    tex->draw(0,0);
     if(isCentered){
       ofPopMatrix();
     }
@@ -150,8 +139,8 @@ void ofxImageObject::setCentered(bool iEnable)
 void ofxImageObject::clear()
 {
   if (loaded) {
-    if (image)
-      image->clear();
+    if (tex)
+      tex->clear();
     loaded = false;
   }
   renderDirty = true;
