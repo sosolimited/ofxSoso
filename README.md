@@ -9,7 +9,7 @@ openFrameworks addon with scene graph, animations, enhanced text, and more. See 
 Dependencies
 ------------
 Grab ofxAVFVideoPlayer and follow kronick's instructions for adding it to your project  
-https://github.com/kronick/ofxAVFVideoPlayer
+https://github.com/sosolimited/ofxAVFVideoPlayer
 
 Creating a New Example Project
 ------------
