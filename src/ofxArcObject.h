@@ -15,16 +15,16 @@ public:
 	void						setEndAngle(float iAngle);
     float                       getStartAngle(); //LM 062012
     float                       getEndAngle(); //LM 062012
-	void						setColors(ofVec4f iColor1, ofVec4f iColor2);
-	
-public:	
-	int							resolution;								
+	void						setColors(ci::Vec4f iColor1, ci::Vec4f iColor2);
+
+public:
+	int							resolution;
 	float						outerRadius,
 								innerRadius,
 								startAngle,
-								endAngle;		
+								endAngle;
 
-	ofVec4f                     color1, color2, nullColor;
+	ci::Vec4f                     color1, color2, nullColor;
 	float						height;
 
 

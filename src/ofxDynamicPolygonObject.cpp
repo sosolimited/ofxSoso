@@ -20,7 +20,7 @@ ofxDynamicPolygonObject::ofxDynamicPolygonObject(int iNumVertices):ofxPolygonObj
 ofxDynamicPolygonObject::~ofxDynamicPolygonObject(){}
 
 void ofxDynamicPolygonObject::idle(float iTime)
-{	
+{
 	for(int i=0; i < numVertices; i++){
 		ofxPolygonObject::setVertexPos(i, dynamicVerts[i]->posTracker->getTrans());
 		ofxPolygonObject::setVertexTexCoords(i, dynamicVerts[i]->texTracker->getTrans().x, dynamicVerts[i]->texTracker->getTrans().y);
@@ -30,10 +30,10 @@ void ofxDynamicPolygonObject::idle(float iTime)
 }
 
 
-void ofxDynamicPolygonObject::setVertexPos(int iVertexNum, ofVec3f iPos)
+void ofxDynamicPolygonObject::setVertexPos(int iVertexNum, ci::Vec3f iPos)
 {
-	if((iVertexNum >= 0) && (iVertexNum < numVertices)){		
-		dynamicVerts[iVertexNum]->posTracker->stopMessages();				
+	if((iVertexNum >= 0) && (iVertexNum < numVertices)){
+		dynamicVerts[iVertexNum]->posTracker->stopMessages();
 		dynamicVerts[iVertexNum]->posTracker->setTrans(iPos);
 	}
 }
@@ -41,8 +41,8 @@ void ofxDynamicPolygonObject::setVertexPos(int iVertexNum, ofVec3f iPos)
 void ofxDynamicPolygonObject::setVertexTexCoords(int iVertexNum, float iU, float iV)
 {
 	if((iVertexNum >= 0) && (iVertexNum < numVertices)){
-		dynamicVerts[iVertexNum]->texTracker->stopMessages();		
-		dynamicVerts[iVertexNum]->texTracker->setTrans(ofVec3f(iU, iV, 0));
+		dynamicVerts[iVertexNum]->texTracker->stopMessages();
+		dynamicVerts[iVertexNum]->texTracker->setTrans(ci::Vec3f(iU, iV, 0));
 	}
 }
 
@@ -51,16 +51,16 @@ void ofxDynamicPolygonObject::setVertexColor(int iVertexNum, float iR, float iG,
 	vertexColoringEnabled = true;
 
 	if((iVertexNum >= 0) && (iVertexNum < numVertices)){
-		dynamicVerts[iVertexNum]->colorTracker->stopMessages();		
-		dynamicVerts[iVertexNum]->colorTracker->setColor(ofVec4f(iR, iG, iB, iA));	
+		dynamicVerts[iVertexNum]->colorTracker->stopMessages();
+		dynamicVerts[iVertexNum]->colorTracker->setColor(ci::Vec4f(iR, iG, iB, iA));
 	}
 }
 
 
-void ofxDynamicPolygonObject::gotoVertexPos(int iVertexNum, ofVec3f iPos, float iDur, float iDelay, int iInterp)
+void ofxDynamicPolygonObject::gotoVertexPos(int iVertexNum, ci::Vec3f iPos, float iDur, float iDelay, int iInterp)
 {
-	if((iVertexNum >= 0) && (iVertexNum < numVertices)){		
-		dynamicVerts[iVertexNum]->posTracker->stopMessages();		
+	if((iVertexNum >= 0) && (iVertexNum < numVertices)){
+		dynamicVerts[iVertexNum]->posTracker->stopMessages();
 		if(iDur == -1.0)
 			dynamicVerts[iVertexNum]->posTracker->setTrans(iPos);
 		else
@@ -74,7 +74,7 @@ void ofxDynamicPolygonObject::gotoVertexTexCoords(int iVertexNum, float iU, floa
 	if((iVertexNum >= 0) && (iVertexNum < numVertices)){
 		dynamicVerts[iVertexNum]->texTracker->stopMessages();
 		if(iDur == -1.0)
-			dynamicVerts[iVertexNum]->texTracker->setTrans(ofVec3f(iU, iV, 0));
+			dynamicVerts[iVertexNum]->texTracker->setTrans(ci::Vec3f(iU, iV, 0));
 		else
 			dynamicVerts[iVertexNum]->texTracker->doMessage3f(OF_TRANSLATE, iDelay, iDur, iInterp, iU, iV, 0);
 
@@ -89,7 +89,7 @@ void ofxDynamicPolygonObject::gotoVertexColor(int iVertexNum, float iR, float iG
 	if((iVertexNum >= 0) && (iVertexNum < numVertices)){
 		dynamicVerts[iVertexNum]->colorTracker->stopMessages();
 		if(iDur == -1.0)
-			dynamicVerts[iVertexNum]->colorTracker->setColor(ofVec4f(iR, iG, iB, iA));
+			dynamicVerts[iVertexNum]->colorTracker->setColor(ci::Vec4f(iR, iG, iB, iA));
 		else
 			dynamicVerts[iVertexNum]->texTracker->doMessage3f(OF_SETCOLOR, iDelay, iDur, iInterp, iR, iG, iB);
 			dynamicVerts[iVertexNum]->texTracker->doMessage1f(OF_SETALPHA, iDelay, iDur, iInterp, iA);

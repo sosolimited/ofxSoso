@@ -20,7 +20,7 @@ void ofxLineStripObject::render()
 	for(int i=0; i < vertices.size(); i++){
 		if(isVertexColoringEnabled)
             glColor4f(vertices[i]->color.x/255.0f, vertices[i]->color.y/255.0f, vertices[i]->color.z/255.0f, drawMaterial->color.w/255.0f * vertices[i]->color.w/255.0f);
-                
+
         glVertex3f(vertices[i]->position.x, vertices[i]->position.y, vertices[i]->position.z);
 	}
 	glEnd();
@@ -43,7 +43,7 @@ void ofxLineStripObject::setVertexColor(int iVertNum, float iR, float iG, float 
 {
 	if(ofInRange(iVertNum, 0, vertices.size()-1)){
 		vertices[iVertNum]->color.set(iR, iG, iB, iA);
-	}    
+	}
 }
 
 void ofxLineStripObject::addVertex(float iX, float iY, float iZ)
@@ -54,7 +54,7 @@ void ofxLineStripObject::addVertex(float iX, float iY, float iZ)
 	vertices.push_back(vert);
 }
 
-void ofxLineStripObject::addVertex(float iX, float iY, float iZ, ofVec4f iColor)
+void ofxLineStripObject::addVertex(float iX, float iY, float iZ, ci::Vec4f iColor)
 {
     ofxLineStripVertex *vert = new ofxLineStripVertex();
     vert->position.set(iX, iY, iZ);

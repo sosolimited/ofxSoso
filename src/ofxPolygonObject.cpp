@@ -1,7 +1,7 @@
 #include "ofxPolygonObject.h"
 
 ofxPolygonObject::ofxPolygonObject(int iNumVertices)
-{	
+{
 	numVertices = iNumVertices;
 	drawMode = OF_FILLED;
 	vertices = new float[3*iNumVertices];
@@ -11,7 +11,7 @@ ofxPolygonObject::ofxPolygonObject(int iNumVertices)
 	for(int i=0; i < (4*numVertices); i++){
 		vertexColors[i] = 1.0;
 	}
-	vertexColoringEnabled = false;	
+	vertexColoringEnabled = false;
 	texture = NULL;
 
 }
@@ -23,8 +23,8 @@ ofxPolygonObject::~ofxPolygonObject()
 
 void ofxPolygonObject::render()
 {
-	if(texture){		
-		glEnable(texture->getTextureData().textureTarget);		
+	if(texture){
+		glEnable(texture->getTextureData().textureTarget);
 		glBindTexture(texture->getTextureData().textureTarget, (GLuint)texture->getTextureData().textureID);
 
 		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
@@ -37,22 +37,22 @@ void ofxPolygonObject::render()
 	}
 
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, vertices);	
+	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	if(numVertices < 4) glDrawArrays((drawMode == OF_FILLED) ? GL_TRIANGLES : GL_LINE_LOOP, 0, numVertices);	//GL_TRIANGLE_FAN don't work for < 4 verts
 	else glDrawArrays((drawMode == OF_FILLED) ? GL_TRIANGLE_FAN : GL_LINE_LOOP, 0, numVertices);
 
 	if(texture){
-		glDisableClientState( GL_TEXTURE_COORD_ARRAY );		
+		glDisableClientState( GL_TEXTURE_COORD_ARRAY );
 		glDisable(texture->getTextureData().textureTarget);
-	}	
+	}
 
-	if(vertexColoringEnabled) 
-		glDisableClientState(GL_COLOR_ARRAY);		
+	if(vertexColoringEnabled)
+		glDisableClientState(GL_COLOR_ARRAY);
 }
-		
-void ofxPolygonObject::setVertexPos(int iVertexNum, ofVec3f iPos)
+
+void ofxPolygonObject::setVertexPos(int iVertexNum, ci::Vec3f iPos)
 {
-	if(iVertexNum < numVertices){					  
+	if(iVertexNum < numVertices){
 		vertices[3*iVertexNum] = iPos.x;
 		vertices[3*iVertexNum + 1] = iPos.y;
 		vertices[3*iVertexNum + 2] = iPos.z;
@@ -66,20 +66,20 @@ void ofxPolygonObject::setVertexTexCoords(int iVertexNum, float iU, float iV)
 		//texCoords[2*iVertexNum + 1] = iV;
 
 		//adding auto clamping
-		if(texture){			
+		if(texture){
 			texCoords[2*iVertexNum] = min(iU, texture->getWidth());
 			texCoords[2*iVertexNum] = max(texCoords[2*iVertexNum], 0.0f);
-						
+
 			texCoords[2*iVertexNum + 1] = min(iV, texture->getHeight());
 			texCoords[2*iVertexNum + 1] = max(texCoords[2*iVertexNum + 1], 0.0f);
 		}
-		
+
 	}
 }
 
-ofVec3f ofxPolygonObject::getVertexPos(int iVertexNum)
+ci::Vec3f ofxPolygonObject::getVertexPos(int iVertexNum)
 {
-	ofVec3f result;
+	ci::Vec3f result;
 
 	if(iVertexNum < numVertices){
 		result.x = vertices[3*iVertexNum];
@@ -90,10 +90,10 @@ ofVec3f ofxPolygonObject::getVertexPos(int iVertexNum)
 	return result;
 }
 
-ofVec2f ofxPolygonObject::getVertexTexCoords(int iVertexNum)
-{	
+ci::Vec2f ofxPolygonObject::getVertexTexCoords(int iVertexNum)
+{
 	if(iVertexNum < numVertices){
-		return ofVec2f(texCoords[2*iVertexNum], texCoords[2*iVertexNum + 1]);
+		return ci::Vec2f(texCoords[2*iVertexNum], texCoords[2*iVertexNum + 1]);
 	}
 }
 
@@ -117,7 +117,7 @@ void ofxPolygonObject::setDrawMode(int iDrawMode)
 
 void ofxPolygonObject::setTexture(ofImage *iTex)
 {
-	texture = &iTex->getTextureReference();	
+	texture = &iTex->getTextureReference();
 }
 
 void ofxPolygonObject::enableVertexColoring(bool iEnable)

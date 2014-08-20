@@ -24,18 +24,18 @@ ofxMessage::ofxMessage(int iID, void *iVals, int iInterpolation, float iDuration
 
 		float *end = (float *)malloc(sizeof(float));
 		end[0] = 0;
-		endVals = (void *)end;		
-		
+		endVals = (void *)end;
+
 	}else if((id==OF_TRANSLATE) || (id==OF_ROTATE) || (id==OF_SETCOLOR) || (id==OF_SCALE3)){
-		ofVec3f *vals = (ofVec3f *)malloc(sizeof(ofVec3f));
+		ci::Vec3f *vals = (ci::Vec3f *)malloc(sizeof(ci::Vec3f));
 		vals->set(0,0,0);
 		startVals = (void *)vals;
 
-		ofVec3f *baseVal = (ofVec3f *)malloc(sizeof(ofVec3f));
+		ci::Vec3f *baseVal = (ci::Vec3f *)malloc(sizeof(ci::Vec3f));
 		baseVal->set(OF_RELATIVE_VAL, OF_RELATIVE_VAL, OF_RELATIVE_VAL);
 		baseStartVals = (void *)baseVal;
 
-		ofVec3f *end = (ofVec3f *)malloc(sizeof(ofVec3f));
+		ci::Vec3f *end = (ci::Vec3f *)malloc(sizeof(ci::Vec3f));
 		end->set(0,0,0);
 		endVals = (void *)end;
 	}else{
@@ -48,15 +48,15 @@ ofxMessage::ofxMessage(int iID, void *iVals, int iInterpolation, float iDuration
 	duration = iDuration;
 	startDelay = iDelay;
 	startTime = ofGetElapsedTimef();	//default to current time
-	
-	isEnabled = true;	
+
+	isEnabled = true;
 	isRunning = false;
-	autoDelete = true;	
+	autoDelete = true;
 }
 
-ofxMessage::ofxMessage(int iID, int iInterpolation, int iPath, vector<ofVec4f> iPathPoints, float iDuration, float iDelay, int iPlayMode)
+ofxMessage::ofxMessage(int iID, int iInterpolation, int iPath, vector<ci::Vec4f> iPathPoints, float iDuration, float iDelay, int iPlayMode)
 {
-	id = iID;	
+	id = iID;
 	path = iPath;
 	pathPoints = iPathPoints;
 	playMode = iPlayMode;
@@ -71,10 +71,10 @@ ofxMessage::ofxMessage(int iID, int iInterpolation, int iPath, vector<ofVec4f> i
 	duration = iDuration;
 	startDelay = iDelay;
 	startTime = ofGetElapsedTimef();	//default to current time
-    
-	isEnabled = true;	
+
+	isEnabled = true;
 	isRunning = false;
-	autoDelete = true;	
+	autoDelete = true;
 }
 
 ofxMessage::ofxMessage(int iID, float (*iFunction)(void *), void *iArgs, float iDelay, int iPlayMode) //LM
@@ -83,21 +83,21 @@ ofxMessage::ofxMessage(int iID, float (*iFunction)(void *), void *iArgs, float i
 	path = OF_LINEAR_PATH;
 	playMode = iPlayMode;
 	loopDirection = false;
-    
+
     functionPtr = iFunction;
     startVals = iArgs;
     baseStartVals = NULL;
     endVals = NULL;
     baseEndVals = NULL;
-    
+
 	interpolation = NULL;
 	duration = 0;
 	startDelay = iDelay;
 	startTime = ofGetElapsedTimef();	//default to current time
-	
-	isEnabled = true;	
+
+	isEnabled = true;
 	isRunning = false;
-	autoDelete = true;	
+	autoDelete = true;
 }
 
 ofxMessage::~ofxMessage()
@@ -105,7 +105,7 @@ ofxMessage::~ofxMessage()
 	if(endVals) free(endVals);
 	if(baseEndVals) free(baseEndVals);
 	if(startVals) free(startVals);
-	if(baseStartVals) free(baseStartVals);	
+	if(baseStartVals) free(baseStartVals);
 }
 
 float ofxMessage::getFinishTime()
@@ -123,10 +123,10 @@ void ofxMessage::enableMessage(bool iEnable)
 	isEnabled = iEnable;
 }
 
-//these three methods set the start values and allocate memory for them if they are still null 
+//these three methods set the start values and allocate memory for them if they are still null
 void ofxMessage::setStartVals(float iX)
 {
-	if(startVals == NULL){	
+	if(startVals == NULL){
 		float *val = (float *)malloc(sizeof(float));
 		val[0] = iX;
 		startVals = (void *)val;
@@ -139,25 +139,25 @@ void ofxMessage::setStartVals(float iX)
 
 void ofxMessage::setStartVals(float iX, float iY, float iZ)
 {
-	if(startVals == NULL){						
-		ofVec3f *vals = (ofVec3f *)malloc(sizeof(ofVec3f));
+	if(startVals == NULL){
+		ci::Vec3f *vals = (ci::Vec3f *)malloc(sizeof(ci::Vec3f));
 		vals->set(iX, iY, iZ);
 		startVals = (void *)vals;
-		//printf("ofxMessage::setStartVals(%f, %f, %f) - NULL\n", ((ofVec3f *)startVals)->x, ((ofVec3f *)startVals)->y, ((ofVec3f *)startVals)->z);
+		//printf("ofxMessage::setStartVals(%f, %f, %f) - NULL\n", ((ci::Vec3f *)startVals)->x, ((ci::Vec3f *)startVals)->y, ((ci::Vec3f *)startVals)->z);
 	}else{
-		((ofVec3f *)startVals)->set(iX, iY, iZ);		
-		//printf("ofxMessage::setStartVals(%f, %f, %f) - NULL\n", ((ofVec3f *)startVals)->x, ((ofVec3f *)startVals)->y, ((ofVec3f *)startVals)->z);
+		((ci::Vec3f *)startVals)->set(iX, iY, iZ);
+		//printf("ofxMessage::setStartVals(%f, %f, %f) - NULL\n", ((ci::Vec3f *)startVals)->x, ((ci::Vec3f *)startVals)->y, ((ci::Vec3f *)startVals)->z);
 	}
 }
 
 void ofxMessage::setStartVals(float iX, float iY, float iZ, float iW)
 {
-	if(startVals == NULL){						
-		ofVec4f *vals = (ofVec4f *)malloc(sizeof(ofVec4f));
+	if(startVals == NULL){
+		ci::Vec4f *vals = (ci::Vec4f *)malloc(sizeof(ci::Vec4f));
 		vals->set(iX, iY, iZ, iW);
 		startVals = (void *)vals;
 	}else{
-		((ofVec4f *)startVals)->set(iX, iY, iZ, iW);
+		((ci::Vec4f *)startVals)->set(iX, iY, iZ, iW);
 	}
 }
 
@@ -170,12 +170,12 @@ void ofxMessage::setBaseStartVals(float iX)
 void ofxMessage::setBaseStartVals(float iX, float iY, float iZ)
 {
 	if(baseStartVals)
-		((ofVec3f *)baseStartVals)->set(iX, iY, iZ);
+		((ci::Vec3f *)baseStartVals)->set(iX, iY, iZ);
 }
 
 void ofxMessage::setBaseStartVals(float iX, float iY, float iZ, float iW)
 {
-	((ofVec4f *)baseStartVals)->set(iX, iY, iZ, iW);
+	((ci::Vec4f *)baseStartVals)->set(iX, iY, iZ, iW);
 }
 
 void ofxMessage::setEndVals(float iX)
@@ -187,19 +187,19 @@ void ofxMessage::setEndVals(float iX)
 void ofxMessage::setEndVals(float iX, float iY, float iZ)
 {
 	if(endVals)
-		((ofVec3f *)endVals)->set(iX, iY, iZ);
+		((ci::Vec3f *)endVals)->set(iX, iY, iZ);
 }
 
 void ofxMessage::setEndVals(float iX, float iY, float iZ, float iW)
 {
 	if(endVals)
-		((ofVec4f *)endVals)->set(iX, iY, iZ, iW);
+		((ci::Vec4f *)endVals)->set(iX, iY, iZ, iW);
 }
 
 
-//static method for interpolating time 
+//static method for interpolating time
 float ofxMessage::interpolateTime(int iInterp, float iTime)
-{	
+{
 	if (iTime >= 1.0f){
 		//iTime = 1.0f;
 		return 1.0f;
@@ -208,23 +208,23 @@ float ofxMessage::interpolateTime(int iInterp, float iTime)
 	}
 
 	switch (iInterp) {
-		case OF_LINEAR:		
+		case OF_LINEAR:
 			return (iTime);
 			break;
-		case OF_EASE_OUT:		
-			return (1.0f-(iTime-1.0f)*(iTime-1.0f));		
+		case OF_EASE_OUT:
+			return (1.0f-(iTime-1.0f)*(iTime-1.0f));
 			break;
 		case OF_EASE_IN:
 			return (iTime*iTime);
 			break;
-		case (OF_EASE_INOUT):	
+		case (OF_EASE_INOUT):
 			if (iTime <= 0.5f) {
 				return((iTime*2.0f)*(iTime*2.0f)*0.5f);
-			} 
+			}
 			else if (iTime > 0.5f) {
 				return((1.0f-((iTime-0.5f)*2.0f-1.0f)*((iTime-0.5f)*2.0f-1.0f))*0.5f + 0.5f);
 			}
-			break;	
+			break;
 	}
 
 	return iTime;
@@ -233,10 +233,10 @@ float ofxMessage::interpolateTime(int iInterp, float iTime)
 
 
 //iM goes from 0 - 1.0
-ofVec4f ofxMessage::bezier(float iM, std::vector<ofVec4f> iPath) 
+ci::Vec4f ofxMessage::bezier(float iM, std::vector<ci::Vec4f> iPath)
 {
-	ofVec4f r;
-	
+	ci::Vec4f r;
+
 	//if (iM > 1.0) iM = 1.0;
 	if (iM > 0.999) iM = 0.999;
 
@@ -269,7 +269,7 @@ ofVec4f ofxMessage::bezier(float iM, std::vector<ofVec4f> iPath)
 				blend /= (double)nkn;
 				nkn--;
 			}
-		}    
+		}
 		bx += iPath[k].x * blend;
 		by += iPath[k].y * blend;
 		bz += iPath[k].z * blend;
@@ -282,9 +282,9 @@ ofVec4f ofxMessage::bezier(float iM, std::vector<ofVec4f> iPath)
 }
 
 
-ofVec4f ofxMessage::spline(float iM, std::vector<ofVec4f> iPath) 
+ci::Vec4f ofxMessage::spline(float iM, std::vector<ci::Vec4f> iPath)
 {
-	ofVec4f r;
+	ci::Vec4f r;
 
 	float p0, p1, p2, p3;
 	float xx, yy, zz, ww;
@@ -292,12 +292,12 @@ ofVec4f ofxMessage::spline(float iM, std::vector<ofVec4f> iPath)
 	float t;
 
 	// first figure out which two points you are between on the entire spline /////////
-	nPoint = (int)(iM * (float)(iPath.size() - 1));	
-	
+	nPoint = (int)(iM * (float)(iPath.size() - 1));
+
 	// then figure out how far along you are between the adjacent control points //////
 	float step = 1.0f/(float)(iPath.size() - 1);
 	t = fmod((float)iM, step)/step;
-	
+
 	// check to see if you're at the boundaries ////////////////////////////////////////
 	int nPointPrev = nPoint - 1;
 	int nPointNext = nPoint + 1;
@@ -305,7 +305,7 @@ ofVec4f ofxMessage::spline(float iM, std::vector<ofVec4f> iPath)
 
 	if(nPointPrev < 0){
 		nPointPrev = 0;
-	}	
+	}
 	else if(nPointNext > ((int)iPath.size() - 1)){
 		nPointNext = (int)iPath.size() - 1;
 		nPointNextNext = nPointNext;
@@ -316,34 +316,34 @@ ofVec4f ofxMessage::spline(float iM, std::vector<ofVec4f> iPath)
 
 	// do the spline calculations /////////////////////////////////////////////////////
 	// First calculate the X coefficients
-	p0 = iPath[nPointPrev][0]; 
+	p0 = iPath[nPointPrev][0];
 	p1 = iPath[nPoint][0];
 	p2 = iPath[nPointNext][0];
 	p3 = iPath[nPointNextNext][0];
 
 	xx = 0.5*((2.0*p1) + (-p0 + p2)*t + (2.0*p0 - 5.0*p1 + 4*p2 - p3)*t*t + (-p0 + 3*p1 - 3.0*p2 + p3)*t*t*t);
-	
+
 	// Next, the Y coefficients
-	p0 = iPath[nPointPrev][1]; 
+	p0 = iPath[nPointPrev][1];
 	p1 = iPath[nPoint][1];
-	p2 = iPath[nPointNext][1]; 
+	p2 = iPath[nPointNext][1];
 	p3 = iPath[nPointNextNext][1];
 
 	yy = 0.5*((2.0*p1) + (-p0 + p2)*t + (2.0*p0 - 5.0*p1 + 4*p2 - p3)*t*t + (-p0 + 3*p1 - 3.0*p2 + p3)*t*t*t);
 
 	// Finally, the Z coefficients
-	p0 = iPath[nPointPrev][2]; 
-	p1 = iPath[nPoint][2]; 
-	p2 = iPath[nPointNext][2]; 
-	p3 = iPath[nPointNextNext][2]; 
+	p0 = iPath[nPointPrev][2];
+	p1 = iPath[nPoint][2];
+	p2 = iPath[nPointNext][2];
+	p3 = iPath[nPointNextNext][2];
 
 	zz = 0.5*((2.0*p1) + (-p0 + p2)*t + (2.0*p0 - 5.0*p1 + 4*p2 - p3)*t*t + (-p0 + 3*p1 - 3.0*p2 + p3)*t*t*t);
 
-	// Finally, the W coefficients 
-	p0 = iPath[nPointPrev][3]; 
-	p1 = iPath[nPoint][3]; 
-	p2 = iPath[nPointNext][3]; 
-	p3 = iPath[nPointNextNext][3]; 
+	// Finally, the W coefficients
+	p0 = iPath[nPointPrev][3];
+	p1 = iPath[nPoint][3];
+	p2 = iPath[nPointNext][3];
+	p3 = iPath[nPointNextNext][3];
 
 	ww = 0.5*((2.0*p1) + (-p0 + p2)*t + (2.0*p0 - 5.0*p1 + 4*p2 - p3)*t*t + (-p0 + 3*p1 - 3.0*p2 + p3)*t*t*t);
 

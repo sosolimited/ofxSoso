@@ -7,13 +7,13 @@ ofxLineSegmentObject::ofxLineSegmentObject(int iNumVerts)
 	for(int i=0; i < iNumVerts; i++){
 		addVertex(0,0,0);
 	}
-    
+
     isStipplingEnabled = false;
 	stipplingPattern = 0xAA;
 	stipplingFactor = 1.0;
     smoothingHint = GL_NICEST;
-	
-    
+
+
 }
 
 ofxLineSegmentObject::~ofxLineSegmentObject(){
@@ -21,11 +21,11 @@ ofxLineSegmentObject::~ofxLineSegmentObject(){
 
 void ofxLineSegmentObject::render()
 {
-    glEnable(GL_LINE_SMOOTH); 		
-    glHint(GL_LINE_SMOOTH_HINT, smoothingHint);		
-    
+    glEnable(GL_LINE_SMOOTH);
+    glHint(GL_LINE_SMOOTH_HINT, smoothingHint);
+
     glLineWidth(lineWidth);
-    
+
     if(isStipplingEnabled){
         glLineStipple(stipplingFactor, stipplingPattern);
         glEnable(GL_LINE_STIPPLE);
@@ -58,7 +58,7 @@ void ofxLineSegmentObject::setVertexPos(int iVertNum, float iX, float iY, float 
 
 void ofxLineSegmentObject::addVertex(float iX, float iY, float iZ)
 {
-	vertices.push_back(ofVec3f(iX, iY, iZ));
+	vertices.push_back(ci::Vec3f(iX, iY, iZ));
 }
 
 
@@ -72,5 +72,5 @@ void ofxLineSegmentObject::enableStippling(bool iEnable)
 void ofxLineSegmentObject::setStipplingPattern(GLushort iPattern, GLint iFactor)
 {
 	stipplingPattern = iPattern;
-	stipplingFactor = iFactor;    
+	stipplingFactor = iFactor;
 }

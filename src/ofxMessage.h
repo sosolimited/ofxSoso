@@ -1,30 +1,27 @@
 /*
 ofxMessage
 
-Class used by ofxObject and ofxAnimation to animate ofxObjects. 
+Class used by ofxObject and ofxAnimation to animate ofxObjects.
 
 Soso OpenFrameworks Addon
 Copyright (C) 2012 Sosolimited
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software
-and associated documentation files (the "Software"), to deal in the Software without restriction, 
-including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
+and associated documentation files (the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
 subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
-THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
 CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 */
 
 #pragma once
-
-#include "ofVectorMath.h"	
-
 
 enum{
 	OF_RELATIVE_VAL = 9999
@@ -65,7 +62,7 @@ class ofxMessage
 {
 public:
 	ofxMessage(int iID, void *iVals, int iInterpolation, float iDuration, float iDelay=0, int iPlayMode=OF_ONE_TIME_PLAY);
-	ofxMessage(int iID, int iInterpolation, int iPath, vector<ofVec4f> iPathPoints, float iDuration, float iDelay=0, int iPlayMode=OF_ONE_TIME_PLAY);
+	ofxMessage(int iID, int iInterpolation, int iPath, std::vector<ci::Vec4f> iPathPoints, float iDuration, float iDelay=0, int iPlayMode=OF_ONE_TIME_PLAY);
 	ofxMessage(int iID, float (*iFunction)(void *), void *iArgs, float iDelay, int iPlayMode=OF_ONE_TIME_PLAY); //LM
 
 	~ofxMessage();
@@ -87,8 +84,8 @@ public:
 	void					setEndVals(float iX, float iY, float iZ);
 	void					setEndVals(float iX, float iY, float iZ, float iW);
 
-	static ofVec4f			bezier(float iM, std::vector<ofVec4f> iPath);
-	static ofVec4f			spline(float iM, std::vector<ofVec4f> iPath);
+	static ci::Vec4f			bezier(float iM, std::vector<ci::Vec4f> iPath);
+	static ci::Vec4f			spline(float iM, std::vector<ci::Vec4f> iPath);
 
 
 
@@ -110,5 +107,5 @@ public:
 	bool					isEnabled;
 	bool					isRunning;
 
-	vector<ofVec4f>		pathPoints;
+	std::vector<ci::Vec4f>		pathPoints;
 };

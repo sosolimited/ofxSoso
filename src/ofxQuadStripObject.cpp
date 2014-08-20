@@ -1,7 +1,7 @@
 #include "ofxQuadStripObject.h"
 
 ofxQuadStripObject::ofxQuadStripObject(int iNumVertices)
-{	
+{
 	numVertices = iNumVertices;
 	drawMode = OF_FILLED;
 	vertices = new float[3*iNumVertices];
@@ -11,7 +11,7 @@ ofxQuadStripObject::ofxQuadStripObject(int iNumVertices)
 	for(int i=0; i < (4*numVertices); i++){
 		vertexColors[i] = 1.0;
 	}
-	vertexColoringEnabled = false;	
+	vertexColoringEnabled = false;
 	texture = NULL;
 
 }
@@ -23,8 +23,8 @@ ofxQuadStripObject::~ofxQuadStripObject()
 
 void ofxQuadStripObject::render()
 {
-	if(texture){		
-		glEnable(texture->getTextureData().textureTarget);		
+	if(texture){
+		glEnable(texture->getTextureData().textureTarget);
 		glBindTexture(texture->getTextureData().textureTarget, (GLuint)texture->getTextureData().textureID);
 
 		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
@@ -37,21 +37,21 @@ void ofxQuadStripObject::render()
 	}
 
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, vertices);	
+	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glDrawArrays((drawMode == OF_FILLED) ? GL_QUAD_STRIP : GL_LINE_LOOP, 0, numVertices);
 
 	if(texture){
-		glDisableClientState( GL_TEXTURE_COORD_ARRAY );		
+		glDisableClientState( GL_TEXTURE_COORD_ARRAY );
 		glDisable(texture->getTextureData().textureTarget);
-	}	
+	}
 
-	if(vertexColoringEnabled) 
-		glDisableClientState(GL_COLOR_ARRAY);		
+	if(vertexColoringEnabled)
+		glDisableClientState(GL_COLOR_ARRAY);
 }
-		
-void ofxQuadStripObject::setVertexPos(int iVertexNum, ofVec3f iPos)
+
+void ofxQuadStripObject::setVertexPos(int iVertexNum, ci::Vec3f iPos)
 {
-	if(iVertexNum < numVertices){					  
+	if(iVertexNum < numVertices){
 		vertices[3*iVertexNum] = iPos.x;
 		vertices[3*iVertexNum + 1] = iPos.y;
 		vertices[3*iVertexNum + 2] = iPos.z;
@@ -65,20 +65,20 @@ void ofxQuadStripObject::setVertexTexCoords(int iVertexNum, float iU, float iV)
 		//texCoords[2*iVertexNum + 1] = iV;
 
 		//adding auto clamping
-		if(texture){			
+		if(texture){
 			texCoords[2*iVertexNum] = min(iU, texture->getWidth());
 			texCoords[2*iVertexNum] = max(texCoords[2*iVertexNum], 0.0f);
-						
+
 			texCoords[2*iVertexNum + 1] = min(iV, texture->getHeight());
 			texCoords[2*iVertexNum + 1] = max(texCoords[2*iVertexNum + 1], 0.0f);
 		}
-		
+
 	}
 }
 
-ofVec3f ofxQuadStripObject::getVertexPos(int iVertexNum)
+ci::Vec3f ofxQuadStripObject::getVertexPos(int iVertexNum)
 {
-	ofVec3f result;
+	ci::Vec3f result;
 
 	if(iVertexNum < numVertices){
 		result.x = vertices[3*iVertexNum];
@@ -89,10 +89,10 @@ ofVec3f ofxQuadStripObject::getVertexPos(int iVertexNum)
 	return result;
 }
 
-ofVec2f ofxQuadStripObject::getVertexTexCoords(int iVertexNum)
-{	
+ci::Vec2f ofxQuadStripObject::getVertexTexCoords(int iVertexNum)
+{
 	if(iVertexNum < numVertices){
-		return ofVec2f(texCoords[2*iVertexNum], texCoords[2*iVertexNum + 1]);
+		return ci::Vec2f(texCoords[2*iVertexNum], texCoords[2*iVertexNum + 1]);
 	}
 }
 
@@ -136,7 +136,7 @@ void ofxQuadStripObject::setDrawMode(int iDrawMode)
 
 void ofxQuadStripObject::setTexture(ofImage *iTex)
 {
-	texture = &iTex->getTextureReference();	
+	texture = &iTex->getTextureReference();
 }
 
 void ofxQuadStripObject::enableVertexColoring(bool iEnable)
@@ -149,8 +149,8 @@ ofTexture* ofxQuadStripObject::getTexture()
 	return texture;
 }
 
-ofVec4f ofxQuadStripObject::getVertexColor(int iVertexNum) {
-    return ofVec4f(vertexColors[iVertexNum*4]*255, vertexColors[iVertexNum*4+1]*255, vertexColors[iVertexNum*4+2]*255, vertexColors[iVertexNum*4+3]*255);
+ci::Vec4f ofxQuadStripObject::getVertexColor(int iVertexNum) {
+    return ci::Vec4f(vertexColors[iVertexNum*4]*255, vertexColors[iVertexNum*4+1]*255, vertexColors[iVertexNum*4+2]*255, vertexColors[iVertexNum*4+3]*255);
 }
 
 float ofxQuadStripObject::getVertexAlpha(int iVertexNum) {

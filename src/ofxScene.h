@@ -3,9 +3,9 @@ ofxScene
 
 ofxScene is a scene graph. It has a root object, accessed by getRoot(), to which objects are added.
 In the standard configuration, a rectangle placed at z=0 of size ofGetWidth() x ofGetHeight() will exactly fill the window.
-By default, the root is at the center of the screen and up is up and down is down. 
-Rather than using glPushMatrix() and glPopMatrix() calls, all matrix transformations are calculated in code 
-and glLoadMatrix() is used when each object is drawn. 
+By default, the root is at the center of the screen and up is up and down is down.
+Rather than using glPushMatrix() and glPopMatrix() calls, all matrix transformations are calculated in code
+and glLoadMatrix() is used when each object is drawn.
 
 The scene graph has three different render modes. Call setRenderMode() with:
 RENDER_NORMAL - No fancy business. Just recurses through the render tree.
@@ -20,16 +20,16 @@ Soso OpenFrameworks Addon
 Copyright (C) 2012 Sosolimited
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software
-and associated documentation files (the "Software"), to deal in the Software without restriction, 
-including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
+and associated documentation files (the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
 subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
-THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
 CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 */
@@ -46,16 +46,16 @@ enum{
 
 class ofxViewportData
 {
-public: 
+public:
 	ofxViewportData(int iScreenNum, int iScreenX, int iScreenY, int iWorldX, int iWorldY, int iWidth, int iHeight);
 	~ofxViewportData();
-	
+
 public:
 	int						screenNum;
 	int						screenOrigin[2];
 	int						worldOrigin[2];
 	int						dimensions[2];
-	
+
 
 
 };
@@ -77,7 +77,7 @@ public:
 	void					drawAlphaDepthSorted();
 
 	void					setClearBackground(bool iClear); //LM 061312
-	void					setBackgroundColor(float iR, float iG, float iB, float iA=255);		
+	void					setBackgroundColor(float iR, float iG, float iB, float iA=255);
 	void					setCenterOffset(float iX, float iY, float iZ);
 	void					setRenderMode(int iMode);
 	void					setMaxSortedObjects(int iMax);
@@ -89,27 +89,27 @@ public:
 	void					setDepthMask(bool iWrite);
 	void					enableBlending(bool iEnable);
 	void					setShadingModel(GLenum iModel);
-	
+
 	int						getSceneWidth();
 	int						getSceneHeight();
-	ofVec4f					getBackgroundColor(); //LM 061312
-		
+	ci::Vec4f					getBackgroundColor(); //LM 061312
+
 
 	static int				depthCompareFunc(const void *iElement1, const void *iElement2);
-	
+
 private:
 	int						sceneWidth;
 	int						sceneHeight;
-	ofxObject				*root;	
+	ofxObject				*root;
 	ofBaseApp				*app;
-	ofVec4f					backgroundColor;
+	ci::Vec4f					backgroundColor;
 	bool					isClearBackgroundOn;
 
 	ofxObject				**sortedObjects;
-	int						maxSortedObjects;	
+	int						maxSortedObjects;
 
-	ofVec3f					centerOffset;
-	
+	ci::Vec3f					centerOffset;
+
 	int						renderMode;
 
 	bool					isScissorOn;
@@ -124,6 +124,6 @@ private:
 public:
 	static float			*defaultMatrix;
 	static ofxObjectMaterial *defaultMaterial;
-	
+
 
 };

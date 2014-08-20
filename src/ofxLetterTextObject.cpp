@@ -1,6 +1,6 @@
 #include "ofxLetterTextObject.h"
 
-//class ofxLetterTextObjectLetter 
+//class ofxLetterTextObjectLetter
 //ofxLetterTextObjectLetter::ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont, char iChar, float iX, float iY, float iScaleFactor)
 ofxLetterTextObjectLetter::ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont, char *iChar, float iX, float iY, float iScaleFactor)   //eg 0701412
 {
@@ -13,10 +13,10 @@ ofxLetterTextObjectLetter::ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont,
     charPointer = iChar;    //eg 0701412
 	scaleFactor = iScaleFactor;
 
-	home.set(iX, iY, 0);	
+	home.set(iX, iY, 0);
 	font = iFont;
-	
-	hasSpecialTransparency = true;	
+
+	hasSpecialTransparency = true;
 
 }
 
@@ -27,10 +27,10 @@ ofxLetterTextObjectLetter::~ofxLetterTextObjectLetter()
 }
 
 void ofxLetterTextObjectLetter::render()
-{	    
+{
 	glPushMatrix();
     glScalef(scaleFactor, scaleFactor, 1.0);
-	font->drawString(charPointer,0,0);	
+	font->drawString(charPointer,0,0);
 	glPopMatrix();
 }
 
@@ -41,9 +41,9 @@ void ofxLetterTextObjectLetter::render()
 
 //class ofxLetterTextObject
 ofxLetterTextObject::ofxLetterTextObject(ofxSosoTrueTypeFont *iFont, char *iString):ofxTextObject(iFont, iString)
-{	
+{
 	//Format the text with a call to drawText(). Note last arg is false, which says format, but do not draw.
-	//drawText(0,0,false);		
+	//drawText(0,0,false);
 	//Reconstruct the letter objects based on the updated formatting.
 	rebuildLetters();
 }
@@ -54,9 +54,9 @@ ofxLetterTextObject::~ofxLetterTextObject(){
     {
         delete letters[i];
     }
-    
+
     letters.clear();
-    
+
 }
 
 
@@ -65,10 +65,10 @@ void ofxLetterTextObject::cleanupLetters()
 {
 	for(unsigned int i=0; i < letters.size(); i++){
 		removeChild(letters[i]);
-		delete(letters[i]); 
+		delete(letters[i]);
 	}
 	letters.clear();
-	
+
 	/*while (letters.size() > 0) {
 		removeChild(letters[0]);
 		delete(letters[0]);
@@ -77,7 +77,7 @@ void ofxLetterTextObject::cleanupLetters()
 }
 
 void ofxLetterTextObject::rebuildLetters()
-{	
+{
 	int     currentWordID;
 
 	cleanupLetters();
@@ -92,10 +92,10 @@ void ofxLetterTextObject::rebuildLetters()
 				//Make letters.
 				for(int p=0; p < words[currentWordID].charPositions.size(); p++){
 					//Add word position to char position.
-					ofVec3f pos((words[currentWordID].pos.x + words[currentWordID].charPositions[p].x) * scaleFactor, 
+					ci::Vec3f pos((words[currentWordID].pos.x + words[currentWordID].charPositions[p].x) * scaleFactor,
 								 (words[currentWordID].pos.y + words[currentWordID].charPositions[p].y) * scaleFactor,
 								 0);
-					
+
                     //Check for special unicode sequences, as defined in buildMappedChars() //eg 0701412
                     char *cSeq = NULL; //getFont()->getMappedCharSequence(words[currentWordID].rawWord, p);
                     if(cSeq==NULL){    //If, not a mapped char sequence, just grab character straight from word.
@@ -103,14 +103,14 @@ void ofxLetterTextObject::rebuildLetters()
                         cSeq[0] = words[currentWordID].rawWord.c_str()[p];
                         cSeq[1] = 0;
                     }
-                    
+
 					//Create letter text letter and pass position and char to it.
-					//ofxLetterTextObjectLetter *letter = new ofxLetterTextObjectLetter(font, words[currentWordID].rawWord.c_str()[p], pos.x, pos.y, scaleFactor); 					
+					//ofxLetterTextObjectLetter *letter = new ofxLetterTextObjectLetter(font, words[currentWordID].rawWord.c_str()[p], pos.x, pos.y, scaleFactor);
                     ofxLetterTextObjectLetter *letter = new ofxLetterTextObjectLetter(font, cSeq, pos.x, pos.y, scaleFactor);       //eg 070412
 					letter->setTrans(pos.x, pos.y, pos.z);
-					letter->setColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a);	//Gotta grab word color or else it gets reset to white.					
+					letter->setColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a);	//Gotta grab word color or else it gets reset to white.
 					letters.push_back(letter);
-					addChild(letter);								
+					addChild(letter);
 				}
 			}
 		}
@@ -128,7 +128,7 @@ void ofxLetterTextObject::predraw()
 
 void ofxLetterTextObject::postdraw()
 {
-	glPopMatrix();    
+	glPopMatrix();
 	ofxObject::postdraw();
 }
 */
@@ -143,7 +143,7 @@ void ofxLetterTextObject::setWordColor(string iWord, float iR, float iG, float i
 {
     ofxTextObject::setWordColor(iWord, iR, iG, iB, iA, iExactMatch);
     rebuildLetters();
-    
+
 }
 
 //Empty render() because the letter objects handle all of the drawing.
@@ -151,10 +151,10 @@ void ofxLetterTextObject::render(){}
 
 
 void ofxLetterTextObject::setString(char *iString)
-{	
+{
 	ofxTextObject::setString(iString);
-	//drawText(0,0,false);	
-	rebuildLetters();	
+	//drawText(0,0,false);
+	rebuildLetters();
 }
 
 void ofxLetterTextObject::setString(string iString) //JM 080513
@@ -165,29 +165,29 @@ void ofxLetterTextObject::setString(string iString) //JM 080513
 void ofxLetterTextObject::setColumnWidth(float iWidth)
 {
 	ofxTextObject::setColumnWidth(iWidth);
-	//drawText(0,0,false);	
-	rebuildLetters();		
+	//drawText(0,0,false);
+	rebuildLetters();
 }
 
 void ofxLetterTextObject::setPointSize(float iPointSize)
 {
 	ofxTextObject::setPointSize(iPointSize);
-	//drawText(0,0,false);	
-	rebuildLetters();		
+	//drawText(0,0,false);
+	rebuildLetters();
 }
 
 void ofxLetterTextObject::setLeading(float iLeading)
 {
 	ofxTextObject::setLeading(iLeading);
-	//drawText(0,0,false);	
-	rebuildLetters();		
+	//drawText(0,0,false);
+	rebuildLetters();
 }
 
 void ofxLetterTextObject::setSpaceWidth(float iWidth)
 {
 	ofxTextObject::setSpaceWidth(iWidth);
-	//drawText(0,0,false);	
-	rebuildLetters();		
+	//drawText(0,0,false);
+	rebuildLetters();
 }
 
 void ofxLetterTextObject::setAlignment(TextObjectAlignment iAlignment)
@@ -199,26 +199,26 @@ void ofxLetterTextObject::setAlignment(TextObjectAlignment iAlignment)
 void ofxLetterTextObject::setFont(ofxSosoTrueTypeFont *iFont)
 {
 	ofxTextObject::setFont(iFont);
-	//drawText(0,0,false);	
-	rebuildLetters();			
+	//drawText(0,0,false);
+	rebuildLetters();
 }
 
 
 void ofxLetterTextObject::setColor(float iR, float iG, float iB, float iA)
-{ 
+{
     ofxTextObject::setColor(iR, iG, iB, iA);
     for (int i=0; i < letters.size(); i++)
         letters[i]->setColor(iR, iG, iB, iA);
 }
 
-void ofxLetterTextObject::setColor(ofVec4f iColor)
-{ 
+void ofxLetterTextObject::setColor(ci::Vec4f iColor)
+{
     ofxTextObject::setColor(iColor);
     for (int i=0; i < letters.size(); i++)
         letters[i]->setColor(iColor);
 }
 
-void ofxLetterTextObject::setColor(ofColor iColor)
+void ofxLetterTextObject::setColor(ci::ColorA8u iColor)
 {
     ofxTextObject::setColor(iColor);
     for (int i=0; i < letters.size(); i++)
@@ -229,18 +229,18 @@ void ofxLetterTextObject::setColor(ofColor iColor)
 
 /*
 void ofxLetterTextObject::normalizeScale()
-{       
+{
     float textScale = getScale()[0];
 
     //scale words + home positions
     for(unsigned int i=0; i < letters.size(); i++){
-        letters[i]->setScale(textScale/getPointSize());       
-        //mBaselinePositions[i] *= textScale;      
+        letters[i]->setScale(textScale/getPointSize());
+        //mBaselinePositions[i] *= textScale;
 		letters[i]->home *= (textScale/getPointSize());
         //mQuads[i]->setTrans(*mBaselinePositions[i]);
 		letters[i]->setTrans(letters[i]->home);
     }
-   
-    setScale(getPointSize());   
+
+    setScale(getPointSize());
 }
 */

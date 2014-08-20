@@ -5,23 +5,23 @@ ofxLetterTextObject inherits from ofxTextObject. It turns each character in the 
 which lets you animate the letters independently. Each ofxLetterTextObjectLetter has a home position
 that you can reference in your animations.
 
-Note: ofxLetterTextObject does not yet support the fancy render-time Unicode and named entity 
+Note: ofxLetterTextObject does not yet support the fancy render-time Unicode and named entity
 character substitutions supported by ofxTextObject.
 
 Soso OpenFrameworks Addon
 Copyright (C) 2012 Sosolimited
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software
-and associated documentation files (the "Software"), to deal in the Software without restriction, 
-including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
+and associated documentation files (the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
 subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
-THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
 CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 */
@@ -43,7 +43,7 @@ public:
 public:
 	char							character;
 	char							*charPointer;
-	ofVec3f                         home;	
+	ci::Vec3f                         home;
 	ofxSosoTrueTypeFont				*font;
 	float							scaleFactor;
 };
@@ -54,7 +54,7 @@ class ofxLetterTextObject : public ofxTextObject
 public:
 	ofxLetterTextObject(ofxSosoTrueTypeFont *iFont, char *iString=NULL);
 	~ofxLetterTextObject();
-			
+
 	//void							predraw();
 	//void							postdraw();
 	void							render();
@@ -70,8 +70,8 @@ public:
 	void							setAlignment(TextObjectAlignment iAlignment);
 
 	void							setColor(float iR, float iG, float iB, float iA=255);
-	void							setColor(ofVec4f iColor);
-	void                            setColor(ofColor iColor);
+	void							setColor(ci::Vec4f iColor);
+	void                            setColor(ci::ColorA8u iColor);
 	//void							normalizeScale();
 	void							setWordColor(int iIndex, float iR, float iG, float iB, float iA=255.0);
     void                            setWordColor(string iWord, float iR, float iG, float iB, float iA=255.0,
@@ -80,7 +80,7 @@ protected:
 	void							cleanupLetters();
 	void							rebuildLetters();
 
-public:	
-	vector<ofxLetterTextObjectLetter*>	letters;	
-	
+public:
+	vector<ofxLetterTextObjectLetter*>	letters;
+
 };
