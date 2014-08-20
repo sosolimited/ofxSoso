@@ -25,7 +25,6 @@ IN THE SOFTWARE.
 #pragma once
 
 #include "ofxObject.h"
-#include "ofImage.h"
 
 class ofxImageObject : public ofxObject{
 	

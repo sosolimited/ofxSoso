@@ -49,7 +49,7 @@ public:
         ci::Vec3f position;
         ci::Vec4f color;
     };
-	vector<ofxLineStripVertex *>		vertices;
+	std::vector<ofxLineStripVertex *>		vertices;
 
 	float								lineWidth;
     bool                                isVertexColoringEnabled;

@@ -25,7 +25,7 @@ IN THE SOFTWARE.
 #pragma once
 
 #include "ofxObject.h"
-#include "ofImage.h"
+#include "cinder/gl/Texture.h"
 
 
 class ofxPolygonObject : public ofxObject
@@ -36,7 +36,7 @@ public:
 
 	void					render();
 
-	void					setTexture(ofImage *iTex);
+	void					setTexture(const ci::gl::TextureRef &iTex);
 	virtual void			setVertexPos(int iVertexNum, ci::Vec3f iPos);
 	virtual void			setVertexTexCoords(int iVertexNum, float iU, float iV);
 	virtual void			setVertexColor(int iVertexNum, float iR, float iG, float iB, float iA=255);
@@ -48,7 +48,7 @@ public:
 	void					enableVertexColoring(bool iEnable);
 
 
-	ofTexture*				getTexture();
+	ci::gl::TextureRef				getTexture();
 
 protected:
 	int						numVertices;
@@ -56,7 +56,7 @@ protected:
 	float					*texCoords;
 	float					*vertexColors;
 	float					drawMode;
-	ofTexture				*texture;
+	ci::gl::TextureRef	texture;
 	bool					vertexColoringEnabled;
 
 };

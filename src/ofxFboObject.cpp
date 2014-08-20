@@ -1,20 +1,22 @@
 #include "ofxFboObject.h"
 
+using namespace cinder;
+
 ofxFboObject::ofxFboObject(int iWidth, int iHeight, int iInternalFormat, int iNumSamples)
 {
-	fbo = new ofFbo();
-	fbo->allocate(iWidth, iHeight, iInternalFormat, iNumSamples);
-	fbo->getTextureReference().texData.bFlipTexture = false;
+	gl::Fbo::Format format;
+	format.setColorInternalFormat( iInternalFormat );
+	format.setCoverageSamples( iNumSamples );
+	fbo = gl::Fbo( iWidth, iHeight, format );
+	fbo.getTexture().setFlipped( false );
 }
 
 ofxFboObject::~ofxFboObject(){
-
-    delete(fbo);
 }
 
 void ofxFboObject::render()
-{	
-	fbo->draw(0,0);
+{
+	gl::draw( fbo.getTexture() );
 }
 
 void ofxFboObject::idle(float iTime){}

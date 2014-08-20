@@ -24,7 +24,7 @@ IN THE SOFTWARE.
 #pragma once
 
 #include "ofxObject.h"
-#include "ofFbo.h"
+#include "cinder/gl/Fbo.h"
 
 class ofxFboObject : public ofxObject
 {
@@ -34,11 +34,12 @@ public:
 
 	void					idle(float iTime);
 	void					render();
-    int                     getWidth() { return this->fbo->getWidth(); };
-    int                     getHeight() { return this->fbo->getHeight(); };
+    int                     getWidth() { return fbo.getWidth(); };
+    int                     getHeight() { return fbo.getHeight(); };
 
 public:
-	ofFbo					*fbo;
+	// implicit shared-ptr
+	ci::gl::Fbo	fbo;
 protected:
     int                     width, height;
 

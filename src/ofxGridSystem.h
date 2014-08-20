@@ -102,7 +102,7 @@ public:
     float           leading;
 
 
-    vector<ofxLineStripObject *>    lines;
-    vector<ofxLineStripObject *>    baselineLines;
+    std::vector<ofxLineStripObject *>    lines;
+		std::vector<ofxLineStripObject *>    baselineLines;
 
 };

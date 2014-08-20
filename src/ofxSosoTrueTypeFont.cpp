@@ -18,10 +18,6 @@
 
 #include <algorithm>
 
-#include "ofUtils.h"
-#include "ofGraphics.h"
-#include "ofTexture.h"  //for mipmap building
-
 //helper class for mapping higher Unicode characters down into the 0-255 range
 ofxSosoMappedChar::ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeIndex, char *iNamedEntity, char iUTFByte0, char iUTFByte1, char iUTFByte2, char iUTFByte3, char iUTFByte4, char iUTFByte5)
 {

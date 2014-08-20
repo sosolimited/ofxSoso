@@ -79,12 +79,12 @@ public:
 	ofxTween*						showObject(ofxObject *iObject, float iTime, int iPlayMode=OF_ONE_TIME_PLAY);
 	ofxTween*						hideObject(ofxObject *iObject, float iTime, int iPlayMode=OF_ONE_TIME_PLAY);
 
-	ofxTween*						tweenBezier(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp, vector<ci::Vec4f> iPath, int iPlayMode=OF_ONE_TIME_PLAY);
-	ofxTween*						tweenSpline(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp, vector<ci::Vec4f> iPath, int iPlayMode=OF_ONE_TIME_PLAY);
+	ofxTween*						tweenBezier(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp, std::vector<ci::Vec4f> iPath, int iPlayMode=OF_ONE_TIME_PLAY);
+	ofxTween*						tweenSpline(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp, std::vector<ci::Vec4f> iPath, int iPlayMode=OF_ONE_TIME_PLAY);
 
 	ofxTween*						tweenFunc(ofxObject *iObject,float (*iFunction)(void *), void *iArgs, float iTime, int iPlayMode=OF_ONE_TIME_PLAY); //LM
 
 public:
-	vector<ofxTween *>				tweens;
+	std::vector<ofxTween *>				tweens;
 
 };

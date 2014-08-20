@@ -48,7 +48,7 @@ public:
 	~ofxObjectMaterial();
 
 public:
-	ci::ColorA				color;
+	ci::ColorA8u			color;
 	bool							inheritAlphaFlag;	//firebrand
 };
 

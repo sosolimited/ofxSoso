@@ -18,10 +18,9 @@ ofxCircleObject::~ofxCircleObject(){}
 
 void ofxCircleObject::render()
 {		
-	ofFill();			
+//	ofFill();
 
-	int k = 0;
-	float angleInc = M_TWO_PI/(float)resolution;
+	float angleInc = 2 * M_PI/(float)resolution;
 
 	glBegin(GL_TRIANGLE_STRIP);
 	for(int i = 0; i < (resolution+1); i++){		
