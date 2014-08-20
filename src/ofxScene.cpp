@@ -1,5 +1,5 @@
 #include "ofxScene.h"
-#include "ofAppRunner.h"
+
 //#include "ofGraphics.h"	//for viewports
 //#include "ofAppGlutWindow.h"	//for viewports
 
@@ -115,7 +115,7 @@ void ofxScene::setCenterOffset(float iX, float iY, float iZ)
 void ofxScene::draw()
 {
 	//Necessary for proper rendering of transparency.
-	ofEnableAlphaBlending();
+	ci::gl::enableAlphaBlending();
 
 	//Scissoring
 	if(isScissorOn){

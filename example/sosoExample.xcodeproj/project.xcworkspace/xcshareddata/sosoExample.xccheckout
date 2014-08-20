@@ -5,60 +5,48 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>22EFA74A-918A-4980-857E-01BC77C07FE5</string>
+	<string>D013F9B6-0812-4310-908F-51155BE45D2F</string>
 	<key>IDESourceControlProjectName</key>
 	<string>sosoExample</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>3D0B19A1-5C25-4F12-8C24-1FE894ADB7E2</key>
-		<string>ssh://github.com/ericgunther/ofxSoso.git</string>
-		<key>E2C1283A-7E32-4F6C-B9EE-B94940667F9C</key>
-		<string>ssh://github.com/ericgunther/openFrameworks.git</string>
-		<key>E8F9CBA8-939B-46BE-A260-D1C35CA41175</key>
-		<string>ssh://github.com/kronick/ofxAVFVideoPlayer.git</string>
+		<key>15E84719-A6DC-43EF-9820-E971D60AA47F</key>
+		<string>ssh://github.com/sansumbrella/ofxSoso.git</string>
+		<key>D94A447E-8F3C-43D2-BAAC-ED6D4DFA9870</key>
+		<string>ssh://github.com/sansumbrella/Cinder.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>addons/ofxSoso/example/sosoExample.xcodeproj/project.xcworkspace</string>
+	<string>blocks/ofxSoso/example/sosoExample.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>3D0B19A1-5C25-4F12-8C24-1FE894ADB7E2</key>
+		<key>15E84719-A6DC-43EF-9820-E971D60AA47F</key>
 		<string>../../..</string>
-		<key>E2C1283A-7E32-4F6C-B9EE-B94940667F9C</key>
+		<key>D94A447E-8F3C-43D2-BAAC-ED6D4DFA9870</key>
 		<string>../../../../..</string>
-		<key>E8F9CBA8-939B-46BE-A260-D1C35CA41175</key>
-		<string>../../../../ofxAVFVideoPlayer</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/ericgunther/ofxSoso.git</string>
+	<string>ssh://github.com/sansumbrella/ofxSoso.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>E2C1283A-7E32-4F6C-B9EE-B94940667F9C</string>
+	<string>D94A447E-8F3C-43D2-BAAC-ED6D4DFA9870</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E8F9CBA8-939B-46BE-A260-D1C35CA41175</string>
+			<string>D94A447E-8F3C-43D2-BAAC-ED6D4DFA9870</string>
 			<key>IDESourceControlWCCName</key>
-			<string>ofxAVFVideoPlayer</string>
+			<string>Cinder</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>3D0B19A1-5C25-4F12-8C24-1FE894ADB7E2</string>
+			<string>15E84719-A6DC-43EF-9820-E971D60AA47F</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxSoso</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E2C1283A-7E32-4F6C-B9EE-B94940667F9C</string>
-			<key>IDESourceControlWCCName</key>
-			<string>openFrameworks</string>
 		</dict>
 	</array>
 </dict>

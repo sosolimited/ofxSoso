@@ -25,7 +25,7 @@ void ofxDynamicPolygonObject::idle(float iTime)
 		ofxPolygonObject::setVertexPos(i, dynamicVerts[i]->posTracker->getTrans());
 		ofxPolygonObject::setVertexTexCoords(i, dynamicVerts[i]->texTracker->getTrans().x, dynamicVerts[i]->texTracker->getTrans().y);
 		if(vertexColoringEnabled)
-			ofxPolygonObject::setVertexColor(i, dynamicVerts[i]->colorTracker->getColor().x, dynamicVerts[i]->colorTracker->getColor().y, dynamicVerts[i]->colorTracker->getColor().z, dynamicVerts[i]->colorTracker->getColor().w);
+			ofxPolygonObject::setVertexColor(i, dynamicVerts[i]->colorTracker->getColor().r, dynamicVerts[i]->colorTracker->getColor().g, dynamicVerts[i]->colorTracker->getColor().b, dynamicVerts[i]->colorTracker->getColor().a);
 	}
 }
 

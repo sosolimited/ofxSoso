@@ -51,7 +51,7 @@ void ofxLineSegmentObject::setLineWidth(float iWidth)
 
 void ofxLineSegmentObject::setVertexPos(int iVertNum, float iX, float iY, float iZ)
 {
-	if(ofInRange(iVertNum, 0, vertices.size()-1)){
+	if( iVertNum >= 0 && iVertNum < vertices.size() ){
 		vertices[iVertNum].set(iX, iY, iZ);
 	}
 }

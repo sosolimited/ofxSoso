@@ -25,23 +25,22 @@ IN THE SOFTWARE.
 #pragma once
 
 #include "ofxObject.h"
-#include "ofTexture.h"
-#include "ofImage.h"
+#include "cinder/gl/Texture.h"
 
 class ofxTextureObject : public ofxObject{
 	
 public:
 	
 	ofxTextureObject(int w, int h);
-	ofxTextureObject();
-	
+
 	void						render();
 	void						setCentered(bool iEnable);
 	void						enableTexture(bool iB);
-	void						clear();	    
+	DEPRECATED_ATTRIBUTE
+	void						clear();
 	
 public:
-	ofTexture					texture;
+	ci::gl::TextureRef			texture;
 	bool						isCentered;
 	float						width,
 								height;

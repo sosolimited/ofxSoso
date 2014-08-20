@@ -40,6 +40,11 @@ enum{
 	OF_RENDER_ONTOP = 0x03
 };
 
+enum ofFillFlag{
+	OF_OUTLINE=	0,
+	OF_FILLED = 1,
+};
+
 
 class ofxObjectMaterial{
 
@@ -88,9 +93,10 @@ class ofxObject{
 	virtual void     				setScale(ci::Vec3f vec);
 
 	virtual void					setColor(float r, float g, float b, float a=255.0);
+	DEPRECATED_ATTRIBUTE // use setColor( Color ) instead
 	virtual void					setColor(ci::Vec4f c);	//v4.0 virtual for text object
-	virtual void                    setColor(ci::ColorA8u c);
-	ci::Vec4f							getColor();
+	virtual void          setColor(const ci::ColorA8u &c);
+	ci::ColorA8u					getColor();
 	virtual void					setAlpha(float iA);		//v4.0 virtual for text object
 	bool							hasTransparency();
 	void							setSpecialTransparency(bool iFlag);

@@ -7,7 +7,6 @@
  *
  */
 
-#include "ofMain.h"
 #include "ofxShader.h" 
 #include "ofxFBOTexture.h"
 

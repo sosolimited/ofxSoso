@@ -1,5 +1,8 @@
 #include "ofxAnimation.h"
-#include "ofUtils.h"
+#include "cinder/app/App.h"
+
+using namespace std;
+using namespace cinder;
 
 //class ofxTween
 ofxTween::ofxTween(ofxObject *iObject, ofxMessage *iMessage)
@@ -16,7 +19,7 @@ ofxTween::~ofxTween()
 
 void ofxTween::start()
 {
-	message->setStartTime(ofGetElapsedTimef());
+	message->setStartTime( app::getElapsedSeconds() );
 	message->enableMessage(true);
 	message->isRunning = false;
 	object->doMessage(message);
@@ -69,7 +72,7 @@ bool ofxAnimation::isAnimating()
 	//adding second part of OR to account for delay period before isRunning gets set
 	for(unsigned int i=0; i < tweens.size(); i++){
 		if(tweens[i]->message->isRunning ||
-           (ofGetElapsedTimef() >= tweens[i]->message->startTime && ofGetElapsedTimef() < tweens[i]->message->startTime + tweens[i]->message->startDelay))
+           (app::getElapsedSeconds() >= tweens[i]->message->startTime && app::getElapsedSeconds() < tweens[i]->message->startTime + tweens[i]->message->startDelay))
 			animating = true;
 	}
 

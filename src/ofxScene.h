@@ -101,7 +101,6 @@ private:
 	int						sceneWidth;
 	int						sceneHeight;
 	ofxObject				*root;
-	ofBaseApp				*app;
 	ci::Vec4f					backgroundColor;
 	bool					isClearBackgroundOn;
 

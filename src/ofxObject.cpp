@@ -1,7 +1,11 @@
 #include "ofxObject.h"
-#include "ofUtils.h"
-#include "ofAppRunner.h"	//for ofGetLastFrameTime()
 
+#include "cinder/app/App.h"
+#include "cinder/CinderMath.h"
+#include "cinder/Camera.h"
+
+using namespace std;
+using namespace cinder;
 
 //class ofxObjectMaterial _____________________________________________________________________________
 ofxObjectMaterial::ofxObjectMaterial()
@@ -62,7 +66,7 @@ ofxObject::ofxObject(){
 	isSortedObject = false;
 	sortedObjectsWindowZ = 0;
 
-	timePrev = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;
+	timePrev = app::getElapsedSeconds();	//ofGetSystemTime()/1000.0f;
 	timeElapsed = 0;
 }
 
@@ -153,12 +157,12 @@ void ofxObject::updateLocalMatrix()
 	static float cX, sX, cY, sY, cZ, sZ;	//for xyz rotation
 
 	//calculate cos + sin for rotations ONCE
-	cX = (float)cos(xyzRot[0] * DEG_TO_RAD);
-	sX = (float)sin(xyzRot[0] * DEG_TO_RAD);
-	cY = (float)cos(xyzRot[1] * DEG_TO_RAD);
-	sY = (float)sin(xyzRot[1] * DEG_TO_RAD);
-	cZ = (float)cos(xyzRot[2] * DEG_TO_RAD);
-	sZ = (float)sin(xyzRot[2] * DEG_TO_RAD);
+	cX = (float)cos( toRadians( xyzRot[0] ) );
+	sX = (float)sin( toRadians( xyzRot[0] ) );
+	cY = (float)cos( toRadians( xyzRot[1] ) );
+	sY = (float)sin( toRadians( xyzRot[1] ) );
+	cZ = (float)cos( toRadians( xyzRot[2] ) );
+	sZ = (float)sin( toRadians( xyzRot[2] ) );
 
 	//build composite matrix for XYZ rotation:
 	//order of transformations:  scale, rotateX, rotateY, rotateZ, translate
@@ -245,16 +249,16 @@ float* ofxObject::updateMatrix(float *iParentMatrix)
 ofxObjectMaterial* ofxObject::updateMaterial(ofxObjectMaterial *iMat)
 {
 	//firebrand - added support for disabling alpha inheritance
-    float alpha = material->color.w;
-    float r = material->color.x;
-    float g = material->color.y;
-    float b = material->color.z;
+    float alpha = material->color.a;
+    float r = material->color.r;
+    float g = material->color.g;
+    float b = material->color.b;
 
-	if(material->inheritAlphaFlag) alpha *= (float)iMat->color.w / 255.0f;
+	if(material->inheritAlphaFlag) alpha *= (float)iMat->color.a / 255.0f;
     if(inheritColor) {  // SK added color inheritence flag
-        r *= (float)iMat->color.x / 255.0f;
-        g *= (float)iMat->color.y / 255.0f;
-        b *= (float)iMat->color.z / 255.0f;
+        r *= (float)iMat->color.r / 255.0f;
+        g *= (float)iMat->color.g / 255.0f;
+        b *= (float)iMat->color.b / 255.0f;
     }
 
     drawMaterial->color.set(r,g,b,alpha);
@@ -363,7 +367,7 @@ void ofxObject::predraw()
 	glPushName(id);
 
 	//ofSetColor(color.x, color.y, color.z, color.w);
-	ofSetColor(drawMaterial->color.x, drawMaterial->color.y, drawMaterial->color.z, drawMaterial->color.w);	//v4.0
+	gl::color( drawMaterial->color );
 
 	//update lighting
 	if (isLit != prevLit) {
@@ -468,9 +472,13 @@ ci::Vec3f ofxObject::getWindowCoords()
 	float *curMat = getMatrix();
 	for (int i=0; i < 16; i++) mM[i] = (double)curMat[i];
 
-	gluProject(0, 0, 0, mM, pM, v, &wx, &wy, &wz);
+	Vec3f eyeCoord = gl::getModelView().transformPointAffine( Vec3f::zero() );
+	Vec3f ndc = gl::getProjection().transformPoint( eyeCoord );
+	auto viewport = gl::getViewport();
+	float screenWidth = viewport.getWidth();
+	float screenHeight = viewport.getHeight();
 
-	return ci::Vec3f(wx, wy, wz);
+	return Vec3f( ( ndc.x + 1.0f ) / 2.0f * screenWidth, ( 1.0f - ( ndc.y + 1.0f ) / 2.0f ) * screenHeight, ndc.z );
 }
 
 float* ofxObject::getMatrix()
@@ -497,18 +505,13 @@ void ofxObject::setColor(float r, float g, float b, float a)
 	material->color.set(r, g, b, a);			//v4.0
 }
 
-void ofxObject::setColor(ci::ColorA8u c)
-{
-    material->color.set(c.r, c.g, c.b, c.a);
-}
-
 void ofxObject::setAlpha(float iA)
 {
 	//color.set(color.x, color.y, color.z, iA);
-	material->color.set(material->color.x, material->color.y, material->color.z, iA);	//v4.0
+	material->color.a = iA;
 }
 
-ci::Vec4f ofxObject::getColor()
+ci::ColorA8u ofxObject::getColor()
 {
 	//return color;
 	return material->color;	//v4.0
@@ -517,7 +520,7 @@ ci::Vec4f ofxObject::getColor()
 float ofxObject::getAlpha()
 {
 	//return color.w;
-	return material->color.w;	//v4.0
+	return material->color.a;	//v4.0
 }
 
 bool ofxObject::hasTransparency()
@@ -540,7 +543,12 @@ void ofxObject::setRot(float x, float y, float z)
 	localMatrixDirty = true;
 }
 
-void ofxObject::setColor(ci::Vec4f c)
+void ofxObject::setColor( Vec4f c )
+{
+	material->color = ColorA8u( c.x, c.y, c.z, c.w );
+}
+
+void ofxObject::setColor( const ci::ColorA8u &c )
 {
 	//color = c;
 	material->color = c;	 //v4.0
@@ -928,11 +936,11 @@ void ofxObject::updateMessages()
 						//set start values once
 						ci::Vec3f *vec = (ci::Vec3f *)messages[i]->baseStartVals;
 						if(vec){
-							if(vec->x == OF_RELATIVE_VAL) x = material->color.x;
+							if(vec->x == OF_RELATIVE_VAL) x = material->color.r;
 							else x = vec->x;
-							if(vec->y == OF_RELATIVE_VAL) y = material->color.y;
+							if(vec->y == OF_RELATIVE_VAL) y = material->color.g;
 							else y = vec->y;
-							if(vec->z == OF_RELATIVE_VAL) z = material->color.z;
+							if(vec->z == OF_RELATIVE_VAL) z = material->color.b;
 							else z = vec->z;
 
 							messages[i]->setStartVals(x, y, z);
@@ -941,11 +949,11 @@ void ofxObject::updateMessages()
 						//set end values once
 						ci::Vec3f *vecEnd = (ci::Vec3f *)messages[i]->baseEndVals;
 						if(vecEnd){
-							if(vecEnd->x == OF_RELATIVE_VAL) x = material->color.x;
+							if(vecEnd->x == OF_RELATIVE_VAL) x = material->color.r;
 							else x = vecEnd->x;
-							if(vecEnd->y == OF_RELATIVE_VAL) y = material->color.y;
+							if(vecEnd->y == OF_RELATIVE_VAL) y = material->color.g;
 							else y = vecEnd->y;
-							if(vecEnd->z == OF_RELATIVE_VAL) z = material->color.z;
+							if(vecEnd->z == OF_RELATIVE_VAL) z = material->color.b;
 							else z = vecEnd->z;
 
 							messages[i]->setEndVals(x,y,z);
@@ -959,13 +967,13 @@ void ofxObject::updateMessages()
 						setColor((1-t)*((ci::Vec3f *)messages[i]->startVals)->x + t*((ci::Vec3f *)messages[i]->endVals)->x,
 								 (1-t)*((ci::Vec3f *)messages[i]->startVals)->y + t*((ci::Vec3f *)messages[i]->endVals)->y,
 								 (1-t)*((ci::Vec3f *)messages[i]->startVals)->z + t*((ci::Vec3f *)messages[i]->endVals)->z,
-								 material->color.w);
+								 material->color.a);
 					}else if(messages[i]->path == OF_BEZIER_PATH){
 						ci::Vec4f c = ofxMessage::bezier(t, messages[i]->pathPoints);
-						setColor(c.x, c.y, c.z, material->color.w);
+						setColor(c.x, c.y, c.z, material->color.a);
 					}else if(messages[i]->path == OF_SPLINE_PATH){
 						ci::Vec4f c = ofxMessage::spline(t, messages[i]->pathPoints);
-						setColor(c.x, c.y, c.z, material->color.w);
+						setColor(c.x, c.y, c.z, material->color.a);
 					}
 				}
 			}
@@ -976,7 +984,7 @@ void ofxObject::updateMessages()
 						//set start values once
 						float *v = (float *)messages[i]->baseStartVals;
 						if(v){
-							if(v[0] == OF_RELATIVE_VAL) x = material->color.w;
+							if(v[0] == OF_RELATIVE_VAL) x = material->color.a;
 							else x = v[0];
 
 							messages[i]->setStartVals(x);
@@ -985,7 +993,7 @@ void ofxObject::updateMessages()
 						//set end values once
 						float *vEnd = (float *)messages[i]->baseEndVals;
 						if(vEnd){
-							if(vEnd[0] == OF_RELATIVE_VAL) x = material->color.w;
+							if(vEnd[0] == OF_RELATIVE_VAL) x = material->color.a;
 							else x = vEnd[0];
 
 							messages[i]->setEndVals(x);

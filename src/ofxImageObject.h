@@ -25,29 +25,31 @@ IN THE SOFTWARE.
 #pragma once
 
 #include "ofxObject.h"
+#include "cinder/gl/Texture.h"
 
 class ofxImageObject : public ofxObject{
 	
 public:
 	
-	ofxImageObject(string iFilename, bool iLoadNow=true);
+	ofxImageObject(std::string iFilename, bool iLoadNow=true);
 	~ofxImageObject();
 	
 	void						render();
 	void						setCentered(bool iEnable);
+
+	// DW: Unsure what enableTexture is about.
+	DEPRECATED_ATTRIBUTE
 	void						enableTexture(bool iB);
 	void						clear();
     
-    ofTexture                   getTexture();   //EG 021513
+	ci::gl::TextureRef                   getTexture();   //EG 021513
 	
 public:
-	ofImage						image;
+	ci::gl::TextureRef	image;
 	bool						isCentered;
 	float						width,
 								height;
     
-    bool                        loaded;
-    
-	string						filename;
+	std::string						filename;
     
 };

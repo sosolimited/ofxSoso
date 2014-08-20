@@ -42,7 +42,7 @@ public:
 
 
 public:
-	vector<ci::Vec3f>					vertices;
+	std::vector<ci::Vec3f>					vertices;
 	float								lineWidth;
 
     bool                                isStipplingEnabled;

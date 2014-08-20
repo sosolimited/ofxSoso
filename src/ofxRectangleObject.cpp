@@ -9,6 +9,8 @@
 
 #include "ofxRectangleObject.h"
 
+using namespace cinder;
+
 ofxRectangleObject::ofxRectangleObject(float iW, float iH)
 {
 	dimensions.set(iW, iH);
@@ -27,34 +29,29 @@ ofxRectangleObject::~ofxRectangleObject(){
 void ofxRectangleObject::render()
 {
 
-	ci::Vec4f color = getColor();
+	auto color = getColor();
+	color.a = fillAlpha * drawMaterial->color.a;
+	gl::color( color );
+	// was:
+	// gl::color( color.x, color.y, color.z, fillAlpha * drawMaterial->color.a/255.0 );
 
 	if(isCentered)  {
 
 		if (fillAlpha > 0.0) {
-			ofFill();
-			ofSetColor(color.x, color.y, color.z, fillAlpha * drawMaterial->color.w/255.0);
-			ofRect(-dimensions.x/2.0f, -dimensions.y/2.0f, dimensions.x, dimensions.y);
+			gl::drawSolidRect( Rectf( -dimensions / 2.0f, dimensions / 2.0f ) );
 		}
 
 		if (strokeAlpha > 0.0) {
-			ofNoFill();
-			ofSetColor(color.x, color.y, color.z, strokeAlpha * drawMaterial->color.w/255.0);
-			ofRect(-dimensions.x/2.0f, -dimensions.y/2.0f, dimensions.x, dimensions.y);
+			gl::drawStrokedRect( Rectf( -dimensions / 2.0f, dimensions / 2.0f ) );
 		}
 
 	} else {
 
 		if (fillAlpha > 0.0) {
-			ofFill();
-			ofSetColor(color.x, color.y, color.z, fillAlpha * drawMaterial->color.w/255.0);
-			ofRect(0, 0, dimensions.x, dimensions.y);
+			gl::drawSolidRect( Rectf( Vec2f::zero(), dimensions ) );
 		}
 		if (strokeAlpha > 0.0) {
-			ofNoFill();
-			ofSetColor(color.x, color.y, color.z, strokeAlpha * drawMaterial->color.w/255.0);
-			ofRect(0, 0, dimensions.x, dimensions.y);
-
+			gl::drawStrokedRect( Rectf( Vec2f::zero(), dimensions ) );
 		}
 
 	}

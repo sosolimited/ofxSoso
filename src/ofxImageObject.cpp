@@ -8,37 +8,38 @@
  */
 
 #include "ofxImageObject.h"
-#include "ofGraphics.h"
+
+using namespace std;
+using namespace cinder;
 
 ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
 {
 	filename = iFilename;
 	if(iLoadNow){
-		loaded = image.loadImage(iFilename);
-        image.getTextureReference().texData.bFlipTexture = true;  //Get images right side up in soso world     
+		if( fs::is_regular_file( iFilename ) ) {
+			image = gl::Texture::create( loadImage( iFilename ) );
+			image->setFlipped( true ); // DW: may not be needed, will see once compiling
+		}
 	}
-	width = image.getWidth();
-	height = image.getHeight();
+	width = image->getWidth();
+	height = image->getHeight();
 	isCentered = false;
 	
     renderDirty = true; //eg 070112
 }
 
 ofxImageObject::~ofxImageObject(){
-    if (loaded)
-        image.clear();
 }
 
 void ofxImageObject::enableTexture(bool iB)
 {
-	image.setUseTexture(iB);
     renderDirty = true;
 }
 
 //EG 021513
-ofTexture ofxImageObject::getTexture()
+gl::TextureRef ofxImageObject::getTexture()
 {
-    return image.getTextureReference();
+    return image;
 }
 
 void ofxImageObject::render()
@@ -51,20 +52,20 @@ void ofxImageObject::render()
 
         //For when iLoadNow=false is used in constructor
         if(width==0 || height==0){
-            width = image.getWidth();
-            height = image.getHeight();
+            width = image->getWidth();
+            height = image->getHeight();
         }
         
         if(isCentered){
-            ofPushMatrix();
-            ofTranslate(-width/2, -height/2, 0);
+						gl::pushModelView();
+						gl::translate(-width/2, -height/2, 0);
         }
         
-        glNormal3f(0,0,1); 
-        image.draw(0,0);
+        glNormal3f(0,0,1);
+				gl::draw( image );
         
         if(isCentered){
-            ofPopMatrix();
+						gl::popModelView();
         }
         
         glEndList();
@@ -84,9 +85,8 @@ void ofxImageObject::setCentered(bool iEnable)
 
 void ofxImageObject::clear()
 {
-    if (loaded) {
-        image.clear();
-        loaded = false;
-    }
+	if( image ) {
+		image.reset();
+	}
     renderDirty = true;
 }

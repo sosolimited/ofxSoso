@@ -19,7 +19,7 @@ void ofxLineStripObject::render()
 	glBegin(GL_LINE_STRIP);
 	for(int i=0; i < vertices.size(); i++){
 		if(isVertexColoringEnabled)
-            glColor4f(vertices[i]->color.x/255.0f, vertices[i]->color.y/255.0f, vertices[i]->color.z/255.0f, drawMaterial->color.w/255.0f * vertices[i]->color.w/255.0f);
+            glColor4f(vertices[i]->color.x/255.0f, vertices[i]->color.y/255.0f, vertices[i]->color.z/255.0f, drawMaterial->color.a/255.0f * vertices[i]->color.w/255.0f);
 
         glVertex3f(vertices[i]->position.x, vertices[i]->position.y, vertices[i]->position.z);
 	}
@@ -34,14 +34,14 @@ void ofxLineStripObject::setLineWidth(float iWidth)
 
 void ofxLineStripObject::setVertexPos(int iVertNum, float iX, float iY, float iZ)
 {
-	if(ofInRange(iVertNum, 0, vertices.size()-1)){
+	if( iVertNum >= 0 && iVertNum < vertices.size() ){
 		vertices[iVertNum]->position.set(iX, iY, iZ);
 	}
 }
 
 void ofxLineStripObject::setVertexColor(int iVertNum, float iR, float iG, float iB, float iA)
 {
-	if(ofInRange(iVertNum, 0, vertices.size()-1)){
+	if( iVertNum >= 0 && iVertNum < vertices.size() ){
 		vertices[iVertNum]->color.set(iR, iG, iB, iA);
 	}
 }

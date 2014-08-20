@@ -1,5 +1,9 @@
 #include "ofxQuadStripObject.h"
 
+#include <algorithm>
+using namespace std;
+using namespace cinder;
+
 ofxQuadStripObject::ofxQuadStripObject(int iNumVertices)
 {
 	numVertices = iNumVertices;
@@ -24,8 +28,7 @@ ofxQuadStripObject::~ofxQuadStripObject()
 void ofxQuadStripObject::render()
 {
 	if(texture){
-		glEnable(texture->getTextureData().textureTarget);
-		glBindTexture(texture->getTextureData().textureTarget, (GLuint)texture->getTextureData().textureID);
+		texture->enableAndBind();
 
 		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
 		glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
@@ -42,7 +45,7 @@ void ofxQuadStripObject::render()
 
 	if(texture){
 		glDisableClientState( GL_TEXTURE_COORD_ARRAY );
-		glDisable(texture->getTextureData().textureTarget);
+		texture->disable();
 	}
 
 	if(vertexColoringEnabled)
@@ -66,10 +69,10 @@ void ofxQuadStripObject::setVertexTexCoords(int iVertexNum, float iU, float iV)
 
 		//adding auto clamping
 		if(texture){
-			texCoords[2*iVertexNum] = min(iU, texture->getWidth());
+			texCoords[2*iVertexNum] = min<float>(iU, texture->getWidth());
 			texCoords[2*iVertexNum] = max(texCoords[2*iVertexNum], 0.0f);
 
-			texCoords[2*iVertexNum + 1] = min(iV, texture->getHeight());
+			texCoords[2*iVertexNum + 1] = min<float>(iV, texture->getHeight());
 			texCoords[2*iVertexNum + 1] = max(texCoords[2*iVertexNum + 1], 0.0f);
 		}
 
@@ -102,7 +105,7 @@ void ofxQuadStripObject::setVertexColor(int iVertexNum, float iR, float iG, floa
 		vertexColors[4*iVertexNum] = iR/255.0f;
 		vertexColors[4*iVertexNum + 1] = iG/255.0f;
 		vertexColors[4*iVertexNum + 2] = iB/255.0f;
-		vertexColors[4*iVertexNum + 3] = drawMaterial->color.w/255.0f * iA/255.0f;
+		vertexColors[4*iVertexNum + 3] = drawMaterial->color.a/255.0f * iA/255.0f;
 		//automatically enable vertex coloring if this is called
 		vertexColoringEnabled = true;
 	}
@@ -122,7 +125,7 @@ void ofxQuadStripObject::setVertexColorOnly(int iVertexNum, float iR, float iG, 
 void ofxQuadStripObject::setVertexAlpha(int iVertexNum, float iA)
 {
 	if(iVertexNum < numVertices){
-		vertexColors[4*iVertexNum + 3] = drawMaterial->color.w/255.0f * iA/255.0f;
+		vertexColors[4*iVertexNum + 3] = drawMaterial->color.a/255.0f * iA/255.0f;
 		//automatically enable vertex coloring if this is called
 		vertexColoringEnabled = true;
 	}
@@ -134,9 +137,9 @@ void ofxQuadStripObject::setDrawMode(int iDrawMode)
 	drawMode = iDrawMode;
 }
 
-void ofxQuadStripObject::setTexture(ofImage *iTex)
+void ofxQuadStripObject::setTexture(gl::TextureRef iTex)
 {
-	texture = &iTex->getTextureReference();
+	texture = iTex;
 }
 
 void ofxQuadStripObject::enableVertexColoring(bool iEnable)
@@ -144,7 +147,7 @@ void ofxQuadStripObject::enableVertexColoring(bool iEnable)
 	vertexColoringEnabled = iEnable;
 }
 
-ofTexture* ofxQuadStripObject::getTexture()
+gl::TextureRef ofxQuadStripObject::getTexture()
 {
 	return texture;
 }

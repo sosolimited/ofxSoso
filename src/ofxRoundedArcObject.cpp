@@ -77,7 +77,7 @@ void ofxRoundedArcObject::render()
 				
 		//corner circle extrusions
 		glBegin(GL_QUAD_STRIP);	
-		for (float i = newStartAngle + PI; i <= newStartAngle + 3*PI/2 ; i+= PI/16.0f) {
+		for (float i = newStartAngle + M_PI; i <= newStartAngle + 3*M_PI/2 ; i+= M_PI/16.0f) {
 			//glColor3f((i-(newStartAngle + PI))/PI/2.0, 0, 1-(i-(newStartAngle + PI))/PI/2.0);
 			glNormal3f(cos(i), sin(i), 0);
 			glVertex3f(circPos1.x + curveRadius*cos(i), circPos1.y + curveRadius*sin(i), height);
@@ -86,7 +86,7 @@ void ofxRoundedArcObject::render()
 		glEnd();
 		
 		glBegin(GL_QUAD_STRIP);	
-		for (float i = newEndAngle +7*PI/16; i <= newEndAngle + PI ; i+= PI/16.0f) {
+		for (float i = newEndAngle +7*M_PI/16; i <= newEndAngle + M_PI ; i+= M_PI/16.0f) {
 			//glColor3f((i-(newEndAngle + PI/2.0))/PI/2.0, 0, 1-(i-(newEndAngle + PI/2.0))/PI/2.0);
 			glNormal3f(cos(i), sin(i), 0);
 			glVertex3f(circPos3.x + curveRadius*cos(i), circPos3.y + curveRadius*sin(i), height);
@@ -137,26 +137,26 @@ void ofxRoundedArcObject::render()
 		
 
 		
-		int k = 0;
-		float angleInc = M_TWO_PI/(float)resolution;
+//		int k = 0;
+		float angleInc = 2 * M_PI/(float)resolution;
 		float angle = newStartAngle;
 		
 		//inner side
 		glBegin(GL_QUAD_STRIP);
 		
 		while(angle < newEndAngle){
-			glNormal3f(cos(angle+PI), sin(angle+PI), 0);			
+			glNormal3f(cos(angle+M_PI), sin(angle+M_PI), 0);
 			glVertex3f(innerRadius * cos(angle), innerRadius * sin(angle), 0);
 			glVertex3f(innerRadius * cos(angle), innerRadius * sin(angle), height);
 			
 			angle += angleInc;
 		}
 		//finish it
-		glNormal3f(cos(angle+PI), sin(angle+PI), 0);		
+		glNormal3f(cos(angle+M_PI), sin(angle+M_PI), 0);
 		glVertex3f(innerRadius * cos(newEndAngle), innerRadius * sin(newEndAngle), 0);
 		glVertex3f(innerRadius * cos(newEndAngle), innerRadius * sin(newEndAngle), height);
-		glVertex3f(innerRadius * cos(newEndAngle+PI/360.0), innerRadius * sin(newEndAngle+PI/360.0), 0);
-		glVertex3f(innerRadius * cos(newEndAngle+PI/360.0), innerRadius * sin(newEndAngle+PI/360.0), height);
+		glVertex3f(innerRadius * cos(newEndAngle+M_PI/360.0), innerRadius * sin(newEndAngle+M_PI/360.0), 0);
+		glVertex3f(innerRadius * cos(newEndAngle+M_PI/360.0), innerRadius * sin(newEndAngle+M_PI/360.0), height);
 		
 		glEnd();	
 		
@@ -198,11 +198,11 @@ void ofxRoundedArcObject::render()
 		glBegin(GL_QUAD_STRIP);
 	
 		//1st curved part of button
-		for (float i = 0 ; i <= PI/2.0f ; i+= PI/8.0f) {
+		for (float i = 0 ; i <= M_PI/2.0f ; i+= M_PI/8.0f) {
 			glNormal3f(0,0,1);
 
 			//glColor3f(1,0,0);
-			glVertex3f(circPos1.x + curveRadius*cos(newStartAngle + PI + i), circPos1.y + curveRadius*sin(newStartAngle + PI + i), height);
+			glVertex3f(circPos1.x + curveRadius*cos(newStartAngle + M_PI + i), circPos1.y + curveRadius*sin(newStartAngle + M_PI + i), height);
 			//glColor3f(0,0,1);
 			glVertex3f(circPos2.x + curveRadius2*cos(newStartAngle - i), circPos2.y + curveRadius2*sin(newStartAngle - i), height);
 			
@@ -213,11 +213,11 @@ void ofxRoundedArcObject::render()
 		glBegin(GL_QUAD_STRIP);
 		
 		//end curved part of button
-		for (float i = 0 ; i <= PI/2.0f ; i+= PI/8.0f) {
+		for (float i = 0 ; i <= M_PI/2.0f ; i+= M_PI/8.0f) {
 			glNormal3f(0,0,1);
 
 			//glColor3f(0,1,0);
-			glVertex3f(circPos3.x + curveRadius*cos(newEndAngle + PI - i ), circPos3.y + curveRadius*sin(newEndAngle + PI - i), height);
+			glVertex3f(circPos3.x + curveRadius*cos(newEndAngle + M_PI - i ), circPos3.y + curveRadius*sin(newEndAngle + M_PI - i), height);
 			//glColor3f(1,1,0);
 			glVertex3f(circPos4.x + curveRadius2*cos(newEndAngle + i), circPos4.y + curveRadius2*sin(newEndAngle + i), height);
 			

@@ -50,7 +50,7 @@ public:
 							*texTracker,
 							*colorTracker;
 	};
-	vector<ofxDynamicPolygonVert *>		dynamicVerts;
+	std::vector<ofxDynamicPolygonVert *>		dynamicVerts;
 
 
 

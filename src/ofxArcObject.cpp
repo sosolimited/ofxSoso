@@ -1,5 +1,5 @@
 #include "ofxArcObject.h"
-
+#include "cinder/CinderMath.h"
 
 //start and end angles in degrees (converted to radians internally)
 ofxArcObject::ofxArcObject(float iOuterRadius, float iInnerRadius, float iStartAngle, float iEndAngle)
@@ -10,8 +10,8 @@ ofxArcObject::ofxArcObject(float iOuterRadius, float iInnerRadius, float iStartA
 	innerRadius = iInnerRadius;
 
 	//add -90 offset if you want 0 degrees at 12 o'clock
-	startAngle = ofDegToRad(iStartAngle);
-	endAngle = ofDegToRad(iEndAngle);
+	startAngle = ci::toRadians(iStartAngle);
+	endAngle = ci::toRadians(iEndAngle);
 
 	height = 0;
     nullColor.set(-1,-1,-1,-1); // LM added this to fix compatability w 0072
@@ -31,21 +31,21 @@ void ofxArcObject::setResolution(int iRes)
 //these are all set in degrees and converted to radians internally
 void ofxArcObject::setStartAngle(float iAngle)
 {
-	startAngle = ofDegToRad(iAngle);
+	startAngle = ci::toRadians(iAngle);
 }
 
 void ofxArcObject::setEndAngle(float iAngle)
 {
-	endAngle = ofDegToRad(iAngle);
+	endAngle = ci::toRadians(iAngle);
 }
 
 //LM 062012
 float ofxArcObject::getStartAngle() {
-    return ofRadToDeg(startAngle);
+	return ci::toDegrees(startAngle);
 }
 
 float ofxArcObject::getEndAngle() {
-    return ofRadToDeg(endAngle);
+    return ci::toDegrees(endAngle);
 }
 
 void ofxArcObject::setColors(ci::Vec4f iColor1, ci::Vec4f iColor2) {
@@ -57,10 +57,11 @@ void ofxArcObject::setColors(ci::Vec4f iColor1, ci::Vec4f iColor2) {
 
 void ofxArcObject::render()
 {
-	ofFill();
+	// note that we should do solid/filled rendering
+//	ofFill();
 
 	int k = 0;
-	float angleInc = M_TWO_PI/(float)resolution;
+	float angleInc = 2 * M_PI/(float)resolution;
 	float angle = startAngle;
 	float portion = 0;
 
@@ -68,7 +69,7 @@ void ofxArcObject::render()
 
 		glBegin(GL_QUAD_STRIP);
 		while(angle < endAngle){
-			glNormal3f(cos(angle+PI), sin(angle+PI),0);
+			glNormal3f(cos(angle+M_PI), sin(angle+M_PI),0);
 			if (color1 != nullColor && color2 != nullColor) {
 				portion = 1.0 -(angle - startAngle) / (endAngle - startAngle);
 				glColor4f(portion*color1[0] + (1.0-portion)*color2[0], portion*color1[1] + (1.0-portion)*color2[1], portion*color1[2] + (1.0-portion)*color2[2], portion*color1[3] + (1.0-portion)*color2[3]);
@@ -81,7 +82,7 @@ void ofxArcObject::render()
 		}
 
 		//finish it
-		glNormal3f(cos(angle+PI), sin(angle+PI),0);
+		glNormal3f(cos(angle+M_PI), sin(angle+M_PI),0);
 
 		if (color1 != nullColor && color2 != nullColor) {
 			portion = 1.0 -(angle - startAngle) / (endAngle - startAngle);

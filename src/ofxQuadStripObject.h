@@ -25,7 +25,7 @@ IN THE SOFTWARE.
 #pragma once
 
 #include "ofxObject.h"
-#include "ofImage.h"
+#include "cinder/gl/Texture.h"
 
 
 class ofxQuadStripObject : public ofxObject
@@ -36,7 +36,7 @@ public:
 
 	void					render();
 
-	void					setTexture(ofImage *iTex);
+	void					setTexture(ci::gl::TextureRef iTex);
 	virtual void			setVertexPos(int iVertexNum, ci::Vec3f iPos);
 	virtual void			setVertexTexCoords(int iVertexNum, float iU, float iV);
 	virtual void			setVertexColor(int iVertexNum, float iR, float iG, float iB, float iA=255);
@@ -52,7 +52,7 @@ public:
     ci::Vec4f                 getVertexColor(int iVertexNum);
     float                   getVertexAlpha(int iVertexNum);
 
-	ofTexture*				getTexture();
+	ci::gl::TextureRef			getTexture();
 
 protected:
 	int						numVertices;
@@ -60,7 +60,7 @@ protected:
 	float					*texCoords;
 	float					*vertexColors;
 	float					drawMode;
-	ofTexture				*texture;
+	ci::gl::TextureRef				texture;
 	bool					vertexColoringEnabled;
 
 };

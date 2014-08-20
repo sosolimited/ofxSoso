@@ -16,14 +16,9 @@
 		147A46B75C1B4DE49FF1371B /* ofxMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F30DD049EA74E1CB35EE9EF /* ofxMessage.cpp */; };
 		19FF15C00EAA4BA9B16B2E58 /* ofxQuadStripObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDA639364CC289EC01BD /* ofxQuadStripObject.cpp */; };
 		1C5813B71AC44AF9BC67996D /* ofxScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3A872246047F09E8178A1 /* ofxScene.cpp */; };
-		2BA63E50FCCE4C49869160E1 /* ofxVideoPlayerObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E4AAA0B745C496C937E2C93 /* ofxVideoPlayerObject.cpp */; };
-		2C5D15025B4C471283A59D43 /* ofxLetterTextObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B34AB4ECA3C45F1A88FA21E /* ofxLetterTextObject.cpp */; };
 		353F13219B5E40129ACED645 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2E7779A79FDE41B1BBB1911D /* CinderApp.icns */; };
-		3777D1B548A04CCDB439D6C6 /* ofxTextObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C1FE32BD3644531B69C7E4F /* ofxTextObject.cpp */; };
-		3AEC896E96CD48DB9AE35438 /* ofxSosoRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFC6D525EE0B47328254C03B /* ofxSosoRenderer.cpp */; };
 		470D43B8E62D41FD91DCDCEB /* ofxDynamicPolygonObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B28BEC8EA38B40C1814A42AB /* ofxDynamicPolygonObject.cpp */; };
 		4B0407E2F83A46A6A1A6F17D /* ofxGridSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52425BB0320049569BF092A0 /* ofxGridSystem.cpp */; };
-		4E74298B2D464B0682B6C247 /* shaderBlur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 735DD544344942C5AAC9F5A4 /* shaderBlur.cpp */; };
 		52349759E8604F57B42B947E /* ofxPolygonObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77429D9F42A140BE8041C02D /* ofxPolygonObject.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
@@ -39,7 +34,6 @@
 		B6B27F6C8B604FE3ACAFD869 /* ofxLineStripObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FC02D608E948DCA837FE73 /* ofxLineStripObject.cpp */; };
 		E05FBE6275464E9AB5170BE6 /* GrandTourApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C99241DF64A4428A7B22D3A /* GrandTourApp.cpp */; };
 		E51365621D544BD88059E686 /* ofxFboObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4412F8DAFEE94F2EB72CF221 /* ofxFboObject.cpp */; };
-		F381313A4EAC4BCA8AEEB91D /* ofxSosoTrueTypeFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA0A9A091F734B9EBEFFC12A /* ofxSosoTrueTypeFont.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,15 +48,12 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		1910302A43C0440CB4ECC336 /* ofxDynamicPolygonObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxDynamicPolygonObject.h; path = ../../../src/ofxDynamicPolygonObject.h; sourceTree = "<group>"; };
 		1A63BDA639364CC289EC01BD /* ofxQuadStripObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxQuadStripObject.cpp; path = ../../../src/ofxQuadStripObject.cpp; sourceTree = "<group>"; };
-		1E4AAA0B745C496C937E2C93 /* ofxVideoPlayerObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxVideoPlayerObject.cpp; path = ../../../src/ofxVideoPlayerObject.cpp; sourceTree = "<group>"; };
-		236430F0FBF048C7BE42646D /* ofxVideoPlayerObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxVideoPlayerObject.h; path = ../../../src/ofxVideoPlayerObject.h; sourceTree = "<group>"; };
 		28150457AB544C378726D12E /* ofxScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxScene.h; path = ../../../src/ofxScene.h; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		2E7779A79FDE41B1BBB1911D /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		3111996413A74B2D8D56FDB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39BE9449B2E24A12A9B6B72E /* ofxImageObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxImageObject.cpp; path = ../../../src/ofxImageObject.cpp; sourceTree = "<group>"; };
-		3B34AB4ECA3C45F1A88FA21E /* ofxLetterTextObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxLetterTextObject.cpp; path = ../../../src/ofxLetterTextObject.cpp; sourceTree = "<group>"; };
 		3E48CDC297114AC2A254A2FA /* ofxCircleObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxCircleObject.h; path = ../../../src/ofxCircleObject.h; sourceTree = "<group>"; };
 		43A9528AE4214C78B9BECAC3 /* ofxRectangleObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxRectangleObject.h; path = ../../../src/ofxRectangleObject.h; sourceTree = "<group>"; };
 		4412F8DAFEE94F2EB72CF221 /* ofxFboObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxFboObject.cpp; path = ../../../src/ofxFboObject.cpp; sourceTree = "<group>"; };
@@ -75,14 +66,10 @@
 		60889DA655DC4504A09F4257 /* ofxGridSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxGridSystem.h; path = ../../../src/ofxGridSystem.h; sourceTree = "<group>"; };
 		61308F86BAFC4FA6845604CC /* ofxQuadStripObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxQuadStripObject.h; path = ../../../src/ofxQuadStripObject.h; sourceTree = "<group>"; };
 		684CE3712C7F4DA0A4674610 /* ofxRectangleObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxRectangleObject.cpp; path = ../../../src/ofxRectangleObject.cpp; sourceTree = "<group>"; };
-		735DD544344942C5AAC9F5A4 /* shaderBlur.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = shaderBlur.cpp; path = ../../../src/shaderBlur.cpp; sourceTree = "<group>"; };
 		77429D9F42A140BE8041C02D /* ofxPolygonObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxPolygonObject.cpp; path = ../../../src/ofxPolygonObject.cpp; sourceTree = "<group>"; };
-		7814D3342FC0423AA5689C66 /* shaderBlur.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = shaderBlur.h; path = ../../../src/shaderBlur.h; sourceTree = "<group>"; };
 		7DD3A872246047F09E8178A1 /* ofxScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxScene.cpp; path = ../../../src/ofxScene.cpp; sourceTree = "<group>"; };
 		7EC2969C355C4CF8977A0EC3 /* ofxTextureObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxTextureObject.h; path = ../../../src/ofxTextureObject.h; sourceTree = "<group>"; };
 		8178015CF7984B3CB9657330 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
-		8670372DE0844F23BC840851 /* ofxLetterTextObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxLetterTextObject.h; path = ../../../src/ofxLetterTextObject.h; sourceTree = "<group>"; };
-		8C1FE32BD3644531B69C7E4F /* ofxTextObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxTextObject.cpp; path = ../../../src/ofxTextObject.cpp; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* GrandTour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrandTour.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9422FAA528DB4ACB8080DD65 /* ofxArcObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxArcObject.h; path = ../../../src/ofxArcObject.h; sourceTree = "<group>"; };
 		9784F57B5B5D49CEB8726B6C /* ofxAnimation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxAnimation.cpp; path = ../../../src/ofxAnimation.cpp; sourceTree = "<group>"; };
@@ -94,15 +81,10 @@
 		B827F8EA864E45E998EEC5A7 /* ofxRoundedArcObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxRoundedArcObject.cpp; path = ../../../src/ofxRoundedArcObject.cpp; sourceTree = "<group>"; };
 		B9FA926E4750411A91E0436A /* ofxLineSegmentObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxLineSegmentObject.h; path = ../../../src/ofxLineSegmentObject.h; sourceTree = "<group>"; };
 		BD22C5CAC5704B7FA9347291 /* ofxImageObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxImageObject.h; path = ../../../src/ofxImageObject.h; sourceTree = "<group>"; };
-		BFC6D525EE0B47328254C03B /* ofxSosoRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxSosoRenderer.cpp; path = ../../../src/ofxSosoRenderer.cpp; sourceTree = "<group>"; };
 		C183A91172274C28A93D391F /* ofxPolygonObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxPolygonObject.h; path = ../../../src/ofxPolygonObject.h; sourceTree = "<group>"; };
-		CA0A9A091F734B9EBEFFC12A /* ofxSosoTrueTypeFont.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxSosoTrueTypeFont.cpp; path = ../../../src/ofxSosoTrueTypeFont.cpp; sourceTree = "<group>"; };
-		D86A297AE6C047FE89A04773 /* ofxSosoRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxSosoRenderer.h; path = ../../../src/ofxSosoRenderer.h; sourceTree = "<group>"; };
 		DAA42E1228424A40826597AC /* ofxFboObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxFboObject.h; path = ../../../src/ofxFboObject.h; sourceTree = "<group>"; };
-		E29392AA31044126AFD4E375 /* ofxSosoTrueTypeFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxSosoTrueTypeFont.h; path = ../../../src/ofxSosoTrueTypeFont.h; sourceTree = "<group>"; };
 		E60A666440D74CE6B2756BCE /* ofxLineSegmentObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxLineSegmentObject.cpp; path = ../../../src/ofxLineSegmentObject.cpp; sourceTree = "<group>"; };
 		E63FD7C9371E4A61A64A6B4A /* GrandTour_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = GrandTour_Prefix.pch; sourceTree = "<group>"; };
-		E75E890707194C8A9AD3C55B /* ofxTextObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxTextObject.h; path = ../../../src/ofxTextObject.h; sourceTree = "<group>"; };
 		EABB69A7FB0F462FAEECEDCC /* ofxAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxAnimation.h; path = ../../../src/ofxAnimation.h; sourceTree = "<group>"; };
 		FE26D056CCE54F82993A88DB /* ofxTextureObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxTextureObject.cpp; path = ../../../src/ofxTextureObject.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -225,7 +207,6 @@
 				4412F8DAFEE94F2EB72CF221 /* ofxFboObject.cpp */,
 				52425BB0320049569BF092A0 /* ofxGridSystem.cpp */,
 				39BE9449B2E24A12A9B6B72E /* ofxImageObject.cpp */,
-				3B34AB4ECA3C45F1A88FA21E /* ofxLetterTextObject.cpp */,
 				E60A666440D74CE6B2756BCE /* ofxLineSegmentObject.cpp */,
 				08FC02D608E948DCA837FE73 /* ofxLineStripObject.cpp */,
 				4F30DD049EA74E1CB35EE9EF /* ofxMessage.cpp */,
@@ -235,12 +216,7 @@
 				684CE3712C7F4DA0A4674610 /* ofxRectangleObject.cpp */,
 				B827F8EA864E45E998EEC5A7 /* ofxRoundedArcObject.cpp */,
 				7DD3A872246047F09E8178A1 /* ofxScene.cpp */,
-				BFC6D525EE0B47328254C03B /* ofxSosoRenderer.cpp */,
-				CA0A9A091F734B9EBEFFC12A /* ofxSosoTrueTypeFont.cpp */,
-				8C1FE32BD3644531B69C7E4F /* ofxTextObject.cpp */,
 				FE26D056CCE54F82993A88DB /* ofxTextureObject.cpp */,
-				1E4AAA0B745C496C937E2C93 /* ofxVideoPlayerObject.cpp */,
-				735DD544344942C5AAC9F5A4 /* shaderBlur.cpp */,
 				EABB69A7FB0F462FAEECEDCC /* ofxAnimation.h */,
 				9422FAA528DB4ACB8080DD65 /* ofxArcObject.h */,
 				3E48CDC297114AC2A254A2FA /* ofxCircleObject.h */,
@@ -248,7 +224,6 @@
 				DAA42E1228424A40826597AC /* ofxFboObject.h */,
 				60889DA655DC4504A09F4257 /* ofxGridSystem.h */,
 				BD22C5CAC5704B7FA9347291 /* ofxImageObject.h */,
-				8670372DE0844F23BC840851 /* ofxLetterTextObject.h */,
 				B9FA926E4750411A91E0436A /* ofxLineSegmentObject.h */,
 				0B9807288DBA4E148F017687 /* ofxLineStripObject.h */,
 				553AA02B7A79451A91769F12 /* ofxMessage.h */,
@@ -258,12 +233,7 @@
 				43A9528AE4214C78B9BECAC3 /* ofxRectangleObject.h */,
 				A8E56EA527024695B954EBCA /* ofxRoundedArcObject.h */,
 				28150457AB544C378726D12E /* ofxScene.h */,
-				D86A297AE6C047FE89A04773 /* ofxSosoRenderer.h */,
-				E29392AA31044126AFD4E375 /* ofxSosoTrueTypeFont.h */,
-				E75E890707194C8A9AD3C55B /* ofxTextObject.h */,
 				7EC2969C355C4CF8977A0EC3 /* ofxTextureObject.h */,
-				236430F0FBF048C7BE42646D /* ofxVideoPlayerObject.h */,
-				7814D3342FC0423AA5689C66 /* shaderBlur.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -348,7 +318,6 @@
 				E51365621D544BD88059E686 /* ofxFboObject.cpp in Sources */,
 				4B0407E2F83A46A6A1A6F17D /* ofxGridSystem.cpp in Sources */,
 				965841F6A0E74217AC58BF83 /* ofxImageObject.cpp in Sources */,
-				2C5D15025B4C471283A59D43 /* ofxLetterTextObject.cpp in Sources */,
 				B4A7FA70853F47F2BC52ADDE /* ofxLineSegmentObject.cpp in Sources */,
 				B6B27F6C8B604FE3ACAFD869 /* ofxLineStripObject.cpp in Sources */,
 				147A46B75C1B4DE49FF1371B /* ofxMessage.cpp in Sources */,
@@ -358,12 +327,7 @@
 				7A5EF10CBA414AB7A9351014 /* ofxRectangleObject.cpp in Sources */,
 				98CD385DBED34049908B3955 /* ofxRoundedArcObject.cpp in Sources */,
 				1C5813B71AC44AF9BC67996D /* ofxScene.cpp in Sources */,
-				3AEC896E96CD48DB9AE35438 /* ofxSosoRenderer.cpp in Sources */,
-				F381313A4EAC4BCA8AEEB91D /* ofxSosoTrueTypeFont.cpp in Sources */,
-				3777D1B548A04CCDB439D6C6 /* ofxTextObject.cpp in Sources */,
 				766E23CDE8FB45A3B1DEEC24 /* ofxTextureObject.cpp in Sources */,
-				2BA63E50FCCE4C49869160E1 /* ofxVideoPlayerObject.cpp in Sources */,
-				4E74298B2D464B0682B6C247 /* shaderBlur.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,23 +8,20 @@
  */
 
 #include "ofxTextureObject.h"
-#include "ofGraphics.h"
+
+using namespace cinder;
 
 ofxTextureObject::ofxTextureObject(int w, int h)
 {
+	gl::Texture::Format format;
+	format.setInternalFormat( GL_RGBA );
+	texture = gl::Texture::create( w, h, format );
 
-    texture.allocate(w, h, GL_RGBA);
-    width = w;
+	width = w;
 	height = h;
 	isCentered = false;
 	
-    renderDirty = true; //eg 070112
-}
-
-ofxTextureObject::ofxTextureObject(){
-
-    texture.clear();
-
+	renderDirty = true; //eg 070112
 }
 
 void ofxTextureObject::render()
@@ -37,19 +34,19 @@ void ofxTextureObject::render()
 
         //For when iLoadNow=false is used in constructor
         if(width==0 || height==0){
-            width = texture.getWidth();
-            height = texture.getHeight();
+            width = texture->getWidth();
+            height = texture->getHeight();
         }
         
         if(isCentered){
-            ofPushMatrix();
-            ofTranslate(-width/2, -height/2, 0);
+					gl::pushModelView();
+					gl::translate(-width/2, -height/2, 0);
         }
         
-        glNormal3f(0,0,1); 
-        texture.draw(0,0);
+        glNormal3f(0,0,1);
+				gl::draw( texture );
         if(isCentered){
-            ofPopMatrix();
+					gl::popModelView();
         }
         
         glEndList();
@@ -69,6 +66,6 @@ void ofxTextureObject::setCentered(bool iEnable)
 
 void ofxTextureObject::clear()
 {
-	texture.clear();
-    renderDirty = true;
+	texture.reset();
+  renderDirty = true;
 }

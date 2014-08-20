@@ -1,5 +1,8 @@
 #include "ofxMessage.h"
-#include "ofUtils.h"
+
+#include "cinder/app/App.h"
+
+using namespace std;
 
 //float ofxMessage::OF_RELATIVE_VAL = 9999.9f;
 
@@ -47,7 +50,7 @@ ofxMessage::ofxMessage(int iID, void *iVals, int iInterpolation, float iDuration
 	interpolation = iInterpolation;
 	duration = iDuration;
 	startDelay = iDelay;
-	startTime = ofGetElapsedTimef();	//default to current time
+	startTime = ci::app::getElapsedSeconds();	//default to current time
 
 	isEnabled = true;
 	isRunning = false;
@@ -70,7 +73,7 @@ ofxMessage::ofxMessage(int iID, int iInterpolation, int iPath, vector<ci::Vec4f>
 	interpolation = iInterpolation;
 	duration = iDuration;
 	startDelay = iDelay;
-	startTime = ofGetElapsedTimef();	//default to current time
+	startTime = ci::app::getElapsedSeconds();	//default to current time
 
 	isEnabled = true;
 	isRunning = false;
@@ -93,7 +96,7 @@ ofxMessage::ofxMessage(int iID, float (*iFunction)(void *), void *iArgs, float i
 	interpolation = NULL;
 	duration = 0;
 	startDelay = iDelay;
-	startTime = ofGetElapsedTimef();	//default to current time
+	startTime = ci::app::getElapsedSeconds();	//default to current time
 
 	isEnabled = true;
 	isRunning = false;
