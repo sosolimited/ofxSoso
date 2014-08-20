@@ -29,13 +29,6 @@ IN THE SOFTWARE.
 
 #pragma once
 
-#include "ofConstants.h"
-#include "ofGraphics.h"
-//#include "ofxVectorMath.h" //OF7
-#include "ofMath.h"
-#include "ofxMessage.h"
-
-
 enum{	
 	OF_RENDER_ALL = 0x00,
 	OF_RENDER_OPAQUE = 0x01,

@@ -25,6 +25,7 @@ example/bin/sosoExampleApp.app/*
 
 # Xcode build locations
 build
+*.hmap
 *.pbxuser
 *.mode1v3
 *.xcuserstate
