@@ -22,3 +22,12 @@ example/bin/sosoExampleApp.app/*
 
 *.xcodeproj/xcuserdata/*.xcuserdatad
 *.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad
+
+# Xcode build locations
+build
+*.pbxuser
+*.mode1v3
+*.xcuserstate
+*.xcuserdatad
+.svn
+.DS_Store

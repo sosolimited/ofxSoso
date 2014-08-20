@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cinder>
+<block
+	name="soso"
+	id="com.sosolimited.soso"
+	author="David Wicks, Sosolimited LLC"
+	license="BSD"
+	summary="A scene graph and things."
+	>
+	<sourcePattern>src/*.cpp</sourcePattern>
+	<headerPattern>src/*.h</headerPattern>
+	<includePath>src</includePath>
+</block>
+</cinder>
