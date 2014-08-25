@@ -19,7 +19,10 @@ class GrandTourApp : public AppNative {
 public:
 	void prepareSettings( Settings *settings ) override;
 	void setup() override;
-	void mouseDown( MouseEvent event ) override;
+
+	// Handle simple user keyboard interaction.
+	void keyDown( KeyEvent event ) override;
+
 	void update() override;
 	void draw() override;
 private:
@@ -41,15 +44,28 @@ void GrandTourApp::prepareSettings( Settings *settings )
 
 void GrandTourApp::setup()
 {
+	// Create a scene.
+	// The scene is a scene graph that renders objects added to its root and their children and their children's children and so on.
+	// When the render mode of the scene is set to RENDER_ALPHA_DEPTH_SORTED, it handles sorting of both transparent and opaque objects in the z-axis.
 	scene = make_shared<ofxScene>( getWindowWidth(), getWindowHeight() );
 	scene->setBackgroundColor( 50, 50, 50 );
 
+	//_________________________________________________________________________________________________________________
+
+	// Create an image with an alpha channel.
 	image = make_shared<ofxImageObject>( getAssetPath("soso_LOGO.png").string() );
 	image->setSpecialTransparency( true );
 	image->setTrans( getWindowWidth() - image->width - 40, getWindowHeight() - image->height - 40, 5.0f );
 	image->setCentered( false );
 	scene->getRoot()->addChild( image.get() );
 
+	//_________________________________________________________________________________________________________________
+
+	// Text will go here
+
+	//_________________________________________________________________________________________________________________
+
+	// Make and lay out some lines. See how they are animated below in keyPressed().
 	lineRoot = make_shared<ofxObject>();
 	lineRoot->setTrans( 200, 200, 0 );
 	scene->getRoot()->addChild( lineRoot.get() );
@@ -68,10 +84,47 @@ void GrandTourApp::setup()
 		lines.push_back( line );
 		lineRoot->addChild( line.get() );
 	}
+
+	// Create a label for the lines.
 }
 
-void GrandTourApp::mouseDown( MouseEvent event )
+void GrandTourApp::keyDown( KeyEvent event )
 {
+	if( event.getChar() == 'a' )
+	{
+		// animate circles using messages
+	}
+	else if( event.getChar() == 'A' )
+	{
+		// animate circles using animation
+	}
+
+	switch ( event.getCode() )
+	{
+		case KeyEvent::KEY_s:
+			if( lines.back()->getRot().z > 10 )
+			{
+				for( auto &line : lines )
+				{
+					line->stopMessages();
+					line->doMessage3f( OF_ROTATE, 0, 2.0, OF_EASE_OUT, 0, 0, 0 );
+				}
+			}
+			else
+			{
+				int i = 0;
+				for( auto &line : lines )
+				{
+					line->stopMessages();
+					line->doMessage3f( OF_ROTATE, 0, 2.0, OF_EASE_OUT, 0, 0, i/(float)lines.size() * 360 );
+					++i;
+				}
+			}
+		break;
+
+		default:
+			break;
+	}
 }
 
 void GrandTourApp::update()
