@@ -53,9 +53,10 @@ void GrandTourApp::setup()
 	// The scene is a scene graph that renders objects added to its root and their children and their children's children and so on.
 	// When the render mode of the scene is set to RENDER_ALPHA_DEPTH_SORTED, it handles sorting of both transparent and opaque objects in the z-axis.
 	scene = make_shared<Scene>( getWindowWidth(), getWindowHeight() );
-	scene->setBackgroundColor( 50, 50, 50 );
+	scene->setBackgroundColor( 10, 10, 10 );
 
 	Font font16( loadAsset("Arial.ttf"), 16 );
+	Font font64( loadAsset("Arial.ttf"), 64 );
 
 	//_________________________________________________________________________________________________________________
 
@@ -70,8 +71,7 @@ void GrandTourApp::setup()
 
 	// Text will go here
 
-	// Display some non-western scripts.
-	{
+	{ // Display some non-western scripts.
 		TextBox box;
 		box.setFont( font16 );
 		box.setLigate( true );
@@ -80,10 +80,10 @@ void GrandTourApp::setup()
 		string non_western_text = loadString( loadAsset( "non-roman-scripts-utf8.txt" ) );
 		box.setText( non_western_text );
 
-		auto object = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
-		object->setTrans( Vec3f( getWindowWidth() - 310.0f, 10.0f, 0.0f ) );
-		object->setSpecialTransparency( true );
-		scene->getRoot()->addChild( object );
+		auto label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
+		label->setTrans( Vec3f( getWindowWidth() - 310.0f, 10.0f, 0.0f ) );
+		label->setSpecialTransparency( true );
+		scene->getRoot()->addChild( label );
 	}
 
 	//_________________________________________________________________________________________________________________
@@ -114,18 +114,72 @@ void GrandTourApp::setup()
 
 	scene->getRoot()->addChild( dynamicPolygon );								//Add the polygon to the scene.
 
-  // Create a label for the polygon.
 	// DW: Do we want to make a wrapper around this text functionality?
-  TextBox box;
-  box.setColor( Color::white() );
-  box.setFont( font16 );
-  box.setLigate( true );
-  box.setSize( Vec2i( polyTex->getWidth() / 2, TextBox::GROW ) );
-  box.setText( "Here is a dynamic polygon. Press UP and DOWN to animate it." );
-  auto polygon_label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
-	polygon_label->setTrans( dynamicPolygon->getTrans() + Vec3f( 0, polyTex->getHeight() * 0.35f + 5, -1.0f ) );
-	scene->getRoot()->addChild( polygon_label );
+	{ // Create a label for the polygon.
+		TextBox box;
+		box.setColor( Color::white() );
+		box.setFont( font16 );
+		box.setLigate( true );
+		box.setSize( Vec2i( polyTex->getWidth() / 2, TextBox::GROW ) );
+		box.setText( "Here is a dynamic polygon. Press UP and DOWN to animate it." );
+		auto label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
+		label->setTrans( dynamicPolygon->getTrans() + Vec3f( 0, polyTex->getHeight() * 0.35f + 5, -1.0f ) );
+		scene->getRoot()->addChild( label );
+	}
 
+	//_________________________________________________________________________________________________________________
+
+	//Make a root for the circle objects created below and position it.
+	auto circle_root = make_shared<Object>();
+	circle_root->setTrans( getWindowWidth() / 2, 100, 0);
+	scene->getRoot()->addChild(circle_root);
+
+	//Make some circle objects, position them, and add them to the circleRoot object.
+	int numCircles = 12;
+	for(int i=0; i < numCircles; i++){
+		auto circ = make_shared<CircleObject>(120, 100.0);
+		circ->setColor(255, 200-i*10, 200);										//Set an object's color.
+		circ->setAlpha(100);													//Set an object's transparency independently.
+		circ->setTrans(70*cos(2 * M_PI*(float)i/(float)numCircles),				//Set an object's translation.
+									 70*sin(2 * M_PI*(float)i/(float)numCircles),
+									 -2.0);
+		circle_root->addChild(circ);												//Add the object to the scene.
+		circles.push_back(circ);
+	}
+
+	{ //Create a label for the circles. Notice the use of u8 to denote utf-8 encoding for the string.
+		//
+		string text = u8"Here are some circles.\nPress ‘a’ to animate them with messages. Press ‘A’ to animate them with an animation.";
+		TextBox box;
+		box.setColor( Color::white() );
+		box.setFont( font16 );
+		box.setSize( Vec2i( 200, TextBox::GROW ) );
+
+		auto label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
+		label->setColor( 0, 0, 0 );
+		label->setTrans( -100.0f, 38, 2.0f );
+		circle_root->addChild( label );
+	}
+
+	//Create an animation with the circles.
+	//Call tween on the animation to tell it to do something (OF_TRANSLATE, OF_ROTATE, OF_SCALE, OF_SETCOLOR, OF_SETALPHA)
+	//from a start to end time, with a specific interpolation (OF_EASE_OUT, OF_EASE_IN, OF_OF_EASE_INOUT).
+	//Note: See ofxAnimation for more advanced tweening features.
+	animation = make_shared<soso::Animation>();
+	float offset = 0.1;
+	for(int i=0; i < circles.size(); i++){
+		//Grab translation and color for circles, as set above.
+		Vec3f		curTrans = circles[i]->getTrans();
+		Vec4f		curColor( circles[i]->getColor().r, circles[i]->getColor().g, circles[i]->getColor().b, circles[i]->getColor().a );
+
+		animation->tween(circles[i].get(), OF_SCALE, i*offset, i*offset + 0.5, OF_EASE_OUT, OF_RELATIVE_VAL, 0.5);		//You can pass OF_RELATIVE_VAL as the first animation value to animate from wherever the object is at the time the animation is called
+		animation->tween(circles[i].get(), OF_SETCOLOR, i*offset, i*offset + 0.5, OF_EASE_OUT,							//Animate the color over this timeframe with this interpolation,
+										 curColor.x, curColor.y, curColor.z, curColor.w,												//starting with this color,
+										 0, 255, 0, 255);																			//and ending at this color.
+		animation->tween(circles[i].get(), OF_SETCOLOR, i*offset + 0.5, i*offset + 1.0, OF_EASE_OUT,						//Animate the color back...
+										 0, 255, 0, 255,
+										 curColor.x, curColor.y, curColor.z, curColor.w);
+	}
 
 	//_________________________________________________________________________________________________________________
 
@@ -155,12 +209,23 @@ void GrandTourApp::setup()
 void GrandTourApp::keyDown( KeyEvent event )
 {
 	if( event.getChar() == 'a' )
-	{
-		// animate circles using messages
+	{ // Animate circles using messages
+		//Stop the animation just in case, since it is moving the same circles that you're about to animate with messages.
+		animation->stop();
+
+		//Animate the circles using messages. These methods allow you to directly tell the object to do things.
+		float offset = 0.1;
+		for(int i=0; i < circles.size(); i++){
+			float start = offset*i;
+			float dur = 0.5;
+			circles[i]->stopMessages();														//Stop (and remove) all other previously running messages.
+			circles[i]->doMessage1f(OF_SCALE, start, dur, OF_EASE_OUT, 1.6);				//Animate the scale to 1.6.
+			circles[i]->doMessage1f(OF_SCALE, start + dur, dur, OF_EASE_IN, 1.0);			//Animate the scale back to 1.0.
+		}
 	}
 	else if( event.getChar() == 'A' )
-	{
-		// animate circles using animation
+	{ // Animate circles using animation we made above.
+		animation->start();
 	}
 
 	switch ( event.getCode() )
@@ -231,9 +296,10 @@ void GrandTourApp::update()
 
 void GrandTourApp::draw()
 {
-	// clear out the window with black
+	// To use Soso's original coordinate system, set matrices with final false flag
+//	gl::setMatricesWindowPersp( getWindowWidth(), getWindowHeight(), 60.0f, 1.0f, 5000.0f, false );
+	// This sets up an origin-upper-left coordinate scheme DW
 	gl::setMatricesWindowPersp( getWindowSize() );
-	gl::setViewport( getWindowBounds() );
 
 	scene->draw();
 
