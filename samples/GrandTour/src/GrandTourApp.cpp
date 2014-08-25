@@ -11,6 +11,7 @@
 #include "soso/DynamicPolygonObject.h"
 
 #include "cinder/Text.h"
+#include "cinder/Utilities.h"
 //#include "ofxTextObject.h"
 //#include "ofxLetterTextObject.h"
 
@@ -54,6 +55,8 @@ void GrandTourApp::setup()
 	scene = make_shared<Scene>( getWindowWidth(), getWindowHeight() );
 	scene->setBackgroundColor( 50, 50, 50 );
 
+	Font font16( loadAsset("Arial.ttf"), 16 );
+
 	//_________________________________________________________________________________________________________________
 
 	// Create an image with an alpha channel.
@@ -66,6 +69,22 @@ void GrandTourApp::setup()
 	//_________________________________________________________________________________________________________________
 
 	// Text will go here
+
+	// Display some non-western scripts.
+	{
+		TextBox box;
+		box.setFont( font16 );
+		box.setLigate( true );
+		box.setSize( Vec2i( 300, TextBox::GROW ) );
+		box.setColor( ColorA( "white" ) );
+		string non_western_text = loadString( loadAsset( "non-roman-scripts-utf8.txt" ) );
+		box.setText( non_western_text );
+
+		auto object = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
+		object->setTrans( Vec3f( getWindowWidth() - 310.0f, 10.0f, 0.0f ) );
+		object->setSpecialTransparency( true );
+		scene->getRoot()->addChild( object );
+	}
 
 	//_________________________________________________________________________________________________________________
 
@@ -96,8 +115,7 @@ void GrandTourApp::setup()
 	scene->getRoot()->addChild( dynamicPolygon );								//Add the polygon to the scene.
 
   // Create a label for the polygon.
-  Font font16( loadAsset("Arial.ttf"), 16 );
-
+	// DW: Do we want to make a wrapper around this text functionality?
   TextBox box;
   box.setColor( Color::white() );
   box.setFont( font16 );
@@ -107,6 +125,7 @@ void GrandTourApp::setup()
   auto polygon_label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
 	polygon_label->setTrans( dynamicPolygon->getTrans() + Vec3f( 0, polyTex->getHeight() * 0.35f + 5, -1.0f ) );
 	scene->getRoot()->addChild( polygon_label );
+
 
 	//_________________________________________________________________________________________________________________
 
