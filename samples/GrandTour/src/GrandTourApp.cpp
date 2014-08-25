@@ -124,6 +124,7 @@ void GrandTourApp::setup()
 		box.setText( "Here is a dynamic polygon. Press UP and DOWN to animate it." );
 		auto label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
 		label->setTrans( dynamicPolygon->getTrans() + Vec3f( 0, polyTex->getHeight() * 0.35f + 5, -1.0f ) );
+		label->setSpecialTransparency( true );
 		scene->getRoot()->addChild( label );
 	}
 
@@ -131,7 +132,7 @@ void GrandTourApp::setup()
 
 	//Make a root for the circle objects created below and position it.
 	auto circle_root = make_shared<Object>();
-	circle_root->setTrans( getWindowWidth() / 2, 100, 0);
+	circle_root->setTrans( getWindowWidth() / 2, 300.0f, 0);
 	scene->getRoot()->addChild(circle_root);
 
 	//Make some circle objects, position them, and add them to the circleRoot object.
@@ -154,10 +155,11 @@ void GrandTourApp::setup()
 		box.setColor( Color::white() );
 		box.setFont( font16 );
 		box.setSize( Vec2i( 200, TextBox::GROW ) );
+		box.setText( text );
 
 		auto label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
-		label->setColor( 0, 0, 0 );
-		label->setTrans( -100.0f, 38, 2.0f );
+		label->setTrans( -100.0f, 38.0f, 2.0f );
+		label->setSpecialTransparency( true );
 		circle_root->addChild( label );
 	}
 
