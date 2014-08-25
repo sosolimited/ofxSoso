@@ -35,6 +35,7 @@ class TextureObject : public Object{
 public:
 
 	TextureObject(int w, int h);
+  TextureObject( const ci::gl::TextureRef &texture );
 
 	void						render();
 	void						setCentered(bool iEnable);

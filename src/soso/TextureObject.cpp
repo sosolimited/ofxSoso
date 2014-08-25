@@ -25,6 +25,15 @@ TextureObject::TextureObject(int w, int h)
 	renderDirty = true; //eg 070112
 }
 
+TextureObject::TextureObject( const gl::TextureRef &texture ):
+	texture( texture )
+{
+	width = texture->getWidth();
+	height = texture->getHeight();
+	isCentered = false;
+	renderDirty = true;
+}
+
 void TextureObject::render()
 {
     //eg 070112 Added display lists.

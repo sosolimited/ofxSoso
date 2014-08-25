@@ -7,7 +7,10 @@
 #include "soso/CircleObject.h"
 #include "soso/Animation.h"
 #include "soso/LineSegmentObject.h"
+#include "soso/TextureObject.h"
 #include "soso/DynamicPolygonObject.h"
+
+#include "cinder/Text.h"
 //#include "ofxTextObject.h"
 //#include "ofxLetterTextObject.h"
 
@@ -91,6 +94,19 @@ void GrandTourApp::setup()
 	dynamicPolygon->setVertexTexCoords(3, 0, 0.7f );
 
 	scene->getRoot()->addChild( dynamicPolygon );								//Add the polygon to the scene.
+
+  // Create a label for the polygon.
+  Font font16( loadAsset("Arial.ttf"), 16 );
+
+  TextBox box;
+  box.setColor( Color::white() );
+  box.setFont( font16 );
+  box.setLigate( true );
+  box.setSize( Vec2i( polyTex->getWidth() / 2, TextBox::GROW ) );
+  box.setText( "Here is a dynamic polygon. Press UP and DOWN to animate it." );
+  auto polygon_label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
+	polygon_label->setTrans( dynamicPolygon->getTrans() + Vec3f( 0, polyTex->getHeight() * 0.35f + 5, -1.0f ) );
+	scene->getRoot()->addChild( polygon_label );
 
 	//_________________________________________________________________________________________________________________
 
