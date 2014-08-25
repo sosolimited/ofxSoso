@@ -6,6 +6,7 @@
 
 using namespace std;
 using namespace cinder;
+using namespace soso;
 
 //class ObjectMaterial _____________________________________________________________________________
 ObjectMaterial::ObjectMaterial()

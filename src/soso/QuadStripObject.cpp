@@ -3,6 +3,7 @@
 #include <algorithm>
 using namespace std;
 using namespace cinder;
+using namespace soso;
 
 QuadStripObject::QuadStripObject(int iNumVertices)
 {

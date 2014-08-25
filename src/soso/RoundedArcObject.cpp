@@ -9,6 +9,7 @@
 
 #include "soso/RoundedArcObject.h"
 //#include "soso/ArcObject.h"
+using namespace soso;
 
 //start and end angles in degrees (converted to radians internally)
 RoundedArcObject::RoundedArcObject(float iOuterRadius, float iInnerRadius, float iStartAngle, float iEndAngle)

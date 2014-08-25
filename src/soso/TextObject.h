@@ -31,64 +31,67 @@ IN THE SOFTWARE.
 #include "soso/Object.h"
 #include "soso/SosoTrueTypeFont.h"
 
+namespace soso
+{
+
 //Helper class to store fonts for easy static access by name.
 class TextFont{
 public:
-	TextFont(string iFontName, SosoTrueTypeFont *iFont);
-	TextFont(string iFontName, string iFilename, int iFontsize, bool iAntiAliased=true, bool iFullCharacterSet=true, bool iMakeContours = false, bool iMakeMipMaps = true);
-	~TextFont();
+    TextFont(string iFontName, SosoTrueTypeFont *iFont);
+    TextFont(string iFontName, string iFilename, int iFontsize, bool iAntiAliased=true, bool iFullCharacterSet=true, bool iMakeContours = false, bool iMakeMipMaps = true);
+    ~TextFont();
 
 public:
-	SosoTrueTypeFont				*font;
-	char							*fontName;
+    SosoTrueTypeFont                *font;
+    char                            *fontName;
 
 };
 
 
 class wordBlock {
 public:
-    string				rawWord;
+    string                rawWord;
 
     ci::Vec2f             pos;
     vector<ci::Vec2f>     charPositions;
 
-    float				width;
-    float				height;
-    ci::ColorA8u				color;
+    float                width;
+    float                height;
+    ci::ColorA8u                color;
 
-    bool				isNewLine;
+    bool                isNewLine;
 
-    SosoTrueTypeFont	*font;
+    SosoTrueTypeFont    *font;
 
 };
 
 
 class lineBlock {
 public:
-    vector<int>			wordsID;
+    vector<int>            wordsID;
 
-    ci::Vec2f				pos;
-    float				width;
-    float				height;
+    ci::Vec2f                pos;
+    float                width;
+    float                height;
 
 };
 
 
 enum TextObjectAlignment{
-	OF_TEXT_ALIGN_LEFT,
-	OF_TEXT_ALIGN_RIGHT,
-	OF_TEXT_ALIGN_JUSTIFIED,
-	OF_TEXT_ALIGN_CENTER
+    OF_TEXT_ALIGN_LEFT,
+    OF_TEXT_ALIGN_RIGHT,
+    OF_TEXT_ALIGN_JUSTIFIED,
+    OF_TEXT_ALIGN_CENTER
 };
 
 class TextObject : public Object
 {
 public:
-	TextObject(SosoTrueTypeFont *iFont, char *iString=NULL);
-	TextObject(SosoTrueTypeFont *iFont, string iString=NULL);	//LM 063012
-	~TextObject();
+    TextObject(SosoTrueTypeFont *iFont, char *iString=NULL);
+    TextObject(SosoTrueTypeFont *iFont, string iString=NULL);    //LM 063012
+    ~TextObject();
 
-	void							render();
+    void                            render();
 
     void                            drawText(float x=0, float y=0, bool drawFlag=true);
     void                            drawLeft(float x=0, float y=0, bool drawFlag=true);
@@ -96,53 +99,53 @@ public:
     void                            drawCenter(float x=0, float y=0, bool drawFlag=true);
     void                            drawJustified(float x=0, float y=0, bool drawFlag=true);
 
-	virtual void					setColor(float iR, float iG, float iB, float iA=255.0);
-	virtual void					setColor(ci::Vec4f color);
+    virtual void                    setColor(float iR, float iG, float iB, float iA=255.0);
+    virtual void                    setColor(ci::Vec4f color);
     virtual void                    setColor(ci::ColorA8u color);
-	void							setWordColor(int iIndex, float iR, float iG, float iB, float iA=255.0);
+    void                            setWordColor(int iIndex, float iR, float iG, float iB, float iA=255.0);
     void                            setWordColor(string iWord, float iR, float iG, float iB, float iA=255.0,
                                                  bool iExactMatch = true);
     void                            setAllWordsColor(float iR,  float iG, float iB, float iA=255.0);
-    void							setAlpha(float iA);
+    void                            setAlpha(float iA);
 
     void                            enableWordColoring(bool iFlag); //eg
-	void							enableDrawAsShapes(bool iFlag);
+    void                            enableDrawAsShapes(bool iFlag);
 
-    virtual void					setString(char *iString);
-	virtual void					setString(string iString);
-    char*							getString();
+    virtual void                    setString(char *iString);
+    virtual void                    setString(string iString);
+    char*                            getString();
 
-	virtual void					setColumnWidth(float iWidth);
-	virtual void					setColumnBox(float iWidth, float iHeight);
-	virtual void					setAlignment(TextObjectAlignment iAlignment);
+    virtual void                    setColumnWidth(float iWidth);
+    virtual void                    setColumnBox(float iWidth, float iHeight);
+    virtual void                    setAlignment(TextObjectAlignment iAlignment);
 
-	float							getWidth();
+    float                            getWidth();
     float                           getHeight();
-	float							getColumnWidth();
+    float                            getColumnWidth();
 
     ci::Vec2f                         getCharPosition(int iIndex); //LM 031213
 
-	virtual void					setFont(SosoTrueTypeFont *iFont);
-    SosoTrueTypeFont*			getFont();
+    virtual void                    setFont(SosoTrueTypeFont *iFont);
+    SosoTrueTypeFont*            getFont();
 
     virtual void                    setPointSize(float iPointSize);
-    float							getPointSize();
+    float                            getPointSize();
     float                           getScaleFactor();
 
-    virtual void					setLeading(float iLeading);
-    float							getLeading();
+    virtual void                    setLeading(float iLeading);
+    float                            getLeading();
 
-    virtual void					setSpaceWidth(float iWidth);
+    virtual void                    setSpaceWidth(float iWidth);
 
-    int								getNumLines();
+    int                                getNumLines();
 
-	void							enableDisplayList(bool iEnable);
+    void                            enableDisplayList(bool iEnable);
 
 
 
-    static void						addFont(TextFont *iFont);
-	static TextFont*				addFont(char *iName, SosoTrueTypeFont *iFont);
-	static SosoTrueTypeFont*		getFont(char *iFontName);
+    static void                        addFont(TextFont *iFont);
+    static TextFont*                addFont(char *iName, SosoTrueTypeFont *iFont);
+    static SosoTrueTypeFont*        getFont(char *iFontName);
 
     string                          getLineString(int iIndex);
 
@@ -151,7 +154,7 @@ protected:
 
     int                             wrapTextX(float lineWidth);
     void                            wrapTextArea(float rWidth, float rHeight);
-    bool					    	wrapTextForceLines(int linesN);
+    bool                            wrapTextForceLines(int linesN);
 
     void                            updatePositions(float width);
 
@@ -164,7 +167,7 @@ protected:
 
 protected:
     string                          rawText;
-	SosoTrueTypeFont				*font;
+    SosoTrueTypeFont                *font;
 
     float                           pointSize,
                                     leading;
@@ -176,16 +179,18 @@ protected:
     int                             alignment;
 
     bool                            drawAsShapes,
-									drawWordColor;
+                                    drawWordColor;
 
-	float							columnWidth,
-									columnHeight;
+    float                            columnWidth,
+                                    columnHeight;
 
-	bool							isDisplayListEnabled;
+    bool                            isDisplayListEnabled;
 
     vector<wordBlock>               words;
     vector<lineBlock>               lines;
 
 
-    static vector<TextFont *>	allFonts;				//Static repository of fonts for easy access.
+    static vector<TextFont *>    allFonts;                //Static repository of fonts for easy access.
 };
+
+}   // namespace soso

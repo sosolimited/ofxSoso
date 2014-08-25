@@ -18,6 +18,8 @@
 
 #include <algorithm>
 
+using namespace soso;
+
 //helper class for mapping higher Unicode characters down into the 0-255 range
 SosoMappedChar::SosoMappedChar(unsigned char iMapToIndex, int iUnicodeIndex, char *iNamedEntity, char iUTFByte0, char iUTFByte1, char iUTFByte2, char iUTFByte3, char iUTFByte4, char iUTFByte5)
 {

@@ -1,6 +1,7 @@
 #include "soso/FboObject.h"
 
 using namespace cinder;
+using namespace soso;
 
 FboObject::FboObject(int iWidth, int iHeight, int iInternalFormat, int iNumSamples)
 {

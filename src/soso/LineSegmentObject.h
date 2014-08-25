@@ -25,6 +25,9 @@ IN THE SOFTWARE.
 
 #include "soso/Object.h"
 
+namespace soso
+{
+
 class LineSegmentObject : public Object
 {
 public:
@@ -52,3 +55,5 @@ public:
     GLenum                              smoothingHint;
 
 };
+
+} // namespace soso

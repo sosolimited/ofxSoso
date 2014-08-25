@@ -1,5 +1,6 @@
 #include "soso/LineSegmentObject.h"
 
+using namespace soso;
 
 LineSegmentObject::LineSegmentObject(int iNumVerts)
 {

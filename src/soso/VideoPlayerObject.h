@@ -26,6 +26,9 @@ IN THE SOFTWARE.
 //#include "ofVideoPlayer.h"
 #include "soso/AVFVideoPlayer.h"
 
+namespace soso
+{
+
 class VideoPlayerObject : public Object
 {
 public:
@@ -53,3 +56,5 @@ public:
 
 
 };
+
+} // namespace soso

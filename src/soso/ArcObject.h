@@ -2,6 +2,9 @@
 
 #include "soso/Object.h"
 
+namespace soso
+{
+
 class ArcObject : public Object{
 
 public:
@@ -29,3 +32,5 @@ public:
 
 
 };
+
+} // namespace soso

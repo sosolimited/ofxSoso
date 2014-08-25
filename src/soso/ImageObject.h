@@ -27,6 +27,9 @@ IN THE SOFTWARE.
 #include "soso/Object.h"
 #include "cinder/gl/Texture.h"
 
+namespace soso
+{
+
 class ImageObject : public Object{
 
 public:
@@ -53,3 +56,5 @@ public:
 	std::string						filename;
 
 };
+
+} // namespace soso

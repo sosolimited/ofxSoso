@@ -1,5 +1,7 @@
 #include "soso/VideoPlayerObject.h"
 
+using namespace soso;
+
 VideoPlayerObject::VideoPlayerObject(char *iPath)
 {
     //player = new ofVideoPlayer();

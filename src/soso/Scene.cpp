@@ -2,6 +2,7 @@
 
 using namespace std;
 using namespace cinder;
+using namespace soso;
 
 //#include "ofGraphics.h"	//for viewports
 //#include "ofAppGlutWindow.h"	//for viewports

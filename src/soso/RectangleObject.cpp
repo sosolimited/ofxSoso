@@ -10,6 +10,7 @@
 #include "soso/RectangleObject.h"
 
 using namespace cinder;
+using namespace soso;
 
 RectangleObject::RectangleObject(float iW, float iH)
 {

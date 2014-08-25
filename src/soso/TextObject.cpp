@@ -1,5 +1,7 @@
 #include "soso/TextObject.h"
-#include "ci::ColorA8u.h"
+#include "cinder/ColorA8u.h"
+
+using namespace soso;
 
 //class TextObjectFont
 

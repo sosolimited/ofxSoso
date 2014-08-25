@@ -35,6 +35,9 @@
 #include "soso/Object.h"
 #include "soso/LineStripObject.h"
 
+namespace soso
+{
+
 //Funky little helper class for overloading [][]
 class GridSystemArray{
 public:
@@ -106,3 +109,5 @@ public:
 		std::vector<std::shared_ptr<LineStripObject>>    baselineLines;
 
 };
+
+} // namespace soso

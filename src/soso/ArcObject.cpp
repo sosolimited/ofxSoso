@@ -1,6 +1,8 @@
 #include "soso/ArcObject.h"
 #include "cinder/CinderMath.h"
 
+using namespace soso;
+
 //start and end angles in degrees (converted to radians internally)
 ArcObject::ArcObject(float iOuterRadius, float iInnerRadius, float iStartAngle, float iEndAngle)
 {

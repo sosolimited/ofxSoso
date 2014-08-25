@@ -26,6 +26,8 @@ IN THE SOFTWARE.
 
 #include "soso/PolygonObject.h"
 
+namespace soso
+{
 
 class DynamicPolygonObject : public PolygonObject
 {
@@ -55,3 +57,5 @@ public:
 
 
 };
+
+} // namespace soso

@@ -28,6 +28,9 @@ IN THE SOFTWARE.
 
 #include "cinder/Text.h"
 
+namespace soso
+{
+
 #define FONT_NUM_CHARS (255 - NUM_CHARACTER_TO_START)
 
 //Helper class for mapping higher Unicode characters down into the 0-255 range.
@@ -96,3 +99,5 @@ protected:
 
 
 };
+
+} // namespace soso

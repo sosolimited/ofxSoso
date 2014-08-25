@@ -26,6 +26,9 @@ IN THE SOFTWARE.
 #include "soso/Object.h"
 #include "cinder/gl/Fbo.h"
 
+namespace soso
+{
+
 class FboObject : public Object
 {
 public:
@@ -44,3 +47,5 @@ protected:
     int                     width, height;
 
 };
+
+} // namespace soso

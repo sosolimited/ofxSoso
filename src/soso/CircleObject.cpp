@@ -1,5 +1,6 @@
 #include "soso/CircleObject.h"
 
+using namespace soso;
 
 CircleObject::CircleObject(int iResolution, float iOuterRadius, float iInnerRadius)
 {

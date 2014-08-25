@@ -38,6 +38,9 @@ IN THE SOFTWARE.
 
 #include "soso/Object.h"
 
+namespace soso
+{
+
 enum{
 	RENDER_NORMAL,
 	RENDER_ALPHA_DEPTH,
@@ -126,3 +129,5 @@ public:
 
 
 };
+
+} // namespace soso

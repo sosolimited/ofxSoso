@@ -28,7 +28,8 @@ IN THE SOFTWARE.
 #include "soso/Object.h"
 #include "soso/Message.h"
 
-
+namespace soso
+{
 
 class Tween
 {
@@ -88,3 +89,5 @@ public:
 	std::vector<Tween *>				tweens;
 
 };
+
+} // namespace soso

@@ -23,6 +23,9 @@ IN THE SOFTWARE.
 
 #pragma once
 
+namespace soso
+{
+
 enum{
 	OF_RELATIVE_VAL = 9999
 };
@@ -109,3 +112,5 @@ public:
 
 	std::vector<ci::Vec4f>		pathPoints;
 };
+
+}

@@ -10,6 +10,7 @@
 #include "soso/TextureObject.h"
 
 using namespace cinder;
+using namespace soso;
 
 TextureObject::TextureObject(int w, int h)
 {

@@ -25,6 +25,9 @@ IN THE SOFTWARE.
 
 #include "soso/ArcObject.h"
 
+namespace soso
+{
+
 class RoundedArcObject : public ArcObject{
 
 public:
@@ -52,3 +55,5 @@ public:
 	float						height;
 
 };
+
+} // namespace soso

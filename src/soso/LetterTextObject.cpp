@@ -1,5 +1,7 @@
 #include "soso/LetterTextObject.h"
 
+using namespace soso;
+
 //class LetterTextObjectLetter
 //LetterTextObjectLetter::LetterTextObjectLetter(SosoTrueTypeFont *iFont, char iChar, float iX, float iY, float iScaleFactor)
 LetterTextObjectLetter::LetterTextObjectLetter(SosoTrueTypeFont *iFont, char *iChar, float iX, float iY, float iScaleFactor)   //eg 0701412

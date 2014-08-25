@@ -2,6 +2,7 @@
 
 #include <algorithm>	// for min and max
 using namespace cinder;
+using namespace soso;
 
 PolygonObject::PolygonObject(int iNumVertices)
 {

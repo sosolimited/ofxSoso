@@ -3,6 +3,7 @@
 #include "cinder/app/App.h"
 
 using namespace std;
+using namespace soso;
 
 //float Message::OF_RELATIVE_VAL = 9999.9f;
 

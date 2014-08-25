@@ -14,7 +14,7 @@
 using namespace ci;
 using namespace ci::app;
 using namespace std;
-//using namespace soso;
+using namespace soso;
 
 class GrandTourApp : public AppNative {
 public:

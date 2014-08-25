@@ -31,6 +31,9 @@ IN THE SOFTWARE.
 #include "soso/Object.h"
 #include "soso/TextObject.h"
 
+namespace soso
+{
+
 class LetterTextObjectLetter : public Object
 {
 public:
@@ -84,3 +87,5 @@ public:
 	vector<LetterTextObjectLetter*>	letters;
 
 };
+
+} // namespace soso

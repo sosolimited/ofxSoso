@@ -2,6 +2,7 @@
 #include "soso/GridSystem.h"
 
 using namespace std;
+using namespace soso;
 
 GridSystem::GridSystem(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iBack, float iGutter, float iHead, float iTail)
 {

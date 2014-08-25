@@ -25,6 +25,9 @@ IN THE SOFTWARE.
 
 #include "soso/Object.h"
 
+namespace soso
+{
+
 class RectangleObject : public Object
 {
 public:
@@ -44,3 +47,4 @@ public:
 
 };
 
+} // namespace soso

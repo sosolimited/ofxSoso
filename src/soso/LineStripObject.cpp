@@ -1,5 +1,6 @@
 #include "soso/LineStripObject.h"
 
+using namespace soso;
 
 LineStripObject::LineStripObject(int iNumVerts)
 {

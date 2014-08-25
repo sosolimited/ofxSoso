@@ -1,6 +1,7 @@
 #include "soso/DynamicPolygonObject.h"
 
 using namespace std;
+using namespace soso;
 
 DynamicPolygonObject::DynamicPolygonObject(int iNumVertices):PolygonObject(iNumVertices)
 {

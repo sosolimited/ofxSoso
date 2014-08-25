@@ -25,6 +25,9 @@ IN THE SOFTWARE.
 
 #include "soso/Object.h"
 
+namespace soso
+{
+
 class LineStripObject : public Object
 {
 public:
@@ -55,3 +58,5 @@ public:
     bool                                isVertexColoringEnabled;
 
 };
+
+} // namespace soso

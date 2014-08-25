@@ -27,6 +27,8 @@ IN THE SOFTWARE.
 #include "soso/Object.h"
 #include "cinder/gl/Texture.h"
 
+namespace soso
+{
 
 class QuadStripObject : public Object
 {
@@ -64,3 +66,5 @@ protected:
 	bool					vertexColoringEnabled;
 
 };
+
+} // namespace soso

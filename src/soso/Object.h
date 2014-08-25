@@ -33,6 +33,9 @@ IN THE SOFTWARE.
 
 #include "cinder/Vector.h"
 
+namespace soso
+{
+
 enum{
 	OF_RENDER_ALL = 0x00,
 	OF_RENDER_OPAQUE = 0x01,
@@ -197,3 +200,4 @@ public:
 
 };
 
+} // namespace soso

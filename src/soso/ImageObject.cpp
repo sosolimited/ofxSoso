@@ -11,6 +11,7 @@
 
 using namespace std;
 using namespace cinder;
+using namespace soso;
 
 ImageObject::ImageObject(string iFilename, bool iLoadNow)
 {

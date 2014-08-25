@@ -25,6 +25,9 @@ IN THE SOFTWARE.
 
 #include "soso/Object.h"
 
+namespace soso
+{
+
 class CircleObject : public Object{
 
 public:
@@ -46,3 +49,5 @@ public:
 
 
 };
+
+} // namespace soso

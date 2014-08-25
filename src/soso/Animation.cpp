@@ -3,6 +3,7 @@
 
 using namespace std;
 using namespace cinder;
+using namespace soso;
 
 //class Tween
 Tween::Tween(Object *iObject, Message *iMessage)
