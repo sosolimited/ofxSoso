@@ -1,5 +1,6 @@
 #include "ofxScene.h"
 
+using namespace std;
 using namespace cinder;
 
 //#include "ofGraphics.h"	//for viewports
@@ -33,7 +34,7 @@ ofxScene::ofxScene(int w, int h)
 	sceneWidth = w;
 	sceneHeight = h;
 
-	root = new ofxObject();
+	root = make_shared<ofxObject>();
 
 	isClearBackgroundOn = true;
 	backgroundColor.set(255,255,255,255);
@@ -99,12 +100,12 @@ void ofxScene::update(float iTime)
 	ofxObject::curTime = iTime;
 }
 
-ofxObject* ofxScene::getRoot()
+ofxObjectRef ofxScene::getRoot()
 {
 	return root;
 }
 
-void ofxScene::setRoot(ofxObject *iRoot)
+void ofxScene::setRoot(ofxObjectRef iRoot)
 {
 	root = iRoot;
 }

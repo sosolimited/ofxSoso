@@ -1,6 +1,7 @@
 #include <iostream>
 #include "ofxGridSystem.h"
 
+using namespace std;
 
 ofxGridSystem::ofxGridSystem(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iBack, float iGutter, float iHead, float iTail)
 {
@@ -98,7 +99,7 @@ void ofxGridSystem::buildLines()
     for(int i=0; i < (numCol+1); i++){
 
         if(i>0){
-            ofxLineStripObject *line = new ofxLineStripObject(2);
+            auto line = make_shared<ofxLineStripObject>(2);
             line->setVertexPos(0, 0, 0, 0);
             line->setVertexPos(1, 0, height - tail - head, 0);
             line->setTrans(curX, tail, 0);
@@ -109,7 +110,7 @@ void ofxGridSystem::buildLines()
         }
 
         if(i < numCol){  //For last line on right.
-            ofxLineStripObject *line = new ofxLineStripObject(2);
+            auto line = make_shared<ofxLineStripObject>(2);
             line->setVertexPos(0, 0, 0, 0);
             line->setVertexPos(1, 0, height - tail - head, 0);
             line->setTrans(curX, tail, 0);
@@ -121,7 +122,7 @@ void ofxGridSystem::buildLines()
     }
 
     //Head line
-    ofxLineStripObject *headLine = new ofxLineStripObject(2);
+    auto headLine = make_shared<ofxLineStripObject>(2);
     headLine->setVertexPos(0, 0, 0, 0);
     headLine->setVertexPos(1, width-left-right, 0, 0);
     headLine->setTrans(leftX, topY, 0);
@@ -130,7 +131,7 @@ void ofxGridSystem::buildLines()
     addChild(headLine);
 
     //Tail line
-    ofxLineStripObject *tailLine = new ofxLineStripObject(2);
+    auto tailLine = make_shared<ofxLineStripObject>(2);
     tailLine->setVertexPos(0, 0, 0, 0);
     tailLine->setVertexPos(1, width-left-right, 0, 0);
     tailLine->setTrans(leftX, bottomY, 0);
@@ -147,7 +148,7 @@ void ofxGridSystem::buildLines()
 
     //Create baseline lines.
     for(int i=0; i < numBaselines; i++){
-        ofxLineStripObject *line = new ofxLineStripObject(2);
+				auto line = make_shared<ofxLineStripObject>(2);
         line->setVertexPos(0, 0, 0, 0);
         line->setVertexPos(1, width, 0, 0);
         line->setTrans(0, height - (float)i*leading, 0);

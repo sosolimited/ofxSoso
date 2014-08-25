@@ -14,11 +14,11 @@
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		0319D34187F844EC997666D2 /* ofxAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9784F57B5B5D49CEB8726B6C /* ofxAnimation.cpp */; };
 		147A46B75C1B4DE49FF1371B /* ofxMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F30DD049EA74E1CB35EE9EF /* ofxMessage.cpp */; };
+		1536B1D919ABD4E600CF8B15 /* ofxGridSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52425BB0320049569BF092A0 /* ofxGridSystem.cpp */; };
 		19FF15C00EAA4BA9B16B2E58 /* ofxQuadStripObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDA639364CC289EC01BD /* ofxQuadStripObject.cpp */; };
 		1C5813B71AC44AF9BC67996D /* ofxScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3A872246047F09E8178A1 /* ofxScene.cpp */; };
 		353F13219B5E40129ACED645 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2E7779A79FDE41B1BBB1911D /* CinderApp.icns */; };
 		470D43B8E62D41FD91DCDCEB /* ofxDynamicPolygonObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B28BEC8EA38B40C1814A42AB /* ofxDynamicPolygonObject.cpp */; };
-		4B0407E2F83A46A6A1A6F17D /* ofxGridSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52425BB0320049569BF092A0 /* ofxGridSystem.cpp */; };
 		52349759E8604F57B42B947E /* ofxPolygonObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77429D9F42A140BE8041C02D /* ofxPolygonObject.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
@@ -310,13 +310,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1536B1D919ABD4E600CF8B15 /* ofxGridSystem.cpp in Sources */,
 				E05FBE6275464E9AB5170BE6 /* GrandTourApp.cpp in Sources */,
 				0319D34187F844EC997666D2 /* ofxAnimation.cpp in Sources */,
 				A32EF89AC2894D138C3D86D7 /* ofxArcObject.cpp in Sources */,
 				A232DA48D6E74E9F8377AF6C /* ofxCircleObject.cpp in Sources */,
 				470D43B8E62D41FD91DCDCEB /* ofxDynamicPolygonObject.cpp in Sources */,
 				E51365621D544BD88059E686 /* ofxFboObject.cpp in Sources */,
-				4B0407E2F83A46A6A1A6F17D /* ofxGridSystem.cpp in Sources */,
 				965841F6A0E74217AC58BF83 /* ofxImageObject.cpp in Sources */,
 				B4A7FA70853F47F2BC52ADDE /* ofxLineSegmentObject.cpp in Sources */,
 				B6B27F6C8B604FE3ACAFD869 /* ofxLineStripObject.cpp in Sources */,

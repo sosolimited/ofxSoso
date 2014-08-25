@@ -58,7 +58,7 @@ void GrandTourApp::setup()
 	image->setSpecialTransparency( true );
 	image->setTrans( getWindowWidth() - image->width - 40, getWindowHeight() - image->height - 40, 5.0f );
 	image->setCentered( false );
-	scene->getRoot()->addChild( image.get() );
+	scene->getRoot()->addChild( image );
 
 	//_________________________________________________________________________________________________________________
 
@@ -90,14 +90,14 @@ void GrandTourApp::setup()
 	dynamicPolygon->setVertexPos(3, Vec3f(0, 0.7*polyTex->getHeight(), 0));
 	dynamicPolygon->setVertexTexCoords(3, 0, 0.7f );
 
-	scene->getRoot()->addChild( dynamicPolygon.get() );								//Add the polygon to the scene.
+	scene->getRoot()->addChild( dynamicPolygon );								//Add the polygon to the scene.
 
 	//_________________________________________________________________________________________________________________
 
 	// Make and lay out some lines. See how they are animated below in keyPressed().
 	lineRoot = make_shared<ofxObject>();
 	lineRoot->setTrans( 200, 200, 0 );
-	scene->getRoot()->addChild( lineRoot.get() );
+	scene->getRoot()->addChild( lineRoot );
 
 	int numLines = 120;
 	for( int i = 0; i < numLines; ++i )
@@ -111,7 +111,7 @@ void GrandTourApp::setup()
 		line->setLineWidth( 2.0 );
 		line->setRot( 0, 0, 0 );
 		lines.push_back( line );
-		lineRoot->addChild( line.get() );
+		lineRoot->addChild( line );
 	}
 
 	// Create a label for the lines.

@@ -72,20 +72,18 @@ ofxObject::ofxObject(){
 //----------------------------------------------------------
 ofxObject::~ofxObject()
 {
-    // Ensure that this object is removed from the render tree before deletion.
-    for(unsigned int i=0; i < parents.size(); i++){
-        parents[i]->removeChild(this);
-    }
+  // Ensure that this object is removed from the render tree before deletion.
+	for( auto &parent : parents ) {
+			parent->removeChild( this );
+	}
 
 	// Get rid of parent references to this object in all its children.
-	for (unsigned int i = 0; i < children.size(); i++) {
-		ofxObject *child = children[i];
-		for (unsigned int j = 0; j < child->parents.size(); j++) {
-			if (child->parents[j] == this) {
-				child->parents.erase(child->parents.begin() + j);
-				i--;
-			}
-		}
+	auto self = this;
+	for( auto &child : children ) {
+		child->parents.erase( remove_if( child->parents.begin(), child->parents.end(),
+																		[self] (ofxObject *p) {
+																			return p == self;
+																		} ), child->parents.end() );
 	}
 
 	//kill all messages
@@ -106,17 +104,17 @@ ofxObject::~ofxObject()
 	//if (rotationMatrixTmp != NULL) free(rotationMatrixTmp);;
 }
 
-int ofxObject::addChild(ofxObject *child)
+int ofxObject::addChild(ofxObjectRef child)
 {
 	//LM 071312 return if already has child
-   	for (unsigned int i = 0; i < children.size(); i++) {
+	for (unsigned int i = 0; i < children.size(); i++) {
 		if (children[i] == child) {
 			return (1);
 		}
 	}
 
 	children.push_back(child);
-	child->parents.push_back(this);
+	child->parents.push_back( this );
 
 	// v2.33 - need to set the child object's matrix to dirty - the parent may very well have moved!
 	//child->matrixDirty = true;
@@ -124,26 +122,30 @@ int ofxObject::addChild(ofxObject *child)
 	return (1);
 }
 
-void ofxObject::removeChildSafe(ofxObject *child)
+void ofxObject::removeChildSafe(ofxObjectRef child)
 {
     children_to_remove.push_back(child);
 }
 
 void ofxObject::removeChild(ofxObject *child)
 {
-   	for (unsigned int i = 0; i < children.size(); i++) {
-		if (children[i] == child) {
+	children.erase( remove_if( children.begin(), children.end(),
+														[child] (const ofxObjectRef &c) {
+																return c.get() == child;
+														} ), children.end() );
+
+	for (unsigned int i = 0; i < children.size(); i++) {
+		if (children[i].get() == child) {
 			children.erase(children.begin() + i);
 			break;
 		}
 	}
 
-   	for (unsigned int i = 0; i < child->parents.size(); i++) {
-		if (child->parents[i] == this) {
-			child->parents.erase(child->parents.begin() + i);
-			break;
-		}
-	}
+	auto self = this;
+	child->parents.erase( remove_if( child->parents.begin(), child->parents.end(),
+																	[self] (ofxObject *p) {
+																		return self == p;
+																	}), child->parents.end() );
 }
 
 void ofxObject::updateLocalMatrix()
@@ -275,8 +277,8 @@ void ofxObject::idleBase(float iTime)
 		children[i]->idleBase(iTime);
 
     // remove all marked children
-    for( ofxObject *child : children_to_remove ){
-        removeChild( child );
+    for( ofxObjectRef child : children_to_remove ){
+			removeChild( child );
     }
     children_to_remove.clear();
 
@@ -1204,10 +1206,10 @@ bool ofxObject::hasMessage(ofxMessage *iMessage)
 	return false;
 }
 
-int ofxObject::isDescendant(ofxObject *iObject)
+int ofxObject::isDescendant(ofxObjectRef iObject)
 {
 	for (unsigned int i = 0; i < children.size(); i++) {
-		ofxObject *obj = children[i];
+		ofxObjectRef obj = children[i];
 		if (obj == iObject) return(1);
 		else if (obj->isDescendant(iObject)) return(1);
 	}

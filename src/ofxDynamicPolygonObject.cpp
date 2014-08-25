@@ -1,15 +1,17 @@
 #include "ofxDynamicPolygonObject.h"
 
+using namespace std;
+
 ofxDynamicPolygonObject::ofxDynamicPolygonObject(int iNumVertices):ofxPolygonObject(iNumVertices)
 {
 	for(int i=0; i < numVertices; i++){
 
-		ofxDynamicPolygonVert *v = new ofxDynamicPolygonVert();
-		v->posTracker = new ofxObject();
+		auto v = make_shared<ofxDynamicPolygonVert>();
+		v->posTracker = make_shared<ofxObject>();
 		addChild(v->posTracker);
-		v->texTracker = new ofxObject();
+		v->texTracker = make_shared<ofxObject>();
 		addChild(v->texTracker);
-		v->colorTracker = new ofxObject();
+		v->colorTracker = make_shared<ofxObject>();
 		v->colorTracker->setColor(255, 255, 255, 255);
 		addChild(v->colorTracker);
 

@@ -57,19 +57,22 @@ public:
 	bool							inheritAlphaFlag;	//firebrand
 };
 
+// using is equivalent to a typedef here, but maybe easier to read (C++11, DW)
+using ofxObjectRef = std::shared_ptr<class ofxObject>;
 
-class ofxObject{
+class ofxObject {
 
 	public :
 
 	ofxObject();
-	~ofxObject();
+	virtual ~ofxObject();
 
-	int								addChild(ofxObject *child);
-	void 							removeChild(ofxObject *child);
-    //! variant of removeChild that is safe to call within idle()
-    void                            removeChildSafe(ofxObject *child);
-	int 							isDescendant(ofxObject *iObject);
+	int								addChild(ofxObjectRef child);
+	void 							removeChild(ofxObjectRef child) { removeChild( child.get() ); }
+	void							removeChild(ofxObject *child);
+	//! variant of removeChild that is safe to call within idle()
+	void              removeChildSafe(ofxObjectRef child);
+	int 							isDescendant(ofxObjectRef iObject);
 
 	virtual void					predraw();
 	virtual void					postdraw();
@@ -145,9 +148,9 @@ class ofxObject{
 
 
 protected:
-	std::vector <ofxObject *>			children;
-	std::vector <ofxObject *>			parents;
-	std::vector <ofxObject *>            children_to_remove;
+	std::vector <ofxObjectRef>			children;
+	std::vector <ofxObject*>				parents;
+	std::vector <ofxObjectRef>      children_to_remove;
 
 	bool							shown;
 	bool							renderDirty;

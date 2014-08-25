@@ -46,11 +46,11 @@ public:
 
 public:
 	struct ofxDynamicPolygonVert{	//PEND maybe make one tracker object and just use trans for pos, scale for tex, and color for color
-		ofxObject			*posTracker,
-							*texTracker,
-							*colorTracker;
+		ofxObjectRef			posTracker,
+											texTracker,
+											colorTracker;
 	};
-	std::vector<ofxDynamicPolygonVert *>		dynamicVerts;
+	std::vector<std::shared_ptr<ofxDynamicPolygonVert>>		dynamicVerts;
 
 
 

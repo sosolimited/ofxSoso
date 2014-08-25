@@ -102,7 +102,7 @@ public:
     float           leading;
 
 
-    std::vector<ofxLineStripObject *>    lines;
-		std::vector<ofxLineStripObject *>    baselineLines;
+		std::vector<std::shared_ptr<ofxLineStripObject>>    lines;
+		std::vector<std::shared_ptr<ofxLineStripObject>>    baselineLines;
 
 };

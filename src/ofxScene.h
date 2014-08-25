@@ -68,8 +68,8 @@ public:
 	~ofxScene();
 
 	void					update(float iTime);
-	ofxObject*				getRoot();
-	void					setRoot(ofxObject *iRoot);
+	ofxObjectRef	getRoot();
+	void					setRoot(ofxObjectRef iRoot);
 
 	void					draw();
 	void					drawNormal();
@@ -100,7 +100,7 @@ public:
 private:
 	int						sceneWidth;
 	int						sceneHeight;
-	ofxObject				*root;
+	ofxObjectRef	root;
 	ci::Vec4f					backgroundColor;
 	bool					isClearBackgroundOn;
 
