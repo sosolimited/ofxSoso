@@ -32,7 +32,6 @@ private:
 	shared_ptr<DynamicPolygonObject>		dynamicPolygon;
 	gl::TextureRef											polyTex;
 
-	ObjectRef															circleRoot, lineRoot;
 	vector<shared_ptr<CircleObject>>			circles;
 	vector<shared_ptr<LineSegmentObject>>	lines;
 
@@ -96,9 +95,9 @@ void GrandTourApp::setup()
 	//_________________________________________________________________________________________________________________
 
 	// Make and lay out some lines. See how they are animated below in keyPressed().
-	lineRoot = make_shared<Object>();
-	lineRoot->setTrans( 200, 200, 0 );
-	scene->getRoot()->addChild( lineRoot );
+	auto line_root = make_shared<Object>();
+	line_root->setTrans( 200, 200, 0 );
+	scene->getRoot()->addChild( line_root );
 
 	int numLines = 120;
 	for( int i = 0; i < numLines; ++i )
@@ -112,7 +111,7 @@ void GrandTourApp::setup()
 		line->setLineWidth( 2.0 );
 		line->setRot( 0, 0, 0 );
 		lines.push_back( line );
-		lineRoot->addChild( line );
+		line_root->addChild( line );
 	}
 
 	// Create a label for the lines.
