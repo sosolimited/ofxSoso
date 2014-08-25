@@ -1,5 +1,7 @@
 #include "ofxScene.h"
 
+using namespace cinder;
+
 //#include "ofGraphics.h"	//for viewports
 //#include "ofAppGlutWindow.h"	//for viewports
 
@@ -152,10 +154,9 @@ void ofxScene::draw()
 			glClear(GL_DEPTH_BUFFER_BIT);
 	}
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	glPushMatrix();
+//	glMatrixMode(GL_MODELVIEW);
+//	glLoadIdentity();
+	gl::pushModelView();
 
 	//ofTranslate(centerOffset.x, centerOffset.y, 0);	//offset root
 
@@ -167,7 +168,7 @@ void ofxScene::draw()
 	else if(renderMode == RENDER_ALPHA_DEPTH_SORTED)
 		drawAlphaDepthSorted();
 
-	glPopMatrix();
+	gl::popModelView();
 
 	if(isScissorOn)
 		glDisable(GL_SCISSOR_TEST);

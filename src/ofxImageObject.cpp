@@ -18,7 +18,6 @@ ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
 	if(iLoadNow){
 		if( fs::is_regular_file( iFilename ) ) {
 			image = gl::Texture::create( loadImage( iFilename ) );
-			image->setFlipped( true ); // DW: may not be needed, will see once compiling
 		}
 	}
 	width = image->getWidth();
@@ -62,6 +61,7 @@ void ofxImageObject::render()
         }
         
         glNormal3f(0,0,1);
+			gl::color( Color::white() );
 				gl::draw( image );
         
         if(isCentered){

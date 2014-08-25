@@ -101,10 +101,10 @@ class ofxObject{
 	bool							hasTransparency();
 	void							setSpecialTransparency(bool iFlag);
 
-	float*							getMatrix();
-	float*							getLocalMatrix();
-	virtual float*					updateMatrix(float *iParentMatrix);
-	void							updateMatrices(float *iParentMatrix = NULL);
+	const ci::Matrix44f&		getMatrix();
+	const ci::Matrix44f&		getLocalMatrix();
+	virtual const ci::Matrix44f&	updateMatrix( const ci::Matrix44f &iParentMatrix );
+	void							updateMatrices( const ci::Matrix44f &iParentMatrix = ci::Matrix44f::identity() );
 	void							updateLocalMatrix();
 
     GLuint                          getDisplayList(){ return displayList; } //eg 070112
@@ -158,8 +158,8 @@ protected:
 	GLuint							displayList;
     bool                            displayListFlag;    //eg 070112
 
-	float							*localMatrix;
-	float							*matrix;
+	ci::Matrix44f			localMatrix;
+	ci::Matrix44f			matrix;
 	//ofxObjectMaterial				*material,
 		//							*drawMaterial;
 

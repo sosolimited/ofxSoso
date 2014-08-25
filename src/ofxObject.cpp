@@ -35,11 +35,9 @@ ofxObject::ofxObject(){
 	id = numObjects++;
 
 	//transformation matrix
-	matrix = (float*)malloc(sizeof(float)*16);
-	LoadIdentity(matrix);
+	matrix = Matrix44f::identity();
 	//matrixTmp = (float*)malloc(sizeof(float)*16);
-	localMatrix = (float*)malloc(sizeof(float)*16);
-	LoadIdentity(localMatrix);
+	localMatrix = Matrix44f::identity();
 
 	material = new ofxObjectMaterial();
 	drawMaterial = new ofxObjectMaterial();
@@ -106,10 +104,6 @@ ofxObject::~ofxObject()
 
 	//if (rotationMatrix != NULL) free(rotationMatrix);
 	//if (rotationMatrixTmp != NULL) free(rotationMatrixTmp);;
-
-	if (matrix) free(matrix); //LM 070612
-	if (localMatrix) free(localMatrix);
-
 }
 
 int ofxObject::addChild(ofxObject *child)
@@ -185,22 +179,12 @@ void ofxObject::updateLocalMatrix()
 
 
 
-void ofxObject::updateMatrices(float *iParentMatrix)
+void ofxObject::updateMatrices( const Matrix44f &iParentMatrix )
 {
-	static float *mat = NULL;
+//	static float *mat = NULL;
+	auto mat = iParentMatrix;
 
-	if (iParentMatrix != NULL) {
-		mat = iParentMatrix;
-	}
-	else {
-		// create root matrix
-		if (mat == NULL) {
-			mat = (float *)malloc(sizeof(float) * 16);
-			LoadIdentity(mat);
-		}
-	}
-
-	float *matrix2 = updateMatrix(mat);
+	auto matrix2 = updateMatrix(mat);
 
 	for (unsigned int i = 0; i < children.size(); i++) {
 		children[i]->updateMatrices(matrix2);
@@ -208,7 +192,7 @@ void ofxObject::updateMatrices(float *iParentMatrix)
 }
 
 
-float* ofxObject::updateMatrix(float *iParentMatrix)
+const ci::Matrix44f& ofxObject::updateMatrix( const ci::Matrix44f &iParentMatrix )
 {
 	// if the object has multiple parents, the hierarchy tree matrix needs to be set to dirty, using mMatrixDirty.
 	if (parents.size() > 1) matrixDirty = true;
@@ -219,7 +203,7 @@ float* ofxObject::updateMatrix(float *iParentMatrix)
 		}
 
 		//matrix multiplication
-		Mul(localMatrix, iParentMatrix, matrix);
+		matrix = iParentMatrix * localMatrix;
 
 		/*
 		if(id==1)
@@ -323,7 +307,7 @@ void ofxObject::draw(ofxObjectMaterial *iMaterial, float *iMatrix, int iSelect, 
 
 		//printf("ofxObject::draw()\n");
 		if(!iDrawAlone){
-			float *mat = updateMatrix(iMatrix);
+			auto mat = updateMatrix(iMatrix);
 			ofxObjectMaterial *m = updateMaterial(iMaterial);	//v4.0
 
 			predraw();
@@ -376,7 +360,8 @@ void ofxObject::predraw()
 		prevLit = isLit;
 	}
 
-	glLoadMatrixf(matrix);
+	gl::pushModelView();
+	gl::multModelView( matrix );
 
 	/*
 	//Older way of doing transformations.
@@ -409,6 +394,7 @@ void ofxObject::render()
 
 void ofxObject::postdraw()
 {
+	gl::popModelView();
 	//ofPopMatrix();
 	glPopName();
 }
@@ -469,7 +455,7 @@ ci::Vec3f ofxObject::getWindowCoords()
 
 	// grab the most recent version of the MODELVIEW matrix
 	glGetDoublev(GL_MODELVIEW_MATRIX, mM);
-	float *curMat = getMatrix();
+	auto curMat = getMatrix();
 	for (int i=0; i < 16; i++) mM[i] = (double)curMat[i];
 
 	Vec3f eyeCoord = gl::getModelView().transformPointAffine( Vec3f::zero() );
@@ -481,14 +467,14 @@ ci::Vec3f ofxObject::getWindowCoords()
 	return Vec3f( ( ndc.x + 1.0f ) / 2.0f * screenWidth, ( 1.0f - ( ndc.y + 1.0f ) / 2.0f ) * screenHeight, ndc.z );
 }
 
-float* ofxObject::getMatrix()
+const ci::Matrix44f& ofxObject::getMatrix()
 {
-	return (float *)matrix;
+	return matrix;
 }
 
-float* ofxObject::getLocalMatrix()
+const ci::Matrix44f& ofxObject::getLocalMatrix()
 {
-	return (float *)localMatrix;
+	return localMatrix;
 
 }
 
