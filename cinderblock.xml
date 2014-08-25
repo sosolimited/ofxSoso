@@ -4,11 +4,11 @@
 	name="soso"
 	id="com.sosolimited.soso"
 	author="David Wicks, Sosolimited LLC"
-	license="BSD"
-	summary="A scene graph and things."
+	license="MIT"
+	summary="A scene graph, text manipulation, and some other things."
 	>
-	<sourcePattern>src/*.cpp</sourcePattern>
-	<headerPattern>src/*.h</headerPattern>
+	<sourcePattern>src/soso/*.cpp</sourcePattern>
+	<headerPattern>src/soso/*.h</headerPattern>
 	<includePath>src</includePath>
 </block>
 </cinder>
