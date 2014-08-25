@@ -1,19 +1,20 @@
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
 
-#include "ofxScene.h"
-#include "ofxRectangleObject.h"
-#include "ofxImageObject.h"
-#include "ofxCircleObject.h"
-#include "ofxAnimation.h"
-#include "ofxLineSegmentObject.h"
-#include "ofxDynamicPolygonObject.h"
+#include "soso/Scene.h"
+#include "soso/RectangleObject.h"
+#include "soso/ImageObject.h"
+#include "soso/CircleObject.h"
+#include "soso/Animation.h"
+#include "soso/LineSegmentObject.h"
+#include "soso/DynamicPolygonObject.h"
 //#include "ofxTextObject.h"
 //#include "ofxLetterTextObject.h"
 
 using namespace ci;
 using namespace ci::app;
 using namespace std;
+using namespace soso;
 
 class GrandTourApp : public AppNative {
 public:
@@ -26,16 +27,16 @@ public:
 	void update() override;
 	void draw() override;
 private:
-	shared_ptr<ofxScene>								scene;
-	shared_ptr<ofxImageObject>					image;
-	shared_ptr<ofxDynamicPolygonObject> dynamicPolygon;
+	shared_ptr<Scene>										scene;
+	shared_ptr<ImageObject>							image;
+	shared_ptr<DynamicPolygonObject>		dynamicPolygon;
 	gl::TextureRef											polyTex;
 
-	shared_ptr<ofxObject>											circleRoot, lineRoot;
-	vector<shared_ptr<ofxCircleObject>>				circles;
-	vector<shared_ptr<ofxLineSegmentObject>>	lines;
+	ObjectRef															circleRoot, lineRoot;
+	vector<shared_ptr<CircleObject>>			circles;
+	vector<shared_ptr<LineSegmentObject>>	lines;
 
-	shared_ptr<ofxAnimation>									animation;
+	shared_ptr<Animation>									animation;
 };
 
 void GrandTourApp::prepareSettings( Settings *settings )
@@ -48,13 +49,13 @@ void GrandTourApp::setup()
 	// Create a scene.
 	// The scene is a scene graph that renders objects added to its root and their children and their children's children and so on.
 	// When the render mode of the scene is set to RENDER_ALPHA_DEPTH_SORTED, it handles sorting of both transparent and opaque objects in the z-axis.
-	scene = make_shared<ofxScene>( getWindowWidth(), getWindowHeight() );
+	scene = make_shared<Scene>( getWindowWidth(), getWindowHeight() );
 	scene->setBackgroundColor( 50, 50, 50 );
 
 	//_________________________________________________________________________________________________________________
 
 	// Create an image with an alpha channel.
-	image = make_shared<ofxImageObject>( getAssetPath("soso_LOGO.png").string() );
+	image = make_shared<ImageObject>( getAssetPath("soso_LOGO.png").string() );
 	image->setSpecialTransparency( true );
 	image->setTrans( getWindowWidth() - image->width - 40, getWindowHeight() - image->height - 40, 5.0f );
 	image->setCentered( false );
@@ -70,7 +71,7 @@ void GrandTourApp::setup()
 	// See how it is animated below in keyPressed().
 	polyTex = gl::Texture::create( loadImage( loadAsset( "plasticman.jpg" ) ) );
 
-	dynamicPolygon = make_shared<ofxDynamicPolygonObject>(4);
+	dynamicPolygon = make_shared<DynamicPolygonObject>(4);
 	dynamicPolygon->enableVertexColoring( false );
 	dynamicPolygon->setTrans( 250, 70, 0 );
 	dynamicPolygon->setScale( 0.5f );
@@ -95,14 +96,14 @@ void GrandTourApp::setup()
 	//_________________________________________________________________________________________________________________
 
 	// Make and lay out some lines. See how they are animated below in keyPressed().
-	lineRoot = make_shared<ofxObject>();
+	lineRoot = make_shared<Object>();
 	lineRoot->setTrans( 200, 200, 0 );
 	scene->getRoot()->addChild( lineRoot );
 
 	int numLines = 120;
 	for( int i = 0; i < numLines; ++i )
 	{
-		auto line = make_shared<ofxLineSegmentObject>( 2 );
+		auto line = make_shared<LineSegmentObject>( 2 );
 		line->setVertexPos( 0, 0, 100, 0 );
 		line->setVertexPos( 1, 0, 180, 0 );
 		float gray = 255 - i/(float)numLines * 200;

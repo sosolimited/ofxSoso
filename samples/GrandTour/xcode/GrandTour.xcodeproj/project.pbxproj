@@ -12,28 +12,28 @@
 		00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */; };
 		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
-		0319D34187F844EC997666D2 /* ofxAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9784F57B5B5D49CEB8726B6C /* ofxAnimation.cpp */; };
-		147A46B75C1B4DE49FF1371B /* ofxMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F30DD049EA74E1CB35EE9EF /* ofxMessage.cpp */; };
-		1536B1D919ABD4E600CF8B15 /* ofxGridSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52425BB0320049569BF092A0 /* ofxGridSystem.cpp */; };
-		19FF15C00EAA4BA9B16B2E58 /* ofxQuadStripObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDA639364CC289EC01BD /* ofxQuadStripObject.cpp */; };
-		1C5813B71AC44AF9BC67996D /* ofxScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3A872246047F09E8178A1 /* ofxScene.cpp */; };
+		1536B20419ABD9AC00CF8B15 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1EF19ABD9AC00CF8B15 /* Animation.cpp */; };
+		1536B20519ABD9AC00CF8B15 /* ArcObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1F019ABD9AC00CF8B15 /* ArcObject.cpp */; };
+		1536B20619ABD9AC00CF8B15 /* CircleObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1F119ABD9AC00CF8B15 /* CircleObject.cpp */; };
+		1536B20719ABD9AC00CF8B15 /* DynamicPolygonObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1F219ABD9AC00CF8B15 /* DynamicPolygonObject.cpp */; };
+		1536B20819ABD9AC00CF8B15 /* FboObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1F319ABD9AC00CF8B15 /* FboObject.cpp */; };
+		1536B20919ABD9AC00CF8B15 /* GridSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1F419ABD9AC00CF8B15 /* GridSystem.cpp */; };
+		1536B20A19ABD9AC00CF8B15 /* ImageObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1F519ABD9AC00CF8B15 /* ImageObject.cpp */; };
+		1536B20C19ABD9AC00CF8B15 /* LineSegmentObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1F719ABD9AC00CF8B15 /* LineSegmentObject.cpp */; };
+		1536B20D19ABD9AC00CF8B15 /* LineStripObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1F819ABD9AC00CF8B15 /* LineStripObject.cpp */; };
+		1536B20E19ABD9AC00CF8B15 /* Message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1F919ABD9AC00CF8B15 /* Message.cpp */; };
+		1536B20F19ABD9AC00CF8B15 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1FA19ABD9AC00CF8B15 /* Object.cpp */; };
+		1536B21019ABD9AC00CF8B15 /* PolygonObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1FB19ABD9AC00CF8B15 /* PolygonObject.cpp */; };
+		1536B21119ABD9AC00CF8B15 /* QuadStripObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1FC19ABD9AC00CF8B15 /* QuadStripObject.cpp */; };
+		1536B21219ABD9AC00CF8B15 /* RectangleObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1FD19ABD9AC00CF8B15 /* RectangleObject.cpp */; };
+		1536B21319ABD9AC00CF8B15 /* RoundedArcObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1FE19ABD9AC00CF8B15 /* RoundedArcObject.cpp */; };
+		1536B21419ABD9AC00CF8B15 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1FF19ABD9AC00CF8B15 /* Scene.cpp */; };
+		1536B21719ABD9AC00CF8B15 /* TextureObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B20219ABD9AC00CF8B15 /* TextureObject.cpp */; };
 		353F13219B5E40129ACED645 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2E7779A79FDE41B1BBB1911D /* CinderApp.icns */; };
-		470D43B8E62D41FD91DCDCEB /* ofxDynamicPolygonObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B28BEC8EA38B40C1814A42AB /* ofxDynamicPolygonObject.cpp */; };
-		52349759E8604F57B42B947E /* ofxPolygonObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77429D9F42A140BE8041C02D /* ofxPolygonObject.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
-		766E23CDE8FB45A3B1DEEC24 /* ofxTextureObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE26D056CCE54F82993A88DB /* ofxTextureObject.cpp */; };
-		7A5EF10CBA414AB7A9351014 /* ofxRectangleObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 684CE3712C7F4DA0A4674610 /* ofxRectangleObject.cpp */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		8D78D727E9BC4E3DAD827268 /* ofxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99FD6B2B5B924566AB4ED6FB /* ofxObject.cpp */; };
-		965841F6A0E74217AC58BF83 /* ofxImageObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39BE9449B2E24A12A9B6B72E /* ofxImageObject.cpp */; };
-		98CD385DBED34049908B3955 /* ofxRoundedArcObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B827F8EA864E45E998EEC5A7 /* ofxRoundedArcObject.cpp */; };
-		A232DA48D6E74E9F8377AF6C /* ofxCircleObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4494E1AB10BC46DBBE9F436F /* ofxCircleObject.cpp */; };
-		A32EF89AC2894D138C3D86D7 /* ofxArcObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8EEE1B41A483F9FE85085 /* ofxArcObject.cpp */; };
-		B4A7FA70853F47F2BC52ADDE /* ofxLineSegmentObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E60A666440D74CE6B2756BCE /* ofxLineSegmentObject.cpp */; };
-		B6B27F6C8B604FE3ACAFD869 /* ofxLineStripObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FC02D608E948DCA837FE73 /* ofxLineStripObject.cpp */; };
 		E05FBE6275464E9AB5170BE6 /* GrandTourApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C99241DF64A4428A7B22D3A /* GrandTourApp.cpp */; };
-		E51365621D544BD88059E686 /* ofxFboObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4412F8DAFEE94F2EB72CF221 /* ofxFboObject.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,51 +42,50 @@
 		00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		00B784B10FF439BC000DE1D7 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
-		08FC02D608E948DCA837FE73 /* ofxLineStripObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxLineStripObject.cpp; path = ../../../src/ofxLineStripObject.cpp; sourceTree = "<group>"; };
-		0B9807288DBA4E148F017687 /* ofxLineStripObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxLineStripObject.h; path = ../../../src/ofxLineStripObject.h; sourceTree = "<group>"; };
 		0C99241DF64A4428A7B22D3A /* GrandTourApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = GrandTourApp.cpp; path = ../src/GrandTourApp.cpp; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		1910302A43C0440CB4ECC336 /* ofxDynamicPolygonObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxDynamicPolygonObject.h; path = ../../../src/ofxDynamicPolygonObject.h; sourceTree = "<group>"; };
-		1A63BDA639364CC289EC01BD /* ofxQuadStripObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxQuadStripObject.cpp; path = ../../../src/ofxQuadStripObject.cpp; sourceTree = "<group>"; };
-		28150457AB544C378726D12E /* ofxScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxScene.h; path = ../../../src/ofxScene.h; sourceTree = "<group>"; };
+		1536B1DA19ABD9AC00CF8B15 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Animation.h; path = ../../../src/soso/Animation.h; sourceTree = "<group>"; };
+		1536B1DB19ABD9AC00CF8B15 /* ArcObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArcObject.h; path = ../../../src/soso/ArcObject.h; sourceTree = "<group>"; };
+		1536B1DC19ABD9AC00CF8B15 /* CircleObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CircleObject.h; path = ../../../src/soso/CircleObject.h; sourceTree = "<group>"; };
+		1536B1DD19ABD9AC00CF8B15 /* DynamicPolygonObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicPolygonObject.h; path = ../../../src/soso/DynamicPolygonObject.h; sourceTree = "<group>"; };
+		1536B1DE19ABD9AC00CF8B15 /* FboObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FboObject.h; path = ../../../src/soso/FboObject.h; sourceTree = "<group>"; };
+		1536B1DF19ABD9AC00CF8B15 /* GridSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridSystem.h; path = ../../../src/soso/GridSystem.h; sourceTree = "<group>"; };
+		1536B1E019ABD9AC00CF8B15 /* ImageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageObject.h; path = ../../../src/soso/ImageObject.h; sourceTree = "<group>"; };
+		1536B1E219ABD9AC00CF8B15 /* LineSegmentObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineSegmentObject.h; path = ../../../src/soso/LineSegmentObject.h; sourceTree = "<group>"; };
+		1536B1E319ABD9AC00CF8B15 /* LineStripObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineStripObject.h; path = ../../../src/soso/LineStripObject.h; sourceTree = "<group>"; };
+		1536B1E419ABD9AC00CF8B15 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Message.h; path = ../../../src/soso/Message.h; sourceTree = "<group>"; };
+		1536B1E519ABD9AC00CF8B15 /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Object.h; path = ../../../src/soso/Object.h; sourceTree = "<group>"; };
+		1536B1E619ABD9AC00CF8B15 /* PolygonObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PolygonObject.h; path = ../../../src/soso/PolygonObject.h; sourceTree = "<group>"; };
+		1536B1E719ABD9AC00CF8B15 /* QuadStripObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuadStripObject.h; path = ../../../src/soso/QuadStripObject.h; sourceTree = "<group>"; };
+		1536B1E819ABD9AC00CF8B15 /* RectangleObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RectangleObject.h; path = ../../../src/soso/RectangleObject.h; sourceTree = "<group>"; };
+		1536B1E919ABD9AC00CF8B15 /* RoundedArcObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundedArcObject.h; path = ../../../src/soso/RoundedArcObject.h; sourceTree = "<group>"; };
+		1536B1EA19ABD9AC00CF8B15 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scene.h; path = ../../../src/soso/Scene.h; sourceTree = "<group>"; };
+		1536B1EF19ABD9AC00CF8B15 /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Animation.cpp; path = ../../../src/soso/Animation.cpp; sourceTree = "<group>"; };
+		1536B1F019ABD9AC00CF8B15 /* ArcObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ArcObject.cpp; path = ../../../src/soso/ArcObject.cpp; sourceTree = "<group>"; };
+		1536B1F119ABD9AC00CF8B15 /* CircleObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CircleObject.cpp; path = ../../../src/soso/CircleObject.cpp; sourceTree = "<group>"; };
+		1536B1F219ABD9AC00CF8B15 /* DynamicPolygonObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DynamicPolygonObject.cpp; path = ../../../src/soso/DynamicPolygonObject.cpp; sourceTree = "<group>"; };
+		1536B1F319ABD9AC00CF8B15 /* FboObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FboObject.cpp; path = ../../../src/soso/FboObject.cpp; sourceTree = "<group>"; };
+		1536B1F419ABD9AC00CF8B15 /* GridSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GridSystem.cpp; path = ../../../src/soso/GridSystem.cpp; sourceTree = "<group>"; };
+		1536B1F519ABD9AC00CF8B15 /* ImageObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ImageObject.cpp; path = ../../../src/soso/ImageObject.cpp; sourceTree = "<group>"; };
+		1536B1F719ABD9AC00CF8B15 /* LineSegmentObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LineSegmentObject.cpp; path = ../../../src/soso/LineSegmentObject.cpp; sourceTree = "<group>"; };
+		1536B1F819ABD9AC00CF8B15 /* LineStripObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LineStripObject.cpp; path = ../../../src/soso/LineStripObject.cpp; sourceTree = "<group>"; };
+		1536B1F919ABD9AC00CF8B15 /* Message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Message.cpp; path = ../../../src/soso/Message.cpp; sourceTree = "<group>"; };
+		1536B1FA19ABD9AC00CF8B15 /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Object.cpp; path = ../../../src/soso/Object.cpp; sourceTree = "<group>"; };
+		1536B1FB19ABD9AC00CF8B15 /* PolygonObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PolygonObject.cpp; path = ../../../src/soso/PolygonObject.cpp; sourceTree = "<group>"; };
+		1536B1FC19ABD9AC00CF8B15 /* QuadStripObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QuadStripObject.cpp; path = ../../../src/soso/QuadStripObject.cpp; sourceTree = "<group>"; };
+		1536B1FD19ABD9AC00CF8B15 /* RectangleObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RectangleObject.cpp; path = ../../../src/soso/RectangleObject.cpp; sourceTree = "<group>"; };
+		1536B1FE19ABD9AC00CF8B15 /* RoundedArcObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RoundedArcObject.cpp; path = ../../../src/soso/RoundedArcObject.cpp; sourceTree = "<group>"; };
+		1536B1FF19ABD9AC00CF8B15 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Scene.cpp; path = ../../../src/soso/Scene.cpp; sourceTree = "<group>"; };
+		1536B20219ABD9AC00CF8B15 /* TextureObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextureObject.cpp; path = ../../../src/soso/TextureObject.cpp; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		2E7779A79FDE41B1BBB1911D /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		3111996413A74B2D8D56FDB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		39BE9449B2E24A12A9B6B72E /* ofxImageObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxImageObject.cpp; path = ../../../src/ofxImageObject.cpp; sourceTree = "<group>"; };
-		3E48CDC297114AC2A254A2FA /* ofxCircleObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxCircleObject.h; path = ../../../src/ofxCircleObject.h; sourceTree = "<group>"; };
-		43A9528AE4214C78B9BECAC3 /* ofxRectangleObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxRectangleObject.h; path = ../../../src/ofxRectangleObject.h; sourceTree = "<group>"; };
-		4412F8DAFEE94F2EB72CF221 /* ofxFboObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxFboObject.cpp; path = ../../../src/ofxFboObject.cpp; sourceTree = "<group>"; };
-		4494E1AB10BC46DBBE9F436F /* ofxCircleObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxCircleObject.cpp; path = ../../../src/ofxCircleObject.cpp; sourceTree = "<group>"; };
-		4F30DD049EA74E1CB35EE9EF /* ofxMessage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxMessage.cpp; path = ../../../src/ofxMessage.cpp; sourceTree = "<group>"; };
-		52425BB0320049569BF092A0 /* ofxGridSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxGridSystem.cpp; path = ../../../src/ofxGridSystem.cpp; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
-		553AA02B7A79451A91769F12 /* ofxMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxMessage.h; path = ../../../src/ofxMessage.h; sourceTree = "<group>"; };
-		60889DA655DC4504A09F4257 /* ofxGridSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxGridSystem.h; path = ../../../src/ofxGridSystem.h; sourceTree = "<group>"; };
-		61308F86BAFC4FA6845604CC /* ofxQuadStripObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxQuadStripObject.h; path = ../../../src/ofxQuadStripObject.h; sourceTree = "<group>"; };
-		684CE3712C7F4DA0A4674610 /* ofxRectangleObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxRectangleObject.cpp; path = ../../../src/ofxRectangleObject.cpp; sourceTree = "<group>"; };
-		77429D9F42A140BE8041C02D /* ofxPolygonObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxPolygonObject.cpp; path = ../../../src/ofxPolygonObject.cpp; sourceTree = "<group>"; };
-		7DD3A872246047F09E8178A1 /* ofxScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxScene.cpp; path = ../../../src/ofxScene.cpp; sourceTree = "<group>"; };
-		7EC2969C355C4CF8977A0EC3 /* ofxTextureObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxTextureObject.h; path = ../../../src/ofxTextureObject.h; sourceTree = "<group>"; };
 		8178015CF7984B3CB9657330 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* GrandTour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrandTour.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9422FAA528DB4ACB8080DD65 /* ofxArcObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxArcObject.h; path = ../../../src/ofxArcObject.h; sourceTree = "<group>"; };
-		9784F57B5B5D49CEB8726B6C /* ofxAnimation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxAnimation.cpp; path = ../../../src/ofxAnimation.cpp; sourceTree = "<group>"; };
-		99FD6B2B5B924566AB4ED6FB /* ofxObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxObject.cpp; path = ../../../src/ofxObject.cpp; sourceTree = "<group>"; };
-		9FA8EEE1B41A483F9FE85085 /* ofxArcObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxArcObject.cpp; path = ../../../src/ofxArcObject.cpp; sourceTree = "<group>"; };
-		A8E56EA527024695B954EBCA /* ofxRoundedArcObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxRoundedArcObject.h; path = ../../../src/ofxRoundedArcObject.h; sourceTree = "<group>"; };
-		ADFC38D8213C4C56ACFAB30E /* ofxObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxObject.h; path = ../../../src/ofxObject.h; sourceTree = "<group>"; };
-		B28BEC8EA38B40C1814A42AB /* ofxDynamicPolygonObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxDynamicPolygonObject.cpp; path = ../../../src/ofxDynamicPolygonObject.cpp; sourceTree = "<group>"; };
-		B827F8EA864E45E998EEC5A7 /* ofxRoundedArcObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxRoundedArcObject.cpp; path = ../../../src/ofxRoundedArcObject.cpp; sourceTree = "<group>"; };
-		B9FA926E4750411A91E0436A /* ofxLineSegmentObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxLineSegmentObject.h; path = ../../../src/ofxLineSegmentObject.h; sourceTree = "<group>"; };
-		BD22C5CAC5704B7FA9347291 /* ofxImageObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxImageObject.h; path = ../../../src/ofxImageObject.h; sourceTree = "<group>"; };
-		C183A91172274C28A93D391F /* ofxPolygonObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxPolygonObject.h; path = ../../../src/ofxPolygonObject.h; sourceTree = "<group>"; };
-		DAA42E1228424A40826597AC /* ofxFboObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxFboObject.h; path = ../../../src/ofxFboObject.h; sourceTree = "<group>"; };
-		E60A666440D74CE6B2756BCE /* ofxLineSegmentObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxLineSegmentObject.cpp; path = ../../../src/ofxLineSegmentObject.cpp; sourceTree = "<group>"; };
 		E63FD7C9371E4A61A64A6B4A /* GrandTour_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = GrandTour_Prefix.pch; sourceTree = "<group>"; };
-		EABB69A7FB0F462FAEECEDCC /* ofxAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxAnimation.h; path = ../../../src/ofxAnimation.h; sourceTree = "<group>"; };
-		FE26D056CCE54F82993A88DB /* ofxTextureObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ofxTextureObject.cpp; path = ../../../src/ofxTextureObject.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,40 +199,39 @@
 		57DB54B067E4439690AF0E9B /* src */ = {
 			isa = PBXGroup;
 			children = (
-				9784F57B5B5D49CEB8726B6C /* ofxAnimation.cpp */,
-				9FA8EEE1B41A483F9FE85085 /* ofxArcObject.cpp */,
-				4494E1AB10BC46DBBE9F436F /* ofxCircleObject.cpp */,
-				B28BEC8EA38B40C1814A42AB /* ofxDynamicPolygonObject.cpp */,
-				4412F8DAFEE94F2EB72CF221 /* ofxFboObject.cpp */,
-				52425BB0320049569BF092A0 /* ofxGridSystem.cpp */,
-				39BE9449B2E24A12A9B6B72E /* ofxImageObject.cpp */,
-				E60A666440D74CE6B2756BCE /* ofxLineSegmentObject.cpp */,
-				08FC02D608E948DCA837FE73 /* ofxLineStripObject.cpp */,
-				4F30DD049EA74E1CB35EE9EF /* ofxMessage.cpp */,
-				99FD6B2B5B924566AB4ED6FB /* ofxObject.cpp */,
-				77429D9F42A140BE8041C02D /* ofxPolygonObject.cpp */,
-				1A63BDA639364CC289EC01BD /* ofxQuadStripObject.cpp */,
-				684CE3712C7F4DA0A4674610 /* ofxRectangleObject.cpp */,
-				B827F8EA864E45E998EEC5A7 /* ofxRoundedArcObject.cpp */,
-				7DD3A872246047F09E8178A1 /* ofxScene.cpp */,
-				FE26D056CCE54F82993A88DB /* ofxTextureObject.cpp */,
-				EABB69A7FB0F462FAEECEDCC /* ofxAnimation.h */,
-				9422FAA528DB4ACB8080DD65 /* ofxArcObject.h */,
-				3E48CDC297114AC2A254A2FA /* ofxCircleObject.h */,
-				1910302A43C0440CB4ECC336 /* ofxDynamicPolygonObject.h */,
-				DAA42E1228424A40826597AC /* ofxFboObject.h */,
-				60889DA655DC4504A09F4257 /* ofxGridSystem.h */,
-				BD22C5CAC5704B7FA9347291 /* ofxImageObject.h */,
-				B9FA926E4750411A91E0436A /* ofxLineSegmentObject.h */,
-				0B9807288DBA4E148F017687 /* ofxLineStripObject.h */,
-				553AA02B7A79451A91769F12 /* ofxMessage.h */,
-				ADFC38D8213C4C56ACFAB30E /* ofxObject.h */,
-				C183A91172274C28A93D391F /* ofxPolygonObject.h */,
-				61308F86BAFC4FA6845604CC /* ofxQuadStripObject.h */,
-				43A9528AE4214C78B9BECAC3 /* ofxRectangleObject.h */,
-				A8E56EA527024695B954EBCA /* ofxRoundedArcObject.h */,
-				28150457AB544C378726D12E /* ofxScene.h */,
-				7EC2969C355C4CF8977A0EC3 /* ofxTextureObject.h */,
+				1536B1DA19ABD9AC00CF8B15 /* Animation.h */,
+				1536B1DB19ABD9AC00CF8B15 /* ArcObject.h */,
+				1536B1DC19ABD9AC00CF8B15 /* CircleObject.h */,
+				1536B1DD19ABD9AC00CF8B15 /* DynamicPolygonObject.h */,
+				1536B1DE19ABD9AC00CF8B15 /* FboObject.h */,
+				1536B1DF19ABD9AC00CF8B15 /* GridSystem.h */,
+				1536B1E019ABD9AC00CF8B15 /* ImageObject.h */,
+				1536B1E219ABD9AC00CF8B15 /* LineSegmentObject.h */,
+				1536B1E319ABD9AC00CF8B15 /* LineStripObject.h */,
+				1536B1E419ABD9AC00CF8B15 /* Message.h */,
+				1536B1E519ABD9AC00CF8B15 /* Object.h */,
+				1536B1E619ABD9AC00CF8B15 /* PolygonObject.h */,
+				1536B1E719ABD9AC00CF8B15 /* QuadStripObject.h */,
+				1536B1E819ABD9AC00CF8B15 /* RectangleObject.h */,
+				1536B1E919ABD9AC00CF8B15 /* RoundedArcObject.h */,
+				1536B1EA19ABD9AC00CF8B15 /* Scene.h */,
+				1536B1EF19ABD9AC00CF8B15 /* Animation.cpp */,
+				1536B1F019ABD9AC00CF8B15 /* ArcObject.cpp */,
+				1536B1F119ABD9AC00CF8B15 /* CircleObject.cpp */,
+				1536B1F219ABD9AC00CF8B15 /* DynamicPolygonObject.cpp */,
+				1536B1F319ABD9AC00CF8B15 /* FboObject.cpp */,
+				1536B1F419ABD9AC00CF8B15 /* GridSystem.cpp */,
+				1536B1F519ABD9AC00CF8B15 /* ImageObject.cpp */,
+				1536B1F719ABD9AC00CF8B15 /* LineSegmentObject.cpp */,
+				1536B1F819ABD9AC00CF8B15 /* LineStripObject.cpp */,
+				1536B1F919ABD9AC00CF8B15 /* Message.cpp */,
+				1536B1FA19ABD9AC00CF8B15 /* Object.cpp */,
+				1536B1FB19ABD9AC00CF8B15 /* PolygonObject.cpp */,
+				1536B1FC19ABD9AC00CF8B15 /* QuadStripObject.cpp */,
+				1536B1FD19ABD9AC00CF8B15 /* RectangleObject.cpp */,
+				1536B1FE19ABD9AC00CF8B15 /* RoundedArcObject.cpp */,
+				1536B1FF19ABD9AC00CF8B15 /* Scene.cpp */,
+				1536B20219ABD9AC00CF8B15 /* TextureObject.cpp */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -310,24 +308,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1536B1D919ABD4E600CF8B15 /* ofxGridSystem.cpp in Sources */,
+				1536B21219ABD9AC00CF8B15 /* RectangleObject.cpp in Sources */,
+				1536B20719ABD9AC00CF8B15 /* DynamicPolygonObject.cpp in Sources */,
+				1536B21019ABD9AC00CF8B15 /* PolygonObject.cpp in Sources */,
+				1536B21119ABD9AC00CF8B15 /* QuadStripObject.cpp in Sources */,
+				1536B20519ABD9AC00CF8B15 /* ArcObject.cpp in Sources */,
+				1536B21319ABD9AC00CF8B15 /* RoundedArcObject.cpp in Sources */,
+				1536B21719ABD9AC00CF8B15 /* TextureObject.cpp in Sources */,
+				1536B21419ABD9AC00CF8B15 /* Scene.cpp in Sources */,
+				1536B20A19ABD9AC00CF8B15 /* ImageObject.cpp in Sources */,
+				1536B20D19ABD9AC00CF8B15 /* LineStripObject.cpp in Sources */,
+				1536B20F19ABD9AC00CF8B15 /* Object.cpp in Sources */,
+				1536B20819ABD9AC00CF8B15 /* FboObject.cpp in Sources */,
+				1536B20E19ABD9AC00CF8B15 /* Message.cpp in Sources */,
+				1536B20419ABD9AC00CF8B15 /* Animation.cpp in Sources */,
+				1536B20C19ABD9AC00CF8B15 /* LineSegmentObject.cpp in Sources */,
+				1536B20919ABD9AC00CF8B15 /* GridSystem.cpp in Sources */,
+				1536B20619ABD9AC00CF8B15 /* CircleObject.cpp in Sources */,
 				E05FBE6275464E9AB5170BE6 /* GrandTourApp.cpp in Sources */,
-				0319D34187F844EC997666D2 /* ofxAnimation.cpp in Sources */,
-				A32EF89AC2894D138C3D86D7 /* ofxArcObject.cpp in Sources */,
-				A232DA48D6E74E9F8377AF6C /* ofxCircleObject.cpp in Sources */,
-				470D43B8E62D41FD91DCDCEB /* ofxDynamicPolygonObject.cpp in Sources */,
-				E51365621D544BD88059E686 /* ofxFboObject.cpp in Sources */,
-				965841F6A0E74217AC58BF83 /* ofxImageObject.cpp in Sources */,
-				B4A7FA70853F47F2BC52ADDE /* ofxLineSegmentObject.cpp in Sources */,
-				B6B27F6C8B604FE3ACAFD869 /* ofxLineStripObject.cpp in Sources */,
-				147A46B75C1B4DE49FF1371B /* ofxMessage.cpp in Sources */,
-				8D78D727E9BC4E3DAD827268 /* ofxObject.cpp in Sources */,
-				52349759E8604F57B42B947E /* ofxPolygonObject.cpp in Sources */,
-				19FF15C00EAA4BA9B16B2E58 /* ofxQuadStripObject.cpp in Sources */,
-				7A5EF10CBA414AB7A9351014 /* ofxRectangleObject.cpp in Sources */,
-				98CD385DBED34049908B3955 /* ofxRoundedArcObject.cpp in Sources */,
-				1C5813B71AC44AF9BC67996D /* ofxScene.cpp in Sources */,
-				766E23CDE8FB45A3B1DEEC24 /* ofxTextureObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
