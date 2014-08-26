@@ -2,28 +2,25 @@ In progress switch over to Cinder as a base for this framework.
 
 ## Motivation:
 C++11 support in openFrameworks is a ways out.
-Cinder generally has more solid architecture, support for Json, etc. in core (not addons)
+Cinder has support for JSON, multi-lingual text, animation, etc. in core.
 
-## Initial goal:
-All pieces working with identical interfaces and minimal internal changes.
+## Status:
 
-## Next goal:
-Replace all manual memory management with std::shared_ptr
-Replace what can be with libc++ functions.
+[x] Basic object types working with identical interfaces and minimal internal changes.  
+[x] Replace manual memory management in scene graph with std::shared_ptr.  
+[x] Namespace classes within soso:: instead of using a C-style prefix.  
+[] Video support with AVFPlayer based on Sam Kronick's work.  
+[] Vector typography support.  
+[] Switch to OpenGL 3.3+ Core Profile (waiting for dev version of Cinder to become public)  
 
-## Later goal:
-Switch to OpenGL 3.3 Core Profile (when cinder_next hits shelves in a month)
 Compare Choreograph/ci::Timeline with message-based animations for performance, flexibility.
 
-## Things that will be interesting:
-VectorFont to replace of(xSoso)TrueTypeFont.
-Mostly use ci::gl::TextureFont for that role, but for actual vector text, we need a drop-in.
-It's basically an array of Path2ds, which are based off of Cinder Path2d anyway.
+## Implementation notes
+VectorFont will replace SosoTrueTypeFont. Implement as an array of triangulated letterforms (map of char->VboMesh). Refer to gl::TextureFont for glyph layout.
 
-AVFVideoPlayer
-Should be a simple modification of Sam's work.
+AVFVideoPlayer should be a simple modification of [Sam's AVF player](https://github.com/kronick/ofxAVFVideoPlayer).
 
-Working GUI replacement
-Look at Simon's ImGUI wrapper for Cinder.
-AntTweakBar (because it's really okay when it comes down to it, but not pretty)
-Write our own...
+## Possible Issues:
+We aren't loading the model matrix at present, but multiplying it. In deep hierarchies, this may result in over-transforming elements.
+
+Sorting of alpha-blending elements depends on getWindowCoords, which may not be correct.
