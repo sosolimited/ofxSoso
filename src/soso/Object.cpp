@@ -364,6 +364,9 @@ void Object::predraw()
 	}
 
 	gl::pushModelView();
+	// DW: unclear to me why loading our matrices doesn't work, but multiplying by them does.
+//	glMatrixMode( GL_MODELVIEW );
+//	glLoadMatrixf( matrix );
 	gl::multModelView( matrix );
 
 	/*
