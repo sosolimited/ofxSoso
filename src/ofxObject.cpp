@@ -359,7 +359,7 @@ void ofxObject::predraw()
   
   //shaderParams = (void*) shader->setUniform1f("percentX", r);
   
-
+  
   // Start shader if there is one
   if (shaderEnabled){
     if (shader!=NULL){
