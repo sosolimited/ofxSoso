@@ -21,6 +21,6 @@ VectorFont will replace SosoTrueTypeFont. Implement as an array of triangulated 
 AVFVideoPlayer should be a simple modification of [Sam's AVF player](https://github.com/kronick/ofxAVFVideoPlayer).
 
 ## Possible Issues:
-We aren't loading the model matrix at present, but multiplying it. In deep hierarchies, this may result in over-transforming elements.
+We aren't loading the model matrix at present, but [multiplying](src/soso/Object.cpp#L370) it. In deep hierarchies, this may result in over-transforming elements.
 
-Sorting of alpha-blending elements depends on getWindowCoords, which may not be correct.
+Sorting of alpha-blending elements depends on [getWindowCoords](src/soso/Object.cpp#L450-L474), which may not be correct.
