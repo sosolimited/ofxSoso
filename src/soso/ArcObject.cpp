@@ -61,8 +61,6 @@ void ArcObject::render()
 {
 	// note that we should do solid/filled rendering
 //	ofFill();
-
-	int k = 0;
 	float angleInc = 2 * M_PI/(float)resolution;
 	float angle = startAngle;
 	float portion = 0;
