@@ -9,6 +9,7 @@
 #include "soso/LineSegmentObject.h"
 #include "soso/TextureObject.h"
 #include "soso/DynamicPolygonObject.h"
+#include "soso/LetterTextObject.h"
 
 #include "cinder/Text.h"
 #include "cinder/Utilities.h"
@@ -35,7 +36,7 @@ private:
 	shared_ptr<ImageObject>							image;
 	shared_ptr<DynamicPolygonObject>		dynamicPolygon;
 	gl::TextureRef											polyTex;
-//	shared_ptr<LetterTextObject>				letterText;
+	shared_ptr<LetterTextObject>				letterText;
 
 	vector<shared_ptr<CircleObject>>			circles;
 	vector<shared_ptr<LineSegmentObject>>	lines;
@@ -70,6 +71,7 @@ void GrandTourApp::setup()
 	// Load our fonts.
 	Font font16( loadAsset("Arial.ttf"), 16 );
 	Font font64( loadAsset("Arial.ttf"), 64 );
+	auto textureFont64 = gl::TextureFont::create( font64 );
 
 	// Create a texture object to display some text.
 	{
@@ -103,6 +105,10 @@ void GrandTourApp::setup()
 	}
 
 	// TODO: Create a letter text object.
+	letterText = make_shared<LetterTextObject>( textureFont64, u8"This is a letter text object. Press ‘g’ to animate the letters." );
+	letterText->setTrans( 0.0f, 230.0f, 0.0f );
+	letterText->setColor( Color::white() );
+	scene->getRoot()->addChild( letterText );
 
 	//_________________________________________________________________________________________________________________
 

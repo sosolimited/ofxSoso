@@ -45,7 +45,7 @@ void LetterTextObject::rebuildLetters()
 	{
 		Vec3f pos( glyph.second, 0.0f );
 		auto letter = make_shared<Letter>( font, glyph, pos.x, pos.y, 1.0f );
-		letter->setTrans( pos );
+//		letter->setTrans( pos );
 		letter->setColor( material->color );
 		letters.push_back( letter );
 		addChild( letter );
