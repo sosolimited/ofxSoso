@@ -35,6 +35,7 @@ private:
 	shared_ptr<ImageObject>							image;
 	shared_ptr<DynamicPolygonObject>		dynamicPolygon;
 	gl::TextureRef											polyTex;
+//	shared_ptr<LetterTextObject>				letterText;
 
 	vector<shared_ptr<CircleObject>>			circles;
 	vector<shared_ptr<LineSegmentObject>>	lines;
@@ -99,6 +100,8 @@ void GrandTourApp::setup()
 		label->setSpecialTransparency( true );
 		scene->getRoot()->addChild( label );
 	}
+
+	// TODO: Create a letter text object.
 
 	//_________________________________________________________________________________________________________________
 
@@ -219,7 +222,20 @@ void GrandTourApp::setup()
 		line_root->addChild( line );
 	}
 
-	// Create a label for the lines.
+	{ // Create a label for the lines.
+		//
+		string text = u8"Press ‘s’ to animate the lines.";
+		TextBox box;
+		box.setColor( Color::white() );
+		box.setFont( font16 );
+		box.setSize( Vec2i( 100, TextBox::GROW ) );
+		box.setText( text );
+
+		auto label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
+		label->setTrans( 0.0f, 20.0f, 2.0f );
+		label->setSpecialTransparency( true );
+		line_root->addChild( label );
+	}
 }
 
 void GrandTourApp::keyDown( KeyEvent event )
