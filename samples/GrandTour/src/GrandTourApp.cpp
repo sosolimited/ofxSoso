@@ -55,9 +55,6 @@ void GrandTourApp::setup()
 	scene = make_shared<Scene>( getWindowWidth(), getWindowHeight() );
 	scene->setBackgroundColor( 10, 10, 10 );
 
-	Font font16( loadAsset("Arial.ttf"), 16 );
-	Font font64( loadAsset("Arial.ttf"), 64 );
-
 	//_________________________________________________________________________________________________________________
 
 	// Create an image with an alpha channel.
@@ -69,7 +66,24 @@ void GrandTourApp::setup()
 
 	//_________________________________________________________________________________________________________________
 
-	// Text will go here
+	// Load our fonts.
+	Font font16( loadAsset("Arial.ttf"), 16 );
+	Font font64( loadAsset("Arial.ttf"), 64 );
+
+	// Create a texture object to display some text.
+	{
+		TextBox box;
+		box.setFont( font16 );
+		box.setSize( Vec2i( 360, TextBox::GROW ) );
+		box.setColor( Color( "white" ) );
+		box.setText( "A CinderBlock by Sosolimited" );
+
+		auto texture = gl::Texture::create( box.render() );
+		auto text = make_shared<TextureObject>( texture );
+		text->setSpecialTransparency( true );
+		text->setTrans( image->getTrans() + Vec3f( 10.0f, -texture->getHeight(), 0.0f ) );
+		scene->getRoot()->addChild( text );
+	}
 
 	{ // Display some non-western scripts.
 		TextBox box;
@@ -81,7 +95,7 @@ void GrandTourApp::setup()
 		box.setText( non_western_text );
 
 		auto label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
-		label->setTrans( Vec3f( getWindowWidth() - 310.0f, 10.0f, 0.0f ) );
+		label->setTrans( Vec3f( getWindowWidth() - 310.0f, 20.0f, 0.0f ) );
 		label->setSpecialTransparency( true );
 		scene->getRoot()->addChild( label );
 	}
@@ -298,11 +312,8 @@ void GrandTourApp::update()
 
 void GrandTourApp::draw()
 {
-	// To use Soso's original coordinate system, set matrices with final false flag
-	// Origin lower-left.
+	// Set origin lower-left, with positive-y up by using final false flage.
 	gl::setMatricesWindowPersp( getWindowWidth(), getWindowHeight(), 60.0f, 1.0f, 5000.0f, false );
-	// This sets up an origin-upper-left coordinate scheme DW
-//	gl::setMatricesWindowPersp( getWindowSize() );
 
 	scene->draw();
 
