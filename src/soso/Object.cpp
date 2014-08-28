@@ -422,21 +422,6 @@ int Object::collectNodes(int iSelect, Object *iNodes[], int iNumber, int iMax)
 
 ci::Vec3f Object::getWindowCoords()
 {
-	double		mM[16];
-	double		wx, wy, wz;
-	GLint		v[4];
-	double		pM[16];
-
-	// this gets set once up top
-	glGetIntegerv(GL_VIEWPORT, v);
-	// this gets set once up top
-	glGetDoublev(GL_PROJECTION_MATRIX, pM);
-
-	// grab the most recent version of the MODELVIEW matrix
-	glGetDoublev(GL_MODELVIEW_MATRIX, mM);
-	auto curMat = getMatrix();
-	for (int i=0; i < 16; i++) mM[i] = (double)curMat[i];
-
 	Vec3f eyeCoord = gl::getModelView().transformPointAffine( Vec3f::zero() );
 	Vec3f ndc = gl::getProjection().transformPoint( eyeCoord );
 	auto viewport = gl::getViewport();
