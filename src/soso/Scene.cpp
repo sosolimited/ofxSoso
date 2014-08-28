@@ -36,6 +36,7 @@ Scene::Scene(int w, int h)
 	sceneHeight = h;
 
 	root = make_shared<Object>();
+	camera = CameraPersp( sceneWidth, sceneHeight, 60.0f, 1.0f, 5000.0f );
 
 	isClearBackgroundOn = true;
 	backgroundColor.set(255,255,255,255);
@@ -96,6 +97,7 @@ void Scene::update(float iTime)
 {
 	//This call to root's idle propagates down to all children in the tree.
 	root->idleBase(iTime);
+	root->updateMatrices( camera.getModelViewMatrix() );
 
 	//Updates all object's curTime, which is used for things like messages.
 	Object::curTime = iTime;
@@ -120,6 +122,7 @@ void Scene::draw()
 {
 	//Necessary for proper rendering of transparency.
 	ci::gl::enableAlphaBlending();
+	gl::setMatrices( camera );
 
 	//Scissoring
 	if(isScissorOn){

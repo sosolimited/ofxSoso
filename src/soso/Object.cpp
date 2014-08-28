@@ -363,33 +363,8 @@ void Object::predraw()
 		prevLit = isLit;
 	}
 
-	gl::pushModelView();
-	// DW: unclear to me why loading our matrices doesn't work, but multiplying by them does.
-//	glMatrixMode( GL_MODELVIEW );
-//	glLoadMatrixf( matrix );
-	gl::multModelView( matrix );
-
-	/*
-	//Older way of doing transformations.
-
-	ofPushMatrix();
-
-	ofTranslate(xyz.x, xyz.y, xyz.z);
-	//ofScale(scale.x, scale.y, scale.z);
-	ofRotateX(xyzRot.x);
-	ofRotateY(xyzRot.y);
-	ofRotateZ(xyzRot.z);
-	ofScale(scale.x, scale.y, scale.z);
-	*/
-
-	//if(id==1)
-	//printf("matrix:\n%f\t%f\t%f\t%f\n%f\t%f\t%f\t%f\n%f\t%f\t%f\t%f\n%f\t%f\t%f\t%f\n",
-	//		matrix[0], matrix[1], matrix[2], matrix[3],
-	//		matrix[4], matrix[5], matrix[6], matrix[7],
-	//		matrix[8], matrix[9], matrix[10], matrix[11],
-	//		matrix[12], matrix[13], matrix[14], matrix[15]);
-
-
+	glMatrixMode( GL_MODELVIEW );
+	glLoadMatrixf( matrix );
 }
 
 void Object::render()
@@ -400,8 +375,6 @@ void Object::render()
 
 void Object::postdraw()
 {
-	gl::popModelView();
-	//ofPopMatrix();
 	glPopName();
 }
 
