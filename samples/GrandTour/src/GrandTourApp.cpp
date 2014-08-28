@@ -13,8 +13,7 @@
 
 #include "cinder/Text.h"
 #include "cinder/Utilities.h"
-//#include "ofxTextObject.h"
-//#include "ofxLetterTextObject.h"
+#include "cinder/Rand.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -70,8 +69,11 @@ void GrandTourApp::setup()
 
 	// Load our fonts.
 	Font font16( loadAsset("Arial.ttf"), 16 );
-	Font font64( loadAsset("Arial.ttf"), 64 );
-	auto textureFont64 = gl::TextureFont::create( font64 );
+	Font font48( loadAsset("Arial.ttf"), 48 );
+	gl::TextureFont::Format format;
+	format.enableMipmapping();
+	string supported_chars = gl::TextureFont::defaultChars() + u8"‘’";
+	auto textureFont48 = gl::TextureFont::create( font48, format, supported_chars );
 
 	// Create a texture object to display some text.
 	{
@@ -98,15 +100,16 @@ void GrandTourApp::setup()
 		box.setText( "Some non-roman text:\n" );
 		box.appendText( non_western_text );
 
-		auto label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
-		label->setTrans( Vec3f( getWindowWidth() - 320.0f, 40.0f, 0.0f ) );
+		auto texture = gl::Texture::create( box.render() );
+		auto label = make_shared<TextureObject>( texture );
+		label->setTrans( Vec3f( 20.0f, getWindowHeight() - (texture->getHeight() + 20.0f), 0.0f ) );
 		label->setSpecialTransparency( true );
 		scene->getRoot()->addChild( label );
 	}
 
 	// TODO: Create a letter text object.
-	letterText = make_shared<LetterTextObject>( textureFont64, u8"This is a letter text object. Press ‘g’ to animate the letters." );
-	letterText->setTrans( 0.0f, 230.0f, 0.0f );
+	letterText = make_shared<LetterTextObject>( textureFont48, u8"This is a letter text object. Press ‘g’ to animate the letters." );
+	letterText->setTrans( 10.0f, 0.0f, 0.0f );
 	letterText->setColor( Color::white() );
 	scene->getRoot()->addChild( letterText );
 
@@ -156,7 +159,7 @@ void GrandTourApp::setup()
 
 	//Make a root for the circle objects created below and position it.
 	auto circle_root = make_shared<Object>();
-	circle_root->setTrans( getWindowWidth() / 2, 360.0f, 0);
+	circle_root->setTrans( getWindowWidth() / 2, 320.0f, 0);
 	scene->getRoot()->addChild(circle_root);
 
 	//Make some circle objects, position them, and add them to the circleRoot object.
@@ -211,7 +214,7 @@ void GrandTourApp::setup()
 
 	// Make and lay out some lines. See how they are animated below in keyPressed().
 	auto line_root = make_shared<Object>();
-	line_root->setTrans( 200, 360, 0 );
+	line_root->setTrans( 200, 320, 0 );
 	scene->getRoot()->addChild( line_root );
 
 	int numLines = 120;
@@ -321,6 +324,31 @@ void GrandTourApp::keyDown( KeyEvent event )
 
 			dynamicPolygon->gotoVertexPos(3, Vec3f(0, polyTex->getHeight(), 0), dur);
 			dynamicPolygon->gotoVertexTexCoords(3, 0, 0.0, dur);
+		}
+		break;
+		case KeyEvent::KEY_g:
+		{
+			float travel = 100.0f;
+			float leaveDuration = 1.0f;
+			float returnDuration = 0.5f;
+			float t = 0.0f;
+			for( auto &letter : letterText->letters )
+			{
+				Vec3f letterHome = letter->getHome();
+				letter->stopMessages();
+				//Leave home.
+				letter->doMessage3f(OF_TRANSLATE, t, leaveDuration, OF_EASE_OUT, letterHome.x + randFloat(-travel, travel), letterHome.y + randFloat(-travel, travel), 0);
+				letter->doMessage1f(OF_SCALE, t, leaveDuration, OF_EASE_OUT, randFloat(0.5, 1.8));
+				letter->doMessage3f(OF_ROTATE, t, leaveDuration, OF_EASE_OUT, randFloat(-30,30), randFloat(-30,30), 0);
+				letter->doMessage3f(OF_SETCOLOR, t, leaveDuration, OF_EASE_OUT, 255, 100, 200);
+				//Return home.
+				letter->doMessage3f(OF_TRANSLATE, t + leaveDuration, returnDuration, OF_EASE_IN, letterHome.x, letterHome.y, letterHome.z);
+				letter->doMessage1f(OF_SCALE, t + leaveDuration, returnDuration, OF_EASE_IN, 1.0);
+				letter->doMessage3f(OF_ROTATE, t + leaveDuration, returnDuration, OF_EASE_IN, 0, 0, 0);
+				letter->doMessage3f(OF_SETCOLOR, t + leaveDuration, returnDuration, OF_EASE_IN, 255, 255, 255);
+
+				t += 0.03f;
+			}
 		}
 		break;
 		default:

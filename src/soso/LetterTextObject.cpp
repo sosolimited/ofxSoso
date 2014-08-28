@@ -20,7 +20,7 @@ LetterTextObject::Letter::Letter( gl::TextureFontRef iFont, const GlyphMeasure &
 void LetterTextObject::Letter::render()
 {
 	glPushMatrix();
-	glScalef(scaleFactor, scaleFactor, 1.0);
+	glScalef(scaleFactor, -scaleFactor, 1.0);
 	font->drawGlyphs( { glyph }, Vec2f( 0, 0 ) );
 	glPopMatrix();
 }
@@ -40,12 +40,15 @@ LetterTextObject::LetterTextObject( gl::TextureFontRef iFont, const string &iStr
 void LetterTextObject::rebuildLetters()
 {
 	letters.clear();
-	auto placements = font->getGlyphPlacements( text );
-	for( const GlyphMeasure &glyph : placements )
+
+	gl::TextureFont::DrawOptions options;
+	auto placements = font->getGlyphPlacements( text, options );
+	for( GlyphMeasure glyph : placements )
 	{
 		Vec3f pos( glyph.second, 0.0f );
+		glyph.second = Vec2f( 0.0f, 0.0f );
 		auto letter = make_shared<Letter>( font, glyph, pos.x, pos.y, 1.0f );
-//		letter->setTrans( pos );
+		letter->setTrans( pos );
 		letter->setColor( material->color );
 		letters.push_back( letter );
 		addChild( letter );

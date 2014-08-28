@@ -44,7 +44,10 @@ public:
 	{
 	public:
 		Letter( ci::gl::TextureFontRef iFont, const GlyphMeasure &iGlyph, float iX, float iY, float iScaleFactor );
+
 		void render();
+
+		ci::Vec3f	getHome() const { return home; }
 	private:
 		GlyphMeasure						glyph;
 //		std::string							character;
