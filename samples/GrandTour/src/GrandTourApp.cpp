@@ -93,10 +93,11 @@ void GrandTourApp::setup()
 		box.setSize( Vec2i( 300, TextBox::GROW ) );
 		box.setColor( ColorA( "white" ) );
 		string non_western_text = loadString( loadAsset( "non-roman-scripts-utf8.txt" ) );
-		box.setText( non_western_text );
+		box.setText( "Some non-roman text:\n" );
+		box.appendText( non_western_text );
 
 		auto label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
-		label->setTrans( Vec3f( getWindowWidth() - 310.0f, 20.0f, 0.0f ) );
+		label->setTrans( Vec3f( getWindowWidth() - 320.0f, 40.0f, 0.0f ) );
 		label->setSpecialTransparency( true );
 		scene->getRoot()->addChild( label );
 	}
@@ -111,7 +112,7 @@ void GrandTourApp::setup()
 
 	dynamicPolygon = make_shared<DynamicPolygonObject>(4);
 	dynamicPolygon->enableVertexColoring( false );
-	dynamicPolygon->setTrans( 250, 70, 0 );
+	dynamicPolygon->setTrans( image->getTrans().x + 10.0f, 320.0f, 0 );
 	dynamicPolygon->setScale( 0.5f );
 	dynamicPolygon->setTexture( polyTex );
 
@@ -149,7 +150,7 @@ void GrandTourApp::setup()
 
 	//Make a root for the circle objects created below and position it.
 	auto circle_root = make_shared<Object>();
-	circle_root->setTrans( getWindowWidth() / 2, 300.0f, 0);
+	circle_root->setTrans( getWindowWidth() / 2, 360.0f, 0);
 	scene->getRoot()->addChild(circle_root);
 
 	//Make some circle objects, position them, and add them to the circleRoot object.
@@ -177,6 +178,7 @@ void GrandTourApp::setup()
 		auto label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
 		label->setTrans( -100.0f, 38.0f, 2.0f );
 		label->setSpecialTransparency( true );
+		label->setColor( Color::black() );
 		circle_root->addChild( label );
 	}
 
@@ -188,7 +190,6 @@ void GrandTourApp::setup()
 	float offset = 0.1;
 	for(int i=0; i < circles.size(); i++){
 		//Grab translation and color for circles, as set above.
-		Vec3f		curTrans = circles[i]->getTrans();
 		Vec4f		curColor( circles[i]->getColor().r, circles[i]->getColor().g, circles[i]->getColor().b, circles[i]->getColor().a );
 
 		animation->tween(circles[i].get(), OF_SCALE, i*offset, i*offset + 0.5, OF_EASE_OUT, OF_RELATIVE_VAL, 0.5);		//You can pass OF_RELATIVE_VAL as the first animation value to animate from wherever the object is at the time the animation is called
@@ -204,7 +205,7 @@ void GrandTourApp::setup()
 
 	// Make and lay out some lines. See how they are animated below in keyPressed().
 	auto line_root = make_shared<Object>();
-	line_root->setTrans( 200, 200, 0 );
+	line_root->setTrans( 200, 360, 0 );
 	scene->getRoot()->addChild( line_root );
 
 	int numLines = 120;

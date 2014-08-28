@@ -23,3 +23,5 @@ AVFVideoPlayer should be a simple modification of [Sam's AVF player](https://git
 
 ## Possible Issues:
 Sorting of alpha-blending elements depends on [getWindowCoords](src/soso/Object.cpp#L450-L474), which may not be correct.
+
+Consider premultiplied alpha throughout (currently drawing non-premultiplied).
