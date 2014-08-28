@@ -329,8 +329,6 @@ void GrandTourApp::update()
 void GrandTourApp::draw()
 {
 	// Set origin lower-left, with positive-y up by using final false flage.
-	gl::setMatricesWindowPersp( getWindowWidth(), getWindowHeight(), 60.0f, 1.0f, 5000.0f, false );
-
 	scene->draw();
 
 }
