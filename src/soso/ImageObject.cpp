@@ -21,14 +21,13 @@ ImageObject::ImageObject(string iFilename, bool iLoadNow)
 			image = gl::Texture::create( loadImage( iFilename ) );
 		}
 	}
+
+	image->setFlipped();
 	width = image->getWidth();
 	height = image->getHeight();
 	isCentered = false;
 
     renderDirty = true; //eg 070112
-}
-
-ImageObject::~ImageObject(){
 }
 
 void ImageObject::enableTexture(bool iB)

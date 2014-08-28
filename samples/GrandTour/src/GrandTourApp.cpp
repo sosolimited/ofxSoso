@@ -101,16 +101,16 @@ void GrandTourApp::setup()
 	//Set the home positions and tex coords of the vertices.
 	//Note: We start at the lower left corner and move around counter clockwise, as a general practice.
 	dynamicPolygon->setVertexPos(0, Vec3f(0, 0.3*polyTex->getHeight(), 0));
-	dynamicPolygon->setVertexTexCoords(0, 0, 0.3f );
+	dynamicPolygon->setVertexTexCoords(0, 0, 0.7f );
 	//
 	dynamicPolygon->setVertexPos(1, Vec3f(polyTex->getWidth(), 0.3*polyTex->getHeight(), 0));
-	dynamicPolygon->setVertexTexCoords(1, 1.0f, 0.3f );
+	dynamicPolygon->setVertexTexCoords(1, 1.0f, 0.7f );
 	//
 	dynamicPolygon->setVertexPos(2, Vec3f(polyTex->getWidth(), 0.7*polyTex->getHeight(), 0));
-	dynamicPolygon->setVertexTexCoords(2, 1.0f, 0.7f );
+	dynamicPolygon->setVertexTexCoords(2, 1.0f, 0.3f );
 	//
 	dynamicPolygon->setVertexPos(3, Vec3f(0, 0.7*polyTex->getHeight(), 0));
-	dynamicPolygon->setVertexTexCoords(3, 0, 0.7f );
+	dynamicPolygon->setVertexTexCoords(3, 0, 0.3f );
 
 	scene->getRoot()->addChild( dynamicPolygon );								//Add the polygon to the scene.
 
@@ -257,16 +257,16 @@ void GrandTourApp::keyDown( KeyEvent event )
 			float dur = 1.0;
 
 			dynamicPolygon->gotoVertexPos(0, Vec3f(0, 0.3*polyTex->getHeight(), 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(0, 0, 0.3, dur);
+			dynamicPolygon->gotoVertexTexCoords(0, 0, 0.7, dur);
 
 			dynamicPolygon->gotoVertexPos(1, Vec3f(polyTex->getWidth(), 0.3*polyTex->getHeight(), 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(1, 1.0, 0.3, dur);
+			dynamicPolygon->gotoVertexTexCoords(1, 1.0, 0.7, dur);
 
 			dynamicPolygon->gotoVertexPos(2, Vec3f(polyTex->getWidth(), 0.7*polyTex->getHeight(), 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(2, 1.0, 0.7, dur);
+			dynamicPolygon->gotoVertexTexCoords(2, 1.0, 0.3, dur);
 
 			dynamicPolygon->gotoVertexPos(3, Vec3f(0, 0.7*polyTex->getHeight(), 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(3, 0, 0.7, dur);
+			dynamicPolygon->gotoVertexTexCoords(3, 0, 0.3, dur);
 		}
 		break;
 		case KeyEvent::KEY_UP:
@@ -274,16 +274,16 @@ void GrandTourApp::keyDown( KeyEvent event )
 			float dur = 1.0;
 
 			dynamicPolygon->gotoVertexPos(0, Vec3f(0, 0, 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(0, 0, 0.0, dur);
+			dynamicPolygon->gotoVertexTexCoords(0, 0, 1.0, dur);
 
 			dynamicPolygon->gotoVertexPos(1, Vec3f(polyTex->getWidth(), 0, 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(1, 1.0, 0.0, dur);
+			dynamicPolygon->gotoVertexTexCoords(1, 1.0, 1.0, dur);
 
 			dynamicPolygon->gotoVertexPos(2, Vec3f(polyTex->getWidth(), polyTex->getHeight(), 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(2, 1.0, 1.0, dur);
+			dynamicPolygon->gotoVertexTexCoords(2, 1.0, 0.0, dur);
 
 			dynamicPolygon->gotoVertexPos(3, Vec3f(0, polyTex->getHeight(), 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(3, 0, 1.0, dur);
+			dynamicPolygon->gotoVertexTexCoords(3, 0, 0.0, dur);
 		}
 		break;
 		default:
@@ -299,9 +299,10 @@ void GrandTourApp::update()
 void GrandTourApp::draw()
 {
 	// To use Soso's original coordinate system, set matrices with final false flag
-//	gl::setMatricesWindowPersp( getWindowWidth(), getWindowHeight(), 60.0f, 1.0f, 5000.0f, false );
+	// Origin lower-left.
+	gl::setMatricesWindowPersp( getWindowWidth(), getWindowHeight(), 60.0f, 1.0f, 5000.0f, false );
 	// This sets up an origin-upper-left coordinate scheme DW
-	gl::setMatricesWindowPersp( getWindowSize() );
+//	gl::setMatricesWindowPersp( getWindowSize() );
 
 	scene->draw();
 
