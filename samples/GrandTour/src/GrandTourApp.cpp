@@ -9,11 +9,11 @@
 #include "soso/LineSegmentObject.h"
 #include "soso/TextureObject.h"
 #include "soso/DynamicPolygonObject.h"
+#include "soso/LetterTextObject.h"
 
 #include "cinder/Text.h"
 #include "cinder/Utilities.h"
-//#include "ofxTextObject.h"
-//#include "ofxLetterTextObject.h"
+#include "cinder/Rand.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -35,6 +35,7 @@ private:
 	shared_ptr<ImageObject>							image;
 	shared_ptr<DynamicPolygonObject>		dynamicPolygon;
 	gl::TextureRef											polyTex;
+	shared_ptr<LetterTextObject>				letterText;
 
 	vector<shared_ptr<CircleObject>>			circles;
 	vector<shared_ptr<LineSegmentObject>>	lines;
@@ -55,9 +56,6 @@ void GrandTourApp::setup()
 	scene = make_shared<Scene>( getWindowWidth(), getWindowHeight() );
 	scene->setBackgroundColor( 10, 10, 10 );
 
-	Font font16( loadAsset("Arial.ttf"), 16 );
-	Font font64( loadAsset("Arial.ttf"), 64 );
-
 	//_________________________________________________________________________________________________________________
 
 	// Create an image with an alpha channel.
@@ -69,7 +67,28 @@ void GrandTourApp::setup()
 
 	//_________________________________________________________________________________________________________________
 
-	// Text will go here
+	// Load our fonts.
+	Font font16( loadAsset("Arial.ttf"), 16 );
+	Font font48( loadAsset("Arial.ttf"), 48 );
+	gl::TextureFont::Format format;
+	format.enableMipmapping();
+	string supported_chars = gl::TextureFont::defaultChars() + u8"‘’";
+	auto textureFont48 = gl::TextureFont::create( font48, format, supported_chars );
+
+	// Create a texture object to display some text.
+	{
+		TextBox box;
+		box.setFont( font16 );
+		box.setSize( Vec2i( 360, TextBox::GROW ) );
+		box.setColor( Color( "white" ) );
+		box.setText( "A CinderBlock by Sosolimited" );
+
+		auto texture = gl::Texture::create( box.render() );
+		auto text = make_shared<TextureObject>( texture );
+		text->setSpecialTransparency( true );
+		text->setTrans( image->getTrans() + Vec3f( 10.0f, -texture->getHeight(), 0.0f ) );
+		scene->getRoot()->addChild( text );
+	}
 
 	{ // Display some non-western scripts.
 		TextBox box;
@@ -78,13 +97,21 @@ void GrandTourApp::setup()
 		box.setSize( Vec2i( 300, TextBox::GROW ) );
 		box.setColor( ColorA( "white" ) );
 		string non_western_text = loadString( loadAsset( "non-roman-scripts-utf8.txt" ) );
-		box.setText( non_western_text );
+		box.setText( "Some non-roman text:\n" );
+		box.appendText( non_western_text );
 
-		auto label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
-		label->setTrans( Vec3f( getWindowWidth() - 310.0f, 10.0f, 0.0f ) );
+		auto texture = gl::Texture::create( box.render() );
+		auto label = make_shared<TextureObject>( texture );
+		label->setTrans( Vec3f( 20.0f, getWindowHeight() - (texture->getHeight() + 20.0f), 0.0f ) );
 		label->setSpecialTransparency( true );
 		scene->getRoot()->addChild( label );
 	}
+
+	// TODO: Create a letter text object.
+	letterText = make_shared<LetterTextObject>( textureFont48, u8"This is a letter text object. Press ‘g’ to animate the letters." );
+	letterText->setTrans( 10.0f, 0.0f, 0.0f );
+	letterText->setColor( Color::white() );
+	scene->getRoot()->addChild( letterText );
 
 	//_________________________________________________________________________________________________________________
 
@@ -94,23 +121,23 @@ void GrandTourApp::setup()
 
 	dynamicPolygon = make_shared<DynamicPolygonObject>(4);
 	dynamicPolygon->enableVertexColoring( false );
-	dynamicPolygon->setTrans( 250, 70, 0 );
+	dynamicPolygon->setTrans( image->getTrans().x + 10.0f, 320.0f, 0 );
 	dynamicPolygon->setScale( 0.5f );
 	dynamicPolygon->setTexture( polyTex );
 
 	//Set the home positions and tex coords of the vertices.
 	//Note: We start at the lower left corner and move around counter clockwise, as a general practice.
 	dynamicPolygon->setVertexPos(0, Vec3f(0, 0.3*polyTex->getHeight(), 0));
-	dynamicPolygon->setVertexTexCoords(0, 0, 0.3f );
+	dynamicPolygon->setVertexTexCoords(0, 0, 0.7f );
 	//
 	dynamicPolygon->setVertexPos(1, Vec3f(polyTex->getWidth(), 0.3*polyTex->getHeight(), 0));
-	dynamicPolygon->setVertexTexCoords(1, 1.0f, 0.3f );
+	dynamicPolygon->setVertexTexCoords(1, 1.0f, 0.7f );
 	//
 	dynamicPolygon->setVertexPos(2, Vec3f(polyTex->getWidth(), 0.7*polyTex->getHeight(), 0));
-	dynamicPolygon->setVertexTexCoords(2, 1.0f, 0.7f );
+	dynamicPolygon->setVertexTexCoords(2, 1.0f, 0.3f );
 	//
 	dynamicPolygon->setVertexPos(3, Vec3f(0, 0.7*polyTex->getHeight(), 0));
-	dynamicPolygon->setVertexTexCoords(3, 0, 0.7f );
+	dynamicPolygon->setVertexTexCoords(3, 0, 0.3f );
 
 	scene->getRoot()->addChild( dynamicPolygon );								//Add the polygon to the scene.
 
@@ -132,7 +159,7 @@ void GrandTourApp::setup()
 
 	//Make a root for the circle objects created below and position it.
 	auto circle_root = make_shared<Object>();
-	circle_root->setTrans( getWindowWidth() / 2, 300.0f, 0);
+	circle_root->setTrans( getWindowWidth() / 2, 320.0f, 0);
 	scene->getRoot()->addChild(circle_root);
 
 	//Make some circle objects, position them, and add them to the circleRoot object.
@@ -160,6 +187,7 @@ void GrandTourApp::setup()
 		auto label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
 		label->setTrans( -100.0f, 38.0f, 2.0f );
 		label->setSpecialTransparency( true );
+		label->setColor( Color::black() );
 		circle_root->addChild( label );
 	}
 
@@ -171,7 +199,6 @@ void GrandTourApp::setup()
 	float offset = 0.1;
 	for(int i=0; i < circles.size(); i++){
 		//Grab translation and color for circles, as set above.
-		Vec3f		curTrans = circles[i]->getTrans();
 		Vec4f		curColor( circles[i]->getColor().r, circles[i]->getColor().g, circles[i]->getColor().b, circles[i]->getColor().a );
 
 		animation->tween(circles[i].get(), OF_SCALE, i*offset, i*offset + 0.5, OF_EASE_OUT, OF_RELATIVE_VAL, 0.5);		//You can pass OF_RELATIVE_VAL as the first animation value to animate from wherever the object is at the time the animation is called
@@ -187,7 +214,7 @@ void GrandTourApp::setup()
 
 	// Make and lay out some lines. See how they are animated below in keyPressed().
 	auto line_root = make_shared<Object>();
-	line_root->setTrans( 200, 200, 0 );
+	line_root->setTrans( 200, 320, 0 );
 	scene->getRoot()->addChild( line_root );
 
 	int numLines = 120;
@@ -205,7 +232,20 @@ void GrandTourApp::setup()
 		line_root->addChild( line );
 	}
 
-	// Create a label for the lines.
+	{ // Create a label for the lines.
+		//
+		string text = u8"Press ‘s’ to animate the lines.";
+		TextBox box;
+		box.setColor( Color::white() );
+		box.setFont( font16 );
+		box.setSize( Vec2i( 100, TextBox::GROW ) );
+		box.setText( text );
+
+		auto label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
+		label->setTrans( 0.0f, 20.0f, 2.0f );
+		label->setSpecialTransparency( true );
+		line_root->addChild( label );
+	}
 }
 
 void GrandTourApp::keyDown( KeyEvent event )
@@ -257,16 +297,16 @@ void GrandTourApp::keyDown( KeyEvent event )
 			float dur = 1.0;
 
 			dynamicPolygon->gotoVertexPos(0, Vec3f(0, 0.3*polyTex->getHeight(), 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(0, 0, 0.3, dur);
+			dynamicPolygon->gotoVertexTexCoords(0, 0, 0.7, dur);
 
 			dynamicPolygon->gotoVertexPos(1, Vec3f(polyTex->getWidth(), 0.3*polyTex->getHeight(), 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(1, 1.0, 0.3, dur);
+			dynamicPolygon->gotoVertexTexCoords(1, 1.0, 0.7, dur);
 
 			dynamicPolygon->gotoVertexPos(2, Vec3f(polyTex->getWidth(), 0.7*polyTex->getHeight(), 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(2, 1.0, 0.7, dur);
+			dynamicPolygon->gotoVertexTexCoords(2, 1.0, 0.3, dur);
 
 			dynamicPolygon->gotoVertexPos(3, Vec3f(0, 0.7*polyTex->getHeight(), 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(3, 0, 0.7, dur);
+			dynamicPolygon->gotoVertexTexCoords(3, 0, 0.3, dur);
 		}
 		break;
 		case KeyEvent::KEY_UP:
@@ -274,16 +314,41 @@ void GrandTourApp::keyDown( KeyEvent event )
 			float dur = 1.0;
 
 			dynamicPolygon->gotoVertexPos(0, Vec3f(0, 0, 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(0, 0, 0.0, dur);
+			dynamicPolygon->gotoVertexTexCoords(0, 0, 1.0, dur);
 
 			dynamicPolygon->gotoVertexPos(1, Vec3f(polyTex->getWidth(), 0, 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(1, 1.0, 0.0, dur);
+			dynamicPolygon->gotoVertexTexCoords(1, 1.0, 1.0, dur);
 
 			dynamicPolygon->gotoVertexPos(2, Vec3f(polyTex->getWidth(), polyTex->getHeight(), 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(2, 1.0, 1.0, dur);
+			dynamicPolygon->gotoVertexTexCoords(2, 1.0, 0.0, dur);
 
 			dynamicPolygon->gotoVertexPos(3, Vec3f(0, polyTex->getHeight(), 0), dur);
-			dynamicPolygon->gotoVertexTexCoords(3, 0, 1.0, dur);
+			dynamicPolygon->gotoVertexTexCoords(3, 0, 0.0, dur);
+		}
+		break;
+		case KeyEvent::KEY_g:
+		{
+			float travel = 100.0f;
+			float leaveDuration = 1.0f;
+			float returnDuration = 0.5f;
+			float t = 0.0f;
+			for( auto &letter : letterText->letters )
+			{
+				Vec3f letterHome = letter->getHome();
+				letter->stopMessages();
+				//Leave home.
+				letter->doMessage3f(OF_TRANSLATE, t, leaveDuration, OF_EASE_OUT, letterHome.x + randFloat(-travel, travel), letterHome.y + randFloat(-travel, travel), 0);
+				letter->doMessage1f(OF_SCALE, t, leaveDuration, OF_EASE_OUT, randFloat(0.5, 1.8));
+				letter->doMessage3f(OF_ROTATE, t, leaveDuration, OF_EASE_OUT, randFloat(-30,30), randFloat(-30,30), 0);
+				letter->doMessage3f(OF_SETCOLOR, t, leaveDuration, OF_EASE_OUT, 255, 100, 200);
+				//Return home.
+				letter->doMessage3f(OF_TRANSLATE, t + leaveDuration, returnDuration, OF_EASE_IN, letterHome.x, letterHome.y, letterHome.z);
+				letter->doMessage1f(OF_SCALE, t + leaveDuration, returnDuration, OF_EASE_IN, 1.0);
+				letter->doMessage3f(OF_ROTATE, t + leaveDuration, returnDuration, OF_EASE_IN, 0, 0, 0);
+				letter->doMessage3f(OF_SETCOLOR, t + leaveDuration, returnDuration, OF_EASE_IN, 255, 255, 255);
+
+				t += 0.03f;
+			}
 		}
 		break;
 		default:
@@ -298,11 +363,7 @@ void GrandTourApp::update()
 
 void GrandTourApp::draw()
 {
-	// To use Soso's original coordinate system, set matrices with final false flag
-//	gl::setMatricesWindowPersp( getWindowWidth(), getWindowHeight(), 60.0f, 1.0f, 5000.0f, false );
-	// This sets up an origin-upper-left coordinate scheme DW
-	gl::setMatricesWindowPersp( getWindowSize() );
-
+	// Set origin lower-left, with positive-y up by using final false flage.
 	scene->draw();
 
 }

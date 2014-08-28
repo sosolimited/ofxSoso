@@ -37,6 +37,7 @@ IN THE SOFTWARE.
 #pragma once
 
 #include "soso/Object.h"
+#include "cinder/Camera.h"
 
 namespace soso
 {
@@ -70,7 +71,7 @@ public:
 	Scene(int w, int h);
 	~Scene();
 
-	void					update(float iTime);
+	void					update( float iTime );
 	ObjectRef	getRoot();
 	void					setRoot(ObjectRef iRoot);
 
@@ -122,6 +123,7 @@ private:
 	GLenum					depthFunc;
 	bool					isBlendingOn;
 	GLenum					shadingModel;
+	ci::CameraPersp	camera;
 
 public:
 	static float			*defaultMatrix;

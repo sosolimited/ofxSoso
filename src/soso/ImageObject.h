@@ -35,7 +35,6 @@ class ImageObject : public Object{
 public:
 
 	ImageObject(std::string iFilename, bool iLoadNow=true);
-	~ImageObject();
 
 	void						render();
 	void						setCentered(bool iEnable);

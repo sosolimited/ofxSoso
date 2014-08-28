@@ -29,6 +29,7 @@
 		1536B21319ABD9AC00CF8B15 /* RoundedArcObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1FE19ABD9AC00CF8B15 /* RoundedArcObject.cpp */; };
 		1536B21419ABD9AC00CF8B15 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1FF19ABD9AC00CF8B15 /* Scene.cpp */; };
 		1536B21719ABD9AC00CF8B15 /* TextureObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B20219ABD9AC00CF8B15 /* TextureObject.cpp */; };
+		157FDF2E19AF7A4300D7E24B /* LetterTextObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 157FDF2D19AF7A4300D7E24B /* LetterTextObject.cpp */; };
 		353F13219B5E40129ACED645 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2E7779A79FDE41B1BBB1911D /* CinderApp.icns */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
@@ -77,6 +78,8 @@
 		1536B1FE19ABD9AC00CF8B15 /* RoundedArcObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RoundedArcObject.cpp; path = ../../../src/soso/RoundedArcObject.cpp; sourceTree = "<group>"; };
 		1536B1FF19ABD9AC00CF8B15 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Scene.cpp; path = ../../../src/soso/Scene.cpp; sourceTree = "<group>"; };
 		1536B20219ABD9AC00CF8B15 /* TextureObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextureObject.cpp; path = ../../../src/soso/TextureObject.cpp; sourceTree = "<group>"; };
+		157FDF2C19AF7A4300D7E24B /* LetterTextObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LetterTextObject.h; path = ../../../src/soso/LetterTextObject.h; sourceTree = "<group>"; };
+		157FDF2D19AF7A4300D7E24B /* LetterTextObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LetterTextObject.cpp; path = ../../../src/soso/LetterTextObject.cpp; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		2E7779A79FDE41B1BBB1911D /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
@@ -199,6 +202,8 @@
 		57DB54B067E4439690AF0E9B /* src */ = {
 			isa = PBXGroup;
 			children = (
+				157FDF2C19AF7A4300D7E24B /* LetterTextObject.h */,
+				157FDF2D19AF7A4300D7E24B /* LetterTextObject.cpp */,
 				1536B1DA19ABD9AC00CF8B15 /* Animation.h */,
 				1536B1DB19ABD9AC00CF8B15 /* ArcObject.h */,
 				1536B1DC19ABD9AC00CF8B15 /* CircleObject.h */,
@@ -326,6 +331,7 @@
 				1536B20919ABD9AC00CF8B15 /* GridSystem.cpp in Sources */,
 				1536B20619ABD9AC00CF8B15 /* CircleObject.cpp in Sources */,
 				E05FBE6275464E9AB5170BE6 /* GrandTourApp.cpp in Sources */,
+				157FDF2E19AF7A4300D7E24B /* LetterTextObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
