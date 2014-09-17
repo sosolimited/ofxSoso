@@ -40,7 +40,9 @@ void ofxVideoPlayerObject::render()
     mShader->begin();
     mShader->setUniformTexture( "u_texture", player->getTextureReference(), 0);
     float bounds[4] = {0, 0, player->getWidth(), player->getHeight()};
-    mShader->setUniform4fv( "u_texture_bounds", &bounds[0]);
+    mShader->setUniform1f( "objR", ofMap(getColor().r,0,255,0,1));
+    mShader->setUniform1f( "objG", ofMap(getColor().g,0,255,0,1));
+    mShader->setUniform1f( "objB", ofMap(getColor().b,0,255,0,1));
   }
   
   // TODO: Need a way to set alpha that actually works
