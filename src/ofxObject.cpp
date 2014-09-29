@@ -1246,9 +1246,10 @@ void ofxObject::updateMessages()
 				messages[i]->isEnabled = false;
 				messages[i]->isRunning = false;
         
-				if(messages[i]->autoDelete){
-					deleteMessage(messages[i]);
-				}
+        if(messages[i]->autoDelete){
+          deleteMessage(messages[i]);
+        }
+        
         
 				if(i < messages.size()){	//just in case a message just got deleted above
 					//handle special looping behaviors
