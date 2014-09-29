@@ -142,6 +142,7 @@ ofxScroller::~ofxScroller() {
 // Updates all transforms based on current scrollPosition.
 void ofxScroller::update(float iTime) {
   
+  
   // If we are in the middle of jumping to a snap point...
   if (scrollTracker->isAnimating()){
     scrollPosition = scrollTracker->getScale().x;
@@ -191,6 +192,8 @@ void ofxScroller::update(float iTime) {
         // If the scrollPosition is the in the object's scroll range, it is shown.
         // If it is not, it is automatically hidden.
         if(t->transform == OF_SHOW){
+          
+          
           if(ofInRange(scrollPosition, t->scrollRange[0], t->scrollRange[1])){
             obj->object->show();
           }else{
@@ -218,6 +221,7 @@ void ofxScroller::update(float iTime) {
           
           p = max(0.0f, p);
           p = min(1.0f, p);
+          
           
           // Do the right thing for each type of transform.
           switch(t->transform){
@@ -369,12 +373,13 @@ void ofxScroller::update(float iTime) {
               
             case OF_SETALPHA:
             {
+              
               float val0 = t->valueRange[0][0];
               float val1 = t->valueRange[1][0];
               float startVal, endVal;
               float alpha = obj->object->getAlpha();
               
-              
+
               // FIRST check if we are using any OF_RELATIVE_VAL values...
               // If so, we should grab the object's current alpha
               
@@ -391,8 +396,7 @@ void ofxScroller::update(float iTime) {
               
               //maybe do set color w/ new alpha?
               obj->object->setAlpha((startVal + p*(endVal - startVal)));
-              
-          
+
             }
               
               break;

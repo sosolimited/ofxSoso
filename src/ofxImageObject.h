@@ -46,7 +46,8 @@ public:
 	float           width,
                   height;
   bool            loaded;
-  bool            destroyPixels=true; // Flag for if we should destroy pixels after loading image, AO 053014
+  //bool            destroyPixels=true; // Flag for if we should destroy pixels after loading image, AO 053014
+  bool            destroyPixels=false; // Flag for if we should destroy pixels after loading image, AO 053014
 	string          filename;
   ofImage         *image;
 
