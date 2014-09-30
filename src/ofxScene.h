@@ -96,7 +96,7 @@ public:
   void          setScreenParams(bool iOrthographic, bool iVFlip=false, float iFov=60, float iNearDist=0, float iFarDist=0);
   
 	static int		depthCompareFunc(const void *iElement1, const void *iElement2);
-	
+  
 private:
 	int						sceneWidth;
 	int						sceneHeight;
@@ -126,6 +126,7 @@ private:
   ofxObject			**sortedObjects;
   
   float         *defaultMatrix;
+
 
   
 public:

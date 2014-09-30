@@ -1,6 +1,9 @@
 #include "ofxMessage.h"
 #include "ofUtils.h"
 
+#include "bacTimeManager.h"
+
+// Modified to use baccarat time manager
 //float ofxMessage::OF_RELATIVE_VAL = 9999.9f;
 
 ofxMessage::ofxMessage(int iID, void *iVals, int iInterpolation, float iDuration, float iDelay, int iPlayMode)
@@ -83,7 +86,7 @@ ofxMessage::ofxMessage(int iID, int iInterpolation, int iPath, vector<ofVec4f> i
 	duration = iDuration;
 	startDelay = iDelay;
 	startTime = ofGetElapsedTimef();	//default to current time
-    
+  
 	isEnabled = true;	
 	isRunning = false;
 	autoDelete = true;	
@@ -106,6 +109,9 @@ ofxMessage::ofxMessage(int iID, float (*iFunction)(void *), void *iArgs, float i
 	duration = 0;
 	startDelay = iDelay;
 	startTime = ofGetElapsedTimef();	//default to current time
+  
+  // Baccarat: Make sure to overwrite this when doing a message (to use custom timer)
+  
 	
 	isEnabled = true;	
 	isRunning = false;

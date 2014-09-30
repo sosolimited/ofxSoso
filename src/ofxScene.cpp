@@ -108,11 +108,16 @@ ofxScene::~ofxScene(){
 
 void ofxScene::update(float iTime)
 {
+  
 	//This call to root's idle propagates down to all children in the tree.
 	root->idleBase(iTime);
   
+  getRoot()->setTime(iTime);
+  
 	//Updates all object's curTime, which is used for things like messages.
-	ofxObject::curTime = iTime;
+	//ofxObject::curTime = iTime;
+  
+  
 }
 
 ofxObject* ofxScene::getRoot()

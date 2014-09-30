@@ -27,7 +27,7 @@ ofVec4f ofxObjectMaterial::getColorVec4f(){
 int ofxObject::numObjects = 0;
 bool ofxObject::alwaysMatrixDirty = false;
 bool ofxObject::prevLit = true;
-float ofxObject::curTime = 0;	//Updated by ofxScene
+//float ofxObject::curTime = 0;	//Updated by ofxScene
 
 ofxObject::ofxObject(){
   
@@ -65,7 +65,10 @@ ofxObject::ofxObject(){
 	isSortedObject = false;
 	sortedObjectsWindowZ = 0;
 	
-	timePrev = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;
+	//timePrev = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;
+  
+  //Baccarat
+  timePrev = 0;
 	timeElapsed = 0;
   
   //shader info
@@ -127,6 +130,16 @@ int ofxObject::addChild(ofxObject *child)
 	//child->matrixDirty = true;
 	
 	return (1);
+}
+
+void ofxObject::setTime(float iTime){
+  
+  curTime = iTime;
+  
+  for (auto c : children){
+    
+    c->setTime(iTime);
+  }
 }
 
 void ofxObject::removeChildSafe(ofxObject *child)
@@ -1328,6 +1341,9 @@ void ofxObject::stopMessages(int iMessageType)
 ofxMessage* ofxObject::doMessage0f(int iID, float iDelay, float iDuration, int iInterp)
 {
 	ofxMessage *message =new ofxMessage(iID, NULL, iInterp, iDuration, iDelay);
+  
+  // Baccarat: ALWAYS override start time so we're using timer
+  message->setStartTime(curTime);
 	messages.push_back(message);
   
 	return message;
@@ -1338,8 +1354,7 @@ ofxMessage* ofxObject::doMessage1f(int iID, float iDelay, float iDuration, int i
 	float *args = new float[1];
 	args[0] = iVal;
   
-  
-  
+  ofLogNotice(ofToString(curTime));
 	ofxMessage *message = new ofxMessage(iID, (void *)args, iInterp, iDuration, iDelay);
   message->setStartTime(curTime);
 	messages.push_back(message);

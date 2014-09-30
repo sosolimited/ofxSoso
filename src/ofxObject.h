@@ -61,6 +61,9 @@ public:
 
 class ofxObject{
   
+  
+  friend class ofxScene; //Baccarat
+  
 public :
   
 	ofxObject();
@@ -212,6 +215,8 @@ protected:
 	vector <ofxObject *>			parents;
   vector <ofxObject *>      children_to_remove;
 	vector<ofxMessage *>			messages;
+  
+  void setTime(float iTime);
 	
   //ofxObjectMaterial				*material,
   //							*drawMaterial;
@@ -221,7 +226,9 @@ public:
 	float							sortedObjectsWindowZ;
 	static bool				alwaysMatrixDirty;
   bool              inheritColor;
-	static float			curTime;
+	//static float			curTime;
+  
+  float curTime = 0;
   
 	ofxObjectMaterial				*material,
                           *drawMaterial;

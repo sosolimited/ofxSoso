@@ -1,6 +1,8 @@
 #include "ofxAnimation.h"
 #include "ofUtils.h"
 
+#include "bacTimeManager.h" // BACCARAT
+
 //class ofxTween 
 ofxTween::ofxTween(ofxObject *iObject, ofxMessage *iMessage)
 {
@@ -65,10 +67,12 @@ bool ofxAnimation::isAnimating()
 {
 	bool animating = false;
 
+  // Baccarat
+  float time = bacTimeManager::instance()->getActiveTimeInSeconds();
 	//adding second part of OR to account for delay period before isRunning gets set
 	for(unsigned int i=0; i < tweens.size(); i++){
 		if(tweens[i]->message->isRunning || 
-           (ofGetElapsedTimef() >= tweens[i]->message->startTime && ofGetElapsedTimef() < tweens[i]->message->startTime + tweens[i]->message->startDelay))
+           (time >= tweens[i]->message->startTime && time < tweens[i]->message->startTime + tweens[i]->message->startDelay))
 			animating = true;
 	}
 
