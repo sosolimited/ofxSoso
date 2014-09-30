@@ -254,17 +254,17 @@ float ofxMessage::interpolateTime(int iInterp, float iTime)
 		case OF_EASE_IN:
 			return (iTime*iTime);
 			break;
-		case (OF_EASE_INOUT):	
+		case OF_EASE_INOUT:
 			if (iTime <= 0.5f) {
 				return((iTime*2.0f)*(iTime*2.0f)*0.5f);
 			} 
 			else if (iTime > 0.5f) {
 				return((1.0f-((iTime-0.5f)*2.0f-1.0f)*((iTime-0.5f)*2.0f-1.0f))*0.5f + 0.5f);
 			}
-    case (OF_INSTANT):
+      break;
+    case OF_INSTANT:
     
       return 1.0f;
-    
 			break;	
 	}
 
