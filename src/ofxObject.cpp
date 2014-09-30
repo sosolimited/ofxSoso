@@ -1354,7 +1354,6 @@ ofxMessage* ofxObject::doMessage1f(int iID, float iDelay, float iDuration, int i
 	float *args = new float[1];
 	args[0] = iVal;
   
-  ofLogNotice(ofToString(curTime));
 	ofxMessage *message = new ofxMessage(iID, (void *)args, iInterp, iDuration, iDelay);
   message->setStartTime(curTime);
 	messages.push_back(message);
