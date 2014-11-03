@@ -144,8 +144,10 @@ void ofxImageObject::render()
 
 void ofxImageObject::setCentered(bool iEnable)
 {
-	isCentered = iEnable;
-  renderDirty = true;
+  if (isCentered != iEnable){
+    isCentered = iEnable;
+    renderDirty = true;
+  }
 }
 
 

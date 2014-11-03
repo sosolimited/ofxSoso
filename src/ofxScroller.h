@@ -47,15 +47,20 @@ public:
   ofxScrollObject(ofxObject *iObject);
   ~ofxScrollObject();
   
+  void          setShowByDefault(bool iShow);
   void          addTransform(ofxScrollTransform *iTransform);
   void          addTransform(int iTransform, float startScroll, float endScroll, int iInterpolation=OF_LINEAR, float startVal=0, float endVal=0);
   void          addTransform(int iTransform, float startScroll, float endScroll, int iInterpolation, ofVec3f startVal, ofVec3f endVal);
+  
   bool          isTrumped(ofxScrollTransform *iTransform, float iScrollPosition);
   
 public:
-  
+
+  bool print = false;
   ofxObject     *object;
   vector<ofxScrollTransform *> transforms;
+  
+  bool showByDefault = true;
   
 };
 
@@ -72,6 +77,8 @@ public:
   
   ofxScroller(float iHeight);
   ~ofxScroller();
+  
+  // BACCARAT
   
   void          update(float iTime);
   

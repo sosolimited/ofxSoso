@@ -48,6 +48,14 @@ ofxScrollObject::~ofxScrollObject(){
   transforms.clear();
 }
 
+// Set whether or not we'll show or hide this by default
+void ofxScrollObject::setShowByDefault(bool iShow){
+  
+  showByDefault = iShow;
+  
+}
+
+
 // Add a scroll transform to the list of transforms
 void ofxScrollObject::addTransform(ofxScrollTransform *iTransform) {
   transforms.push_back(iTransform);
@@ -142,12 +150,14 @@ ofxScroller::~ofxScroller() {
 // Updates all transforms based on current scrollPosition.
 void ofxScroller::update(float iTime) {
   
-  
   // If we are in the middle of jumping to a snap point...
   if (scrollTracker->isAnimating()){
+    
+    ofLogNotice("Scroll tracker is animating");
     scrollPosition = scrollTracker->getScale().x;
   }else if (isSnapping){
     
+    ofLogNotice("Scroll tracker is snapping");
     // This is a slight hack because the scrollTracker animation is one frame behind
     // TODO: Fix hack
     scrollPosition = scrollTracker->getScale().x;
@@ -186,20 +196,15 @@ void ofxScroller::update(float iTime) {
   
   if (isEnabled) {
     for(auto obj : scrollObjects) {
+
+      bool hasShowTransform = false;
+      
       for(auto t : obj->transforms){
         
         // OFX_SHOW transform is handled a bit differently:
         // If the scrollPosition is the in the object's scroll range, it is shown.
         // If it is not, it is automatically hidden.
-        if(t->transform == OF_SHOW){
-          
-          
-          if(ofInRange(scrollPosition, t->scrollRange[0], t->scrollRange[1])){
-            obj->object->show();
-          }else{
-            obj->object->hide();
-          }
-        }
+
         
         // Check to see if this transform is overridden by another of the same type.
         if(!obj->isTrumped(t, scrollPosition)){
@@ -207,6 +212,30 @@ void ofxScroller::update(float iTime) {
           // EG: Can't do this because scroll refresh rate is too slow.
           //if(ofInRange(scrollPosition, t->scrollRange[0], t->scrollRange[1])){
           // Normalized position in range.
+          
+          // If we have a show or hide transform, show or hide object
+          // If we have no transform, do default (either show or hide, can be set)
+          if(t->transform == OF_SHOW){
+     
+            if(ofInRange(scrollPosition, t->scrollRange[0], t->scrollRange[1])){
+             
+            hasShowTransform = true;
+            obj->object->show();
+              
+            }
+          
+
+          }else if (t->transform == OF_HIDE){
+          
+
+            if(ofInRange(scrollPosition, t->scrollRange[0], t->scrollRange[1])){
+
+            hasShowTransform = true;
+            obj->object->hide();
+              
+            }
+          }
+          
           
           float p;
           if (scrollPosition < 0){
@@ -313,6 +342,7 @@ void ofxScroller::update(float iTime) {
               float startVal, endVal;
               float scale = obj->object->getScale().x;
               
+              
               // FIRST check if we are using any OF_RELATIVE_VAL values...
               // If so, we should grab the object's current scale
               
@@ -327,6 +357,7 @@ void ofxScroller::update(float iTime) {
               else endVal = val1;
               
               obj->object->setScale(startVal + p*(endVal - startVal));
+    
               
             }
               break;
@@ -444,6 +475,20 @@ void ofxScroller::update(float iTime) {
               break;
           };
         }
+      }
+
+      if (!hasShowTransform){
+
+        if (obj->showByDefault){
+          
+          obj->object->show();
+          
+        }else{
+
+          obj->object->hide();
+          
+        }
+        
       }
     }
   }

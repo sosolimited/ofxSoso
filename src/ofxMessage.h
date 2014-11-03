@@ -48,7 +48,6 @@ enum{
 	OF_EASE_IN,
 	OF_EASE_OUT,
 	OF_EASE_INOUT,
-  OF_INSTANT // soso added for baccarat
 };
 
 enum{
