@@ -12,7 +12,7 @@
 
 ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
 {
-  
+
 	filename = iFilename;
 	if(iLoadNow){
     
@@ -37,15 +37,37 @@ void ofxImageObject::loadImage(string iFilename){
   ofImage *image = new ofImage();
   bool imageLoaded = image->loadImage(iFilename);
   
+  float w = image->getWidth();
+  float h = image->getHeight();
+  
   if (imageLoaded){
 
     image->mirror(true, false);
-    tex.loadData(image->getPixels(), image->getWidth(), image->getHeight(), GL_RGBA);
     
-    width = tex.getWidth();
-    height = tex.getHeight();
+    if (image->getPixels() != NULL){
+      
+      if (image->type == OF_IMAGE_COLOR_ALPHA){
+        
+        tex.loadData(image->getPixels(), image->getWidth(), image->getHeight(), GL_RGBA);
+        
+      }else if (image->type == OF_IMAGE_COLOR){
+        
+        tex.loadData(image->getPixels(), image->getWidth(), image->getHeight(), GL_RGB);
+        
+      }else{
+        
+        tex.loadData(image->getPixels(), image->getWidth(), image->getHeight(), GL_RGB);
+        
+      }
     
-    loaded = true;
+      width = tex.getWidth();
+      height = tex.getHeight();
+      
+      loaded = true;
+      
+    }
+    
+
   
   }
   
@@ -53,6 +75,21 @@ void ofxImageObject::loadImage(string iFilename){
     
 }
 
+
+void ofxImageObject::idle(float iTime){
+  
+  
+  if (!loaded){
+    
+    if (ofGetElapsedTimef() > 15.0f){
+      
+      loadImage(filename);
+    }
+    
+  }
+  
+  
+}
 
 //EG 021513
 ofTexture ofxImageObject::getTexture()
