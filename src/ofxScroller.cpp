@@ -196,11 +196,18 @@ void ofxScroller::update(float iTime) {
   
   if (isEnabled) {
     for(auto obj : scrollObjects) {
+      
+      if (obj->print){
+        
+        ofLogNotice("Printing scroll info for object!");
+      }
 
       bool hasShowTransform = false;
       
       for(auto t : obj->transforms){
         
+  
+      
         // OFX_SHOW transform is handled a bit differently:
         // If the scrollPosition is the in the object's scroll range, it is shown.
         // If it is not, it is automatically hidden.
@@ -208,6 +215,7 @@ void ofxScroller::update(float iTime) {
         
         // Check to see if this transform is overridden by another of the same type.
         if(!obj->isTrumped(t, scrollPosition)){
+  
           // Check first to see if the scrollPosition is in the transform range.
           // EG: Can't do this because scroll refresh rate is too slow.
           //if(ofInRange(scrollPosition, t->scrollRange[0], t->scrollRange[1])){
@@ -217,6 +225,15 @@ void ofxScroller::update(float iTime) {
           // If we have no transform, do default (either show or hide, can be set)
           if(t->transform == OF_SHOW){
      
+//            ofLogNotice("show transform");
+//            
+//            ofLogNotice("scale transform");
+//            ofLogNotice("current scroll: " + ofToString(scrollPosition));
+//            ofLogNotice("start range: " + ofToString( t->scrollRange[0]));
+//            ofLogNotice("end range: " + ofToString( t->scrollRange[1]));
+//  
+//            ofLogNotice("Should show for exit");
+            
             if(ofInRange(scrollPosition, t->scrollRange[0], t->scrollRange[1])){
              
             hasShowTransform = true;
@@ -341,7 +358,7 @@ void ofxScroller::update(float iTime) {
               float val1 = t->valueRange[1][0];
               float startVal, endVal;
               float scale = obj->object->getScale().x;
-              
+            
               
               // FIRST check if we are using any OF_RELATIVE_VAL values...
               // If so, we should grab the object's current scale
@@ -357,8 +374,7 @@ void ofxScroller::update(float iTime) {
               else endVal = val1;
               
               obj->object->setScale(startVal + p*(endVal - startVal));
-    
-              
+
             }
               break;
               
@@ -714,6 +730,10 @@ void ofxScroller::setScrollHeight(float iHeight) {
 
 // Set the scroll position of the list. iPosition is in pixels and 0 moves the list to the top.
 float ofxScroller::setScroll(float iPosition) {
+  
+  if (print){
+    ofLogNotice("Setting scroll to " + ofToString(iPosition));
+  }
   
   if (isEnabled) {
     if (!isSnapping){

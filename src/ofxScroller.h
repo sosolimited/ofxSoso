@@ -78,6 +78,9 @@ public:
   ofxScroller(float iHeight);
   ~ofxScroller();
   
+  // BAC TEST
+  bool print = false;
+  
   // BACCARAT
   
   void          update(float iTime);
@@ -142,6 +145,8 @@ private:
   // For velocity
   bool          isUsingVelocity;
   float         scrollVelocity;
+  
+
   
   ofxObject     *scrollRoot;  // Object root
   ofxObject     *scrollTracker;
