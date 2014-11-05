@@ -13,6 +13,7 @@
 ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
 {
 
+  tex = new ofTexture();
 	filename = iFilename;
 	if(iLoadNow){
     
@@ -27,7 +28,7 @@ ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
 // Destructor.
 ofxImageObject::~ofxImageObject(){
 
-  tex.clear();
+  tex->clear();
   
 }
 
@@ -48,20 +49,20 @@ void ofxImageObject::loadImage(string iFilename){
       
       if (image->type == OF_IMAGE_COLOR_ALPHA){
         
-        tex.loadData(image->getPixels(), image->getWidth(), image->getHeight(), GL_RGBA);
+        tex->loadData(image->getPixels(), image->getWidth(), image->getHeight(), GL_RGBA);
         
       }else if (image->type == OF_IMAGE_COLOR){
         
-        tex.loadData(image->getPixels(), image->getWidth(), image->getHeight(), GL_RGB);
+        tex->loadData(image->getPixels(), image->getWidth(), image->getHeight(), GL_RGB);
         
       }else{
         
-        tex.loadData(image->getPixels(), image->getWidth(), image->getHeight(), GL_RGB);
+        tex->loadData(image->getPixels(), image->getWidth(), image->getHeight(), GL_RGB);
         
       }
     
-      width = tex.getWidth();
-      height = tex.getHeight();
+      width = tex->getWidth();
+      height = tex->getHeight();
       
       loaded = true;
       
@@ -92,7 +93,7 @@ void ofxImageObject::idle(float iTime){
 }
 
 //EG 021513
-ofTexture ofxImageObject::getTexture()
+ofTexture* ofxImageObject::getTexture()
 {
   return tex;
 }
@@ -111,8 +112,8 @@ void ofxImageObject::render()
         
         //For when iLoadNow=false is used in constructor
         if(width==0 || height==0){
-          width = tex.getWidth();
-          height = tex.getHeight();
+          width = tex->getWidth();
+          height = tex->getHeight();
         }
         
         if(isCentered){
@@ -121,7 +122,7 @@ void ofxImageObject::render()
         }
         
         glNormal3f(0,0,1);
-        tex.draw(0,0);
+        tex->draw(0,0);
         if(isCentered){
           ofPopMatrix();
         }
@@ -145,6 +146,6 @@ void ofxImageObject::setCentered(bool iEnable)
 
 void ofxImageObject::clear()
 {
-  tex.clear();
+  tex->clear();
   renderDirty = true;
 }

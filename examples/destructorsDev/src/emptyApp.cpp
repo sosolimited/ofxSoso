@@ -7,8 +7,9 @@ void emptyApp::setup(){
   //Replace the default ofGLRenderer with ofxSosoRenderer which has overriden setupScreen() and setupScreenPerspective().
 	//This lets us set up the scene graph how we want to.
 	//Warning: Up is up and down is down in this world.
-  ofSetCurrentRenderer(ofPtr<ofBaseRenderer>(new ofxSosoRenderer(false)));
+//  ofSetCurrentRenderer(ofPtr<ofBaseRenderer>(new ofxSosoRenderer(false)));
   
+  ofDisableSetupScreen();
   //Create a scene.
 	//The scene is a scene graph that renders objects added to its root and their children and their children's children and so on.
 	//When the render mode of the scene is set to RENDER_ALPHA_DEPTH_SORTED, it handles sorting of both transparent and opaque objects in the z-axis.
@@ -230,12 +231,12 @@ void emptyApp::keyPressed  (int key){
     counterDisplay->setString("# of ofxSceneObjects: "+ ofToString(numCreatedSceneObjects));
   } else if(key == 'q'){
     
-    for(int i=0; i < numObjectsToCreate; i++) {
-      ofxSosoRenderer* renderer = new ofxSosoRenderer();
-      delete renderer;
-    }
-    numCreatedRendererObjects += numObjectsToCreate;
-    counterDisplay->setString("# of ofxSosoRenderer: "+ ofToString(numCreatedRendererObjects));
+//    for(int i=0; i < numObjectsToCreate; i++) {
+//      ofxSosoRenderer* renderer = new ofxSosoRenderer();
+//      delete renderer;
+//    }
+//    numCreatedRendererObjects += numObjectsToCreate;
+//    counterDisplay->setString("# of ofxSosoRenderer: "+ ofToString(numCreatedRendererObjects));
   } else if(key == 'r'){
     
     for(int i=0; i < numObjectsToCreate; i++) {

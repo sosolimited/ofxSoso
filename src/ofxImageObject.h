@@ -38,7 +38,7 @@ public:
 	void						setCentered(bool iEnable);
 
 	void						clear();
-  ofTexture       getTexture();   //EG 021513
+  ofTexture*       getTexture();   //EG 021513
   
   
   void            idle(float iTime);
@@ -52,6 +52,6 @@ public:
   bool            loaded = false;
   //bool            destroyPixels=true; // Flag for if we should destroy pixels after loading image, AO 053014
 	string          filename;
-  ofTexture       tex;
+  ofTexture       *tex;
 
 };
