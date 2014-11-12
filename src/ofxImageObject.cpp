@@ -10,6 +10,8 @@
 #include "ofxImageObject.h"
 #include "ofGraphics.h"
 
+#include "FreeImage.h"
+
 ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
 {
 
@@ -35,45 +37,11 @@ ofxImageObject::~ofxImageObject(){
 
 void ofxImageObject::loadImage(string iFilename){
   
-  ofImage *image = new ofImage();
-  bool imageLoaded = image->loadImage(iFilename);
+  loaded = ofLoadImage(*tex, iFilename);
   
-  float w = image->getWidth();
-  float h = image->getHeight();
+  // Flip it for Soso universe
+  tex->getTextureData().bFlipTexture = true;
   
-  if (imageLoaded){
-
-    image->mirror(true, false);
-    
-    if (image->getPixels() != NULL){
-      
-      if (image->type == OF_IMAGE_COLOR_ALPHA){
-        
-        tex->loadData(image->getPixels(), image->getWidth(), image->getHeight(), GL_RGBA);
-        
-      }else if (image->type == OF_IMAGE_COLOR){
-        
-        tex->loadData(image->getPixels(), image->getWidth(), image->getHeight(), GL_RGB);
-        
-      }else{
-        
-        tex->loadData(image->getPixels(), image->getWidth(), image->getHeight(), GL_RGB);
-        
-      }
-    
-      width = tex->getWidth();
-      height = tex->getHeight();
-      
-      loaded = true;
-      
-    }
-    
-
-  
-  }
-  
-  delete image;
-    
 }
 
 

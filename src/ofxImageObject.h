@@ -27,6 +27,9 @@
 #include "ofxObject.h"
 #include "ofImage.h"
 
+#include "ofFileUtils.h"
+#include "ofBaseTypes.h"
+
 class ofxImageObject : public ofxObject{
 	
 public:
