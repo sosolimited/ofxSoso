@@ -27,34 +27,30 @@
 #include "ofxObject.h"
 #include "ofImage.h"
 
-#include "ofFileUtils.h"
-#include "ofBaseTypes.h"
-
 class ofxImageObject : public ofxObject{
 	
 public:
-	ofxImageObject(string iFilename, bool iLoadNow=true);
+	ofxImageObject(string iFilename, bool iLoadNow=true, bool iDestroyPixels=true);
 	~ofxImageObject();
   
-	void            loadImage(string iFilename);
+	void            loadImage(string iFilename, bool iDestroyPixels = true);
 	void						render();
 	void						setCentered(bool iEnable);
 
 	void						clear();
-  ofTexture*       getTexture();   //EG 021513
+  ofTexture*      getTexture();   //EG 021513
   
-  
-  void            idle(float iTime);
-  
-	
 public:
+  
 	bool            isCentered;
 	float           width = 0;
   float           height = 0;
                 
   bool            loaded = false;
-  //bool            destroyPixels=true; // Flag for if we should destroy pixels after loading image, AO 053014
 	string          filename;
-  ofTexture       *tex;
-
+  
+protected:
+  
+    ofTexture       *tex;
+  
 };

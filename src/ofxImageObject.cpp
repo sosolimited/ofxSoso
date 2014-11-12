@@ -8,18 +8,16 @@
  */
 
 #include "ofxImageObject.h"
-#include "ofGraphics.h"
 
-#include "FreeImage.h"
 
-ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
+ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow, bool iDestroyPixels)
 {
 
   tex = new ofTexture();
 	filename = iFilename;
 	if(iLoadNow){
     
-    loadImage(iFilename);
+    loadImage(iFilename, iDestroyPixels);
     
 	}
 
@@ -35,30 +33,34 @@ ofxImageObject::~ofxImageObject(){
 }
 
 
-void ofxImageObject::loadImage(string iFilename){
+void ofxImageObject::loadImage(string iFilename, bool iDestroyPixels){
   
-  loaded = ofLoadImage(*tex, iFilename);
+  // Texture loading code borrowed from this function
+  // loaded = ofLoadImage(*tex, iFilename);
+  // We broke it out so that we can destroy pixel buffer, if desired
+  
+  ofPixels pixels;
+	loaded = ofLoadImage(pixels,iFilename);
+	if(loaded){
+		tex->allocate(pixels.getWidth(), pixels.getHeight(), ofGetGlInternalFormat(pixels));
+		tex->loadData(pixels);
+	}
+
+  // If destroy pixel buffer flag, clear pixel buffer after loading image
+  if (iDestroyPixels){
+    if (pixels.isAllocated()){
+
+      pixels.clear();
+      
+    }
+  }
+  
   
   // Flip it for Soso universe
   tex->getTextureData().bFlipTexture = true;
   
 }
 
-
-void ofxImageObject::idle(float iTime){
-  
-  
-  if (!loaded){
-    
-    if (ofGetElapsedTimef() > 15.0f){
-      
-      loadImage(filename);
-    }
-    
-  }
-  
-  
-}
 
 //EG 021513
 ofTexture* ofxImageObject::getTexture()
