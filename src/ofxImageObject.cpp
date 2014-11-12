@@ -42,8 +42,13 @@ void ofxImageObject::loadImage(string iFilename, bool iDestroyPixels){
   ofPixels pixels;
 	loaded = ofLoadImage(pixels,iFilename);
 	if(loaded){
+    
 		tex->allocate(pixels.getWidth(), pixels.getHeight(), ofGetGlInternalFormat(pixels));
 		tex->loadData(pixels);
+    
+    width = pixels.getWidth();
+    height = pixels.getHeight();
+    
 	}
 
   // If destroy pixel buffer flag, clear pixel buffer after loading image
