@@ -30,7 +30,7 @@
 class ofxImageObject : public ofxObject{
 	
 public:
-	ofxImageObject(string iFilename, bool iLoadNow=true, bool iSavePixels=true);
+	ofxImageObject(string iFilename, bool iLoadNow=true, bool iSavePixels=false);
 	~ofxImageObject();
   
 	void            loadImage(string iFilename, bool iSavePixels = true);
