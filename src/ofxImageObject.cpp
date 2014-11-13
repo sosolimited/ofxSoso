@@ -10,14 +10,14 @@
 #include "ofxImageObject.h"
 
 
-ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow, bool iDestroyPixels)
+ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow, bool iSavePixels)
 {
 
   tex = new ofTexture();
 	filename = iFilename;
 	if(iLoadNow){
     
-    loadImage(iFilename, iDestroyPixels);
+    loadImage(iFilename, iSavePixels);
     
 	}
 
@@ -28,34 +28,37 @@ ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow, bool iDestroyPix
 // Destructor.
 ofxImageObject::~ofxImageObject(){
 
-  tex->clear();
+  clear();
+
+  delete tex;
+  delete pixels;
   
 }
 
 
-void ofxImageObject::loadImage(string iFilename, bool iDestroyPixels){
+void ofxImageObject::loadImage(string iFilename, bool iSavePixels){
   
   // Texture loading code borrowed from this function
   // loaded = ofLoadImage(*tex, iFilename);
   // We broke it out so that we can destroy pixel buffer, if desired
   
-  ofPixels pixels;
-	loaded = ofLoadImage(pixels,iFilename);
+  ofPixels tempPixels;
+	loaded = ofLoadImage(tempPixels,iFilename);
 	if(loaded){
     
-		tex->allocate(pixels.getWidth(), pixels.getHeight(), ofGetGlInternalFormat(pixels));
-		tex->loadData(pixels);
+		tex->allocate(tempPixels.getWidth(), tempPixels.getHeight(), ofGetGlInternalFormat(tempPixels));
+		tex->loadData(tempPixels);
     
-    width = pixels.getWidth();
-    height = pixels.getHeight();
+    width = tempPixels.getWidth();
+    height = tempPixels.getHeight();
     
 	}
 
-  // If destroy pixel buffer flag, clear pixel buffer after loading image
-  if (iDestroyPixels){
-    if (pixels.isAllocated()){
+  // If savePixels is true, save the pixels
+  if (iSavePixels){
+    if (tempPixels.isAllocated()){
 
-      pixels.clear();
+      pixels = &tempPixels;
       
     }
   }
@@ -119,8 +122,34 @@ void ofxImageObject::setCentered(bool iEnable)
 }
 
 
+// Clear texture AND pixel data
 void ofxImageObject::clear()
 {
   tex->clear();
   renderDirty = true;
+  
+  // Clear pixels
+  clearPixels();
+  
 }
+
+// If we've stored pixel data, clear it
+void ofxImageObject::clearPixels()
+{
+  if (hasPixels()){
+    
+    pixels->clear();
+    
+  }
+}
+
+// Did we store pixel data?
+bool ofxImageObject::hasPixels(){
+  
+  return (pixels!=NULL);
+  
+}
+
+
+
+

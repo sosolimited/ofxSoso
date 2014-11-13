@@ -30,15 +30,20 @@
 class ofxImageObject : public ofxObject{
 	
 public:
-	ofxImageObject(string iFilename, bool iLoadNow=true, bool iDestroyPixels=true);
+	ofxImageObject(string iFilename, bool iLoadNow=true, bool iSavePixels=true);
 	~ofxImageObject();
   
-	void            loadImage(string iFilename, bool iDestroyPixels = true);
+	void            loadImage(string iFilename, bool iSavePixels = true);
 	void						render();
 	void						setCentered(bool iEnable);
 
 	void						clear();
+  void            clearPixels();
+  
+  bool            hasPixels();
+  
   ofTexture*      getTexture();   //EG 021513
+  ofPixels*       getPixels(); // AO 111314
   
 public:
   
@@ -51,6 +56,7 @@ public:
   
 protected:
   
-    ofTexture       *tex;
+  ofTexture       *tex;
+  ofPixels        *pixels = NULL;
   
 };
