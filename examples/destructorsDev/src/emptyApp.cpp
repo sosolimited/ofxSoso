@@ -3,11 +3,9 @@
 
 //--------------------------------------------------------------
 void emptyApp::setup(){
-  
-  //Replace the default ofGLRenderer with ofxSosoRenderer which has overriden setupScreen() and setupScreenPerspective().
-	//This lets us set up the scene graph how we want to.
-	//Warning: Up is up and down is down in this world.
-  ofSetCurrentRenderer(ofPtr<ofBaseRenderer>(new ofxSosoRenderer(false)));
+
+  // call ofDisableSetupScreen beacuse each ofxScene has its own renderer
+  ofDisableSetupScreen();
   
   //Create a scene.
 	//The scene is a scene graph that renders objects added to its root and their children and their children's children and so on.
@@ -230,12 +228,12 @@ void emptyApp::keyPressed  (int key){
     counterDisplay->setString("# of ofxSceneObjects: "+ ofToString(numCreatedSceneObjects));
   } else if(key == 'q'){
     
-    for(int i=0; i < numObjectsToCreate; i++) {
-      ofxSosoRenderer* renderer = new ofxSosoRenderer();
-      delete renderer;
-    }
-    numCreatedRendererObjects += numObjectsToCreate;
-    counterDisplay->setString("# of ofxSosoRenderer: "+ ofToString(numCreatedRendererObjects));
+//    for(int i=0; i < numObjectsToCreate; i++) {
+//      ofxSosoRenderer* renderer = new ofxSosoRenderer();
+//      delete renderer;
+//    }
+//    numCreatedRendererObjects += numObjectsToCreate;
+//    counterDisplay->setString("# of ofxSosoRenderer: "+ ofToString(numCreatedRendererObjects));
   } else if(key == 'r'){
     
     for(int i=0; i < numObjectsToCreate; i++) {

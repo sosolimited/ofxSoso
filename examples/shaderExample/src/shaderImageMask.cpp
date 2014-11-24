@@ -45,7 +45,7 @@ void shaderImageMask::setShaderParams(){
   
   // Pass one texture in as "tex0"
   // Pass second texture in as "mask"
-  shader->setUniformTexture("tex0", *image1->image, 1);
-  shader->setUniformTexture("mask", *image2->image, 2);
+  shader->setUniformTexture("tex0", *image1->getTexture(), 1);
+  shader->setUniformTexture("mask", *image2->getTexture(), 2);
   
 }

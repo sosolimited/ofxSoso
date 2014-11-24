@@ -24,3 +24,9 @@ Notes
 -----
 If you're using the Visual Studio example, compile and run in Release. Debug is not currently working. 
 
+Examples
+------------
+Most ofxSoso examples run without additional addons.
+
+To run the addonGuiExample, downlaod ofxUI and place in openFrameworks/addons.
+
