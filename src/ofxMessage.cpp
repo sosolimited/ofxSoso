@@ -38,7 +38,19 @@ ofxMessage::ofxMessage(int iID, void *iVals, int iInterpolation, float iDuration
 		ofVec3f *end = (ofVec3f *)malloc(sizeof(ofVec3f));
 		end->set(0,0,0);
 		endVals = (void *)end;
-	}else{
+	}else if(id==OF_SETCOLOR4){
+		ofVec4f *vals = (ofVec4f *)malloc(sizeof(ofVec3f));
+		vals->set(0,0,0,0);
+		startVals = (void *)vals;
+    
+		ofVec4f *baseVal = (ofVec4f *)malloc(sizeof(ofVec3f));
+		baseVal->set(OF_RELATIVE_VAL, OF_RELATIVE_VAL, OF_RELATIVE_VAL, OF_RELATIVE_VAL);
+		baseStartVals = (void *)baseVal;
+    
+		ofVec4f *end = (ofVec4f *)malloc(sizeof(ofVec3f));
+		end->set(0,0,0,0);
+		endVals = (void *)end;
+  }else{
 		startVals = NULL;
 		baseStartVals = NULL;
 		endVals = NULL;
@@ -102,10 +114,35 @@ ofxMessage::ofxMessage(int iID, float (*iFunction)(void *), void *iArgs, float i
 
 ofxMessage::~ofxMessage()
 {
+  if(startVals) free(startVals);
+	if(baseStartVals) free(baseStartVals);
 	if(endVals) free(endVals);
-	if(baseEndVals) free(baseEndVals);
-	if(startVals) free(startVals);
-	if(baseStartVals) free(baseStartVals);	
+  
+  // Since baseEndVals was created with 'new', we must cast them back to their original type (Message1f/float, Message3f/ofVec3f) in order to destroy them correctly based on type.
+  if(baseEndVals) {
+    if(id==OF_SETALPHA){
+      delete[] (float *)baseEndVals;
+            //cout<<"* OF_SETALPHA * baseEndVals = "<< baseEndVals <<endl;
+    } else if(id==OF_SCALE){
+      delete[] (float *)baseEndVals;
+            //cout<<"* OF_SCALE * baseEndVals = "<< baseEndVals <<endl;
+    } else if(id==OF_TRANSLATE){
+      delete (ofVec3f *)baseEndVals;
+            //cout<<"* OF_TRANSLATE * baseEndVals = "<< baseEndVals <<endl;
+    } else if(id==OF_ROTATE){
+      delete (ofVec3f *)baseEndVals;
+            //cout<<"* OF_ROTATE * baseEndVals = "<< baseEndVals <<endl;
+    } else if(id==OF_SCALE3){
+      delete (ofVec3f *)baseEndVals;
+            //cout<<"* OF_SCALE3 * baseEndVals = "<< baseEndVals <<endl;
+    } else if(id==OF_SETCOLOR){
+      delete (ofVec3f *)baseEndVals;
+            //cout<<"* OF_SETCOLOR * baseEndVals = "<< baseEndVals <<endl;
+    }
+  }
+  
+  //DEV: should we delete functionPtr?
+  
 }
 
 float ofxMessage::getFinishTime()

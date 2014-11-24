@@ -14,51 +14,50 @@ ofxRectangleObject::ofxRectangleObject(float iW, float iH)
 	dimensions.set(iW, iH);
 	isCentered = false;
 	isFilled = true;
-
+  
 	strokeAlpha = 0.0;
 	fillAlpha = 255.0;
-
+  
 }
 
-ofxRectangleObject::~ofxRectangleObject(){
-
-}
+ofxRectangleObject::~ofxRectangleObject(){}
 
 void ofxRectangleObject::render()
 {
 
-	ofVec4f color = getColor();
+	ofColor color = getColor();
 
 	if(isCentered)  { 
 	
 		if (fillAlpha > 0.0) {
 			ofFill();
-			ofSetColor(color.x, color.y, color.z, fillAlpha * drawMaterial->color.w/255.0);
+			ofSetColor(color.r, color.g, color.b, fillAlpha * drawMaterial->color.a/255.0);
 			ofRect(-dimensions.x/2.0f, -dimensions.y/2.0f, dimensions.x, dimensions.y);	
-		}
 
+		}
+    
 		if (strokeAlpha > 0.0) {
 			ofNoFill();
-			ofSetColor(color.x, color.y, color.z, strokeAlpha * drawMaterial->color.w/255.0);
-			ofRect(-dimensions.x/2.0f, -dimensions.y/2.0f, dimensions.x, dimensions.y);	
+			ofSetColor(color.r, color.g, color.b, strokeAlpha * drawMaterial->color.a/255.0);
+			ofRect(-dimensions.x/2.0f, -dimensions.y/2.0f, dimensions.x, dimensions.y);
 		}
-
+    
 	} else {
-
+    
 		if (fillAlpha > 0.0) {
 			ofFill();
-			ofSetColor(color.x, color.y, color.z, fillAlpha * drawMaterial->color.w/255.0);
+			ofSetColor(color.r, color.g, color.b, fillAlpha * drawMaterial->color.a/255.0);
 			ofRect(0, 0, dimensions.x, dimensions.y);	
 		}
 		if (strokeAlpha > 0.0) {
 			ofNoFill();
-			ofSetColor(color.x, color.y, color.z, strokeAlpha * drawMaterial->color.w/255.0);
+			ofSetColor(color.r, color.g, color.b, strokeAlpha * drawMaterial->color.a/255.0);
 			ofRect(0, 0, dimensions.x, dimensions.y);	
 
 		}
-
+    
 	}
-
+  
 }
 
 void ofxRectangleObject::setCentered(bool iB)
