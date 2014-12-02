@@ -17,16 +17,7 @@ ofxDynamicPolygonObject::ofxDynamicPolygonObject(int iNumVertices):ofxPolygonObj
 	}
 }
 
-ofxDynamicPolygonObject::~ofxDynamicPolygonObject(){
-  for (auto vert : dynamicVerts){
-    delete vert->posTracker;
-    delete vert->texTracker;
-    delete vert->colorTracker;
-    delete vert;                //DEV: should this be: delete[] vert?
-  }
-  dynamicVerts.clear();
-//  delete dynamicVerts;    //DEV: why cant i delete this
-}
+ofxDynamicPolygonObject::~ofxDynamicPolygonObject(){}
 
 void ofxDynamicPolygonObject::idle(float iTime)
 {	
@@ -34,7 +25,7 @@ void ofxDynamicPolygonObject::idle(float iTime)
 		ofxPolygonObject::setVertexPos(i, dynamicVerts[i]->posTracker->getTrans());
 		ofxPolygonObject::setVertexTexCoords(i, dynamicVerts[i]->texTracker->getTrans().x, dynamicVerts[i]->texTracker->getTrans().y);
 		if(vertexColoringEnabled)
-			ofxPolygonObject::setVertexColor(i, dynamicVerts[i]->colorTracker->getColor().r, dynamicVerts[i]->colorTracker->getColor().g, dynamicVerts[i]->colorTracker->getColor().b, dynamicVerts[i]->colorTracker->getColor().a);
+			ofxPolygonObject::setVertexColor(i, dynamicVerts[i]->colorTracker->getColor().x, dynamicVerts[i]->colorTracker->getColor().y, dynamicVerts[i]->colorTracker->getColor().z, dynamicVerts[i]->colorTracker->getColor().w);
 	}
 }
 
