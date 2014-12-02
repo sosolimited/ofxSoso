@@ -3,7 +3,7 @@
 #include "ofGraphics.h"
 #include "ofAppRunner.h"
 
-ofxSosoRenderer::ofxSosoRenderer(float iWidth, float iHeight, bool iOrthographic, bool iVFlip, float iFov, float iNearDist, float iFarDist):ofGLRenderer(true)
+ofxSosoRenderer::ofxSosoRenderer(float iWidth, float iHeight, bool iOrthographic, bool iVFlip, float iFov, float iNearDist, float iFarDist):ofGLRenderer(ofGetWindowPtr())
 {
   width = iWidth;
   height = iHeight;

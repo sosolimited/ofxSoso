@@ -65,6 +65,7 @@ public:
   
 	//overridden for special Unicode character replacements
 	float                   stringWidth(string s);
+  float                   stringHeight(string s);
 	ofRectangle             getStringBoundingBox(string c, float x, float y);
   
 	//new methods
