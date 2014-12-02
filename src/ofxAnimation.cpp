@@ -40,10 +40,11 @@ ofxAnimation::ofxAnimation()
 ofxAnimation::~ofxAnimation()
 {
 	stop();
-  for (auto tween : tweens){
-    delete tween;
-  }
-  tweens.clear();
+	for(unsigned int i=0; i < tweens.size(); i++){
+		delete(tweens[i]);
+		tweens.erase(tweens.begin() + i);
+		i--;
+	}
 }
 
 void ofxAnimation::start()

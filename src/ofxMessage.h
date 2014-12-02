@@ -36,11 +36,10 @@ enum{
 	OF_SCALE,
 	OF_SCALE3,
 	OF_SETCOLOR,
-  OF_SETCOLOR4,
 	OF_SETALPHA,
 	OF_SHOW,
 	OF_HIDE,
-  OF_FUNCTION
+    OF_FUNCTION //LM
 };
 
 enum{
@@ -73,20 +72,25 @@ public:
 
 	float					getFinishTime();
 	void					setStartTime(float iTime);
+	static float			interpolateTime(int iInterp, float iTime);
+
 	void					enableMessage(bool iEnable);
 	void					setStartVals(float iX);
 	void					setStartVals(float iX, float iY, float iZ);
 	void					setStartVals(float iX, float iY, float iZ, float iW);
+
 	void					setBaseStartVals(float iX);
 	void					setBaseStartVals(float iX, float iY, float iZ);
 	void					setBaseStartVals(float iX, float iY, float iZ, float iW);
+
 	void					setEndVals(float iX);
 	void					setEndVals(float iX, float iY, float iZ);
 	void					setEndVals(float iX, float iY, float iZ, float iW);
 
-  static float	interpolateTime(int iInterp, float iTime);
 	static ofVec4f			bezier(float iM, std::vector<ofVec4f> iPath);
 	static ofVec4f			spline(float iM, std::vector<ofVec4f> iPath);
+
+
 
 public:
 	int						id;
@@ -95,16 +99,16 @@ public:
 	int						playMode;
 	bool					loopDirection;
 	float					startTime,
-                startDelay,
-                duration;
+							startDelay,
+							duration;
 	void					*endVals,
-                *baseEndVals,
-                *startVals,
-                *baseStartVals;
-  float         (*functionPtr)(void *);
+							*baseEndVals,
+							*startVals,
+							*baseStartVals;
+    float                   (*functionPtr)(void *);
 	bool					autoDelete;
 	bool					isEnabled;
 	bool					isRunning;
+
 	vector<ofVec4f>		pathPoints;
-  
 };

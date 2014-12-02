@@ -14,9 +14,7 @@ ofxCircleObject::ofxCircleObject(int iResolution, float iOuterRadius, float iInn
 	
 }
 
-ofxCircleObject::~ofxCircleObject(){
-  delete[] circlePoints;
-}
+ofxCircleObject::~ofxCircleObject(){}
 
 void ofxCircleObject::render()
 {		

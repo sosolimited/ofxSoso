@@ -3,71 +3,101 @@
 #include "ofGraphics.h"
 #include "ofAppRunner.h"
 
-ofxSosoRenderer::ofxSosoRenderer(float iWidth, float iHeight, bool iOrthographic, bool iVFlip, float iFov, float iNearDist, float iFarDist):ofGLRenderer(true)
+ofxSosoRenderer::ofxSosoRenderer(bool useShapeColor, bool useOrthographic):ofGLRenderer(useShapeColor)
 {
-  width = iWidth;
-  height = iHeight;
-  orthographic = false; // Not supported yet.
-  vFlip = iVFlip;
-  fov = iFov;
-  nearDist = iNearDist;
-  farDist = iFarDist;
-  
-  setScreenParams(orthographic, vFlip, fov, nearDist, farDist);
+    orthographic = useOrthographic;
 }
 
 ofxSosoRenderer::~ofxSosoRenderer(){}
 
-void ofxSosoRenderer::setScreenParams(bool iOrthographic, bool iVFlip, float iFov, float iNearDist, float iFarDist)
-{
-  // Set params.
-  orthographic = iOrthographic;
-  vFlip = iVFlip;
-  fov = iFov;
-  nearDist = iNearDist;
-  farDist = iFarDist;
-  
-  // Rebuild projection and modelview matrices.
-  
-	float eyeX = width / 2;
-	float eyeY = height / 2;
-	float halfFov = PI * fov / 360;
-	float theTan = tanf(halfFov);
-	float dist = eyeY / theTan;
-	float aspect = (float) width / height;
-  
-	if(nearDist == 0) nearDist = dist / 10.0f;
-	if(farDist == 0) farDist = dist * 10.0f;
-  
-  // Load perpsective values into projectionMatrix.
-	projectionMatrix.makePerspectiveMatrix(fov, aspect, nearDist, farDist);
-  //cout << "ofxSosoRenderer : Perspective matrix built.\n";
-  
-  // Load lookAt values into modelViewMatrix.
-  modelViewMatrix.makeLookAtViewMatrix( ofVec3f(0, 0, dist),  ofVec3f(0, 0, 0),  ofVec3f(0, 1, 0) );
-  //lookAt.makeLookAtViewMatrix( ofVec3f(eyeX, eyeY, dist),  ofVec3f(eyeX, eyeY, 0),  ofVec3f(0, 1, 0) );
-  
-}
-
 void ofxSosoRenderer::setupScreen()
 {
-  
-  float eyeX = width / 2;
-	float eyeY = height / 2;
+    setupScreenPerspective();
+}
+
+void ofxSosoRenderer::setupScreenPerspective(float width, float height, ofOrientation orientation, bool vFlip, float fov, float nearDist, float farDist) {
+       
+    
+	if(width == 0) width = ofGetWidth();
+	if(height == 0) height = ofGetHeight();
+    
+	float viewW = ofGetViewportWidth();
+	float viewH = ofGetViewportHeight();
+    
+	float eyeX = viewW / 2;
+	float eyeY = viewH / 2;
 	float halfFov = PI * fov / 360;
 	float theTan = tanf(halfFov);
 	float dist = eyeY / theTan;
-	float aspect = (float) width / height;
-  
+	float aspect = (float) viewW / viewH;
+    
 	if(nearDist == 0) nearDist = dist / 10.0f;
 	if(farDist == 0) farDist = dist * 10.0f;
-  
-  
-  // Load the projection matrix.
-  matrixMode(OF_MATRIX_PROJECTION);
-  loadMatrix( projectionMatrix );
-  
-  // ModelView LookAt calculations are now multiplied into default scene root matrix in ofxScene.
-  
+    
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	
+    if(orthographic) glOrtho(-width/2, width/2, -height/2, height/2, nearDist, farDist);
+    else gluPerspective(fov, aspect, nearDist, farDist);
+    
+    
+	//glMatrixMode(GL_MODELVIEW);       //from ofGLRenderer
+	//glLoadIdentity();                 //from ofGLRenderer
+	//gluLookAt(eyeX, eyeY, dist, eyeX, eyeY, 0, 0, 1, 0);  //from ofGLRenderer
+    
+    gluLookAt(0, 0, dist, 0, 0, 0, 0, 1, 0);    
+    glMatrixMode(GL_MODELVIEW);      
+	glLoadIdentity();                
+    
+	//note - theo checked this on iPhone and Desktop for both vFlip = false and true
+	if(ofDoesHWOrientation()){
+		if(vFlip){
+			glScalef(1, -1, 1);
+			glTranslatef(0, -height, 0);
+		}
+	}else{
+		if( orientation == OF_ORIENTATION_UNKNOWN ) orientation = ofGetOrientation();
+		switch(orientation) {
+			case OF_ORIENTATION_180:
+				glRotatef(-180, 0, 0, 1);
+				if(vFlip){
+					glScalef(1, -1, 1);
+					glTranslatef(-width, 0, 0);
+				}else{
+					glTranslatef(-width, -height, 0);
+				}
+                
+				break;
+                
+			case OF_ORIENTATION_90_RIGHT:
+				glRotatef(-90, 0, 0, 1);
+				if(vFlip){
+					glScalef(-1, 1, 1);
+				}else{
+					glScalef(-1, -1, 1);
+					glTranslatef(0, -height, 0);
+				}
+				break;
+                
+			case OF_ORIENTATION_90_LEFT:
+				glRotatef(90, 0, 0, 1);
+				if(vFlip){
+					glScalef(-1, 1, 1);
+					glTranslatef(-width, -height, 0);
+				}else{
+					glScalef(-1, -1, 1);
+					glTranslatef(-width, 0, 0);
+				}
+				break;
+                
+			case OF_ORIENTATION_DEFAULT:
+			default:
+				if(vFlip){
+					glScalef(1, -1, 1);
+					glTranslatef(0, -height, 0);
+				}
+				break;
+		}
+	}
+    
 }
-

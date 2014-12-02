@@ -1,2 +1,0 @@
-ofxAVFVideoPlayer
-ofxSoso
