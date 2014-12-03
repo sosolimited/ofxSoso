@@ -18,7 +18,7 @@ ofxImageObject::ofxImageObject(string iFilename, bool iLoadNow)
     image = new ofImage();
     
     
-		loaded = image->loadImage(iFilename, destroyPixels);
+		loaded = image->loadImage(iFilename);
     image->getTextureReference().texData.bFlipTexture = true;  //Get images right side up in soso world
     
 	}else{
@@ -69,7 +69,7 @@ void ofxImageObject::loadImage(string iFilename){
     
   }
   
-  loaded = image->loadImage(iFilename, destroyPixels);
+  loaded = image->loadImage(iFilename);
   image->getTextureReference().texData.bFlipTexture = true;  //Get images right side up in soso world
   
   width = image->getWidth();
