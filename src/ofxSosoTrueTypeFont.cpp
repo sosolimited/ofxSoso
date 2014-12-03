@@ -196,8 +196,6 @@ extern bool compare_cps(const charProps & c1, const charProps & c2);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
 ofxSosoTrueTypeFont::ofxSosoTrueTypeFont()
 {
 	buildMappedChars();
@@ -220,8 +218,6 @@ ofxSosoTrueTypeFont::~ofxSosoTrueTypeFont(){ //LM 070612
   cout<<"2 mappedChars size = "<< mappedChars.size() <<endl;
 
 }
-
-
 
 //-----------------------------------------------------------
 bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAliased, bool _bFullCharacterSet, bool makeContours, bool makeMipMaps, float simplifyAmt, int dpi){	//soso - added makeMipMaps (see below)
@@ -300,10 +296,9 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 	//--------------------- load each char -----------------------
 	for (int i = 0 ; i < nCharacters; i++){
     
-    // AO
     int glyph = (unsigned char)(i+NUM_CHARACTER_TO_START);
     
-    // TODO: May be handled by special chars map
+    // TODO: May be handled by Soso special chars map (AO)
     if (glyph == 0xA4) glyph = 0x20AC; // hack to load the euro sign, all codes in 8859-15 match with utf-32 except for this one
     
 		//------------------------------------------ anti aliased or not:
@@ -318,8 +313,7 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
     
 		//------------------------------------------
 
-    
-    
+
 		// prepare the texture:
 		//int width  = ofNextPow2( bitmap.width + border*2 );
     // int height = ofNextPow2( bitmap.rows  + border*2 );
@@ -344,6 +338,9 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 		}
     
     
+    // AO: Updated this section to conform to oF versions > 0.8.4
+    // Previous references to setwidth have been replaced with advance
+    
 		// -------------------------
 		// info about the character:
     FT_Bitmap& bitmap= face->glyph->bitmap;
@@ -361,7 +358,6 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
     cps[i].ymin         = -face->glyph->bitmap_top;
     cps[i].ymax         = cps[i].ymin + cps[i].height;
     cps[i].advance      = face->glyph->metrics.horiAdvance>>6;
-    
     
     cps[i].tW				= cps[i].width;
     cps[i].tH				= cps[i].height;
@@ -390,8 +386,7 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
     
 		if (bAntiAliased == true){
 			ofPixels bitmapPixels;
-			bitmapPixels.setFromExternalPixels(bitmap.buffer,bitmap.width,bitmap.rows,1);
-			expanded_data[i].setChannel(1,bitmapPixels);
+			bitmapPixels.setFromExternalPixels(bitmap.buffer,bitmap.width,bitmap.rows,OF_PIXELS_GRAY); //AO Changed from 1 to OF_PIXELS_GRAY to match oF			expanded_data[i].setChannel(1,bitmapPixels);
 		} else {
 			//-----------------------------------
 			// true type packs monochrome info in a
@@ -415,8 +410,6 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 			}
 			//-----------------------------------
 		}
-    
-		
 	}
   
   
@@ -456,7 +449,7 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 	}
   
   
-  // TODO:
+  // TODO: oF version > 0.8.4 is slightly different here
 	ofPixels atlasPixels;
 	atlasPixels.allocate(w,h,2);
 	atlasPixels.set(0,255);
@@ -476,7 +469,7 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 			maxRowHeight = sortedCopy[i].tH + border*2;
 		}
 
-    // alex
+    // AO: Updated to conform to oF version > 0.8.4
     cps[sortedCopy[i].characterIndex].t1		= float(x + border)/float(w);
     cps[sortedCopy[i].characterIndex].v1		= float(y + border)/float(h);
     cps[sortedCopy[i].characterIndex].t2		= float(cps[sortedCopy[i].characterIndex].tW + x + border)/float(w);
@@ -862,9 +855,10 @@ float ofxSosoTrueTypeFont::getKerningAdjustment(int c1, int c2)
 
 
 //=====================================================================
+// AO: Updated this section to conform to oF versions > 0.8.4
+// References have been updated to reflect new cps data
 void ofxSosoTrueTypeFont::drawString(string c, float x, float y) {
   
-  ofLogNotice("Calling draw string!");
   /*glEnable(GL_BLEND);
    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
    texAtlas.draw(0,0);*/
@@ -911,19 +905,13 @@ void ofxSosoTrueTypeFont::drawString(string c, float x, float y) {
 				if(isKerningEnabled && index < (len-1)){	//soso - kerning adjustment
 					X += (cps[cM].advance + getKerningAdjustment(cM, (unsigned char)c[index+1] - NUM_CHARACTER_TO_START)) * letterSpacing;
           
-          // TODO: Ask eric about difference between getKerningAdjustment and getKerning
-//          X += getKerningAdjustment(cy, prevCy);
-          
-          
 					//if(fabs(getKerningAdjustment(cM, (unsigned char)c[index+1] - NUM_CHARACTER_TO_START)) > 0)
           //printf("kern %c%c = %f\n", cM + NUM_CHARACTER_TO_START,  (unsigned char)c[index+1], getKerningAdjustment(cM, (unsigned char)c[index+1] - NUM_CHARACTER_TO_START));
 				}else {
 
-          // AO
           X += cps[cM].advance * letterSpacing;
 
 				}
-        
 			}
 		}
 		index++;
@@ -934,10 +922,11 @@ void ofxSosoTrueTypeFont::drawString(string c, float x, float y) {
   
 }
 
-//Modified to flip the vertically flip the text.
+// AO: Updated this section to conform to oF versions > 0.8.4
+// References have been updated to reflect new cps data
+// Modified to flip the vertically flip the text.
 void ofxSosoTrueTypeFont::drawStringAsShapes(string c, float x, float y) {
   
-  ofLogNotice("Calling draw string as shapes!");
   if (!bLoadedOk){
     ofLog(OF_LOG_ERROR,"ofTrueTypeFont::drawStringAsShapes - Error : font not allocated -- line %d in %s", __LINE__,__FILE__);
     return;
@@ -973,7 +962,7 @@ void ofxSosoTrueTypeFont::drawStringAsShapes(string c, float x, float y) {
 		  } else {
         // AO
         drawCharAsShape(cy, X, Y);
-        X += (cps[cy].width);
+        X += (cps[cy].advance);
 
 		  }
 		}
@@ -987,9 +976,10 @@ void ofxSosoTrueTypeFont::drawStringAsShapes(string c, float x, float y) {
 
 
 //-----------------------------------------------------------
+// AO: Updated this section to conform to oF versions > 0.8.4
+// References have been updated to reflect new cps data
 void ofxSosoTrueTypeFont::drawChar(int c, float x, float y) {
   
-  ofLogNotice("Calling draw char!");
   //printf("ofxSosoTrueTypeFont::drawChar()\n");
   
 	if (c >= nCharacters){
@@ -1014,22 +1004,14 @@ void ofxSosoTrueTypeFont::drawChar(int c, float x, float y) {
   
   // soso - updated buttery flip flop
   xmin  = cps[c].xmin+x;
-  ymin  = -cps[c].ymin;
+  ymin  = -cps[c].ymin+y;
   xmax  = cps[c].xmax+x;
-  ymax  = -cps[c].ymax;
-
-  
-  
-  //soso - this is the buttery flip-flop
-//  x1		= cps[c].x1+x;
-//	y1		= -cps[c].y1+y;
-//  x2		= cps[c].x2+x;
-//	y2		= -cps[c].y2+y;
+  ymax  = -cps[c].ymax+y;
 	
 	int firstIndex = stringQuads.getVertices().size();
 
   
-  // AO
+  // AO - updated
   stringQuads.addVertex(ofVec3f(xmin,ymin));
   stringQuads.addVertex(ofVec3f(xmax,ymin));
   stringQuads.addVertex(ofVec3f(xmax,ymax));
@@ -1051,12 +1033,14 @@ void ofxSosoTrueTypeFont::drawChar(int c, float x, float y) {
 
 
 //==============================================================
+// AO: Updated this section to conform to oF versions > 0.8.4
+// References have been updated to reflect new cps data
+
 //returns draw translations of all chars in vector, but doesn't actually draw
 //guts are adapted from drawString()
 vector <ofVec2f>  ofxSosoTrueTypeFont::getCharPositions(string c, float x, float y)
 {
   
-  ofLogNotice("Calling get char positions!");
 	vector<ofVec2f> charPositions;
 	
 	if (!bLoadedOk){
@@ -1092,11 +1076,11 @@ vector <ofVec2f>  ofxSosoTrueTypeFont::getCharPositions(string c, float x, float
         
 				if(isKerningEnabled && index < (len-1)){	//soso - kerning adjustment
 
-          					X += (cps[cM].width + getKerningAdjustment(cM, (unsigned char)c[index+1] - NUM_CHARACTER_TO_START)) * letterSpacing;
+          X += (cps[cM].advance + getKerningAdjustment(cM, (unsigned char)c[index+1] - NUM_CHARACTER_TO_START)) * letterSpacing;
 
 				}else{
 
-          X += cps[cy].width * letterSpacing;
+          X += cps[cy].advance * letterSpacing;
 				}
 			}
 		}
@@ -1113,37 +1097,37 @@ float ofxSosoTrueTypeFont::stringWidth(string c)
   return rect.width;
 }
 
-//alex
+// AO added for oF version > 0.8.4 compatibility
 float ofxSosoTrueTypeFont::stringHeight(string c)
 {
   ofRectangle rect = getStringBoundingBox(c, 0,0);
   return rect.height;
 }
 
+// AO: Updated this section to conform to oF versions > 0.8.4
+// References have been updated to reflect new cps data
 
-ofRectangle ofxSosoTrueTypeFont::getStringBoundingBox(string c, float x, float y)
-{
+// The structure of this function has been modified extensively to match
+// oF version > 0.8.4
+ofRectangle ofxSosoTrueTypeFont::getStringBoundingBox(string c, float x, float y){
   
-  ofLogNotice("Calling get string bounding box!");
   ofRectangle myRect;
   
   if (!bLoadedOk){
-    ofLog(OF_LOG_ERROR,"ofTrueTypeFont::getStringBoundingBox - font not allocated");
+    ofLogError("ofTrueTypeFont") << "getStringBoundingBox(): font not allocated";
     return myRect;
   }
   
-  // ao
-  int           index = 0;
-  int           xoffset = 0;
-  int           yoffset = 0;
-  int           len = (int) c.length();
-  int           xmin = -1;
-  int           ymin = -1;
-  int           xmax = -1;
-  int           ymax = -1;
+  int		index	= 0;
+  int		xoffset	= 0;
+  int		yoffset	= 0;
+  int     len     = (int)c.length();
+  int     xmin    = -1;
+  int     ymin    = -1;
+  int     xmax    = -1;
+  int     ymax    = -1;
   
   if ( len < 1 || cps.empty() ){
-    
     myRect.x        = x;
     myRect.y        = y;
     myRect.width    = 0;
@@ -1152,69 +1136,60 @@ ofRectangle ofxSosoTrueTypeFont::getStringBoundingBox(string c, float x, float y
   }
   
   bool bFirstCharacter = true;
-
-	while(index < len){
-    
-		int cy = ((unsigned char)c[index]) - NUM_CHARACTER_TO_START;
+  int prevCy=-1;
+  while(index < len){
+    int cy = ((unsigned char)c[index]) - NUM_CHARACTER_TO_START;
     if (cy < nCharacters){ 			// full char set or not?
       if (c[index] == '\n') {
-				yoffset += lineHeight;
-				xoffset = 0 ; //reset X Pos back to zero
-        
-				int cM = getMappedChar(c, index); //soso - check for special unicode sequences, as defined in buildMappedChars()
-
-      }else if (c[index] == ' '){
-        
+        yoffset += lineHeight;
+        xoffset = 0 ; //reset X Pos back to zero
+        prevCy = -1;
+        index++;
+        continue;
+      }
+      
+      if (c[index] == ' ') {
         int cy = (int)'p' - NUM_CHARACTER_TO_START;
         xoffset += cps[cy].width * letterSpacing * spaceSize;
+        // zach - this is a bug to fix -- for now, we don't currently deal with ' ' in calculating string bounding box
+      }else{
 
+        int cM = getMappedChar(c, index);
+        
+        if (bFirstCharacter){
+          xmin = cps[cM].xmin+x;
+          ymin = cps[cM].ymin+y;
+          xmax = cps[cM].xmax+x;
+          ymax = cps[cM].ymax+y;
+          bFirstCharacter = false;
         } else {
           
-          //TODO TODO TODO
           
-          int cM = getMappedChar(c, index);
-      
+          xoffset += getKerningAdjustment(cM,(unsigned char)c[index+1] - NUM_CHARACTER_TO_START);
           
-          if (bFirstCharacter){
-            xmin = cps[cM].xmin+x;
-            ymin = cps[cM].ymin+y;
-            xmax = cps[cM].xmax+x;
-            ymax = cps[cM].ymax+y;
-            bFirstCharacter = false;
-          } else {
-
-            xoffset += 	(cps[cM].width + getKerningAdjustment(cM, (unsigned char)c[index+1] - NUM_CHARACTER_TO_START)) * letterSpacing;
-            
-            int charxmin = cps[cM].xmin+xoffset+x;
-            int charymin = cps[cM].ymin+yoffset+y;
-            int charxmax = cps[cM].xmax+xoffset+x;
-            int charymax = cps[cM].ymax+yoffset+y;
-            
-            if (charxmin < xmin) xmin = charxmin;
-            if (charymin < ymin) ymin = charymin;
-            if (charxmax > xmax) xmax = charxmax;
-            if (charymax > ymax) ymax = charymax;
-            
-          }
+          int charxmin = cps[cM].xmin+xoffset+x;
+          int charymin = cps[cM].ymin+yoffset+y;
+          int charxmax = cps[cM].xmax+xoffset+x;
+          int charymax = cps[cM].ymax+yoffset+y;
           
-          xoffset += cps[cM].advance * letterSpacing;
-
+          if (charxmin < xmin) xmin = charxmin;
+          if (charymin < ymin) ymin = charymin;
+          if (charxmax > xmax) xmax = charxmax;
+          if (charymax > ymax) ymax = charymax;
         }
-      
-		  }
-
+        xoffset += cps[cM].advance * letterSpacing;
+      }
+	  	}
+    
     index++;
-
-
+    prevCy = cy;
   }
-
+  
   myRect.x        = min((int)x,xmin);
   myRect.y        = min((int)y,ymin);
-  myRect.width    = xmax - x;
-  myRect.height   = ymax - ymin;
-  
+  myRect.width    = xmax-x;
+  myRect.height   = ymax-ymin;
   return myRect;
-
 }
 
 
