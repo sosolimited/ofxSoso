@@ -249,14 +249,14 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
   FT_Error err;
   
   FT_Library library;
-  if (err = FT_Init_FreeType( &library )){
+  if ((err = FT_Init_FreeType( &library ))){
 		ofLog(OF_LOG_ERROR,"ofTrueTypeFont::loadFont - Error initializing freetype lib: FT_Error = %d", err);
 		return false;
 	}
   
 	FT_Face face;
   
-	if (err = FT_New_Face( library, filename.c_str(), 0, &face )) {
+	if ((err = FT_New_Face( library, filename.c_str(), 0, &face ))) {
     // simple error table in lieu of full table (see fterrors.h)
     string errorString = "unknown freetype";
     if(err == 1) errorString = "INVALID FILENAME";
@@ -451,10 +451,15 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
   
   
   // TODO: oF version > 0.8.4 is slightly different here
-	ofPixels atlasPixels;
-	atlasPixels.allocate(w,h,2);
-	atlasPixels.set(0,255);
-	atlasPixels.set(1,0);
+//	ofPixels atlasPixels;
+//	atlasPixels.allocate(w,h,2);
+//	atlasPixels.set(0,255);
+//	atlasPixels.set(1,0);
+  
+  ofPixels atlasPixelsLuminanceAlpha;
+  atlasPixelsLuminanceAlpha.allocate(w,h,OF_PIXELS_GRAY_ALPHA);
+  atlasPixelsLuminanceAlpha.set(0,255);
+  atlasPixelsLuminanceAlpha.set(1,0);
   
   
 	int x=0;
@@ -476,14 +481,14 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
     cps[sortedCopy[i].characterIndex].t2		= float(cps[sortedCopy[i].characterIndex].tW + x + border)/float(w);
     cps[sortedCopy[i].characterIndex].v2		= float(cps[sortedCopy[i].characterIndex].tH + y + border)/float(h);
 
-    charPixels.pasteInto(atlasPixels,x+border,y+border);
+    charPixels.pasteInto(atlasPixelsLuminanceAlpha,x+border,y+border);
     
 		x+= sortedCopy[i].tW + border*2;
     
 	}
   
   
-	texAtlas.allocate(atlasPixels.getWidth(),atlasPixels.getHeight(),GL_LUMINANCE_ALPHA,false);
+	texAtlas.allocate(atlasPixelsLuminanceAlpha,false);
   
 	if(bAntiAliased && fontsize>20){
 		if (makeMipMaps) { //soso
@@ -496,7 +501,7 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 		texAtlas.setTextureMinMagFilter(GL_NEAREST,GL_NEAREST);
 	}
   
-	texAtlas.loadData(atlasPixels.getPixels(),atlasPixels.getWidth(),atlasPixels.getHeight(),GL_LUMINANCE_ALPHA);
+	texAtlas.loadData(atlasPixelsLuminanceAlpha);
   
   
   ///////////////////////////////////////////////////////////////////////sosoAddon
@@ -512,7 +517,8 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
     glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     gluBuild2DMipmaps(texAtlas.getTextureData().textureTarget, texAtlas.getTextureData().glTypeInternal,
-                      w, h, texAtlas.getTextureData().glTypeInternal, ofGetGlTypeFromInternal(texAtlas.getTextureData().glTypeInternal), atlasPixels.getPixels());
+                      w, h, texAtlas.getTextureData().glTypeInternal, ofGetGlTypeFromInternal(texAtlas.getTextureData().glTypeInternal), atlasPixelsLuminanceAlpha.getData());
+
     glDisable(texAtlas.getTextureData().textureTarget);
   }
   //////////////////////////////////////////////////////////////////////

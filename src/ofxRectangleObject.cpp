@@ -32,14 +32,14 @@ void ofxRectangleObject::render()
 		if (fillAlpha > 0.0) {
 			ofFill();
 			ofSetColor(color.r, color.g, color.b, fillAlpha * drawMaterial->color.a/255.0);
-			ofRect(-dimensions.x/2.0f, -dimensions.y/2.0f, dimensions.x, dimensions.y);	
+      ofDrawRectangle(-dimensions.x/2.0f, -dimensions.y/2.0f, dimensions.x, dimensions.y);
 
 		}
     
 		if (strokeAlpha > 0.0) {
 			ofNoFill();
 			ofSetColor(color.r, color.g, color.b, strokeAlpha * drawMaterial->color.a/255.0);
-			ofRect(-dimensions.x/2.0f, -dimensions.y/2.0f, dimensions.x, dimensions.y);
+			ofDrawRectangle(-dimensions.x/2.0f, -dimensions.y/2.0f, dimensions.x, dimensions.y);
 		}
     
 	} else {
@@ -47,12 +47,12 @@ void ofxRectangleObject::render()
 		if (fillAlpha > 0.0) {
 			ofFill();
 			ofSetColor(color.r, color.g, color.b, fillAlpha * drawMaterial->color.a/255.0);
-			ofRect(0, 0, dimensions.x, dimensions.y);	
+			ofDrawRectangle(0, 0, dimensions.x, dimensions.y);
 		}
 		if (strokeAlpha > 0.0) {
 			ofNoFill();
 			ofSetColor(color.r, color.g, color.b, strokeAlpha * drawMaterial->color.a/255.0);
-			ofRect(0, 0, dimensions.x, dimensions.y);	
+			ofDrawRectangle(0, 0, dimensions.x, dimensions.y);
 
 		}
     

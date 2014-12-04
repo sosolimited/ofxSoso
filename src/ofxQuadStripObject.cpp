@@ -138,7 +138,7 @@ void ofxQuadStripObject::setDrawMode(int iDrawMode)
 
 void ofxQuadStripObject::setTexture(ofImage *iTex)
 {
-	texture = &iTex->getTextureReference();
+	texture = &iTex->getTexture();
 }
 
 void ofxQuadStripObject::enableVertexColoring(bool iEnable)
