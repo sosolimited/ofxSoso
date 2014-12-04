@@ -12,6 +12,8 @@ Copyright (C) 2013 Sosolimited
 CORE
 ----
 
+
+
 ### ofxScene  
   6/10/2014, EG:
   / made default matrix normal member (used to be static) because now the lookAt matrix is multiplied into it
@@ -40,6 +42,10 @@ CORE
 ### ofxGridSystem
 	5/30/2014, JN:
 	/ destructor: added proper deletion call for baselines (array of pointers).
+
+### ofxImageObject
+	11/12/2014, AO:
+	/ Using ofTexture instead of ofImage.  Clear pixel buffer after loading texture, unless specified otherwise.
 
 ### ofxLetterTextObjectLetter
 	5/30/2014, JN:
@@ -91,6 +97,8 @@ CORE
 EXAMPLES
 ----
 ### Structure
+	11/12/2014, AO:
+	/ Made all examples work with new ofxImageObject implementation.
  	5/29/2014, AO:
 	/ Finished ofxScroller port
 	/ Finished scrollerExample

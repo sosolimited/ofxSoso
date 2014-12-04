@@ -9,7 +9,7 @@ openFrameworks addon with scene graph, animations, enhanced text, and more. See 
 Dependencies
 ------------
 Grab ofxAVFVideoPlayer and follow kronick's instructions for adding it to your project  
-https://github.com/kronick/ofxAVFVideoPlayer
+https://github.com/sosolimited/ofxAVFVideoPlayer
 
 Creating a New Example Project
 ------------
@@ -23,4 +23,10 @@ Note:  You will manually have to create new schemes to match your new project na
 Notes
 -----
 If you're using the Visual Studio example, compile and run in Release. Debug is not currently working. 
+
+Examples
+------------
+Most ofxSoso examples run without additional addons.
+
+To run the addonGuiExample, downlaod ofxUI and place in openFrameworks/addons.
 
