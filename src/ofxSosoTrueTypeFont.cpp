@@ -229,7 +229,7 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 	if (bLoadedOk == true){
     
 		// we've already been loaded, try to clean up :
-		unloadTextures();
+//		unloadTextures();
 	}
 	//------------------------------------------------
   
@@ -384,11 +384,12 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 		expanded_data[i].set(0,255); // every luminance pixel = 255
 		expanded_data[i].set(1,0);
     
-    
+//    bAntiAliased =false;
 		if (bAntiAliased == true){
 			ofPixels bitmapPixels;
-			bitmapPixels.setFromExternalPixels(bitmap.buffer,bitmap.width,bitmap.rows,OF_PIXELS_GRAY); //AO Changed from 1 to OF_PIXELS_GRAY to match oF			expanded_data[i].setChannel(1,bitmapPixels);
-		} else {
+			bitmapPixels.setFromExternalPixels(bitmap.buffer,bitmap.width,bitmap.rows, OF_PIXELS_GRAY); //AO Changed from 1 to OF_PIXELS_GRAY to match oF			expanded_data[i].setChannel(1,bitmapPixels);
+      expanded_data[i].setChannel(1, bitmapPixels);
+    } else {
 			//-----------------------------------
 			// true type packs monochrome info in a
 			// 1-bit format, hella funky
