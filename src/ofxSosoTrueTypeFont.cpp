@@ -374,6 +374,7 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 		stretch = 0;//(float)(visibleBorder * 2);
 
     // TODO: Ask Eric about this correction (AO)
+    // However, it seems that corr is unused???
 //		corr	= (float)(( (fontSize - fheight) + top) - fontSize);
     
 
