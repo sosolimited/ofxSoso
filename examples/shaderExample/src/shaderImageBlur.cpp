@@ -20,8 +20,8 @@ shaderImageBlur::shaderImageBlur(string iFilename){
   
   // Create an ofImage (image to be blurred)
   image = new ofImage();
-  image->loadImage(iFilename);
-  image->getTextureReference().texData.bFlipTexture = true; // Flip it to fit soso universe
+  image->load(iFilename);
+  image->getTexture().texData.bFlipTexture = true; // Flip it to fit soso universe
   
   // Create two FBO objects
   // The first FBO will store intermediate results (blur pass 1)

@@ -41,18 +41,6 @@
 		E0CA471119423365002BC03E /* shaderColorRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0CA471019423365002BC03E /* shaderColorRect.cpp */; };
 		E0CA471519423939002BC03E /* shaderImageMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0CA471419423939002BC03E /* shaderImageMask.cpp */; };
 		E0CA471819425397002BC03E /* shaderImageBlur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0CA471719425397002BC03E /* shaderImageBlur.cpp */; };
-		E0CA473719463327002BC03E /* shaderBlurX.frag in Sources */ = {isa = PBXBuildFile; fileRef = E0CA472719463327002BC03E /* shaderBlurX.frag */; };
-		E0CA473819463327002BC03E /* shaderBlurX.vert in Sources */ = {isa = PBXBuildFile; fileRef = E0CA472819463327002BC03E /* shaderBlurX.vert */; };
-		E0CA473919463327002BC03E /* shaderBlurY.frag in Sources */ = {isa = PBXBuildFile; fileRef = E0CA472919463327002BC03E /* shaderBlurY.frag */; };
-		E0CA473A19463327002BC03E /* shaderBlurY.vert in Sources */ = {isa = PBXBuildFile; fileRef = E0CA472A19463327002BC03E /* shaderBlurY.vert */; };
-		E0CA473B19463327002BC03E /* image_mask.frag in Sources */ = {isa = PBXBuildFile; fileRef = E0CA472C19463327002BC03E /* image_mask.frag */; };
-		E0CA473C19463327002BC03E /* image_mask.vert in Sources */ = {isa = PBXBuildFile; fileRef = E0CA472D19463327002BC03E /* image_mask.vert */; };
-		E0CA473D19463327002BC03E /* mouse_to_color.frag in Sources */ = {isa = PBXBuildFile; fileRef = E0CA472F19463327002BC03E /* mouse_to_color.frag */; };
-		E0CA473E19463327002BC03E /* mouse_to_color.vert in Sources */ = {isa = PBXBuildFile; fileRef = E0CA473019463327002BC03E /* mouse_to_color.vert */; };
-		E0CA473F19463327002BC03E /* noise_texture_plane.frag in Sources */ = {isa = PBXBuildFile; fileRef = E0CA473219463327002BC03E /* noise_texture_plane.frag */; };
-		E0CA474019463327002BC03E /* noise_texture_plane.vert in Sources */ = {isa = PBXBuildFile; fileRef = E0CA473319463327002BC03E /* noise_texture_plane.vert */; };
-		E0CA474119463327002BC03E /* sine_wave_plane.frag in Sources */ = {isa = PBXBuildFile; fileRef = E0CA473519463327002BC03E /* sine_wave_plane.frag */; };
-		E0CA474219463327002BC03E /* sine_wave_plane.vert in Sources */ = {isa = PBXBuildFile; fileRef = E0CA473619463327002BC03E /* sine_wave_plane.vert */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
@@ -558,40 +546,28 @@
 				E4B69E210A3A1BDC003C02F2 /* shaderApp.cpp in Sources */,
 				0582076D75617CEFE6DA8FA7 /* ofxAnimation.cpp in Sources */,
 				0C37599CCC1E63C7BE2E2105 /* ofxArcObject.cpp in Sources */,
-				E0CA473A19463327002BC03E /* shaderBlurY.vert in Sources */,
-				E0CA474219463327002BC03E /* sine_wave_plane.vert in Sources */,
-				E0CA473819463327002BC03E /* shaderBlurX.vert in Sources */,
 				96CAC5B63BE24884A7650D51 /* ofxCircleObject.cpp in Sources */,
 				61C270E06409BB631149E898 /* ofxDynamicPolygonObject.cpp in Sources */,
 				E0CA471519423939002BC03E /* shaderImageMask.cpp in Sources */,
-				E0CA473D19463327002BC03E /* mouse_to_color.frag in Sources */,
 				8947BB2A7B0ED26558985B9E /* ofxFboObject.cpp in Sources */,
 				A5246968290699ED6AF4B3D5 /* ofxGridSystem.cpp in Sources */,
 				45F62755794E24120E98A392 /* ofxImageObject.cpp in Sources */,
 				026CF86B8E5DE58987E03F04 /* ofxLetterTextObject.cpp in Sources */,
-				E0CA473C19463327002BC03E /* image_mask.vert in Sources */,
 				E0CA471119423365002BC03E /* shaderColorRect.cpp in Sources */,
-				E0CA473E19463327002BC03E /* mouse_to_color.vert in Sources */,
 				C5011EF6997C1099FC26CC1B /* ofxLineSegmentObject.cpp in Sources */,
-				E0CA473719463327002BC03E /* shaderBlurX.frag in Sources */,
-				E0CA474119463327002BC03E /* sine_wave_plane.frag in Sources */,
 				E0CA471819425397002BC03E /* shaderImageBlur.cpp in Sources */,
 				6720CB17BB1F777BD86119BD /* ofxLineStripObject.cpp in Sources */,
 				9A596E0751B532824F345053 /* ofxMessage.cpp in Sources */,
-				E0CA474019463327002BC03E /* noise_texture_plane.vert in Sources */,
 				B87D5591C5CDABB37D6695BD /* ofxObject.cpp in Sources */,
 				646E94320D0CAE07B2781DEA /* ofxPolygonObject.cpp in Sources */,
-				E0CA473919463327002BC03E /* shaderBlurY.frag in Sources */,
 				B8EB0219666AA8FFB95857FE /* ofxQuadStripObject.cpp in Sources */,
 				705C1D079461CD39C68403C9 /* ofxRectangleObject.cpp in Sources */,
 				99092BF9204CB9B8061311F8 /* ofxRoundedArcObject.cpp in Sources */,
 				B7D9CC22C351CF45AC9C5C95 /* ofxScene.cpp in Sources */,
-				E0CA473B19463327002BC03E /* image_mask.frag in Sources */,
 				8F9FB5420679D5365862DAAC /* ofxSosoRenderer.cpp in Sources */,
 				DECE37CB3668FCE5D210E34A /* ofxSosoTrueTypeFont.cpp in Sources */,
 				E09E8E9E19366B96003DA9FA /* ofxScroller.cpp in Sources */,
 				B0CEF4C0826C2090ECF04681 /* ofxStateMachine.cpp in Sources */,
-				E0CA473F19463327002BC03E /* noise_texture_plane.frag in Sources */,
 				597431DB068704AD793C0905 /* ofxTextObject.cpp in Sources */,
 				E0CA470B19420BF1002BC03E /* shaderWavyPlane.cpp in Sources */,
 				68FBC9C1A8949F60A46F3944 /* ofxTextureObject.cpp in Sources */,
