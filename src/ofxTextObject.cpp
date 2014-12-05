@@ -884,6 +884,8 @@ void ofxTextObject::_loadWords()
         tmpWord.convertedWord = ofxSosoTrueTypeFont::convertStringTo255(wordString);
 				tmpWord.width   = font->stringWidth(tmpWord.rawWord);
 				tmpWord.height  = font->stringHeight(tmpWord.rawWord);
+
+
 				tmpWord.color.r = material->color.r;
 				tmpWord.color.g = material->color.g;
 				tmpWord.color.b = material->color.b;
@@ -926,6 +928,7 @@ void ofxTextObject::_loadWords()
     tmpWord.convertedWord = ofxSosoTrueTypeFont::convertStringTo255(wordString);
 		tmpWord.width   = font->stringWidth(tmpWord.rawWord);
 		tmpWord.height  = font->stringHeight(tmpWord.rawWord);
+    
 		tmpWord.color.r = material->color.r;
 		tmpWord.color.g = material->color.g;
 		tmpWord.color.b = material->color.b;

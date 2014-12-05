@@ -2,9 +2,9 @@
 
 ofxVideoPlayerObject::ofxVideoPlayerObject(char *iPath)
 {
-  player = new ofxAVFVideoPlayer();
+  player = new ofAVFoundationPlayer();
   
-  player->loadMovie(iPath);
+  player->load(iPath);
   player->getTextureReference().texData.bFlipTexture = true;
   
 	isCentered = false;

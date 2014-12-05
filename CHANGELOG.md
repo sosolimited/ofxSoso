@@ -92,11 +92,29 @@ CORE
 	/ Removed default from setColor with 4 args
 	+ Integrated Maja's code for OF_SETCOLOR4
 	
+### ofxSosoTrueTypeFont
+	12/3/2014, AO:
+	/ In loadFont(—), changed cps data field to reflect changes in
+		ofTrueTypeFont
+	/ Replaced references to cps[i].setWidth with cps[i].advance
+	/ Changed getStringBoundingBox(—) significantly to match update ofTrueTypeFont
+		getStringBoundingBox, with the exception that we use custom-mapped
+		characters and custom kerning alignment calculation 
 	
+
+
+### ofxVideoPlayerObject
+	12/2014, AO:
+	/ Replaced ofxAVFVideoPlayer references with ofAVFoundationPlayer references
+	/ Updated video player function calls to reflect ofAVFoundationPlayer format 
+		(loadMovie changed to load, etc.)
+		
 
 EXAMPLES
 ----
 ### Structure
+	12/3/2014, AO:
+	- Removed ofxAVFVideoPlayer 
 	11/12/2014, AO:
 	/ Made all examples work with new ofxImageObject implementation.
  	5/29/2014, AO:

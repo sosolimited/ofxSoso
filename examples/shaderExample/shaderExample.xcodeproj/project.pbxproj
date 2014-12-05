@@ -31,8 +31,6 @@
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		C5011EF6997C1099FC26CC1B /* ofxLineSegmentObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71476C1B02BAEFF003D83DFB /* ofxLineSegmentObject.cpp */; };
 		DECE37CB3668FCE5D210E34A /* ofxSosoTrueTypeFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80897F89549F3B92332DE157 /* ofxSosoTrueTypeFont.cpp */; };
-		E08321DD1936401E000BD296 /* ofxAVFVideoPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = E08321D41936401E000BD296 /* ofxAVFVideoPlayer.mm */; };
-		E08321DE1936401E000BD296 /* ofxAVFVideoRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = E08321D61936401E000BD296 /* ofxAVFVideoRenderer.m */; };
 		E08321E719364057000BD296 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E08321E619364057000BD296 /* QuartzCore.framework */; };
 		E08321E919364068000BD296 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E08321E819364068000BD296 /* CoreMedia.framework */; };
 		E08321EB19364075000BD296 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E08321EA19364075000BD296 /* AVFoundation.framework */; };
@@ -150,10 +148,6 @@
 		D270925B75974A566DDAFF49 /* ofxFboObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxFboObject.cpp; path = ../../src/ofxFboObject.cpp; sourceTree = SOURCE_ROOT; };
 		DBA168034BF49F632FA80C41 /* ofxLetterTextObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLetterTextObject.h; path = ../../src/ofxLetterTextObject.h; sourceTree = SOURCE_ROOT; };
 		DEEE4C7F10BBB847A31D392A /* ofxTextureObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxTextureObject.h; path = ../../src/ofxTextureObject.h; sourceTree = SOURCE_ROOT; };
-		E08321D31936401E000BD296 /* ofxAVFVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAVFVideoPlayer.h; sourceTree = "<group>"; };
-		E08321D41936401E000BD296 /* ofxAVFVideoPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxAVFVideoPlayer.mm; sourceTree = "<group>"; };
-		E08321D51936401E000BD296 /* ofxAVFVideoRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAVFVideoRenderer.h; sourceTree = "<group>"; };
-		E08321D61936401E000BD296 /* ofxAVFVideoRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ofxAVFVideoRenderer.m; sourceTree = "<group>"; };
 		E08321E619364057000BD296 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E08321E819364068000BD296 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		E08321EA19364075000BD296 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -251,7 +245,6 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
-				E08321AD1936401E000BD296 /* ofxAVFVideoPlayer */,
 				1A36ADDAF544F1D230A4DE59 /* ofxSoso */,
 			);
 			name = addons;
@@ -339,26 +332,6 @@
 				41C4BA011B579A81F3EC2040 /* ofxVideoPlayerObject.h */,
 			);
 			name = src;
-			sourceTree = "<group>";
-		};
-		E08321AD1936401E000BD296 /* ofxAVFVideoPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				E08321D21936401E000BD296 /* src */,
-			);
-			name = ofxAVFVideoPlayer;
-			path = ../../../ofxAVFVideoPlayer;
-			sourceTree = "<group>";
-		};
-		E08321D21936401E000BD296 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				E08321D31936401E000BD296 /* ofxAVFVideoPlayer.h */,
-				E08321D41936401E000BD296 /* ofxAVFVideoPlayer.mm */,
-				E08321D51936401E000BD296 /* ofxAVFVideoRenderer.h */,
-				E08321D61936401E000BD296 /* ofxAVFVideoRenderer.m */,
-			);
-			path = src;
 			sourceTree = "<group>";
 		};
 		E0CA470819420B5A002BC03E /* ShaderObjects */ = {
@@ -595,11 +568,9 @@
 				8947BB2A7B0ED26558985B9E /* ofxFboObject.cpp in Sources */,
 				A5246968290699ED6AF4B3D5 /* ofxGridSystem.cpp in Sources */,
 				45F62755794E24120E98A392 /* ofxImageObject.cpp in Sources */,
-				E08321DD1936401E000BD296 /* ofxAVFVideoPlayer.mm in Sources */,
 				026CF86B8E5DE58987E03F04 /* ofxLetterTextObject.cpp in Sources */,
 				E0CA473C19463327002BC03E /* image_mask.vert in Sources */,
 				E0CA471119423365002BC03E /* shaderColorRect.cpp in Sources */,
-				E08321DE1936401E000BD296 /* ofxAVFVideoRenderer.m in Sources */,
 				E0CA473E19463327002BC03E /* mouse_to_color.vert in Sources */,
 				C5011EF6997C1099FC26CC1B /* ofxLineSegmentObject.cpp in Sources */,
 				E0CA473719463327002BC03E /* shaderBlurX.frag in Sources */,

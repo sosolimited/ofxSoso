@@ -23,8 +23,8 @@
 
 #pragma once
 #include "ofxObject.h"
+#include "ofAVFoundationPlayer.h"
 //#include "ofVideoPlayer.h"
-#include "ofxAVFVideoPlayer.h"
 
 class ofxVideoPlayerObject : public ofxObject
 {
@@ -46,7 +46,9 @@ public:
 	bool						isCentered;
 	bool						isAutoIdling;
   bool            isPlaying = false;
-  ofxAVFVideoPlayer *player;
+//  ofxAVFVideoPlayer *player;
+  
+  ofAVFoundationPlayer *player;
   ofShader        *mShader = 0;
   
 };
