@@ -1,15 +1,57 @@
 ofxSoso
 =======
 Soso OpenFrameworks Addon
-Copyright (C) 2013 Sosolimited
+Copyright (C) 2012-2014 Sosolimited
 
 
-openFrameworks addon with scene graph, animations, enhanced text, and more. See the XCode or Visual Studio 2010 example apps for usage. Also see the top of each header file for a description of the classes and other useful notes. The addon now compiles with OFv008.
+OpenFrameworks addon that provides a scene graph structure, animations, enhanced text, and more.  Look at src header files for descriptions of each object.
 
-Dependencies
+As of 12/2014, we will tag ofxSoso releases with names corresponding to openFrameworks releases.  We recommend grabbing the oF and ofxSoso release versions for best results. 
+
+While we strive to maintain compatibility between the ofxSoso master branch and the oF master branch, only release versions are guaranteed.
+
+
+Basic instructions
 ------------
-Grab ofxAVFVideoPlayer and follow kronick's instructions for adding it to your project  
-https://github.com/sosolimited/ofxAVFVideoPlayer
+
+1 - Clone OpenFrameworks
+```git clone https://github.com/openframeworks/openframeworks.git```  
+
+2 - Clone ofxSoso in openFrameworks/addons
+```git clone https://github.com/sosolimited/ofxSoso.git```
+
+
+For versions of openFrameworks 0.8.4 and earlier:
+------------
+
+3 - Clone the Sosolimited fork of ofxAVFVideoPlayer into openFrameworks/addons
+```git clone https://github.com/sosolimited/ofxAVFVideoPlayer.git```
+
+4 - Follow kronick’s instructions for adding ofxAVFVideoPlayer to your project
+
+
+To use release versions of oF and ofxSoso (recommended)
+------------
+Fetch tags for both openFrameworks and ofxSoso git repos.
+```git fetch — tags```
+
+Checkout matching 
+```git fetch — tags```
+
+
+List tags for openFrameworks and checkout appropriate version.
+```git tag -l```
+```git checkout 0.8.4```
+
+List tags for ofxSoso  and checkout appropriate version.
+```git tag -l```
+```git checkout 0.8.4.0```
+
+
+To use master versions of oF and ofxSoso
+------------
+No additional work is needed.
+
 
 Creating a New Example Project
 ------------
@@ -20,13 +62,18 @@ Type in your new project's name and  when prompted, agree to rename all other re
 
 Note:  You will manually have to create new schemes to match your new project name.
 
-Notes
------
-If you're using the Visual Studio example, compile and run in Release. Debug is not currently working. 
 
 Examples
 ------------
 Most ofxSoso examples run without additional addons.
 
-To run the addonGuiExample, downlaod ofxUI and place in openFrameworks/addons.
+To run the addonGuiExample, download ofxUI and place in openFrameworks/addons.
+
+
+Notes
+-----
+Examples are currently built and tested with Xcode. Visual Studio support is untested.
+
+
+
 

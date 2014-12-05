@@ -119,7 +119,7 @@ void ofxPolygonObject::setDrawMode(int iDrawMode)
 
 void ofxPolygonObject::setTexture(ofImage *iTex)
 {
-	texture = &iTex->getTextureReference();
+	texture = &iTex->getTexture();
 }
 
 void ofxPolygonObject::setTextureByReference(ofTexture &iTex) {
