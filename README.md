@@ -14,11 +14,11 @@ While we strive to maintain compatibility between the ofxSoso master branch and 
 Basic instructions
 ------------
 
-1 - Clone OpenFrameworks
+1 - Clone OpenFrameworks 
 ```git clone https://github.com/openframeworks/openframeworks.git```  
 
-2 - Clone ofxSoso in openFrameworks/addons
-```git clone https://github.com/sosolimited/ofxSoso.git```
+2 - Clone ofxSoso in openFrameworks/addons 
+```git clone https://github.com/sosolimited/ofxSoso.git``` 
 
 
 For versions of openFrameworks 0.8.4 and earlier:
@@ -32,20 +32,20 @@ For versions of openFrameworks 0.8.4 and earlier:
 
 To use release versions of oF and ofxSoso (recommended)
 ------------
-Fetch tags for both openFrameworks and ofxSoso git repos.
-```git fetch — tags```
+Fetch tags for both openFrameworks and ofxSoso git repos. 
+```git fetch — tags``` 
 
 Checkout matching 
-```git fetch — tags```
+```git fetch — tags``` 
 
 
-List tags for openFrameworks and checkout appropriate version.
-```git tag -l```
-```git checkout 0.8.4```
+List tags for openFrameworks and checkout appropriate version. 
+```git tag -l``` 
+```git checkout 0.8.4``` 
 
-List tags for ofxSoso  and checkout appropriate version.
-```git tag -l```
-```git checkout 0.8.4.0```
+List tags for ofxSoso  and checkout appropriate version. 
+```git tag -l``` 
+```git checkout 0.8.4.0``` 
 
 
 To use master versions of oF and ofxSoso
