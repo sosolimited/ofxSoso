@@ -4,7 +4,7 @@ ofxFboObject::ofxFboObject(int iWidth, int iHeight, int iInternalFormat, int iNu
 {
 	fbo = new ofFbo();
 	fbo->allocate(iWidth, iHeight, iInternalFormat, iNumSamples);
-	fbo->getTextureReference().texData.bFlipTexture = false;
+	fbo->getTexture().texData.bFlipTexture = false;
 }
 
 // Destructor.

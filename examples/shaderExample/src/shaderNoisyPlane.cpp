@@ -22,7 +22,7 @@ shaderNoisyPlane::shaderNoisyPlane(int iWidth, int iHeight, int iCols, int iRows
   noiseRef->allocate(30, 30, OF_IMAGE_GRAYSCALE);
   
   // We set this image as our plane's texture
-  plane->mapTexCoordsFromTexture(noiseRef->getTextureReference());
+  plane->mapTexCoordsFromTexture(noiseRef->getTexture());
 
 }
 
@@ -68,7 +68,7 @@ void shaderNoisyPlane::idle(float iTime){
 
   // bind our texture. in our shader this will now be tex0 by default
   // so we can just go ahead and access it there.
-  noiseRef->getTextureReference().bind();
+  noiseRef->getTexture().bind();
   
   // We can also pass a texture by calling
   // shader->setUniformTexture(string varName, ofTexture tex, int texNumber);
