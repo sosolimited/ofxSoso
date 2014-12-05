@@ -14,7 +14,7 @@ While we strive to maintain compatibility between the ofxSoso master branch and 
 Basic instructions
 ------------
 
-1 - Clone OpenFrameworks 
+1 - Clone OpenFrameworks  
 ```git clone https://github.com/openframeworks/openframeworks.git```  
 
 2 - Clone ofxSoso in openFrameworks/addons  
