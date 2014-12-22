@@ -48,6 +48,8 @@ CORE
 	/ Using ofTexture instead of ofImage.  Clear pixel buffer after loading texture, unless specified otherwise.
 
 ### ofxLetterTextObjectLetter
+	12/22/2014: AO:
+	/ setString : setString just calls itself.  Fixed so that it calls ofxTextObject::setString and rebuildLetters()
 	5/30/2014, JN:
 	/ destructor: added proper deletion call for charPointer (array of pointers).
 

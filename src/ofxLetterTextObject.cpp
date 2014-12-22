@@ -106,7 +106,8 @@ void ofxLetterTextObject::render(){}
 
 void ofxLetterTextObject::setString(string iString) //JM 080513
 {
-	setString(iString);
+  ofxTextObject::setString(iString);
+  rebuildLetters();
 }
 
 void ofxLetterTextObject::setColumnWidth(float iWidth)
