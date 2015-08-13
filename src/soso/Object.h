@@ -113,9 +113,6 @@ class Object {
 	void							updateMatrices( const ci::mat4 &iParentMatrix = ci::mat4(1) );
 	void							updateLocalMatrix();
 
-    GLuint                          getDisplayList(){ return displayList; } //eg 070112
-    void                            setDisplayList(GLuint iList);    //eg 070112
-
 	ObjectMaterial*				updateMaterial(ObjectMaterial *iMat);
 	void							enableAlphaInheritance(bool iEnable);	//firebrand
 
@@ -160,9 +157,6 @@ protected:
 	bool							matrixDirty;
 	bool							localMatrixDirty;
 	bool							isSortedObject;
-
-	GLuint							displayList;
-    bool                            displayListFlag;    //eg 070112
 
 	ci::mat4			localMatrix;
 	ci::mat4			matrix;

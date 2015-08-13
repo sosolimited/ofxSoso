@@ -59,7 +59,6 @@ Object::Object(){
 	renderDirty = true;
 	matrixDirty = true;
 	localMatrixDirty = true;
-	displayListFlag = false;
 
 	isSortedObject = false;
 	sortedObjectsWindowZ = 0;
@@ -236,7 +235,7 @@ ObjectMaterial* Object::updateMaterial(ObjectMaterial *iMat)
         b *= (float)iMat->color.b / 255.0f;
     }
 
-    drawMaterial->color.set(r,g,b,alpha);
+    drawMaterial->color = ColorA8u(r,g,b,alpha);
 
 	return drawMaterial;
 }
@@ -339,31 +338,16 @@ void Object::draw(ObjectMaterial *iMaterial, const ci::mat4 &iMatrix, int iSelec
 
 void Object::predraw()
 {
-	glPushName(id);
-
-	//ofSetColor(color.x, color.y, color.z, color.w);
 	gl::color( drawMaterial->color );
-
-	//update lighting
-	if (isLit != prevLit) {
-		if (isLit) glEnable(GL_LIGHTING);
-		else glDisable(GL_LIGHTING);
-		prevLit = isLit;
-	}
-
-	glMatrixMode( GL_MODELVIEW );
-	glLoadMatrixf( matrix );
+	gl::multModelMatrix( localMatrix );
 }
 
 void Object::render()
 {
-    if(displayListFlag)
-        glCallList(displayList);
 }
 
 void Object::postdraw()
 {
-	glPopName();
 }
 
 int Object::collectNodes(int iSelect, Object *iNodes[], int iNumber, int iMax)
@@ -410,11 +394,11 @@ int Object::collectNodes(int iSelect, Object *iNodes[], int iNumber, int iMax)
 
 ci::vec3 Object::getWindowCoords()
 {
-	vec3 eyeCoord = gl::getModelView().transformPointAffine( vec3::zero() );
-	vec3 ndc = gl::getProjection().transformPoint( eyeCoord );
+	vec3 eyeCoord = vec3(gl::getModelMatrix() * vec4(0, 0, 0, 1));
+	vec3 ndc = vec3(gl::getProjectionMatrix() * vec4(eyeCoord, 1));
 	auto viewport = gl::getViewport();
-	float screenWidth = viewport.getWidth();
-	float screenHeight = viewport.getHeight();
+	float screenWidth = viewport.second.x - viewport.first.x;
+	float screenHeight = viewport.second.y - viewport.first.y;
 
 	return vec3( ( ndc.x + 1.0f ) / 2.0f * screenWidth, ( 1.0f - ( ndc.y + 1.0f ) / 2.0f ) * screenHeight, ndc.z );
 }
@@ -477,7 +461,7 @@ void Object::setSpecialTransparency(bool iFlag)
 
 void Object::setRot(float x, float y, float z)
 {
-	xyzRot.set(x, y, z);
+	xyzRot = vec3(x, y, z);
 	localMatrixDirty = true;
 }
 
@@ -513,11 +497,11 @@ ci::vec3 Object::getTrans()
 
 void Object::setTrans(float x, float y, float z)
 {
-	xyz.set(x, y, z);
+	xyz = vec3(x, y, z);
 
-	localMatrix[12] = xyz[0];
-	localMatrix[13] = xyz[1];
-	localMatrix[14] = xyz[2];
+	localMatrix[3][0] = xyz[0];
+	localMatrix[3][1] = xyz[1];
+	localMatrix[3][2] = xyz[2];
 	matrixDirty = true;
 }
 
@@ -526,9 +510,9 @@ void Object::setTrans(ci::vec3 vec)
 {
 	xyz = vec;
 
-	localMatrix[12] = xyz[0];
-	localMatrix[13] = xyz[1];
-	localMatrix[14] = xyz[2];
+	localMatrix[3][0] = xyz[0];
+	localMatrix[3][1] = xyz[1];
+	localMatrix[3][2] = xyz[2];
 	matrixDirty = true;
 }
 
@@ -541,14 +525,14 @@ ci::vec3 Object::getScale()
 
 void Object::setScale(float s)
 {
-	scale.set(s,s,s);
+	scale = vec3(s);
 	localMatrixDirty = true;
 }
 
 
 void Object::setScale(float x, float y, float z)
 {
-	scale.set(x,y,z);
+	scale = vec3(x,y,z);
 	localMatrixDirty = true;
 }
 
@@ -580,86 +564,6 @@ int Object::getID()
 {
 	return id;
 }
-
-
-
-void Object::Mul(float *source1, float *source2, float *_dest)
-{
-	float dest[16];
-
-	dest[0] = source1[0]*source2[0] + source1[1]*source2[4] + source1[2]*source2[8] + source1[3]*source1[12];
-	dest[1] = source1[0]*source2[1] + source1[1]*source2[5] + source1[2]*source2[9] + source1[3]*source2[13];
-	dest[2] = source1[0]*source2[2] + source1[1]*source2[6] + source1[2]*source2[10] + source1[3]*source2[14];
-	dest[3] = source1[0]*source2[3] + source1[1]*source2[7] + source1[2]*source2[11] + source1[3]*source2[15];
-
-	dest[4] = source1[4]*source2[0] + source1[5]*source2[4] + source1[6]*source2[8] + source1[7]*source2[12];
-	dest[5] = source1[4]*source2[1] + source1[5]*source2[5] + source1[6]*source2[9] + source1[7]*source2[13];
-	dest[6] = source1[4]*source2[2] + source1[5]*source2[6] + source1[6]*source2[10] + source1[7]*source2[14];
-	dest[7] = source1[4]*source2[3] + source1[5]*source2[7] + source1[6]*source2[11] + source1[7]*source2[15];
-
-	dest[8] = source1[8]*source2[0] + source1[9]*source2[4] + source1[10]*source2[8] + source1[11]*source2[12];
-	dest[9] = source1[8]*source2[1] + source1[9]*source2[5] + source1[10]*source2[9] + source1[11]*source2[13];
-	dest[10] = source1[8]*source2[2] + source1[9]*source2[6] + source1[10]*source2[10] + source1[11]*source2[14];
-	dest[11] = source1[8]*source2[3] + source1[9]*source2[7] + source1[10]*source2[11] + source1[11]*source2[15];
-
-	dest[12] = source1[12]*source2[0] + source1[13]*source2[4] + source1[14]*source2[8] + source1[15]*source2[12];
-	dest[13] = source1[12]*source2[1] + source1[13]*source2[5] + source1[14]*source2[9] + source1[15]*source2[13];
-	dest[14] = source1[12]*source2[2] + source1[13]*source2[6] + source1[14]*source2[10] + source1[15]*source2[14];
-	dest[15] = source1[12]*source2[3] + source1[13]*source2[7] + source1[14]*source2[11] + source1[15]*source2[15];
-
-	for (int i = 0; i < 16; i++)
-		_dest[i] = dest[i];
-}
-
-
-void Object::Transpose(float *source, float *dest)
-{
-	dest[0] = source[0];
-	dest[1] = source[4];
-	dest[2] = source[8];
-	dest[3] = source[12];
-
-	dest[4] = source[1];
-	dest[5] = source[5];
-	dest[6] = source[9];
-	dest[7] = source[13];
-
-	dest[8] = source[2];
-	dest[9] = source[6];
-	dest[10] = source[10];
-	dest[11] = source[14];
-
-	dest[12] = source[3];
-	dest[13] = source[7];
-	dest[14] = source[11];
-	dest[15] = source[15];
-
-}
-
-void Object::LoadIdentity(float *dest)
-{
-	dest[0] = 1;
-	dest[1] = 0;
-	dest[2] = 0;
-	dest[3] = 0;
-
-	dest[4] = 0;
-	dest[5] = 1;
-	dest[6] = 0;
-	dest[7] = 0;
-
-	dest[8] = 0;
-	dest[9] = 0;
-	dest[10] = 1;
-	dest[11] = 0;
-
-	dest[12] = 0;
-	dest[13] = 0;
-	dest[14] = 0;
-	dest[15] = 1;
-}
-
-
 
 void Object::updateMessages()
 {
