@@ -22,7 +22,7 @@ ImageObject::ImageObject(string iFilename, bool iLoadNow)
 		}
 	}
 
-	image->setFlipped();
+	image->setTopDown();
 	width = image->getWidth();
 	height = image->getHeight();
 	isCentered = false;
@@ -43,36 +43,25 @@ gl::TextureRef ImageObject::getTexture()
 
 void ImageObject::render()
 {
-    //eg 070112 Added display lists.
-    if(renderDirty){
+	//For when iLoadNow=false is used in constructor
+	if(width==0 || height==0){
+			width = image->getWidth();
+			height = image->getHeight();
+	}
 
-        glDeleteLists(displayList, 1);
-        glNewList(displayList, GL_COMPILE_AND_EXECUTE);
+	if(isCentered){
+			gl::pushModelView();
+			gl::translate(-width/2, -height/2, 0);
+	}
 
-        //For when iLoadNow=false is used in constructor
-        if(width==0 || height==0){
-            width = image->getWidth();
-            height = image->getHeight();
-        }
+	auto normal = gl::context()->getGlslProg()->getAttribSemanticLocation(ci::geom::NORMAL);
+	gl::vertexAttrib3f(normal, 0, 0, 1);
+	gl::color( Color::white() );
+	gl::draw( image );
 
-        if(isCentered){
-						gl::pushModelView();
-						gl::translate(-width/2, -height/2, 0);
-        }
-
-        glNormal3f(0,0,1);
-			gl::color( Color::white() );
-				gl::draw( image );
-
-        if(isCentered){
-						gl::popModelView();
-        }
-
-        glEndList();
-        renderDirty = false;
-    }else{
-		glCallList(displayList);
-    }
+	if(isCentered){
+			gl::popModelView();
+	}
 }
 
 

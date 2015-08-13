@@ -1,6 +1,7 @@
 #include "soso/LineStripObject.h"
 
 using namespace soso;
+using namespace cinder;
 
 LineStripObject::LineStripObject(int iNumVerts)
 {
@@ -17,14 +18,14 @@ LineStripObject::LineStripObject(){}
 void LineStripObject::render()
 {
 	glLineWidth(lineWidth);
-	glBegin(GL_LINE_STRIP);
+	gl::begin(GL_LINE_STRIP);
 	for(int i=0; i < vertices.size(); i++){
 		if(isVertexColoringEnabled)
-            glColor4f(vertices[i]->color.x/255.0f, vertices[i]->color.y/255.0f, vertices[i]->color.z/255.0f, drawMaterial->color.a/255.0f * vertices[i]->color.w/255.0f);
+            gl::color(vertices[i]->color.x/255.0f, vertices[i]->color.y/255.0f, vertices[i]->color.z/255.0f, drawMaterial->color.a/255.0f * vertices[i]->color.w/255.0f);
 
-        glVertex3f(vertices[i]->position.x, vertices[i]->position.y, vertices[i]->position.z);
+        gl::vertex(vertices[i]->position.x, vertices[i]->position.y, vertices[i]->position.z);
 	}
-	glEnd();
+	gl::end();
 }
 
 
@@ -36,29 +37,29 @@ void LineStripObject::setLineWidth(float iWidth)
 void LineStripObject::setVertexPos(int iVertNum, float iX, float iY, float iZ)
 {
 	if( iVertNum >= 0 && iVertNum < vertices.size() ){
-		vertices[iVertNum]->position.set(iX, iY, iZ);
+		vertices[iVertNum]->position = vec3(iX, iY, iZ);
 	}
 }
 
 void LineStripObject::setVertexColor(int iVertNum, float iR, float iG, float iB, float iA)
 {
 	if( iVertNum >= 0 && iVertNum < vertices.size() ){
-		vertices[iVertNum]->color.set(iR, iG, iB, iA);
+		vertices[iVertNum]->color = vec4(iR, iG, iB, iA);
 	}
 }
 
 void LineStripObject::addVertex(float iX, float iY, float iZ)
 {
     LineStripVertex *vert = new LineStripVertex();
-    vert->position.set(iX, iY, iZ);
-    vert->color.set(255, 255, 255, 255);
+    vert->position = vec3(iX, iY, iZ);
+    vert->color = vec4(255, 255, 255, 255);
 	vertices.push_back(vert);
 }
 
 void LineStripObject::addVertex(float iX, float iY, float iZ, ci::vec4 iColor)
 {
     LineStripVertex *vert = new LineStripVertex();
-    vert->position.set(iX, iY, iZ);
+    vert->position = vec3(iX, iY, iZ);
     vert->color = iColor;
 	vertices.push_back(vert);
 }

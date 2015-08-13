@@ -124,7 +124,7 @@ private:
 	ci::CameraPersp	camera;
 
 public:
-	static float			*defaultMatrix;
+	static ci::mat4				defaultMatrix;
 	static ObjectMaterial *defaultMaterial;
 
 

@@ -79,7 +79,7 @@ class Object {
 
 	virtual void					predraw();
 	virtual void					postdraw();
-	void							draw(ObjectMaterial *iMaterial, float *iMatrix, int iSelect=OF_RENDER_ALL, bool iDrawAlone=false);		//v4.0 added material arg
+	void							draw(ObjectMaterial *iMaterial, const ci::mat4 &iMatrix, int iSelect=OF_RENDER_ALL, bool iDrawAlone=false);		//v4.0 added material arg
 	virtual void					render();
 	void							idleBase(float iTime);
 	virtual void					idle(float iTime){};

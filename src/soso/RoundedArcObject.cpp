@@ -7,6 +7,10 @@
  *
  */
 
+///
+/// @file Currently unused since it has a lot of legacy OpenGL calls.
+///
+
 #include "soso/RoundedArcObject.h"
 //#include "soso/ArcObject.h"
 using namespace soso;

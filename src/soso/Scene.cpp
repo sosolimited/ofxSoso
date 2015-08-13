@@ -27,7 +27,6 @@ ViewportData::~ViewportData(){}
 
 
 //class Scene _______________________________________________________________________________
-float* Scene::defaultMatrix = NULL;
 ObjectMaterial* Scene::defaultMaterial = NULL;
 
 Scene::Scene(int w, int h)
@@ -57,29 +56,6 @@ Scene::Scene(int w, int h)
 	maxSortedObjects = 10000;
 
 	centerOffset = vec3(sceneWidth/2.0f, sceneHeight/2.0f, 0);
-
-	if(!defaultMatrix){
-		defaultMatrix = (float *)malloc(sizeof(float) * 16);
-		defaultMatrix[0] = 1.0;
-		defaultMatrix[1] = 0;
-		defaultMatrix[2] = 0;
-		defaultMatrix[3] = 0;
-
-		defaultMatrix[4] = 0;
-		defaultMatrix[5] = 1.0;
-		defaultMatrix[6] = 0;
-		defaultMatrix[7] = 0;
-
-		defaultMatrix[8] = 0;
-		defaultMatrix[9] = 0;
-		defaultMatrix[10] = 1.0;
-		defaultMatrix[11] = 0;
-
-		defaultMatrix[12] = 0;
-		defaultMatrix[13] = 0;
-		defaultMatrix[14] = 0;
-		defaultMatrix[15] = 1.0;
-	}
 
 	if(!defaultMaterial)
 		defaultMaterial = new ObjectMaterial();	//v4.0

@@ -13,7 +13,6 @@
 		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		1536B20419ABD9AC00CF8B15 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1EF19ABD9AC00CF8B15 /* Animation.cpp */; };
-		1536B20519ABD9AC00CF8B15 /* ArcObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1F019ABD9AC00CF8B15 /* ArcObject.cpp */; };
 		1536B20619ABD9AC00CF8B15 /* CircleObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1F119ABD9AC00CF8B15 /* CircleObject.cpp */; };
 		1536B20719ABD9AC00CF8B15 /* DynamicPolygonObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1F219ABD9AC00CF8B15 /* DynamicPolygonObject.cpp */; };
 		1536B20819ABD9AC00CF8B15 /* FboObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1F319ABD9AC00CF8B15 /* FboObject.cpp */; };
@@ -23,10 +22,8 @@
 		1536B20D19ABD9AC00CF8B15 /* LineStripObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1F819ABD9AC00CF8B15 /* LineStripObject.cpp */; };
 		1536B20E19ABD9AC00CF8B15 /* Message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1F919ABD9AC00CF8B15 /* Message.cpp */; };
 		1536B20F19ABD9AC00CF8B15 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1FA19ABD9AC00CF8B15 /* Object.cpp */; };
-		1536B21019ABD9AC00CF8B15 /* PolygonObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1FB19ABD9AC00CF8B15 /* PolygonObject.cpp */; };
 		1536B21119ABD9AC00CF8B15 /* QuadStripObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1FC19ABD9AC00CF8B15 /* QuadStripObject.cpp */; };
 		1536B21219ABD9AC00CF8B15 /* RectangleObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1FD19ABD9AC00CF8B15 /* RectangleObject.cpp */; };
-		1536B21319ABD9AC00CF8B15 /* RoundedArcObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1FE19ABD9AC00CF8B15 /* RoundedArcObject.cpp */; };
 		1536B21419ABD9AC00CF8B15 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B1FF19ABD9AC00CF8B15 /* Scene.cpp */; };
 		1536B21719ABD9AC00CF8B15 /* TextureObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1536B20219ABD9AC00CF8B15 /* TextureObject.cpp */; };
 		157FDF2E19AF7A4300D7E24B /* LetterTextObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 157FDF2D19AF7A4300D7E24B /* LetterTextObject.cpp */; };
@@ -315,10 +312,7 @@
 			files = (
 				1536B21219ABD9AC00CF8B15 /* RectangleObject.cpp in Sources */,
 				1536B20719ABD9AC00CF8B15 /* DynamicPolygonObject.cpp in Sources */,
-				1536B21019ABD9AC00CF8B15 /* PolygonObject.cpp in Sources */,
 				1536B21119ABD9AC00CF8B15 /* QuadStripObject.cpp in Sources */,
-				1536B20519ABD9AC00CF8B15 /* ArcObject.cpp in Sources */,
-				1536B21319ABD9AC00CF8B15 /* RoundedArcObject.cpp in Sources */,
 				1536B21719ABD9AC00CF8B15 /* TextureObject.cpp in Sources */,
 				1536B21419ABD9AC00CF8B15 /* Scene.cpp in Sources */,
 				1536B20A19ABD9AC00CF8B15 /* ImageObject.cpp in Sources */,

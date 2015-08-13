@@ -11,7 +11,7 @@ using namespace soso;
 //class ObjectMaterial _____________________________________________________________________________
 ObjectMaterial::ObjectMaterial()
 {
-	color.set(255.0f, 255.0f, 255.0f, 255.0f);
+	color = vec4(255.0f, 255.0f, 255.0f, 255.0f);
 	inheritAlphaFlag = true;
 }
 
@@ -36,9 +36,9 @@ Object::Object(){
 	id = numObjects++;
 
 	//transformation matrix
-	matrix = mat4::identity();
+	matrix = mat4(1);
 	//matrixTmp = (float*)malloc(sizeof(float)*16);
-	localMatrix = mat4::identity();
+	localMatrix = mat4(1);
 
 	material = new ObjectMaterial();
 	drawMaterial = new ObjectMaterial();
@@ -47,9 +47,9 @@ Object::Object(){
 	//rotationMatrix = NULL;
 	//rotationMatrixTmp = NULL;
 
-	xyzRot.set(0., 0., 0.);
-	xyz.set(0.,0.,0.);
-	scale.set(1.,1.,1.);
+	xyzRot = vec3(0., 0., 0.);
+	xyz = vec3(0.,0.,0.);
+	scale = vec3(1.,1.,1.);
 	isLit = true;
 
 	hasSpecialTransparency = false;	//this is used for objects with transparent textures
@@ -59,7 +59,6 @@ Object::Object(){
 	renderDirty = true;
 	matrixDirty = true;
 	localMatrixDirty = true;
-	displayList = glGenLists(1);
 	displayListFlag = false;
 
 	isSortedObject = false;
@@ -163,18 +162,7 @@ void Object::updateLocalMatrix()
 
 	//build composite matrix for XYZ rotation:
 	//order of transformations:  scale, rotateX, rotateY, rotateZ, translate
-	localMatrix[0] = scale.x * (cY*cZ);
-	localMatrix[4] = scale.y * (-cY*sZ);
-	localMatrix[8] = scale.z * (sY);
-
-	localMatrix[1] = scale.x * (sX*sY*cZ + cX*sZ);
-	localMatrix[5] = scale.y * (-sX*sY*sZ + cX*cZ);
-	localMatrix[9] = scale.z * (-sX*cY);
-
-	localMatrix[2] = scale.x * (-cX*sY*cZ + sX*sZ);
-	localMatrix[6] = scale.y * (cX*sY*sZ + sX*cZ);
-	localMatrix[10] = scale.z * (cX*cY);
-
+	localMatrix = glm::translate(xyz) * glm::scale(scale) * glm::eulerAngleYXZ(xyzRot.x, xyzRot.y, xyzRot.z);
 
 	localMatrixDirty = false;
 }
@@ -288,7 +276,7 @@ void Object::idleBase(float iTime)
 
 //----------------------------------------------------------
 //void Object::draw(float *_matrix){
-void Object::draw(ObjectMaterial *iMaterial, float *iMatrix, int iSelect, bool iDrawAlone)
+void Object::draw(ObjectMaterial *iMaterial, const ci::mat4 &iMatrix, int iSelect, bool iDrawAlone)
 {
 	//if(id == 1) printf("i am a circle %f - %f, %f, %f\n", ofGetElapsedTimef(), color.x, color.y, color.z);
 

@@ -38,34 +38,23 @@ TextureObject::TextureObject( const gl::TextureRef &texture ):
 
 void TextureObject::render()
 {
-    //eg 070112 Added display lists.
-    if(renderDirty){
+	//For when iLoadNow=false is used in constructor
+	if(width==0 || height==0){
+			width = texture->getWidth();
+			height = texture->getHeight();
+	}
 
-        glDeleteLists(displayList, 1);
-        glNewList(displayList, GL_COMPILE_AND_EXECUTE);
+	if(isCentered){
+		gl::pushModelView();
+		gl::translate(-width/2, -height/2, 0);
+	}
 
-        //For when iLoadNow=false is used in constructor
-        if(width==0 || height==0){
-            width = texture->getWidth();
-            height = texture->getHeight();
-        }
-
-        if(isCentered){
-					gl::pushModelView();
-					gl::translate(-width/2, -height/2, 0);
-        }
-
-        glNormal3f(0,0,1);
-				gl::draw( texture );
-        if(isCentered){
-					gl::popModelView();
-        }
-
-        glEndList();
-        renderDirty = false;
-    }else{
-		glCallList(displayList);
-    }
+	auto normal = gl::context()->getGlslProg()->getAttribSemanticLocation(ci::geom::NORMAL);
+	gl::vertexAttrib3f(normal, 0, 0, 1);
+	gl::draw( texture );
+	if(isCentered){
+		gl::popModelView();
+	}
 }
 
 
