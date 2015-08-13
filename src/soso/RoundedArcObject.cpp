@@ -10,6 +10,7 @@
 #include "soso/RoundedArcObject.h"
 //#include "soso/ArcObject.h"
 using namespace soso;
+using namespace cinder;
 
 //start and end angles in degrees (converted to radians internally)
 RoundedArcObject::RoundedArcObject(float iOuterRadius, float iInnerRadius, float iStartAngle, float iEndAngle)
@@ -31,10 +32,10 @@ RoundedArcObject::RoundedArcObject(float iOuterRadius, float iInnerRadius, float
 	newStartAngle = startAngle + deltaAngle;
 	newEndAngle = endAngle - deltaAngle;
 
-	circPos1.set(newInnerRadius*cos(newStartAngle), newInnerRadius*sin(newStartAngle), 0);
-	circPos2.set(newOuterRadius*cos(newStartAngle), newOuterRadius*sin(newStartAngle), 0);
-	circPos3.set(newInnerRadius*cos(newEndAngle), newInnerRadius*sin(newEndAngle), 0);
-	circPos4.set(newOuterRadius*cos(newEndAngle), newOuterRadius*sin(newEndAngle), 0);
+	circPos1 = vec3(newInnerRadius*cos(newStartAngle), newInnerRadius*sin(newStartAngle), 0);
+	circPos2 = vec3(newOuterRadius*cos(newStartAngle), newOuterRadius*sin(newStartAngle), 0);
+	circPos3 = vec3(newInnerRadius*cos(newEndAngle), newInnerRadius*sin(newEndAngle), 0);
+	circPos4 = vec3(newOuterRadius*cos(newEndAngle), newOuterRadius*sin(newEndAngle), 0);
 
 	/*
 	static int numArcs = 0;

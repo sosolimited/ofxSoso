@@ -16,7 +16,7 @@ ArcObject::ArcObject(float iOuterRadius, float iInnerRadius, float iStartAngle, 
 	endAngle = ci::toRadians(iEndAngle);
 
 	height = 0;
-    nullColor.set(-1,-1,-1,-1); // LM added this to fix compatability w 0072
+    nullColor = ci::vec4(-1,-1,-1,-1); // LM added this to fix compatability w 0072
 	color1 = nullColor;
 	color2 = nullColor;
 
@@ -52,8 +52,8 @@ float ArcObject::getEndAngle() {
 
 void ArcObject::setColors(ci::vec4 iColor1, ci::vec4 iColor2) {
 
-	color1 = iColor1/255.0;
-	color2 = iColor2/255.0;
+	color1 = iColor1/255.0f;
+	color2 = iColor2/255.0f;
 }
 
 
