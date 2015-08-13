@@ -53,7 +53,7 @@ void QuadStripObject::render()
 		glDisableClientState(GL_COLOR_ARRAY);
 }
 
-void QuadStripObject::setVertexPos(int iVertexNum, ci::Vec3f iPos)
+void QuadStripObject::setVertexPos(int iVertexNum, ci::vec3 iPos)
 {
 	if(iVertexNum < numVertices){
 		vertices[3*iVertexNum] = iPos.x;
@@ -80,9 +80,9 @@ void QuadStripObject::setVertexTexCoords(int iVertexNum, float iU, float iV)
 	}
 }
 
-ci::Vec3f QuadStripObject::getVertexPos(int iVertexNum)
+ci::vec3 QuadStripObject::getVertexPos(int iVertexNum)
 {
-	ci::Vec3f result;
+	ci::vec3 result;
 
 	if(iVertexNum < numVertices){
 		result.x = vertices[3*iVertexNum];
@@ -93,10 +93,10 @@ ci::Vec3f QuadStripObject::getVertexPos(int iVertexNum)
 	return result;
 }
 
-ci::Vec2f QuadStripObject::getVertexTexCoords(int iVertexNum)
+ci::vec2 QuadStripObject::getVertexTexCoords(int iVertexNum)
 {
 	if(iVertexNum < numVertices){
-		return ci::Vec2f(texCoords[2*iVertexNum], texCoords[2*iVertexNum + 1]);
+		return ci::vec2(texCoords[2*iVertexNum], texCoords[2*iVertexNum + 1]);
 	}
 }
 
@@ -153,8 +153,8 @@ gl::TextureRef QuadStripObject::getTexture()
 	return texture;
 }
 
-ci::Vec4f QuadStripObject::getVertexColor(int iVertexNum) {
-    return ci::Vec4f(vertexColors[iVertexNum*4]*255, vertexColors[iVertexNum*4+1]*255, vertexColors[iVertexNum*4+2]*255, vertexColors[iVertexNum*4+3]*255);
+ci::vec4 QuadStripObject::getVertexColor(int iVertexNum) {
+    return ci::vec4(vertexColors[iVertexNum*4]*255, vertexColors[iVertexNum*4+1]*255, vertexColors[iVertexNum*4+2]*255, vertexColors[iVertexNum*4+3]*255);
 }
 
 float QuadStripObject::getVertexAlpha(int iVertexNum) {

@@ -33,7 +33,7 @@ void DynamicPolygonObject::idle(float iTime)
 }
 
 
-void DynamicPolygonObject::setVertexPos(int iVertexNum, ci::Vec3f iPos)
+void DynamicPolygonObject::setVertexPos(int iVertexNum, ci::vec3 iPos)
 {
 	if((iVertexNum >= 0) && (iVertexNum < numVertices)){
 		dynamicVerts[iVertexNum]->posTracker->stopMessages();
@@ -45,7 +45,7 @@ void DynamicPolygonObject::setVertexTexCoords(int iVertexNum, float iU, float iV
 {
 	if((iVertexNum >= 0) && (iVertexNum < numVertices)){
 		dynamicVerts[iVertexNum]->texTracker->stopMessages();
-		dynamicVerts[iVertexNum]->texTracker->setTrans(ci::Vec3f(iU, iV, 0));
+		dynamicVerts[iVertexNum]->texTracker->setTrans(ci::vec3(iU, iV, 0));
 	}
 }
 
@@ -55,12 +55,12 @@ void DynamicPolygonObject::setVertexColor(int iVertexNum, float iR, float iG, fl
 
 	if((iVertexNum >= 0) && (iVertexNum < numVertices)){
 		dynamicVerts[iVertexNum]->colorTracker->stopMessages();
-		dynamicVerts[iVertexNum]->colorTracker->setColor(ci::Vec4f(iR, iG, iB, iA));
+		dynamicVerts[iVertexNum]->colorTracker->setColor(ci::vec4(iR, iG, iB, iA));
 	}
 }
 
 
-void DynamicPolygonObject::gotoVertexPos(int iVertexNum, ci::Vec3f iPos, float iDur, float iDelay, int iInterp)
+void DynamicPolygonObject::gotoVertexPos(int iVertexNum, ci::vec3 iPos, float iDur, float iDelay, int iInterp)
 {
 	if((iVertexNum >= 0) && (iVertexNum < numVertices)){
 		dynamicVerts[iVertexNum]->posTracker->stopMessages();
@@ -77,7 +77,7 @@ void DynamicPolygonObject::gotoVertexTexCoords(int iVertexNum, float iU, float i
 	if((iVertexNum >= 0) && (iVertexNum < numVertices)){
 		dynamicVerts[iVertexNum]->texTracker->stopMessages();
 		if(iDur == -1.0)
-			dynamicVerts[iVertexNum]->texTracker->setTrans(ci::Vec3f(iU, iV, 0));
+			dynamicVerts[iVertexNum]->texTracker->setTrans(ci::vec3(iU, iV, 0));
 		else
 			dynamicVerts[iVertexNum]->texTracker->doMessage3f(OF_TRANSLATE, iDelay, iDur, iInterp, iU, iV, 0);
 
@@ -92,7 +92,7 @@ void DynamicPolygonObject::gotoVertexColor(int iVertexNum, float iR, float iG, f
 	if((iVertexNum >= 0) && (iVertexNum < numVertices)){
 		dynamicVerts[iVertexNum]->colorTracker->stopMessages();
 		if(iDur == -1.0)
-			dynamicVerts[iVertexNum]->colorTracker->setColor(ci::Vec4f(iR, iG, iB, iA));
+			dynamicVerts[iVertexNum]->colorTracker->setColor(ci::vec4(iR, iG, iB, iA));
 		else
 			dynamicVerts[iVertexNum]->texTracker->doMessage3f(OF_SETCOLOR, iDelay, iDur, iInterp, iR, iG, iB);
 			dynamicVerts[iVertexNum]->texTracker->doMessage1f(OF_SETALPHA, iDelay, iDur, iInterp, iA);

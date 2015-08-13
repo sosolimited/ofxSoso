@@ -84,33 +84,33 @@ class Object {
 	void							idleBase(float iTime);
 	virtual void					idle(float iTime){};
 
-	void							setTrans(ci::Vec3f vec);
+	void							setTrans(ci::vec3 vec);
 	void							setTrans(float x, float y, float z);
-	ci::Vec3f         getTrans();
+	ci::vec3         getTrans();
 
-	void							setRot(ci::Vec3f r);
+	void							setRot(ci::vec3 r);
 	void							setRot(float x, float y, float z);
-	ci::Vec3f                         getRot();
+	ci::vec3                         getRot();
 	float							getAlpha();
 
-	virtual ci::Vec3f   				getScale();			//v4.0 virtual for text object
+	virtual ci::vec3   				getScale();			//v4.0 virtual for text object
 	virtual void     				setScale(float s);	//v4.0 virtual for text object
 	virtual void     				setScale(float x, float y, float z);
-	virtual void     				setScale(ci::Vec3f vec);
+	virtual void     				setScale(ci::vec3 vec);
 
 	virtual void					setColor(float r, float g, float b, float a=255.0);
 	DEPRECATED_ATTRIBUTE // use setColor( Color ) instead
-	virtual void					setColor(ci::Vec4f c);	//v4.0 virtual for text object
+	virtual void					setColor(ci::vec4 c);	//v4.0 virtual for text object
 	virtual void          setColor(const ci::ColorA8u &c);
 	ci::ColorA8u					getColor();
 	virtual void					setAlpha(float iA);		//v4.0 virtual for text object
 	bool							hasTransparency();
 	void							setSpecialTransparency(bool iFlag);
 
-	const ci::Matrix44f&		getMatrix();
-	const ci::Matrix44f&		getLocalMatrix();
-	virtual const ci::Matrix44f&	updateMatrix( const ci::Matrix44f &iParentMatrix );
-	void							updateMatrices( const ci::Matrix44f &iParentMatrix = ci::Matrix44f::identity() );
+	const ci::mat4&		getMatrix();
+	const ci::mat4&		getLocalMatrix();
+	virtual const ci::mat4&	updateMatrix( const ci::mat4 &iParentMatrix );
+	void							updateMatrices( const ci::mat4 &iParentMatrix = ci::mat4(1) );
 	void							updateLocalMatrix();
 
     GLuint                          getDisplayList(){ return displayList; } //eg 070112
@@ -120,7 +120,7 @@ class Object {
 	void							enableAlphaInheritance(bool iEnable);	//firebrand
 
 	int								collectNodes(int iSelect, Object *iNodes[], int iNumber, int iMax);
-	ci::Vec3f							getWindowCoords();
+	ci::vec3							getWindowCoords();
 
 	void   							hide();
 	void   							show();
@@ -141,7 +141,7 @@ class Object {
 	Message*						doMessage1f(int iID, float iDelay, float iDuration, int iInterp, float iVal);
 	Message*						doMessage3f(int iID, float iDelay, float iDuration, int iInterp, float iVal0, float iVal1, float iVal2);
 	Message*						doMessage4f(int iID, float iDelay, float iDuration, int iInterp, float iVal0, float iVal1, float iVal2, float iVal3);
-	Message*						doMessageNf(int iID, float iDelay, float iDuration, int iInterp, int iPath, std::vector<ci::Vec4f> iPathPoints);
+	Message*						doMessageNf(int iID, float iDelay, float iDuration, int iInterp, int iPath, std::vector<ci::vec4> iPathPoints);
 	void							stopMessages(int iMessageType=-1);
 
 	static void						Mul(float *source1, float *source2, float *dest);
@@ -164,8 +164,8 @@ protected:
 	GLuint							displayList;
     bool                            displayListFlag;    //eg 070112
 
-	ci::Matrix44f			localMatrix;
-	ci::Matrix44f			matrix;
+	ci::mat4			localMatrix;
+	ci::mat4			matrix;
 	//ObjectMaterial				*material,
 		//							*drawMaterial;
 
@@ -175,10 +175,10 @@ protected:
 	bool							isLit;
 	static bool						prevLit;
 
-	ci::Vec3f							xyzRot,
+	ci::vec3							xyzRot,
 									xyz,
 									scale;
-	//ci::Vec4f						color;	//v4.0
+	//ci::vec4						color;	//v4.0
 	bool							hasSpecialTransparency;
 	bool							renderOntop;
 

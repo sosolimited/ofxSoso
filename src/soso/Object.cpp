@@ -36,9 +36,9 @@ Object::Object(){
 	id = numObjects++;
 
 	//transformation matrix
-	matrix = Matrix44f::identity();
+	matrix = mat4::identity();
 	//matrixTmp = (float*)malloc(sizeof(float)*16);
-	localMatrix = Matrix44f::identity();
+	localMatrix = mat4::identity();
 
 	material = new ObjectMaterial();
 	drawMaterial = new ObjectMaterial();
@@ -182,7 +182,7 @@ void Object::updateLocalMatrix()
 
 
 
-void Object::updateMatrices( const Matrix44f &iParentMatrix )
+void Object::updateMatrices( const mat4 &iParentMatrix )
 {
 //	static float *mat = NULL;
 	auto mat = iParentMatrix;
@@ -195,7 +195,7 @@ void Object::updateMatrices( const Matrix44f &iParentMatrix )
 }
 
 
-const ci::Matrix44f& Object::updateMatrix( const ci::Matrix44f &iParentMatrix )
+const ci::mat4& Object::updateMatrix( const ci::mat4 &iParentMatrix )
 {
 	// if the object has multiple parents, the hierarchy tree matrix needs to be set to dirty, using mMatrixDirty.
 	if (parents.size() > 1) matrixDirty = true;
@@ -420,23 +420,23 @@ int Object::collectNodes(int iSelect, Object *iNodes[], int iNumber, int iMax)
 }
 
 
-ci::Vec3f Object::getWindowCoords()
+ci::vec3 Object::getWindowCoords()
 {
-	Vec3f eyeCoord = gl::getModelView().transformPointAffine( Vec3f::zero() );
-	Vec3f ndc = gl::getProjection().transformPoint( eyeCoord );
+	vec3 eyeCoord = gl::getModelView().transformPointAffine( vec3::zero() );
+	vec3 ndc = gl::getProjection().transformPoint( eyeCoord );
 	auto viewport = gl::getViewport();
 	float screenWidth = viewport.getWidth();
 	float screenHeight = viewport.getHeight();
 
-	return Vec3f( ( ndc.x + 1.0f ) / 2.0f * screenWidth, ( 1.0f - ( ndc.y + 1.0f ) / 2.0f ) * screenHeight, ndc.z );
+	return vec3( ( ndc.x + 1.0f ) / 2.0f * screenWidth, ( 1.0f - ( ndc.y + 1.0f ) / 2.0f ) * screenHeight, ndc.z );
 }
 
-const ci::Matrix44f& Object::getMatrix()
+const ci::mat4& Object::getMatrix()
 {
 	return matrix;
 }
 
-const ci::Matrix44f& Object::getLocalMatrix()
+const ci::mat4& Object::getLocalMatrix()
 {
 	return localMatrix;
 
@@ -493,7 +493,7 @@ void Object::setRot(float x, float y, float z)
 	localMatrixDirty = true;
 }
 
-void Object::setColor( Vec4f c )
+void Object::setColor( vec4 c )
 {
 	material->color = ColorA8u( c.x, c.y, c.z, c.w );
 }
@@ -505,19 +505,19 @@ void Object::setColor( const ci::ColorA8u &c )
 }
 
 
-void Object::setRot(ci::Vec3f r)
+void Object::setRot(ci::vec3 r)
 {
 	xyzRot = r;
 	localMatrixDirty = true;
 }
 
 
-ci::Vec3f Object::getRot()
+ci::vec3 Object::getRot()
 {
 	return xyzRot;
 }
 
-ci::Vec3f Object::getTrans()
+ci::vec3 Object::getTrans()
 {
 	return xyz;
 }
@@ -534,7 +534,7 @@ void Object::setTrans(float x, float y, float z)
 }
 
 
-void Object::setTrans(ci::Vec3f vec)
+void Object::setTrans(ci::vec3 vec)
 {
 	xyz = vec;
 
@@ -545,7 +545,7 @@ void Object::setTrans(ci::Vec3f vec)
 }
 
 
-ci::Vec3f Object::getScale()
+ci::vec3 Object::getScale()
 {
 	return (scale);
 }
@@ -565,7 +565,7 @@ void Object::setScale(float x, float y, float z)
 }
 
 
-void Object::setScale(ci::Vec3f vec)
+void Object::setScale(ci::vec3 vec)
 {
 	scale = vec;
 	localMatrixDirty = true;
@@ -697,7 +697,7 @@ void Object::updateMessages()
 				if(curTime >= startTime){
 					if(!messages[i]->isRunning){
 						//set start values once
-						ci::Vec3f *vec = (ci::Vec3f *)messages[i]->baseStartVals;
+						ci::vec3 *vec = (ci::vec3 *)messages[i]->baseStartVals;
 						if(vec){
 							if(vec->x == OF_RELATIVE_VAL) x = xyz.x;
 							else x = vec->x;
@@ -711,7 +711,7 @@ void Object::updateMessages()
 						}
 
 						//set end values once
-						ci::Vec3f *vecEnd = (ci::Vec3f *)messages[i]->baseEndVals;
+						ci::vec3 *vecEnd = (ci::vec3 *)messages[i]->baseEndVals;
 						if(vecEnd){
 							if(vecEnd->x == OF_RELATIVE_VAL) x = xyz.x;
 							else x = vecEnd->x;
@@ -727,23 +727,23 @@ void Object::updateMessages()
 						/*
 						printf("translate start Vals = %f, %f, %f\n", x,y,z);
 						printf("translate end Vals = %f, %f, %f\n",
-								((ci::Vec3f *)messages[i]->vals)->x,
-								((ci::Vec3f *)messages[i]->vals)->y,
-								((ci::Vec3f *)messages[i]->vals)->z);
+								((ci::vec3 *)messages[i]->vals)->x,
+								((ci::vec3 *)messages[i]->vals)->y,
+								((ci::vec3 *)messages[i]->vals)->z);
 						*/
 
 						messages[i]->isRunning = true;
 					}
 					//update value
 					if(messages[i]->path == OF_LINEAR_PATH){
-						setTrans((1-t)*((ci::Vec3f *)messages[i]->startVals)->x + t*((ci::Vec3f *)messages[i]->endVals)->x,
-								 (1-t)*((ci::Vec3f *)messages[i]->startVals)->y + t*((ci::Vec3f *)messages[i]->endVals)->y,
-								 (1-t)*((ci::Vec3f *)messages[i]->startVals)->z + t*((ci::Vec3f *)messages[i]->endVals)->z);
+						setTrans((1-t)*((ci::vec3 *)messages[i]->startVals)->x + t*((ci::vec3 *)messages[i]->endVals)->x,
+								 (1-t)*((ci::vec3 *)messages[i]->startVals)->y + t*((ci::vec3 *)messages[i]->endVals)->y,
+								 (1-t)*((ci::vec3 *)messages[i]->startVals)->z + t*((ci::vec3 *)messages[i]->endVals)->z);
 					}else if(messages[i]->path == OF_BEZIER_PATH){
-						ci::Vec4f trans = Message::bezier(t, messages[i]->pathPoints);
+						ci::vec4 trans = Message::bezier(t, messages[i]->pathPoints);
 						setTrans(trans.x, trans.y, trans.z);
 					}else if(messages[i]->path == OF_SPLINE_PATH){
-						ci::Vec4f trans = Message::spline(t, messages[i]->pathPoints);
+						ci::vec4 trans = Message::spline(t, messages[i]->pathPoints);
 						setTrans(trans.x, trans.y, trans.z);
 					}
 
@@ -754,7 +754,7 @@ void Object::updateMessages()
 				if(curTime >= startTime){
 					if(!messages[i]->isRunning){
 						//set start values once
-						ci::Vec3f *vec = (ci::Vec3f *)messages[i]->baseStartVals;
+						ci::vec3 *vec = (ci::vec3 *)messages[i]->baseStartVals;
 						if(vec){
 							if(vec->x == OF_RELATIVE_VAL) x = xyzRot.x;
 							else x = vec->x;
@@ -767,7 +767,7 @@ void Object::updateMessages()
 						}
 
 						//set end values once
-						ci::Vec3f *vecEnd = (ci::Vec3f *)messages[i]->baseEndVals;
+						ci::vec3 *vecEnd = (ci::vec3 *)messages[i]->baseEndVals;
 						if(vecEnd){
 							if(vecEnd->x == OF_RELATIVE_VAL) x = xyzRot.x;
 							else x = vecEnd->x;
@@ -783,14 +783,14 @@ void Object::updateMessages()
 					}
 					//update value
 					if(messages[i]->path == OF_LINEAR_PATH){
-						setRot((1-t)*((ci::Vec3f *)messages[i]->startVals)->x + t*((ci::Vec3f *)messages[i]->endVals)->x,
-							   (1-t)*((ci::Vec3f *)messages[i]->startVals)->y + t*((ci::Vec3f *)messages[i]->endVals)->y,
-							   (1-t)*((ci::Vec3f *)messages[i]->startVals)->z + t*((ci::Vec3f *)messages[i]->endVals)->z);
+						setRot((1-t)*((ci::vec3 *)messages[i]->startVals)->x + t*((ci::vec3 *)messages[i]->endVals)->x,
+							   (1-t)*((ci::vec3 *)messages[i]->startVals)->y + t*((ci::vec3 *)messages[i]->endVals)->y,
+							   (1-t)*((ci::vec3 *)messages[i]->startVals)->z + t*((ci::vec3 *)messages[i]->endVals)->z);
 					}else if(messages[i]->path == OF_BEZIER_PATH){
-						ci::Vec4f rot = Message::bezier(t, messages[i]->pathPoints);
+						ci::vec4 rot = Message::bezier(t, messages[i]->pathPoints);
 						setRot(rot.x, rot.y, rot.z);
 					}else if(messages[i]->path == OF_SPLINE_PATH){
-						ci::Vec4f rot = Message::spline(t, messages[i]->pathPoints);
+						ci::vec4 rot = Message::spline(t, messages[i]->pathPoints);
 						setRot(rot.x, rot.y, rot.z);
 					}
 				}
@@ -825,10 +825,10 @@ void Object::updateMessages()
 					if(messages[i]->path == OF_LINEAR_PATH){
 						setScale((1-t)*((float *)messages[i]->startVals)[0] + t*((float *)messages[i]->endVals)[0]);
 					}else if(messages[i]->path == OF_BEZIER_PATH){
-						ci::Vec4f s = Message::bezier(t, messages[i]->pathPoints);
+						ci::vec4 s = Message::bezier(t, messages[i]->pathPoints);
 						setScale(s.x);
 					}else if(messages[i]->path == OF_SPLINE_PATH){
-						ci::Vec4f s = Message::spline(t, messages[i]->pathPoints);
+						ci::vec4 s = Message::spline(t, messages[i]->pathPoints);
 						setScale(s.x);
 					}
 				}
@@ -838,7 +838,7 @@ void Object::updateMessages()
 				if(curTime >= startTime){
 					if(!messages[i]->isRunning){
 						//set start avlues once
-						ci::Vec3f *vec = (ci::Vec3f *)messages[i]->baseStartVals;
+						ci::vec3 *vec = (ci::vec3 *)messages[i]->baseStartVals;
 						if(vec){
 							if(vec->x == OF_RELATIVE_VAL) x = scale.x;
 							else x = vec->x;
@@ -851,7 +851,7 @@ void Object::updateMessages()
 						}
 
 						//set end values once
-						ci::Vec3f *vecEnd = (ci::Vec3f *)messages[i]->baseEndVals;
+						ci::vec3 *vecEnd = (ci::vec3 *)messages[i]->baseEndVals;
 						if(vecEnd){
 							if(vecEnd->x == OF_RELATIVE_VAL) x = scale.x;
 							else x = vecEnd->x;
@@ -867,14 +867,14 @@ void Object::updateMessages()
 					}
 					//update value
 					if(messages[i]->path == OF_LINEAR_PATH){
-						setScale((1-t)*((ci::Vec3f *)messages[i]->startVals)->x + t*((ci::Vec3f *)messages[i]->endVals)->x,
-								 (1-t)*((ci::Vec3f *)messages[i]->startVals)->y + t*((ci::Vec3f *)messages[i]->endVals)->y,
-								 (1-t)*((ci::Vec3f *)messages[i]->startVals)->z + t*((ci::Vec3f *)messages[i]->endVals)->z);
+						setScale((1-t)*((ci::vec3 *)messages[i]->startVals)->x + t*((ci::vec3 *)messages[i]->endVals)->x,
+								 (1-t)*((ci::vec3 *)messages[i]->startVals)->y + t*((ci::vec3 *)messages[i]->endVals)->y,
+								 (1-t)*((ci::vec3 *)messages[i]->startVals)->z + t*((ci::vec3 *)messages[i]->endVals)->z);
 					}else if(messages[i]->path == OF_BEZIER_PATH){
-						ci::Vec4f s = Message::bezier(t, messages[i]->pathPoints);
+						ci::vec4 s = Message::bezier(t, messages[i]->pathPoints);
 						setScale(s.x, s.y, s.z);
 					}else if(messages[i]->path == OF_SPLINE_PATH){
-						ci::Vec4f s = Message::spline(t, messages[i]->pathPoints);
+						ci::vec4 s = Message::spline(t, messages[i]->pathPoints);
 						setScale(s.x, s.y, s.z);
 					}
 				}
@@ -884,7 +884,7 @@ void Object::updateMessages()
 				if(curTime >= startTime){
 					if(!messages[i]->isRunning){
 						//set start values once
-						ci::Vec3f *vec = (ci::Vec3f *)messages[i]->baseStartVals;
+						ci::vec3 *vec = (ci::vec3 *)messages[i]->baseStartVals;
 						if(vec){
 							if(vec->x == OF_RELATIVE_VAL) x = material->color.r;
 							else x = vec->x;
@@ -897,7 +897,7 @@ void Object::updateMessages()
 						}
 
 						//set end values once
-						ci::Vec3f *vecEnd = (ci::Vec3f *)messages[i]->baseEndVals;
+						ci::vec3 *vecEnd = (ci::vec3 *)messages[i]->baseEndVals;
 						if(vecEnd){
 							if(vecEnd->x == OF_RELATIVE_VAL) x = material->color.r;
 							else x = vecEnd->x;
@@ -914,15 +914,15 @@ void Object::updateMessages()
 					}
 					//update value
 					if(messages[i]->path == OF_LINEAR_PATH){
-						setColor((1-t)*((ci::Vec3f *)messages[i]->startVals)->x + t*((ci::Vec3f *)messages[i]->endVals)->x,
-								 (1-t)*((ci::Vec3f *)messages[i]->startVals)->y + t*((ci::Vec3f *)messages[i]->endVals)->y,
-								 (1-t)*((ci::Vec3f *)messages[i]->startVals)->z + t*((ci::Vec3f *)messages[i]->endVals)->z,
+						setColor((1-t)*((ci::vec3 *)messages[i]->startVals)->x + t*((ci::vec3 *)messages[i]->endVals)->x,
+								 (1-t)*((ci::vec3 *)messages[i]->startVals)->y + t*((ci::vec3 *)messages[i]->endVals)->y,
+								 (1-t)*((ci::vec3 *)messages[i]->startVals)->z + t*((ci::vec3 *)messages[i]->endVals)->z,
 								 material->color.a);
 					}else if(messages[i]->path == OF_BEZIER_PATH){
-						ci::Vec4f c = Message::bezier(t, messages[i]->pathPoints);
+						ci::vec4 c = Message::bezier(t, messages[i]->pathPoints);
 						setColor(c.x, c.y, c.z, material->color.a);
 					}else if(messages[i]->path == OF_SPLINE_PATH){
-						ci::Vec4f c = Message::spline(t, messages[i]->pathPoints);
+						ci::vec4 c = Message::spline(t, messages[i]->pathPoints);
 						setColor(c.x, c.y, c.z, material->color.a);
 					}
 				}
@@ -955,10 +955,10 @@ void Object::updateMessages()
 					if(messages[i]->path == OF_LINEAR_PATH){
 						setAlpha((1-t)*((float *)messages[i]->startVals)[0] + t*((float *)messages[i]->endVals)[0]);
 					}else if(messages[i]->path == OF_BEZIER_PATH){
-						ci::Vec4f s = Message::bezier(t, messages[i]->pathPoints);
+						ci::vec4 s = Message::bezier(t, messages[i]->pathPoints);
 						setAlpha(s.x);
 					}else if(messages[i]->path == OF_SPLINE_PATH){
-						ci::Vec4f s = Message::spline(t, messages[i]->pathPoints);
+						ci::vec4 s = Message::spline(t, messages[i]->pathPoints);
 						setAlpha(s.x);
 					}
 				}
@@ -1110,7 +1110,7 @@ Message* Object::doMessage1f(int iID, float iDelay, float iDuration, int iInterp
 
 Message* Object::doMessage3f(int iID, float iDelay, float iDuration, int iInterp, float iVal0, float iVal1, float iVal2)
 {
-	ci::Vec3f *args = new ci::Vec3f();
+	ci::vec3 *args = new ci::vec3();
 	args->set(iVal0, iVal1, iVal2);
 
 	Message *message = new Message(iID, (void *)args, iInterp, iDuration, iDelay);
@@ -1122,7 +1122,7 @@ Message* Object::doMessage3f(int iID, float iDelay, float iDuration, int iInterp
 
 Message* Object::doMessage4f(int iID, float iDelay, float iDuration, int iInterp, float iVal0, float iVal1, float iVal2, float iVal3)
 {
-	ci::Vec4f *args = new ci::Vec4f();
+	ci::vec4 *args = new ci::vec4();
 	args->set(iVal0, iVal1, iVal2, iVal3);
 
 	Message *message =new Message(iID, (void *)args, iInterp, iDuration, iDelay);
@@ -1132,7 +1132,7 @@ Message* Object::doMessage4f(int iID, float iDelay, float iDuration, int iInterp
 	return message;
 }
 
-Message* Object::doMessageNf(int iID, float iDelay, float iDuration, int iInterp, int iPath, vector<ci::Vec4f> iPathPoints)
+Message* Object::doMessageNf(int iID, float iDelay, float iDuration, int iInterp, int iPath, vector<ci::vec4> iPathPoints)
 {
 	Message *message = new Message(iID, iInterp, iPath, iPathPoints, iDuration, iDelay);
     message->setStartTime(curTime);

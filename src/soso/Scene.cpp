@@ -39,7 +39,7 @@ Scene::Scene(int w, int h)
 	camera = CameraPersp( sceneWidth, sceneHeight, 60.0f, 1.0f, 5000.0f );
 
 	isClearBackgroundOn = true;
-	backgroundColor.set(255,255,255,255);
+	backgroundColor = vec4(255);
 
 	isScissorOn = false;
 	scissorOrigin[0] = 0;
@@ -57,7 +57,7 @@ Scene::Scene(int w, int h)
 	//default max number of sorted objects
 	maxSortedObjects = 10000;
 
-	centerOffset.set(sceneWidth/2.0f, sceneHeight/2.0f, 0);
+	centerOffset = vec3(sceneWidth/2.0f, sceneHeight/2.0f, 0);
 
 	if(!defaultMatrix){
 		defaultMatrix = (float *)malloc(sizeof(float) * 16);
@@ -97,7 +97,7 @@ void Scene::update(float iTime)
 {
 	//This call to root's idle propagates down to all children in the tree.
 	root->idleBase(iTime);
-	root->updateMatrices( camera.getModelViewMatrix() );
+	root->updateMatrices( camera.getViewMatrix() );
 
 	//Updates all object's curTime, which is used for things like messages.
 	Object::curTime = iTime;
@@ -115,7 +115,7 @@ void Scene::setRoot(ObjectRef iRoot)
 
 void Scene::setCenterOffset(float iX, float iY, float iZ)
 {
-	centerOffset.set(iX, iY, iZ);
+	centerOffset = vec3(iX, iY, iZ);
 }
 
 void Scene::draw()
@@ -310,11 +310,11 @@ void Scene::setClearBackground(bool iClear) {
 //0-255
 void Scene::setBackgroundColor(float iR, float iG, float iB, float iA)
 {
-	backgroundColor.set(iR, iG, iB, iA);
+	backgroundColor = vec4(iR, iG, iB, iA);
 }
 
 //LM 061312
-ci::Vec4f Scene::getBackgroundColor() {
+ci::vec4 Scene::getBackgroundColor() {
 	return backgroundColor;
 }
 

@@ -53,7 +53,7 @@ void PolygonObject::render()
 		glDisableClientState(GL_COLOR_ARRAY);
 }
 
-void PolygonObject::setVertexPos(int iVertexNum, ci::Vec3f iPos)
+void PolygonObject::setVertexPos(int iVertexNum, ci::vec3 iPos)
 {
 	if(iVertexNum < numVertices){
 		vertices[3*iVertexNum] = iPos.x;
@@ -80,9 +80,9 @@ void PolygonObject::setVertexTexCoords(int iVertexNum, float iU, float iV)
 	}
 }
 
-ci::Vec3f PolygonObject::getVertexPos(int iVertexNum)
+ci::vec3 PolygonObject::getVertexPos(int iVertexNum)
 {
-	ci::Vec3f result;
+	ci::vec3 result;
 
 	if(iVertexNum < numVertices){
 		result.x = vertices[3*iVertexNum];
@@ -93,10 +93,10 @@ ci::Vec3f PolygonObject::getVertexPos(int iVertexNum)
 	return result;
 }
 
-ci::Vec2f PolygonObject::getVertexTexCoords(int iVertexNum)
+ci::vec2 PolygonObject::getVertexTexCoords(int iVertexNum)
 {
 	if(iVertexNum < numVertices){
-		return ci::Vec2f(texCoords[2*iVertexNum], texCoords[2*iVertexNum + 1]);
+		return ci::vec2(texCoords[2*iVertexNum], texCoords[2*iVertexNum + 1]);
 	}
 }
 

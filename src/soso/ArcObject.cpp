@@ -50,7 +50,7 @@ float ArcObject::getEndAngle() {
     return ci::toDegrees(endAngle);
 }
 
-void ArcObject::setColors(ci::Vec4f iColor1, ci::Vec4f iColor2) {
+void ArcObject::setColors(ci::vec4 iColor1, ci::vec4 iColor2) {
 
 	color1 = iColor1/255.0;
 	color2 = iColor2/255.0;

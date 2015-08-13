@@ -979,15 +979,15 @@ void SosoTrueTypeFont::drawChar(int c, float x, float y) {
 
 	int firstIndex = stringQuads.getVertices().size();
 
-	stringQuads.addVertex(ci::Vec3f(x1,y1));
-	stringQuads.addVertex(ci::Vec3f(x2,y1));
-	stringQuads.addVertex(ci::Vec3f(x2,y2));
-	stringQuads.addVertex(ci::Vec3f(x1,y2));
+	stringQuads.addVertex(ci::vec3(x1,y1));
+	stringQuads.addVertex(ci::vec3(x2,y1));
+	stringQuads.addVertex(ci::vec3(x2,y2));
+	stringQuads.addVertex(ci::vec3(x1,y2));
 
-	stringQuads.addTexCoord(ci::Vec2f(t1,v1));
-	stringQuads.addTexCoord(ci::Vec2f(t2,v1));
-	stringQuads.addTexCoord(ci::Vec2f(t2,v2));
-	stringQuads.addTexCoord(ci::Vec2f(t1,v2));
+	stringQuads.addTexCoord(ci::vec2(t1,v1));
+	stringQuads.addTexCoord(ci::vec2(t2,v1));
+	stringQuads.addTexCoord(ci::vec2(t2,v2));
+	stringQuads.addTexCoord(ci::vec2(t1,v2));
 
 	stringQuads.addIndex(firstIndex);
 	stringQuads.addIndex(firstIndex+1);
@@ -1002,9 +1002,9 @@ void SosoTrueTypeFont::drawChar(int c, float x, float y) {
 //==============================================================
 //returns draw translations of all chars in vector, but doesn't actually draw
 //guts are adapted from drawString()
-vector <ci::Vec2f>  SosoTrueTypeFont::getCharPositions(string c, float x, float y)
+vector <ci::vec2>  SosoTrueTypeFont::getCharPositions(string c, float x, float y)
 {
-	vector<ci::Vec2f> charPositions;
+	vector<ci::vec2> charPositions;
 
 	if (!bLoadedOk){
     	//ofLog(OF_LOG_ERROR,"Error : font not allocated -- line %d in %s", __LINE__,__FILE__);	//TEST
@@ -1033,7 +1033,7 @@ vector <ci::Vec2f>  SosoTrueTypeFont::getCharPositions(string c, float x, float 
 				int cM = getMappedChar(c, index); //here is where we check for special unicode sequences, as defined in buildMappedChars()
 				//drawChar(cM, X, Y);
 				//instead of drawing, push back char draw position onto vector
-				charPositions.push_back(ci::Vec2f(X, Y));
+				charPositions.push_back(ci::vec2(X, Y));
 
 				if(isKerningEnabled && index < (len-1)){	//soso - kerning adjustment
 					X += (cps[cM].setWidth + getKerningAdjustment(cM, (unsigned char)c[index+1] - NUM_CHARACTER_TO_START)) * letterSpacing;

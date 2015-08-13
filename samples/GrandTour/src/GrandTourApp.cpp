@@ -86,7 +86,7 @@ void GrandTourApp::setup()
 		auto texture = gl::Texture::create( box.render() );
 		auto text = make_shared<TextureObject>( texture );
 		text->setSpecialTransparency( true );
-		text->setTrans( image->getTrans() + Vec3f( 10.0f, -texture->getHeight(), 0.0f ) );
+		text->setTrans( image->getTrans() + vec3( 10.0f, -texture->getHeight(), 0.0f ) );
 		scene->getRoot()->addChild( text );
 	}
 
@@ -102,7 +102,7 @@ void GrandTourApp::setup()
 
 		auto texture = gl::Texture::create( box.render() );
 		auto label = make_shared<TextureObject>( texture );
-		label->setTrans( Vec3f( 20.0f, getWindowHeight() - (texture->getHeight() + 20.0f), 0.0f ) );
+		label->setTrans( vec3( 20.0f, getWindowHeight() - (texture->getHeight() + 20.0f), 0.0f ) );
 		label->setSpecialTransparency( true );
 		scene->getRoot()->addChild( label );
 	}
@@ -127,16 +127,16 @@ void GrandTourApp::setup()
 
 	//Set the home positions and tex coords of the vertices.
 	//Note: We start at the lower left corner and move around counter clockwise, as a general practice.
-	dynamicPolygon->setVertexPos(0, Vec3f(0, 0.3*polyTex->getHeight(), 0));
+	dynamicPolygon->setVertexPos(0, vec3(0, 0.3*polyTex->getHeight(), 0));
 	dynamicPolygon->setVertexTexCoords(0, 0, 0.7f );
 	//
-	dynamicPolygon->setVertexPos(1, Vec3f(polyTex->getWidth(), 0.3*polyTex->getHeight(), 0));
+	dynamicPolygon->setVertexPos(1, vec3(polyTex->getWidth(), 0.3*polyTex->getHeight(), 0));
 	dynamicPolygon->setVertexTexCoords(1, 1.0f, 0.7f );
 	//
-	dynamicPolygon->setVertexPos(2, Vec3f(polyTex->getWidth(), 0.7*polyTex->getHeight(), 0));
+	dynamicPolygon->setVertexPos(2, vec3(polyTex->getWidth(), 0.7*polyTex->getHeight(), 0));
 	dynamicPolygon->setVertexTexCoords(2, 1.0f, 0.3f );
 	//
-	dynamicPolygon->setVertexPos(3, Vec3f(0, 0.7*polyTex->getHeight(), 0));
+	dynamicPolygon->setVertexPos(3, vec3(0, 0.7*polyTex->getHeight(), 0));
 	dynamicPolygon->setVertexTexCoords(3, 0, 0.3f );
 
 	scene->getRoot()->addChild( dynamicPolygon );								//Add the polygon to the scene.
@@ -150,7 +150,7 @@ void GrandTourApp::setup()
 		box.setSize( Vec2i( polyTex->getWidth() / 2, TextBox::GROW ) );
 		box.setText( "Here is a dynamic polygon. Press UP and DOWN to animate it." );
 		auto label = make_shared<TextureObject>( gl::Texture::create( box.render() ) );
-		label->setTrans( dynamicPolygon->getTrans() + Vec3f( 0, polyTex->getHeight() * 0.35f + 5, -1.0f ) );
+		label->setTrans( dynamicPolygon->getTrans() + vec3( 0, polyTex->getHeight() * 0.35f + 5, -1.0f ) );
 		label->setSpecialTransparency( true );
 		scene->getRoot()->addChild( label );
 	}
@@ -199,7 +199,7 @@ void GrandTourApp::setup()
 	float offset = 0.1;
 	for(int i=0; i < circles.size(); i++){
 		//Grab translation and color for circles, as set above.
-		Vec4f		curColor( circles[i]->getColor().r, circles[i]->getColor().g, circles[i]->getColor().b, circles[i]->getColor().a );
+		vec4		curColor( circles[i]->getColor().r, circles[i]->getColor().g, circles[i]->getColor().b, circles[i]->getColor().a );
 
 		animation->tween(circles[i].get(), OF_SCALE, i*offset, i*offset + 0.5, OF_EASE_OUT, OF_RELATIVE_VAL, 0.5);		//You can pass OF_RELATIVE_VAL as the first animation value to animate from wherever the object is at the time the animation is called
 		animation->tween(circles[i].get(), OF_SETCOLOR, i*offset, i*offset + 0.5, OF_EASE_OUT,							//Animate the color over this timeframe with this interpolation,
@@ -296,16 +296,16 @@ void GrandTourApp::keyDown( KeyEvent event )
 		{
 			float dur = 1.0;
 
-			dynamicPolygon->gotoVertexPos(0, Vec3f(0, 0.3*polyTex->getHeight(), 0), dur);
+			dynamicPolygon->gotoVertexPos(0, vec3(0, 0.3*polyTex->getHeight(), 0), dur);
 			dynamicPolygon->gotoVertexTexCoords(0, 0, 0.7, dur);
 
-			dynamicPolygon->gotoVertexPos(1, Vec3f(polyTex->getWidth(), 0.3*polyTex->getHeight(), 0), dur);
+			dynamicPolygon->gotoVertexPos(1, vec3(polyTex->getWidth(), 0.3*polyTex->getHeight(), 0), dur);
 			dynamicPolygon->gotoVertexTexCoords(1, 1.0, 0.7, dur);
 
-			dynamicPolygon->gotoVertexPos(2, Vec3f(polyTex->getWidth(), 0.7*polyTex->getHeight(), 0), dur);
+			dynamicPolygon->gotoVertexPos(2, vec3(polyTex->getWidth(), 0.7*polyTex->getHeight(), 0), dur);
 			dynamicPolygon->gotoVertexTexCoords(2, 1.0, 0.3, dur);
 
-			dynamicPolygon->gotoVertexPos(3, Vec3f(0, 0.7*polyTex->getHeight(), 0), dur);
+			dynamicPolygon->gotoVertexPos(3, vec3(0, 0.7*polyTex->getHeight(), 0), dur);
 			dynamicPolygon->gotoVertexTexCoords(3, 0, 0.3, dur);
 		}
 		break;
@@ -313,16 +313,16 @@ void GrandTourApp::keyDown( KeyEvent event )
 		{
 			float dur = 1.0;
 
-			dynamicPolygon->gotoVertexPos(0, Vec3f(0, 0, 0), dur);
+			dynamicPolygon->gotoVertexPos(0, vec3(0, 0, 0), dur);
 			dynamicPolygon->gotoVertexTexCoords(0, 0, 1.0, dur);
 
-			dynamicPolygon->gotoVertexPos(1, Vec3f(polyTex->getWidth(), 0, 0), dur);
+			dynamicPolygon->gotoVertexPos(1, vec3(polyTex->getWidth(), 0, 0), dur);
 			dynamicPolygon->gotoVertexTexCoords(1, 1.0, 1.0, dur);
 
-			dynamicPolygon->gotoVertexPos(2, Vec3f(polyTex->getWidth(), polyTex->getHeight(), 0), dur);
+			dynamicPolygon->gotoVertexPos(2, vec3(polyTex->getWidth(), polyTex->getHeight(), 0), dur);
 			dynamicPolygon->gotoVertexTexCoords(2, 1.0, 0.0, dur);
 
-			dynamicPolygon->gotoVertexPos(3, Vec3f(0, polyTex->getHeight(), 0), dur);
+			dynamicPolygon->gotoVertexPos(3, vec3(0, polyTex->getHeight(), 0), dur);
 			dynamicPolygon->gotoVertexTexCoords(3, 0, 0.0, dur);
 		}
 		break;
@@ -334,7 +334,7 @@ void GrandTourApp::keyDown( KeyEvent event )
 			float t = 0.0f;
 			for( auto &letter : letterText->letters )
 			{
-				Vec3f letterHome = letter->getHome();
+				vec3 letterHome = letter->getHome();
 				letter->stopMessages();
 				//Leave home.
 				letter->doMessage3f(OF_TRANSLATE, t, leaveDuration, OF_EASE_OUT, letterHome.x + randFloat(-travel, travel), letterHome.y + randFloat(-travel, travel), 0);

@@ -38,7 +38,7 @@ public:
 	void								render();
 
     void								addVertex(float iX, float iY, float iZ);
-    void                                addVertex(float iX, float iY, float iZ, ci::Vec4f iColor);
+    void                                addVertex(float iX, float iY, float iZ, ci::vec4 iColor);
 
 	void								setLineWidth(float iWeight);
 	void								setVertexPos(int iVertNum, float iX, float iY, float iZ);
@@ -49,8 +49,8 @@ public:
 public:
 
     struct LineStripVertex{
-        ci::Vec3f position;
-        ci::Vec4f color;
+        ci::vec3 position;
+        ci::vec4 color;
     };
 	std::vector<LineStripVertex *>		vertices;
 

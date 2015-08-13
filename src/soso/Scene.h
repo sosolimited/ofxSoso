@@ -96,7 +96,7 @@ public:
 
 	int						getSceneWidth();
 	int						getSceneHeight();
-	ci::Vec4f					getBackgroundColor(); //LM 061312
+	ci::vec4					getBackgroundColor(); //LM 061312
 
 
 	static int				depthCompareFunc(const void *iElement1, const void *iElement2);
@@ -105,13 +105,13 @@ private:
 	int						sceneWidth;
 	int						sceneHeight;
 	ObjectRef	root;
-	ci::Vec4f					backgroundColor;
+	ci::vec4					backgroundColor;
 	bool					isClearBackgroundOn;
 
 	Object				**sortedObjects;
 	int						maxSortedObjects;
 
-	ci::Vec3f					centerOffset;
+	ci::vec3					centerOffset;
 
 	int						renderMode;
 

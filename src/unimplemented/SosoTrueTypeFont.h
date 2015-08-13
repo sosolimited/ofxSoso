@@ -66,7 +66,7 @@ public:
 	ofRectangle				getStringBoundingBox(string c, float x, float y);
 
 	//new methods
-    vector <ci::Vec2f>        getCharPositions(string s, float x=0, float y=0);
+    vector <ci::vec2>        getCharPositions(string s, float x=0, float y=0);
 	FT_UInt					getFTCharIndex(FT_Face iFace, unsigned char iIndex);
 
 

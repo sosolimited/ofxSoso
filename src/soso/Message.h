@@ -65,7 +65,7 @@ class Message
 {
 public:
 	Message(int iID, void *iVals, int iInterpolation, float iDuration, float iDelay=0, int iPlayMode=OF_ONE_TIME_PLAY);
-	Message(int iID, int iInterpolation, int iPath, std::vector<ci::Vec4f> iPathPoints, float iDuration, float iDelay=0, int iPlayMode=OF_ONE_TIME_PLAY);
+	Message(int iID, int iInterpolation, int iPath, std::vector<ci::vec4> iPathPoints, float iDuration, float iDelay=0, int iPlayMode=OF_ONE_TIME_PLAY);
 	Message(int iID, float (*iFunction)(void *), void *iArgs, float iDelay, int iPlayMode=OF_ONE_TIME_PLAY); //LM
 
 	~Message();
@@ -87,8 +87,8 @@ public:
 	void					setEndVals(float iX, float iY, float iZ);
 	void					setEndVals(float iX, float iY, float iZ, float iW);
 
-	static ci::Vec4f			bezier(float iM, std::vector<ci::Vec4f> iPath);
-	static ci::Vec4f			spline(float iM, std::vector<ci::Vec4f> iPath);
+	static ci::vec4			bezier(float iM, std::vector<ci::vec4> iPath);
+	static ci::vec4			spline(float iM, std::vector<ci::vec4> iPath);
 
 
 
@@ -110,7 +110,7 @@ public:
 	bool					isEnabled;
 	bool					isRunning;
 
-	std::vector<ci::Vec4f>		pathPoints;
+	std::vector<ci::vec4>		pathPoints;
 };
 
 }

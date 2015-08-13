@@ -49,7 +49,7 @@ public:
 	float						newOuterRadius;
 	float						deltaAngle;
 
-	ci::Vec3f					circPos1, circPos2,
+	ci::vec3					circPos1, circPos2,
 								circPos3, circPos4;
 
 	float						height;

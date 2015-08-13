@@ -14,7 +14,7 @@ using namespace soso;
 
 RectangleObject::RectangleObject(float iW, float iH)
 {
-	dimensions.set(iW, iH);
+	dimensions = vec2(iW, iH);
 	isCentered = false;
 	isFilled = true;
 
@@ -49,10 +49,10 @@ void RectangleObject::render()
 	} else {
 
 		if (fillAlpha > 0.0) {
-			gl::drawSolidRect( Rectf( Vec2f::zero(), dimensions ) );
+			gl::drawSolidRect( Rectf( vec2(0), dimensions ) );
 		}
 		if (strokeAlpha > 0.0) {
-			gl::drawStrokedRect( Rectf( Vec2f::zero(), dimensions ) );
+			gl::drawStrokedRect( Rectf( vec2(0), dimensions ) );
 		}
 
 	}

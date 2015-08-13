@@ -31,15 +31,15 @@ Message::Message(int iID, void *iVals, int iInterpolation, float iDuration, floa
 		endVals = (void *)end;
 
 	}else if((id==OF_TRANSLATE) || (id==OF_ROTATE) || (id==OF_SETCOLOR) || (id==OF_SCALE3)){
-		ci::Vec3f *vals = (ci::Vec3f *)malloc(sizeof(ci::Vec3f));
+		ci::vec3 *vals = (ci::vec3 *)malloc(sizeof(ci::vec3));
 		vals->set(0,0,0);
 		startVals = (void *)vals;
 
-		ci::Vec3f *baseVal = (ci::Vec3f *)malloc(sizeof(ci::Vec3f));
+		ci::vec3 *baseVal = (ci::vec3 *)malloc(sizeof(ci::vec3));
 		baseVal->set(OF_RELATIVE_VAL, OF_RELATIVE_VAL, OF_RELATIVE_VAL);
 		baseStartVals = (void *)baseVal;
 
-		ci::Vec3f *end = (ci::Vec3f *)malloc(sizeof(ci::Vec3f));
+		ci::vec3 *end = (ci::vec3 *)malloc(sizeof(ci::vec3));
 		end->set(0,0,0);
 		endVals = (void *)end;
 	}else{
@@ -58,7 +58,7 @@ Message::Message(int iID, void *iVals, int iInterpolation, float iDuration, floa
 	autoDelete = true;
 }
 
-Message::Message(int iID, int iInterpolation, int iPath, vector<ci::Vec4f> iPathPoints, float iDuration, float iDelay, int iPlayMode)
+Message::Message(int iID, int iInterpolation, int iPath, vector<ci::vec4> iPathPoints, float iDuration, float iDelay, int iPlayMode)
 {
 	id = iID;
 	path = iPath;
@@ -144,24 +144,24 @@ void Message::setStartVals(float iX)
 void Message::setStartVals(float iX, float iY, float iZ)
 {
 	if(startVals == NULL){
-		ci::Vec3f *vals = (ci::Vec3f *)malloc(sizeof(ci::Vec3f));
+		ci::vec3 *vals = (ci::vec3 *)malloc(sizeof(ci::vec3));
 		vals->set(iX, iY, iZ);
 		startVals = (void *)vals;
-		//printf("Message::setStartVals(%f, %f, %f) - NULL\n", ((ci::Vec3f *)startVals)->x, ((ci::Vec3f *)startVals)->y, ((ci::Vec3f *)startVals)->z);
+		//printf("Message::setStartVals(%f, %f, %f) - NULL\n", ((ci::vec3 *)startVals)->x, ((ci::vec3 *)startVals)->y, ((ci::vec3 *)startVals)->z);
 	}else{
-		((ci::Vec3f *)startVals)->set(iX, iY, iZ);
-		//printf("Message::setStartVals(%f, %f, %f) - NULL\n", ((ci::Vec3f *)startVals)->x, ((ci::Vec3f *)startVals)->y, ((ci::Vec3f *)startVals)->z);
+		((ci::vec3 *)startVals)->set(iX, iY, iZ);
+		//printf("Message::setStartVals(%f, %f, %f) - NULL\n", ((ci::vec3 *)startVals)->x, ((ci::vec3 *)startVals)->y, ((ci::vec3 *)startVals)->z);
 	}
 }
 
 void Message::setStartVals(float iX, float iY, float iZ, float iW)
 {
 	if(startVals == NULL){
-		ci::Vec4f *vals = (ci::Vec4f *)malloc(sizeof(ci::Vec4f));
+		ci::vec4 *vals = (ci::vec4 *)malloc(sizeof(ci::vec4));
 		vals->set(iX, iY, iZ, iW);
 		startVals = (void *)vals;
 	}else{
-		((ci::Vec4f *)startVals)->set(iX, iY, iZ, iW);
+		((ci::vec4 *)startVals)->set(iX, iY, iZ, iW);
 	}
 }
 
@@ -174,12 +174,12 @@ void Message::setBaseStartVals(float iX)
 void Message::setBaseStartVals(float iX, float iY, float iZ)
 {
 	if(baseStartVals)
-		((ci::Vec3f *)baseStartVals)->set(iX, iY, iZ);
+		((ci::vec3 *)baseStartVals)->set(iX, iY, iZ);
 }
 
 void Message::setBaseStartVals(float iX, float iY, float iZ, float iW)
 {
-	((ci::Vec4f *)baseStartVals)->set(iX, iY, iZ, iW);
+	((ci::vec4 *)baseStartVals)->set(iX, iY, iZ, iW);
 }
 
 void Message::setEndVals(float iX)
@@ -191,13 +191,13 @@ void Message::setEndVals(float iX)
 void Message::setEndVals(float iX, float iY, float iZ)
 {
 	if(endVals)
-		((ci::Vec3f *)endVals)->set(iX, iY, iZ);
+		((ci::vec3 *)endVals)->set(iX, iY, iZ);
 }
 
 void Message::setEndVals(float iX, float iY, float iZ, float iW)
 {
 	if(endVals)
-		((ci::Vec4f *)endVals)->set(iX, iY, iZ, iW);
+		((ci::vec4 *)endVals)->set(iX, iY, iZ, iW);
 }
 
 
@@ -237,9 +237,9 @@ float Message::interpolateTime(int iInterp, float iTime)
 
 
 //iM goes from 0 - 1.0
-ci::Vec4f Message::bezier(float iM, std::vector<ci::Vec4f> iPath)
+ci::vec4 Message::bezier(float iM, std::vector<ci::vec4> iPath)
 {
-	ci::Vec4f r;
+	ci::vec4 r;
 
 	//if (iM > 1.0) iM = 1.0;
 	if (iM > 0.999) iM = 0.999;
@@ -286,9 +286,9 @@ ci::Vec4f Message::bezier(float iM, std::vector<ci::Vec4f> iPath)
 }
 
 
-ci::Vec4f Message::spline(float iM, std::vector<ci::Vec4f> iPath)
+ci::vec4 Message::spline(float iM, std::vector<ci::vec4> iPath)
 {
-	ci::Vec4f r;
+	ci::vec4 r;
 
 	float p0, p1, p2, p3;
 	float xx, yy, zz, ww;

@@ -48,9 +48,9 @@ public:
     float height;
     float leading;
     float x;
-    ci::Vec3f operator[](int iIndex)
+    ci::vec3 operator[](int iIndex)
     {
-        return ci::Vec3f(x, height-(float)iIndex*leading, 0);
+        return ci::vec3(x, height-(float)iIndex*leading, 0);
     };
 };
 
@@ -65,7 +65,7 @@ public:
 
     float           colX(int iNumber);
     float           col(int iNumber=1);
-    void            setLineColor(ci::Vec4f iColor);
+    void            setLineColor(ci::vec4 iColor);
     void            setLineWidth(float iWidth);
 
     void            showLines(bool iShowHide);

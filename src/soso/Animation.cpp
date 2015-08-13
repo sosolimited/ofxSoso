@@ -110,7 +110,7 @@ Tween* Animation::tween(Object *iObject, int iID, float iStartTime, float iEndTi
 Tween* Animation::tween(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp, float iX0, float iY0, float iZ0, float iX1, float iY1, float iZ1, int iPlayMode)
 {
 	//make target vals
-	ci::Vec3f *args = new ci::Vec3f();
+	ci::vec3 *args = new ci::vec3();
 	args->set(iX1, iY1, iZ1);
 	//make message
 	Message *message = new Message(iID, (void *)args, iInterp, iEndTime-iStartTime, iStartTime, iPlayMode);
@@ -127,7 +127,7 @@ Tween* Animation::tween(Object *iObject, int iID, float iStartTime, float iEndTi
 Tween* Animation::tween(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp, float iX0, float iY0, float iZ0, float iW0, float iX1, float iY1, float iZ1, float iW1, int iPlayMode)
 {
 	//make target vals
-	ci::Vec4f *args = new ci::Vec4f();
+	ci::vec4 *args = new ci::vec4();
 	args->set(iX1, iY1, iZ1, iW1);
 	//make message
 	Message *message = new Message(iID, (void *)args, iInterp, iEndTime-iStartTime, iStartTime, iPlayMode);
@@ -141,12 +141,12 @@ Tween* Animation::tween(Object *iObject, int iID, float iStartTime, float iEndTi
 	return tween;
 }
 
-Tween* Animation::tween(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp, ci::Vec3f iV0, ci::Vec3f iV1, int iPlayMode)
+Tween* Animation::tween(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp, ci::vec3 iV0, ci::vec3 iV1, int iPlayMode)
 {
 	return tween(iObject,iID, iStartTime, iEndTime, iInterp, iV0.x, iV0.y, iV0.z, iV1.x, iV1.y, iV1.z, iPlayMode);
 }
 
-Tween* Animation::tween(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp, ci::Vec4f iV0, ci::Vec4f iV1, int iPlayMode)
+Tween* Animation::tween(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp, ci::vec4 iV0, ci::vec4 iV1, int iPlayMode)
 {
 	return tween(iObject,iID, iStartTime, iEndTime, iInterp, iV0.x, iV0.y, iV0.z, iV0.w, iV1.x, iV1.y, iV1.z, iV1.w, iPlayMode);
 }
@@ -173,8 +173,8 @@ Tween* Animation::hideObject(Object *iObject, float iTime, int iPlayMode)
 	return tween;
 }
 
-//This method lets you specify bezier animation paths, through a vector of ci::Vec4f, which are treated as control points for the path.
-Tween* Animation::tweenBezier(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp, vector<ci::Vec4f> iPath, int iPlayMode)
+//This method lets you specify bezier animation paths, through a vector of ci::vec4, which are treated as control points for the path.
+Tween* Animation::tweenBezier(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp, vector<ci::vec4> iPath, int iPlayMode)
 {
 	//make message
 	Message *message = new Message(iID, iInterp, OF_BEZIER_PATH, iPath, iEndTime-iStartTime, iStartTime, iPlayMode);
@@ -186,8 +186,8 @@ Tween* Animation::tweenBezier(Object *iObject, int iID, float iStartTime, float 
 	return tween;
 }
 
-//This method lets you specify spline animation paths, through a vector of ci::Vec4f, which are treated as control points for the path.
-Tween* Animation::tweenSpline(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp, vector<ci::Vec4f> iPath, int iPlayMode)
+//This method lets you specify spline animation paths, through a vector of ci::vec4, which are treated as control points for the path.
+Tween* Animation::tweenSpline(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp, vector<ci::vec4> iPath, int iPlayMode)
 {
 	//make message
 	Message *message = new Message(iID, iInterp, OF_SPLINE_PATH, iPath, iEndTime-iStartTime, iStartTime, iPlayMode);

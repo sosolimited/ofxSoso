@@ -52,8 +52,8 @@ class wordBlock {
 public:
     string                rawWord;
 
-    ci::Vec2f             pos;
-    vector<ci::Vec2f>     charPositions;
+    ci::vec2             pos;
+    vector<ci::vec2>     charPositions;
 
     float                width;
     float                height;
@@ -70,7 +70,7 @@ class lineBlock {
 public:
     vector<int>            wordsID;
 
-    ci::Vec2f                pos;
+    ci::vec2                pos;
     float                width;
     float                height;
 
@@ -100,7 +100,7 @@ public:
     void                            drawJustified(float x=0, float y=0, bool drawFlag=true);
 
     virtual void                    setColor(float iR, float iG, float iB, float iA=255.0);
-    virtual void                    setColor(ci::Vec4f color);
+    virtual void                    setColor(ci::vec4 color);
     virtual void                    setColor(ci::ColorA8u color);
     void                            setWordColor(int iIndex, float iR, float iG, float iB, float iA=255.0);
     void                            setWordColor(string iWord, float iR, float iG, float iB, float iA=255.0,
@@ -123,7 +123,7 @@ public:
     float                           getHeight();
     float                            getColumnWidth();
 
-    ci::Vec2f                         getCharPosition(int iIndex); //LM 031213
+    ci::vec2                         getCharPosition(int iIndex); //LM 031213
 
     virtual void                    setFont(SosoTrueTypeFont *iFont);
     SosoTrueTypeFont*            getFont();

@@ -164,7 +164,7 @@ void GridSystem::buildLines()
 
 //Method for accessing grid positions.
 //Basically, this returns an GridSystemArray, which also has an overloaded [] operator.
-//Usage: grid[2][2] where this will return an ci::Vec3f for the column 2 and 2 baselines down from top of page.
+//Usage: grid[2][2] where this will return an ci::vec3 for the column 2 and 2 baselines down from top of page.
 GridSystemArray GridSystem::operator[](int iColumn)
 {
     GridSystemArray array;
@@ -175,7 +175,7 @@ GridSystemArray GridSystem::operator[](int iColumn)
     return array;
 }
 
-void GridSystem::setLineColor(ci::Vec4f iColor)
+void GridSystem::setLineColor(ci::vec4 iColor)
 {
     for(int i=0; i < lines.size(); i++)
         lines[i]->setColor(iColor);

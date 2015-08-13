@@ -291,7 +291,7 @@ void TextObject::setColor(float iR, float iG, float iB, float iA)
     renderDirty = true;
 }
 
-void TextObject::setColor(ci::Vec4f color)
+void TextObject::setColor(ci::vec4 color)
 {
     Object::setColor(color.x, color.y, color.z, color.w);
     setAllWordsColor(color.x, color.y, color.z, color.w);
@@ -364,7 +364,7 @@ float TextObject::getColumnWidth()
 	return columnWidth;
 }
 
-ci::Vec2f TextObject::getCharPosition(int iIndex) {
+ci::vec2 TextObject::getCharPosition(int iIndex) {
     if (iIndex >= 0 && iIndex < rawText.size()) {
         int j = iIndex;
         for (int i=0; i<words.size(); i++) {
@@ -374,7 +374,7 @@ ci::Vec2f TextObject::getCharPosition(int iIndex) {
                     j -= words[i].charPositions.size()+1;
                 }
                 else {
-                    ci::Vec2f pos = words[i].charPositions[j] + words[i].pos;
+                    ci::vec2 pos = words[i].charPositions[j] + words[i].pos;
 
                     //cout << "found pos " << words[i].rawWord.at(j) << " in string " << rawText << " x:" << pos.x << " y:" << pos.y << "\n";
                     return scaleFactor*(words[i].pos + words[i].charPositions[j]);

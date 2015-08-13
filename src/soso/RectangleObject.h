@@ -39,7 +39,7 @@ public:
 
 
 public:
-	ci::Vec2f						dimensions;
+	ci::vec2						dimensions;
 	bool						isCentered;
 	bool						isFilled;
 

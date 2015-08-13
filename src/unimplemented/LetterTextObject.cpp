@@ -94,7 +94,7 @@ void LetterTextObject::rebuildLetters()
 				//Make letters.
 				for(int p=0; p < words[currentWordID].charPositions.size(); p++){
 					//Add word position to char position.
-					ci::Vec3f pos((words[currentWordID].pos.x + words[currentWordID].charPositions[p].x) * scaleFactor,
+					ci::vec3 pos((words[currentWordID].pos.x + words[currentWordID].charPositions[p].x) * scaleFactor,
 								 (words[currentWordID].pos.y + words[currentWordID].charPositions[p].y) * scaleFactor,
 								 0);
 
@@ -213,7 +213,7 @@ void LetterTextObject::setColor(float iR, float iG, float iB, float iA)
         letters[i]->setColor(iR, iG, iB, iA);
 }
 
-void LetterTextObject::setColor(ci::Vec4f iColor)
+void LetterTextObject::setColor(ci::vec4 iColor)
 {
     TextObject::setColor(iColor);
     for (int i=0; i < letters.size(); i++)

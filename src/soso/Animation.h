@@ -71,17 +71,17 @@ public:
 											int iPlayMode=OF_ONE_TIME_PLAY);
 
 	Tween*						tween(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp,
-											ci::Vec3f iV0, ci::Vec3f iV1,
+											ci::vec3 iV0, ci::vec3 iV1,
 											int iPlayMode=OF_ONE_TIME_PLAY);
 	Tween*						tween(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp,
-											ci::Vec4f iV0, ci::Vec4f iV1,
+											ci::vec4 iV0, ci::vec4 iV1,
 											int iPlayMode=OF_ONE_TIME_PLAY);
 
 	Tween*						showObject(Object *iObject, float iTime, int iPlayMode=OF_ONE_TIME_PLAY);
 	Tween*						hideObject(Object *iObject, float iTime, int iPlayMode=OF_ONE_TIME_PLAY);
 
-	Tween*						tweenBezier(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp, std::vector<ci::Vec4f> iPath, int iPlayMode=OF_ONE_TIME_PLAY);
-	Tween*						tweenSpline(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp, std::vector<ci::Vec4f> iPath, int iPlayMode=OF_ONE_TIME_PLAY);
+	Tween*						tweenBezier(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp, std::vector<ci::vec4> iPath, int iPlayMode=OF_ONE_TIME_PLAY);
+	Tween*						tweenSpline(Object *iObject, int iID, float iStartTime, float iEndTime, int iInterp, std::vector<ci::vec4> iPath, int iPlayMode=OF_ONE_TIME_PLAY);
 
 	Tween*						tweenFunc(Object *iObject,float (*iFunction)(void *), void *iArgs, float iTime, int iPlayMode=OF_ONE_TIME_PLAY); //LM
 

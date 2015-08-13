@@ -17,7 +17,7 @@ TextureObject::TextureObject(int w, int h)
 	gl::Texture::Format format;
 	format.setInternalFormat( GL_RGBA );
 	texture = gl::Texture::create( w, h, format );
-	texture->setFlipped();
+	texture->setTopDown();
 
 	width = w;
 	height = h;
@@ -31,7 +31,7 @@ TextureObject::TextureObject( const gl::TextureRef &texture ):
 {
 	width = texture->getWidth();
 	height = texture->getHeight();
-	texture->setFlipped();
+	texture->setTopDown();
 	isCentered = false;
 	renderDirty = true;
 }

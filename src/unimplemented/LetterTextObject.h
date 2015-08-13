@@ -46,7 +46,7 @@ public:
 public:
 	char							character;
 	char							*charPointer;
-	ci::Vec3f                         home;
+	ci::vec3                         home;
 	SosoTrueTypeFont				*font;
 	float							scaleFactor;
 };
@@ -73,7 +73,7 @@ public:
 	void							setAlignment(TextObjectAlignment iAlignment);
 
 	void							setColor(float iR, float iG, float iB, float iA=255);
-	void							setColor(ci::Vec4f iColor);
+	void							setColor(ci::vec4 iColor);
 	void                            setColor(ci::ColorA8u iColor);
 	//void							normalizeScale();
 	void							setWordColor(int iIndex, float iR, float iG, float iB, float iA=255.0);

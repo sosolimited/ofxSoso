@@ -55,7 +55,7 @@ void LineStripObject::addVertex(float iX, float iY, float iZ)
 	vertices.push_back(vert);
 }
 
-void LineStripObject::addVertex(float iX, float iY, float iZ, ci::Vec4f iColor)
+void LineStripObject::addVertex(float iX, float iY, float iZ, ci::vec4 iColor)
 {
     LineStripVertex *vert = new LineStripVertex();
     vert->position.set(iX, iY, iZ);

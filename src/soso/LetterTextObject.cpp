@@ -21,7 +21,7 @@ void LetterTextObject::Letter::render()
 {
 	glPushMatrix();
 	glScalef(scaleFactor, -scaleFactor, 1.0);
-	font->drawGlyphs( { glyph }, Vec2f( 0, 0 ) );
+	font->drawGlyphs( { glyph }, vec2( 0, 0 ) );
 	glPopMatrix();
 }
 
@@ -45,8 +45,8 @@ void LetterTextObject::rebuildLetters()
 	auto placements = font->getGlyphPlacements( text, options );
 	for( GlyphMeasure glyph : placements )
 	{
-		Vec3f pos( glyph.second, 0.0f );
-		glyph.second = Vec2f( 0.0f, 0.0f );
+		vec3 pos( glyph.second, 0.0f );
+		glyph.second = vec2( 0.0f, 0.0f );
 		auto letter = make_shared<Letter>( font, glyph, pos.x, pos.y, 1.0f );
 		letter->setTrans( pos );
 		letter->setColor( material->color );
@@ -129,7 +129,7 @@ void LetterTextObject::setColor(float iR, float iG, float iB, float iA)
 		letters[i]->setColor(iR, iG, iB, iA);
 }
 
-void LetterTextObject::setColor(ci::Vec4f iColor)
+void LetterTextObject::setColor(ci::vec4 iColor)
 {
 	Object::setColor(iColor);
 	for (int i=0; i < letters.size(); i++)

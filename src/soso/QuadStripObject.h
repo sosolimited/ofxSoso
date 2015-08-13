@@ -39,19 +39,19 @@ public:
 	void					render();
 
 	void					setTexture(ci::gl::TextureRef iTex);
-	virtual void			setVertexPos(int iVertexNum, ci::Vec3f iPos);
+	virtual void			setVertexPos(int iVertexNum, ci::vec3 iPos);
 	virtual void			setVertexTexCoords(int iVertexNum, float iU, float iV);
 	virtual void			setVertexColor(int iVertexNum, float iR, float iG, float iB, float iA=255);
     virtual void            setVertexColorOnly(int iVertexNum, float iR, float iG, float iB);
     virtual void            setVertexAlpha(int iVertexNum, float iA);
 
-	ci::Vec3f					getVertexPos(int iVertexNum);
-	ci::Vec2f					getVertexTexCoords(int iVertexNum);
+	ci::vec3					getVertexPos(int iVertexNum);
+	ci::vec2					getVertexTexCoords(int iVertexNum);
 
 	void					setDrawMode(int iDrawMode);	//OF_FILLED, OF_OUTLINE
 	void					enableVertexColoring(bool iEnable);
 
-    ci::Vec4f                 getVertexColor(int iVertexNum);
+    ci::vec4                 getVertexColor(int iVertexNum);
     float                   getVertexAlpha(int iVertexNum);
 
 	ci::gl::TextureRef			getTexture();

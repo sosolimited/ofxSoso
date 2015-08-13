@@ -59,7 +59,7 @@ void LineSegmentObject::setVertexPos(int iVertNum, float iX, float iY, float iZ)
 
 void LineSegmentObject::addVertex(float iX, float iY, float iZ)
 {
-	vertices.push_back(ci::Vec3f(iX, iY, iZ));
+	vertices.push_back(ci::vec3(iX, iY, iZ));
 }
 
 

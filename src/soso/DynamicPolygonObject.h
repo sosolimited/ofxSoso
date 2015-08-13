@@ -37,11 +37,11 @@ public:
 
 	void								idle(float iTime);
 
-	void								setVertexPos(int iVertexNum, ci::Vec3f iPos);
+	void								setVertexPos(int iVertexNum, ci::vec3 iPos);
 	void								setVertexTexCoords(int iVertexNum, float iU, float iV);
 	void								setVertexColor(int iVertexNum, float iR, float iG, float iB, float iA=255);
 
-	void								gotoVertexPos(int iVertexNum, ci::Vec3f iPos, float iDur=-1.0, float iDelay=0, int iInterp=OF_LINEAR);
+	void								gotoVertexPos(int iVertexNum, ci::vec3 iPos, float iDur=-1.0, float iDelay=0, int iInterp=OF_LINEAR);
 	void								gotoVertexTexCoords(int iVertexNum, float iU, float iV, float iDur=-1.0, float iDelay=0, int iInterp=OF_LINEAR);
 	void								gotoVertexColor(int iVertexNum, float iR, float iG, float iB, float iA=255, float iDur=-1.0, float iDelay=0, int iInterp=OF_LINEAR);
 
