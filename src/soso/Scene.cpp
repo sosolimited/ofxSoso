@@ -51,7 +51,6 @@ Scene::Scene(int w, int h)
 	enableDepthTest(true);
 	setDepthFunc(GL_LESS);
 	setDepthMask(true);
-	setShadingModel(GL_SMOOTH);
 
 	sortedObjects = NULL;
 	//default max number of sorted objects
@@ -144,8 +143,6 @@ void Scene::draw()
 	}else{
 		glDisable(GL_BLEND);
 	}
-	//Shading
-	glShadeModel(shadingModel);
 
 	//Clear background
 	glClearColor(backgroundColor[0]/255.0f, backgroundColor[1]/255.0f, backgroundColor[2]/255.0f, backgroundColor[3]/255.0f);
@@ -295,11 +292,6 @@ void Scene::setDepthMask(bool iWrite)
 void Scene::enableBlending(bool iEnable)
 {
 	isBlendingOn = iEnable;
-}
-
-void Scene::setShadingModel(GLenum iModel)
-{
-	shadingModel = iModel;
 }
 
 //LM 061312

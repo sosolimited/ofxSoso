@@ -92,7 +92,6 @@ public:
 	void					setDepthFunc(GLenum iFunc);
 	void					setDepthMask(bool iWrite);
 	void					enableBlending(bool iEnable);
-	void					setShadingModel(GLenum iModel);
 
 	int						getSceneWidth();
 	int						getSceneHeight();
@@ -122,7 +121,6 @@ private:
 							isDepthMaskOn;
 	GLenum					depthFunc;
 	bool					isBlendingOn;
-	GLenum					shadingModel;
 	ci::CameraPersp	camera;
 
 public:
