@@ -5,7 +5,7 @@ ofxVideoPlayerObject::ofxVideoPlayerObject(char *iPath)
   player = new ofAVFoundationPlayer();
   
   player->load(iPath);
-  player->getTextureReference().texData.bFlipTexture = true;
+  player->getTexturePtr()->texData.bFlipTexture = true;
   
 	isCentered = false;
 	isAutoIdling = true;
@@ -32,11 +32,11 @@ void ofxVideoPlayerObject::render()
 {
   if(!player->isLoaded()) return;
   
-  player->getTextureReference().texData.bFlipTexture = true;	//This has to be called here every frame to keep it flipped right.
+  player->getTexturePtr()->texData.bFlipTexture = true;	//This has to be called here every frame to keep it flipped right.
   
   if(mShader) {
     mShader->begin();
-    mShader->setUniformTexture( "u_texture", player->getTextureReference(), 0);
+    mShader->setUniformTexture( "u_texture", *player->getTexturePtr(), 0);
     float bounds[4] = {0, 0, player->getWidth(), player->getHeight()};
     mShader->setUniform4fv( "u_texture_bounds", &bounds[0]);
   }

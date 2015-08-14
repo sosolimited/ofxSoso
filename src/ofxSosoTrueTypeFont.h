@@ -29,8 +29,8 @@
 #include "ofTrueTypeFont.h"
 
 //had to add these in for FT_UInt
-#include "ft2build.h"
-#include "freetype2/freetype/freetype.h"
+#include "freetype2/ft2build.h"
+#include "freetype2/freetype.h"
 
 #define FONT_NUM_CHARS (255 - NUM_CHARACTER_TO_START)
 
