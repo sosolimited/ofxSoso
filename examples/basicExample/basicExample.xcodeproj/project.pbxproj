@@ -28,7 +28,7 @@
 		B7D9CC22C351CF45AC9C5C95 /* ofxScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCD48F72590D5029F6154F54 /* ofxScene.cpp */; };
 		B87D5591C5CDABB37D6695BD /* ofxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC1833E213C2C4A1E47DFD65 /* ofxObject.cpp */; };
 		B8EB0219666AA8FFB95857FE /* ofxQuadStripObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18CEFEAF8B9335458C193C11 /* ofxQuadStripObject.cpp */; };
-		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
+		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C5011EF6997C1099FC26CC1B /* ofxLineSegmentObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71476C1B02BAEFF003D83DFB /* ofxLineSegmentObject.cpp */; };
 		DECE37CB3668FCE5D210E34A /* ofxSosoTrueTypeFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80897F89549F3B92332DE157 /* ofxSosoTrueTypeFont.cpp */; };
 		E08321E719364057000BD296 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E08321E619364057000BD296 /* QuartzCore.framework */; };
@@ -376,7 +376,7 @@
 		E4B69B4C0A3A1720003C02F2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0640;
 			};
 			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "basicExample" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -479,7 +479,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH)";
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
@@ -502,7 +501,8 @@
 					../../../../addons/ofxSoso/libs,
 					../../../../addons/ofxSoso/src,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
@@ -516,7 +516,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH)";
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
@@ -540,7 +539,7 @@
 					../../../../addons/ofxSoso/libs,
 					../../../../addons/ofxSoso/src,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",

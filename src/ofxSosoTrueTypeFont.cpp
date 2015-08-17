@@ -362,7 +362,7 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
     cps[i].tW				= cps[i].width;
     cps[i].tH				= cps[i].height;
     
-    areaSum += (cps[i].tW+border*2)*(cps[i].tH+border*2);
+    areaSum += (cps[i].tW)*(cps[i].tH);
     
 		GLint fheight	= cps[i].height;
 		GLint bwidth	= cps[i].width;
@@ -433,18 +433,18 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 		h = w;//pow(2,round(alpha - round(alpha/2.f)));
 		int x=0;
 		int y=0;
-		int maxRowHeight = sortedCopy[0].tH + border*2;
+		int maxRowHeight = sortedCopy[0].tH;
 		for(int i=0;i<(int)cps.size();i++){
-			if(x+sortedCopy[i].tW + border*2>w){
+			if(x+sortedCopy[i].tW > w){
 				x = 0;
 				y += maxRowHeight;
-				maxRowHeight = sortedCopy[i].tH + border*2;
+				maxRowHeight = sortedCopy[i].tH;
 				if(y + maxRowHeight > h){
 					alpha++;
 					break;
 				}
 			}
-			x+= sortedCopy[i].tW + border*2;
+			x+= sortedCopy[i].tW;
 			if(i==(int)cps.size()-1) packed = true;
 		}
     
@@ -465,26 +465,26 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
   
 	int x=0;
 	int y=0;
-	int maxRowHeight = sortedCopy[0].tH + border*2;
+	int maxRowHeight = sortedCopy[0].tH;
 	for(int i=0;i<(int)cps.size();i++){
 
     ofPixels & charPixels = expanded_data[sortedCopy[i].characterIndex];
     
-		if(x+sortedCopy[i].tW + border*2>w){
+		if(x+sortedCopy[i].tW > w){
 			x = 0;
 			y += maxRowHeight;
-			maxRowHeight = sortedCopy[i].tH + border*2;
+			maxRowHeight = sortedCopy[i].tH;
 		}
 
     // AO: Updated to conform to oF version > 0.8.4
-    cps[sortedCopy[i].characterIndex].t1		= float(x + border)/float(w);
-    cps[sortedCopy[i].characterIndex].v1		= float(y + border)/float(h);
-    cps[sortedCopy[i].characterIndex].t2		= float(cps[sortedCopy[i].characterIndex].tW + x + border)/float(w);
-    cps[sortedCopy[i].characterIndex].v2		= float(cps[sortedCopy[i].characterIndex].tH + y + border)/float(h);
+    cps[sortedCopy[i].characterIndex].t1		= float(x)/float(w);
+    cps[sortedCopy[i].characterIndex].v1		= float(y)/float(h);
+    cps[sortedCopy[i].characterIndex].t2		= float(cps[sortedCopy[i].characterIndex].tW + x)/float(w);
+    cps[sortedCopy[i].characterIndex].v2		= float(cps[sortedCopy[i].characterIndex].tH + y)/float(h);
 
-    charPixels.pasteInto(atlasPixelsLuminanceAlpha,x+border,y+border);
+    charPixels.pasteInto(atlasPixelsLuminanceAlpha, x, y);
     
-		x+= sortedCopy[i].tW + border*2;
+		x+= sortedCopy[i].tW;
     
 	}
   
@@ -517,8 +517,8 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
     glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    gluBuild2DMipmaps(texAtlas.getTextureData().textureTarget, texAtlas.getTextureData().glTypeInternal,
-                      w, h, texAtlas.getTextureData().glTypeInternal, ofGetGlTypeFromInternal(texAtlas.getTextureData().glTypeInternal), atlasPixelsLuminanceAlpha.getData());
+    gluBuild2DMipmaps(texAtlas.getTextureData().textureTarget, texAtlas.getTextureData().glInternalFormat,
+                      w, h, texAtlas.getTextureData().glInternalFormat, ofGetGlTypeFromInternal(texAtlas.getTextureData().glInternalFormat), atlasPixelsLuminanceAlpha.getData());
 
     glDisable(texAtlas.getTextureData().textureTarget);
   }
@@ -880,10 +880,6 @@ void ofxSosoTrueTypeFont::drawString(string c, float x, float y) {
 	GLfloat		X		= x;
 	GLfloat		Y		= y;
   
-	bool alreadyBinded = binded;
-  
-	if(!alreadyBinded) bind();
-  
 	int len = (int)c.length();
   
 	while(index < len){
@@ -926,8 +922,6 @@ void ofxSosoTrueTypeFont::drawString(string c, float x, float y) {
 
 	}
   
-	if(!alreadyBinded) unbind();
-  
 }
 
 // AO: Updated this section to conform to oF versions > 0.8.4
@@ -969,7 +963,7 @@ void ofxSosoTrueTypeFont::drawStringAsShapes(string c, float x, float y) {
         
 		  } else {
         // AO
-        drawCharAsShape(cy, X, Y);
+        drawCharAsShape(cy, X, Y, false, true);
         X += (cps[cy].advance);
 
 		  }
