@@ -43,6 +43,13 @@ void ofxVideoPlayerObject::render()
     mShader->setUniform1f( "objR", ofMap(getColor().r,0,255,0,1));
     mShader->setUniform1f( "objG", ofMap(getColor().g,0,255,0,1));
     mShader->setUniform1f( "objB", ofMap(getColor().b,0,255,0,1));
+		mShader->setUniform1f( "objA", ofMap(getAlpha(),0,255,0,1));
+
+		if (hasSpecialTransparency){
+			mShader->setUniform1f( "transparency", 1.0f );
+		}else{
+			mShader->setUniform1f( "transparency", 0.0f );
+		}
   }
   
   // TODO: Need a way to set alpha that actually works
