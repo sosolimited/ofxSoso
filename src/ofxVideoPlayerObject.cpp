@@ -2,11 +2,11 @@
 
 ofxVideoPlayerObject::ofxVideoPlayerObject(char *iPath)
 {
-  player = new ofAVFoundationPlayer();
+  player = new ofVideoPlayer();
   
   player->load(iPath);
-  player->getTextureReference().texData.bFlipTexture = true;
-  
+  player->getTexture().texData.bFlipTexture = true;
+	
 	isCentered = false;
 	isAutoIdling = true;
 }
@@ -30,27 +30,26 @@ void ofxVideoPlayerObject::idle(float iTime)
 
 void ofxVideoPlayerObject::render()
 {
+
   if(!player->isLoaded()) return;
-  
-  player->getTextureReference().texData.bFlipTexture = true;	//This has to be called here every frame to keep it flipped right.
-  
+	
+	player->getTexture().texData.bFlipTexture = true;
+	//This has to be called here every frame to keep it flipped right.
+	
   if(mShader) {
     mShader->begin();
-    mShader->setUniformTexture( "u_texture", player->getTextureReference(), 0);
+//    mShader->setUniformTexture( "u_texture", player->getTextureReference(), 0);
     float bounds[4] = {0, 0, player->getWidth(), player->getHeight()};
     mShader->setUniform4fv( "u_texture_bounds", &bounds[0]);
   }
   
   // TODO: Need a way to set alpha that actually works
-  // ofSetColor(255,255,255, getAlpha());
-  
-  
 	if(isCentered) player->draw(-player->getWidth()/2, -player->getHeight()/2);
 	else player->draw(0,0);
-  
-  if(mShader)
+	
+	if(mShader){
     mShader->end();
-  
+	}
 }
 
 void ofxVideoPlayerObject::start()
