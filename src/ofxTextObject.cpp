@@ -86,24 +86,29 @@ void ofxTextObject::init(ofxSosoTrueTypeFont *iFont)
 
 void ofxTextObject::render()
 {
-	if(isDisplayListEnabled){
-		if (renderDirty) {
-      
-			glDeleteLists(displayList, 1);
-			glNewList(displayList, GL_COMPILE_AND_EXECUTE);
-      
-      drawText();
-      
-			glEndList();
-			renderDirty = false;
-			glCallList(displayList);
-      
-		}else{
-			glCallList(displayList);
-		}
-	}else{
-    drawText();
-	}
+	
+//	ofRect(0,0,200,200);
+	drawText();
+	
+//	
+//	if(isDisplayListEnabled){
+//		if (renderDirty) {
+//      
+//			glDeleteLists(displayList, 1);
+//			glNewList(displayList, GL_COMPILE_AND_EXECUTE);
+//      
+//      drawText();
+//      
+//			glEndList();
+//			renderDirty = false;
+//			glCallList(displayList);
+//      
+//		}else{
+//			glCallList(displayList);
+//		}
+//	}else{
+//    drawText();
+//	}
 }
 
 
@@ -573,6 +578,11 @@ void ofxTextObject::updatePositions(float width)
 //The following draw methods were adapted from Luke Malcom's Text Suite ofAddon
 void ofxTextObject::drawText(float x, float y, bool drawFlag)
 {
+	
+//	ofLogNotice("Drawing text");
+//	
+//	ofLogNotice("alignment " + ofToString(alignment));
+	
 	if (alignment == OF_TEXT_ALIGN_LEFT) {
     drawLeft(x, y, drawFlag);
 	} else if (alignment == OF_TEXT_ALIGN_RIGHT) {
@@ -594,9 +604,16 @@ void ofxTextObject::drawLeft(float x, float y, bool drawFlag)
   float   drawY = 0;
   
   float currX = 0;
-  
+//	
+//	ofLogNotice("Drawing left");
+//	ofLogNotice("scale factor " + ofToString(scaleFactor));
+	
+	scaleFactor = 1;
+	
   if (words.size() > 0) {
-    
+		
+		
+//		ofLogNotice("has words " + ofToString(words.size()));
     if(drawFlag){
       glPushMatrix();
       glScalef(scaleFactor, scaleFactor, 1.0);
@@ -625,7 +642,9 @@ void ofxTextObject::drawLeft(float x, float y, bool drawFlag)
 						words[currentWordID].font->drawStringAsShapes(words[currentWordID].rawWord.c_str(), drawX, drawY);
 					}
 				}
+				
 				words[currentWordID].charPositions = words[currentWordID].font->getCharPositions(words[currentWordID].rawWord.c_str());	//Store char positions for word.
+				
         currX += words[currentWordID].width;
         
       }

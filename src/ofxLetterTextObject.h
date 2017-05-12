@@ -34,6 +34,7 @@
 class ofxLetterTextObjectLetter : public ofxObject
 {
 public:
+	
 	ofxLetterTextObjectLetter(ofxSosoTrueTypeFont *iFont, string iString, float iX, float iY, float iScaleFactor);  //eg 070411
   ~ofxLetterTextObjectLetter();
   
@@ -50,6 +51,7 @@ public:
 class ofxLetterTextObject : public ofxTextObject
 {
 public:
+	ofxLetterTextObject(){}
 	ofxLetterTextObject(ofxSosoTrueTypeFont *iFont, string iString=NULL);
 	~ofxLetterTextObject();
   

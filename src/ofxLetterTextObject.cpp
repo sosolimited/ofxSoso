@@ -64,7 +64,7 @@ void ofxLetterTextObject::rebuildLetters()
 			for(int w=0; w < lines[a].wordsID.size(); w++)
 			{
 				currentWordID = lines[a].wordsID[w];
-        
+				
 				//Make letters.
 				for(int p=0; p < words[currentWordID].charPositions.size(); p++){
 					//Add word position to char position.
@@ -80,6 +80,7 @@ void ofxLetterTextObject::rebuildLetters()
 					letter->setTrans(pos.x, pos.y, pos.z);
 					letter->setColor(words[currentWordID].color.r, words[currentWordID].color.g, words[currentWordID].color.b, words[currentWordID].color.a);	//Gotta grab word color or else it gets reset to white.
 					letters.push_back(letter);
+					
 					addChild(letter);
 				}
 			}
@@ -102,7 +103,12 @@ void ofxLetterTextObject::setWordColor(string iWord, float iR, float iG, float i
 }
 
 //Empty render() because the letter objects handle all of the drawing.
-void ofxLetterTextObject::render(){}
+void ofxLetterTextObject::render(){
+
+//	ofLogNotice("drawing letter obj");
+//	ofSetColor(0, 0, 255, 255);
+//	ofRect(0,0,10,10);
+}
 
 void ofxLetterTextObject::setString(string iString) //JM 080513
 {

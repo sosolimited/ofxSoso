@@ -30,6 +30,10 @@
 
 #include "ofxObject.h"
 #include "ofxSosoTrueTypeFont.h"
+//#include "ofTrueTypeFont.h"
+
+
+//typedef ofTrueTypeFont ofxSosoTrueTypeFont;
 
 //Helper class to store fonts for easy static access by name.
 class ofxTextFont{
@@ -79,6 +83,7 @@ enum TextObjectAlignment{
 class ofxTextObject : public ofxObject
 {
 public:
+	ofxTextObject(){};
 	ofxTextObject(ofxSosoTrueTypeFont *iFont, string iString=NULL);
 	~ofxTextObject();
   
@@ -140,7 +145,7 @@ public:
   
   string                          getLineString(int iIndex);
   
-protected:
+//protected:
   void                            init(ofxSosoTrueTypeFont *iFont);
   
   int                             wrapTextX(float lineWidth);

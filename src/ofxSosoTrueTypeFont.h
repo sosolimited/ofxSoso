@@ -26,11 +26,43 @@
 
 #pragma once
 
-#include "ofTrueTypeFont.h"
+#include <vector>
+#include "ofPoint.h"
+#include "ofRectangle.h"
+#include "ofConstants.h"
+#include "ofPath.h"
+#include "ofTexture.h"
+#include "ofMesh.h"
 
 //had to add these in for FT_UInt
 #include "ft2build.h"
-#include "freetype2/freetype/freetype.h"
+#include "freetype2/freetype.h"
+
+
+//--------------------------------------------------
+typedef struct {
+	int character;
+	int height;
+	int width;
+	int setWidth;
+	int topExtent;
+	int leftExtent;
+	float tW,tH;
+	float x1,x2,y1,y2;
+	float t1,t2,v1,v2;
+} sosoCharProps;
+
+typedef ofPath ofTTFCharacter;
+
+//--------------------------------------------------
+#define NUM_CHARACTER_TO_START		33		// 0 - 32 are control characters, no graphics needed.
+
+///// \todo?
+//const static string OF_TTF_SANS = "sans-serif";
+//const static string OF_TTF_SERIF = "serif";
+//const static string OF_TTF_MONO = "monospace";
+
+//#include "ofTrueTypeFont.h"
 
 #define FONT_NUM_CHARS (255 - NUM_CHARACTER_TO_START)
 
@@ -49,11 +81,43 @@ public:
 };
 
 
-class ofxSosoTrueTypeFont : public ofTrueTypeFont
+class ofxSosoTrueTypeFont
 {
 public:
   ofxSosoTrueTypeFont();
 	~ofxSosoTrueTypeFont();
+	
+	// set the default dpi for all typefaces.
+	/// \todo
+	static void setGlobalDpi(int newDpi);
+	
+	bool isLoaded();
+	bool isAntiAliased();
+	bool hasFullCharacterSet();
+	int getSize();
+	
+	float getLineHeight();
+	void setLineHeight(float height);
+	
+	float getLetterSpacing();
+	void setLetterSpacing(float spacing);
+
+	float getSpaceSize();
+	void setSpaceSize(float size);
+	
+	int	getNumCharacters();
+	
+	/// \todo
+	ofTTFCharacter getCharacterAsPoints(int character, bool vflip=ofIsVFlipped());
+	vector<ofTTFCharacter> getStringAsPoints(string str, bool vflip=ofIsVFlipped());
+	ofMesh & getStringMesh(string s, float x, float y);
+	ofTexture & getFontTexture();
+	
+	/// \todo
+	void bind();
+	void unbind();
+	ofTextEncoding getEncoding() const;
+	void setEncoding(ofTextEncoding encoding);
   
   
 	//overridden methods from ofTrueTypeFont
@@ -98,8 +162,54 @@ protected:
 	void                    reloadTextures();
   
 protected:
+	
+	bool bLoadedOk;
+	bool bAntiAliased;
+	bool bFullCharacterSet;
+	int nCharacters;
+	
+	vector <ofTTFCharacter> charOutlines;
+	vector <ofTTFCharacter> charOutlinesNonVFlipped;
+	
+	float lineHeight;
+	float letterSpacing;
+	float spaceSize;
+	
+	vector<sosoCharProps> cps; // properties for each character
+	
+	int fontSize;
+	bool bMakeContours;
+	float simplifyAmt;
+	int dpi;
+	
+	void drawCharAsShape(int c, float x, float y);
+	void createStringMesh(string s, float x, float y);
+	
+	int border;
+	string filename;
+	
+	ofTexture texAtlas;
+	bool binded;
+	ofMesh stringQuads;
+	
 	bool                    isKerningEnabled;
 	int                     kerningPairs[FONT_NUM_CHARS][FONT_NUM_CHARS];
+	
+private:
+#if defined(TARGET_ANDROID) || defined(TARGET_OF_IOS)
+	friend void ofUnloadAllFontTextures();
+	friend void ofReloadAllFontTextures();
+#endif
+	
+	GLint blend_src, blend_dst;
+	GLboolean blend_enabled;
+	GLboolean texture_2d_enabled;
+	
+	ofTextEncoding encoding;
+	static bool	initLibraries();
+	static void finishLibraries();
+	
+	friend void ofExitCallback();
   
 
 };
