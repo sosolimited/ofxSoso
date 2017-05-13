@@ -40,7 +40,7 @@ void testApp::setup(){
 	//Note: If the font has them, kerning pairs are loaded by default.
   font16 = new ofxSosoTrueTypeFont();
   font16->loadFont("Arial.ttf", 16, true,  true, false, true);		//The last bool argument enables mipmapping on the letter textures.
-	font16->setKerningPair('T', 'y', -2);								//After you've loaded a font, you can also manually adjust kerning pairs.
+//	font16->setKerningPair('T', 'y', -2);								//After you've loaded a font, you can also manually adjust kerning pairs.
   
 	font64 = new ofxSosoTrueTypeFont();
   font64->loadFont("Arial.ttf", 64, true,  true, false, true);

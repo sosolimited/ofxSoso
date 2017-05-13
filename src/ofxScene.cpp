@@ -183,6 +183,8 @@ void ofxScene::draw()
   
 	
 	//ofTranslate(centerOffset.x, centerOffset.y, 0);	//offset root
+	//alex
+//	glPushMatrix();
 	
 	//Depending on the render mode, choose a draw method
 	if (renderMode == RENDER_NORMAL)
@@ -209,7 +211,9 @@ void ofxScene::draw()
       glEnable(GL_DEPTH_TEST);
     }
   }
-  
+	
+//	glPopMatrix();
+	
 	if(isScissorOn)
 		glDisable(GL_SCISSOR_TEST);
 }

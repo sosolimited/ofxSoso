@@ -1,7 +1,8 @@
 #include "ofxGradientLetterText.h"
 
 ofxGradientLetterText::ofxGradientLetterText() : ofxLetterTextObject(){
-    
+	
+		ofLogNotice("Creating gradient text");
     refs = Refs::instance();
     
     //jro3 - defaults to white
@@ -29,7 +30,7 @@ void ofxGradientLetterText::setGradientColors(ofVec3f iColor1, ofVec3f iColor2)
     gradientColors.push_back(gradientColor2);
     
     //jro4
-    //setGradientPosition(0.5);
+//    setGradientPosition(0.5);
     updateLetterColors();
 }
 
@@ -47,11 +48,16 @@ void ofxGradientLetterText::setGradientPosition(float iPos)
 }
 
 void ofxGradientLetterText::updateLetterColors() {
-    
+	
+//		ofLogNotice("Updating letter colors");
+	
     for (int i = 0 ; i < letters.size() ; i++) {
         
         ofVec3f color = getColorFromPosition(letters[i]->getTrans());
-        
+			
+				// get color
+//				ofLogNotice("color is " + ofToString(color.x) + " " + ofToString(color.y) + " " + ofToString(color.z));
+			
         letters[i]->setColor( color[0], color[1], color[2] ) ;
         
     }

@@ -31,10 +31,11 @@
 class ofxSosoRenderer : public ofGLRenderer
 {
 public:
-  ofxSosoRenderer(float iWidth, float iHeight, bool iOrthographic=false, bool iVFlip=false, float iFov=60, float iNearDist = 0, float iFarDist = 0);
+  ofxSosoRenderer(float iWidth, float iHeight, bool iOrthographic=false, bool iVFlip=false, float iFov=0.5f, float iNearDist = 0, float iFarDist = 0);
+	//changed fov to 0.5
   ~ofxSosoRenderer();
   
-  void        setScreenParams(bool iOrthographic, bool iVFlip=false, float iFov=60, float iNearDist=0, float iFarDist=0);
+  void        setScreenParams(bool iOrthographic, bool iVFlip=false, float iFov=0.5f, float iNearDist=0, float iFarDist=0);
   
 	void        setupScreen();
   

@@ -56,7 +56,6 @@ public:
 	~ofxLetterTextObject();
   
 	void                    render();
-  
   void                    setString(string iString);
 	void                    setFont(ofxSosoTrueTypeFont *iFont);
 	void                    setColumnWidth(float iWidth);
