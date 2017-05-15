@@ -104,10 +104,6 @@ void ofxLetterTextObject::setWordColor(string iWord, float iR, float iG, float i
 
 //Empty render() because the letter objects handle all of the drawing.
 void ofxLetterTextObject::render(){
-
-//	ofLogNotice("drawing letter obj");
-//	ofSetColor(0, 0, 255, 255);
-//	ofRect(0,0,10,10);
 }
 
 void ofxLetterTextObject::setString(string iString) //JM 080513

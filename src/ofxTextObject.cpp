@@ -85,30 +85,25 @@ void ofxTextObject::init(ofxSosoTrueTypeFont *iFont)
 }
 
 void ofxTextObject::render()
-{
-	
-//	ofRect(0,0,200,200);
-	drawText();
-	
-//	
-//	if(isDisplayListEnabled){
-//		if (renderDirty) {
-//      
-//			glDeleteLists(displayList, 1);
-//			glNewList(displayList, GL_COMPILE_AND_EXECUTE);
-//      
-//      drawText();
-//      
-//			glEndList();
-//			renderDirty = false;
-//			glCallList(displayList);
-//      
-//		}else{
-//			glCallList(displayList);
-//		}
-//	}else{
-//    drawText();
-//	}
+{	
+	if(isDisplayListEnabled){
+		if (renderDirty) {
+      
+			glDeleteLists(displayList, 1);
+			glNewList(displayList, GL_COMPILE_AND_EXECUTE);
+      
+      drawText();
+      
+			glEndList();
+			renderDirty = false;
+			glCallList(displayList);
+      
+		}else{
+			glCallList(displayList);
+		}
+	}else{
+    drawText();
+	}
 }
 
 

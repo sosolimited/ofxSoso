@@ -7,6 +7,8 @@ ofxVideoPlayerObject::ofxVideoPlayerObject(char *iPath)
   player->load(iPath);
   player->getTexture().texData.bFlipTexture = true;
 	
+	player->setPixelFormat(OF_PIXELS_RGB);
+	
 	isCentered = false;
 	isAutoIdling = true;
 }
@@ -38,7 +40,7 @@ void ofxVideoPlayerObject::render()
 	
   if(mShader) {
     mShader->begin();
-//    mShader->setUniformTexture( "u_texture", player->getTextureReference(), 0);
+		mShader->setUniformTexture( "u_texture", player->getTexture(), 0);
     float bounds[4] = {0, 0, player->getWidth(), player->getHeight()};
     mShader->setUniform4fv( "u_texture_bounds", &bounds[0]);
   }
