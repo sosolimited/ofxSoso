@@ -46,7 +46,8 @@ public:
 	bool						isAutoIdling;
   bool            isPlaying = false;
 
-  ofVideoPlayer		*player;
+//  ofVideoPlayer		*player;
+	ofAVFoundationPlayer *player; //alex
   ofShader        *mShader = 0;
   
 };
