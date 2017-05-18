@@ -599,16 +599,9 @@ void ofxTextObject::drawLeft(float x, float y, bool drawFlag)
   float   drawY = 0;
   
   float currX = 0;
-//	
-//	ofLogNotice("Drawing left");
-//	ofLogNotice("scale factor " + ofToString(scaleFactor));
-	
-	scaleFactor = 1;
-	
+
   if (words.size() > 0) {
 		
-		
-//		ofLogNotice("has words " + ofToString(words.size()));
     if(drawFlag){
       glPushMatrix();
       glScalef(scaleFactor, scaleFactor, 1.0);
