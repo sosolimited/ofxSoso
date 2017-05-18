@@ -774,18 +774,12 @@ ofxSosoTrueTypeFont::ofxSosoTrueTypeFont()
 
 ofxSosoTrueTypeFont::~ofxSosoTrueTypeFont(){ //LM 070612
 	
-	cout<<"0 mappedChars size = "<< mappedChars.size() <<endl;
-	
 	for ( int i=0; i < mappedChars.size(); i++ )
 	{
 		delete mappedChars[i];
 	}
-	
-	cout<<"1 mappedChars size = "<< mappedChars.size() <<endl;
+
 	mappedChars.clear();
-	
-	cout<<"2 mappedChars size = "<< mappedChars.size() <<endl;
-	
 }
 
 
@@ -1052,9 +1046,8 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 	if(bAntiAliased && fontsize>20){
 		if (makeMipMaps) { //soso
 			
-//			texAtlas.enableMipmaps();
-			texAtlas.setTextureMinMagFilter(GL_LINEAR,GL_LINEAR);
-//			texAtlas.setTextureMinMagFilter(GL_LINEAR_MIPMAP_LINEAR,GL_LINEAR_MIPMAP_LINEAR); //soso
+			texAtlas.enableMipmap();
+			texAtlas.setTextureMinMagFilter(GL_LINEAR,GL_LINEAR_MIPMAP_LINEAR);
 			
 		} else	//soso
 			texAtlas.setTextureMinMagFilter(GL_LINEAR,GL_LINEAR);
@@ -1068,19 +1061,22 @@ bool ofxSosoTrueTypeFont::loadFont(string filename, int fontsize, bool _bAntiAli
 	///////////////////////////////////////////////////////////////////////sosoAddon
 	//until ofTexture fully supports mipmaps, we gotta do it manually here - AFTER loadData is called on the texture
 	//it's a redo of what happens inside tex.loadData(), but instead we build the mipmaps
-//	if(makeMipMaps){
-//		glEnable(texAtlas.getTextureData().textureTarget);
-//		glBindTexture(texAtlas.getTextureData().textureTarget, (GLuint) texAtlas.getTextureData().textureID);
-//		
-//		glTexParameteri(texAtlas.getTextureData().textureTarget, GL_GENERATE_MIPMAP_SGIS, true);
-//		glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-//		glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-//		glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-//		glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	if(makeMipMaps){
+		
+		glEnable(texAtlas.getTextureData().textureTarget);
+		glBindTexture(texAtlas.getTextureData().textureTarget, (GLuint) texAtlas.getTextureData().textureID);
+
+		glTexParameteri(texAtlas.getTextureData().textureTarget, GL_GENERATE_MIPMAP_SGIS, true);
+		glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri( texAtlas.getTextureData().textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		gluBuild2DMipmaps(texAtlas.getTextureData().textureTarget, texAtlas.getTextureData().glInternalFormat, w, h, texAtlas.getTextureData().glInternalFormat, ofGetGlTypeFromInternal(texAtlas.getTextureData().glInternalFormat), atlasPixels.getPixels());
+		
 //		gluBuild2DMipmaps(texAtlas.getTextureData().textureTarget, texAtlas.getTextureData().glTypeInternal,
 //											w, h, texAtlas.getTextureData().glTypeInternal, ofGetGlTypeFromInternal(texAtlas.getTextureData().glTypeInternal), atlasPixels.getPixels());
-//		glDisable(texAtlas.getTextureData().textureTarget);
-//	}
+		glDisable(texAtlas.getTextureData().textureTarget);
+	}
 	//////////////////////////////////////////////////////////////////////
 	
 	
@@ -1375,8 +1371,6 @@ char* ofxSosoTrueTypeFont::getMappedCharSequence(string iString, int &iIndex)   
 //using the mapped chars, convert a string from escape or byte sequences to single chars
 string ofxSosoTrueTypeFont::convertStringTo255(string iString)
 {
-	//cout << iString << endl;
-	
 	string convertedString = "";
 	int index = 0;
 	while (index < iString.length())
@@ -1385,8 +1379,6 @@ string ofxSosoTrueTypeFont::convertStringTo255(string iString)
 		convertedString += c;
 		index++;
 	}
-	
-	//cout << convertedString << endl;
 	
 	return convertedString;
 }
